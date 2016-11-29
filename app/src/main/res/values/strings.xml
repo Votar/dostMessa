@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">EntreGO</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="ui_error_email">Invalid email</string>
+    <string name="ui_error_password">Invalid password</string>
+    <string name="ui_forgot_password">Forgot password</string>
+    <string name="ui_login">login</string>
+    <string name="ui_registration">registration</string>
+    <string name="er_default_network_error">Cannot connection to server</string>
+    <string name="ui_progress_dialog_title">Loading...</string>
+    <string name="ui_loading">Please, wait a second</string>
 </resources>
