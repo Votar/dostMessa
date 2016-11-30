@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="entrego.com.entrego">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.splash.SplashActivity">
-
-        </activity>
-        <activity android:name=".ui.auth.AuthActivity"
+        <activity android:name=".ui.splash.SplashActivity" />
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -19,6 +21,24 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.registration.RegistrationActivity"
+            android:parentActivityName=".ui.auth.AuthActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.auth.AuthActivity" />
+        </activity>
+        <activity android:name=".ui.main.MainActivity" />
+        <activity
+            android:name=".ui.registration.SuccessRegistrationActivity"
+            android:noHistory="true"
+            android:parentActivityName=".ui.auth.AuthActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.auth.AuthActivity" />
         </activity>
     </application>
 

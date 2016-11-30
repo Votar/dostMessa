@@ -2,18 +2,24 @@ package entrego.com.entrego.ui.auth
 
 import android.app.ProgressDialog
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.support.v7.app.AppCompatActivity
 import entrego.com.entrego.R
-import entrego.com.entrego.ui.auth.presenter.IAuthPresenter
 import entrego.com.entrego.ui.auth.presenter.AuthPresenter
+import entrego.com.entrego.ui.auth.presenter.IAuthPresenter
 import entrego.com.entrego.ui.auth.view.IAuthView
+import entrego.com.entrego.ui.main.MainActivity
+import entrego.com.entrego.ui.registration.RegistrationActivity
 import entrego.com.entrego.util.ToastUtil
 import entrego.com.entrego.util.loading
 import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity(), IAuthView {
+
+    override fun goToMainScreen() {
+        startActivity(Intent(applicationContext, MainActivity::class.java))
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +31,9 @@ class AuthActivity : AppCompatActivity(), IAuthView {
 
     }
 
-    override fun moveToRegistration() {
+    override fun goToRegistration() {
 
+        startActivity(Intent(applicationContext, RegistrationActivity::class.java))
     }
 
     var progress: ProgressDialog? = null
@@ -67,6 +74,6 @@ class AuthActivity : AppCompatActivity(), IAuthView {
             presenter.requestAuth(email, password)
         }
 
-        auth_btn_registration.setOnClickListener { moveToRegistration() }
+        auth_btn_registration.setOnClickListener { goToRegistration() }
     }
 }

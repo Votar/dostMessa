@@ -10,4 +10,13 @@
     <string name="er_default_network_error">Cannot connection to server</string>
     <string name="ui_progress_dialog_title">Loading...</string>
     <string name="ui_loading">Please, wait a second</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_password_conf">Repeat password</string>
+    <string name="hint_phone">Phone number</string>
+    <string name="ui_i_have_account">i already have an account</string>
+    <string name="hint_phone_code">code</string>
+
+    <string name="error_passwords_not_equals">Password mismatch</string>
+    <string name="ui_success_regist">Almost done! \n To finish you register click the link we send to your email.</string>
+    <string name="back_to_auth">back to login</string>
 </resources>

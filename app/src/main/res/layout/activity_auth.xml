@@ -1,87 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ImageView
-        android:id="@+id/auth_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/default_logo_margin" />
-
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/activity_registration"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:padding="@dimen/default_screen_padding">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/auth_il_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/auth_edit_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+        <include
+            android:id="@+id/auth_logo"
+            layout="@layout/logo" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/auth_il_password"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/auth_il_email">
+            android:layout_below="@id/auth_logo"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/default_screen_padding">
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/auth_edit_password"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/auth_il_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:nextFocusDown="@+id/auth_edit_password"
+                    android:id="@+id/auth_edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/auth_il_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_password"
-                android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_below="@id/auth_il_email">
 
-        <LinearLayout
-            android:paddingTop="@dimen/default_screen_padding"
-            android:id="@+id/auth_ll_control"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/auth_il_password"
-            android:orientation="horizontal">
+                <android.support.v7.widget.AppCompatEditText
+                    android:nextFocusDown="@+id/auth_btn_registration"
+                    android:id="@+id/auth_edit_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_password"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
 
-            <Button
-                style="@style/EntregoBorderlessButton"
-                android:id="@+id/auth_btn_registration"
+            <LinearLayout
+                android:id="@+id/auth_ll_control"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ui_registration" />
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/auth_il_password"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_screen_padding">
+
+                <Button
+                    android:id="@+id/auth_btn_registration"
+                    style="@style/EntregoBorderlessButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ui_registration" />
+
+                <Button
+                    android:id="@+id/auth_btn_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ui_login" />
+
+            </LinearLayout>
 
             <Button
-                android:id="@+id/auth_btn_login"
+                android:id="@+id/auth_forgot_pass"
+                style="@style/EntregoSacondaryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ui_login" />
+                android:layout_below="@id/auth_ll_control"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/double_screen_padding"
+                android:text="@string/ui_forgot_password" />
 
-        </LinearLayout>
 
-        <Button
-            style="@style/EntregoSacondaryButton"
-            android:id="@+id/auth_forgot_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/auth_ll_control"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/double_screen_padding"
-            android:text="@string/ui_forgot_password" />
+        </RelativeLayout>
 
 
     </RelativeLayout>
-
-
-</RelativeLayout>
+</ScrollView>

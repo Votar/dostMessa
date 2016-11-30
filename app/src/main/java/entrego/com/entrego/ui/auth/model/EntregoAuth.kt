@@ -6,7 +6,7 @@ import entrego.com.entrego.util.Logger
 import entrego.com.entrego.web.api.ApiCreator
 import entrego.com.entrego.web.api.EntregoApi
 import entrego.com.entrego.web.model.request.auth.AuthBody
-import entrego.com.entrego.web.model.request.registration.EntregoResult
+import entrego.com.entrego.web.model.response.EntregoResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,7 +19,7 @@ import java.util.*
 class EntregoAuth(val email: String, val password: String) {
 
     interface ResultListener {
-        fun onSuccessAuth()
+        fun onSuccessAuth(token:String?)
         fun onFailureAuth(message: String?)
     }
 
@@ -32,7 +32,10 @@ class EntregoAuth(val email: String, val password: String) {
                         if (response?.body() != null) {
                             Logger.logd(response?.body()?.toString())
                             when (response?.body()?.code) {
-                                0 -> listener.onSuccessAuth()
+                                0 -> {
+                                    val token = response?.headers()?.get(EntregoApi.TOKEN)
+                                    listener.onSuccessAuth(token)
+                                }
                                 else -> listener.onFailureAuth(response?.body()?.message)
 
                             }

@@ -4,4 +4,8 @@
     <dimen name="default_logo_margin">80dp</dimen>
     <dimen name="default_screen_padding">16dp</dimen>
     <dimen name="double_screen_padding">32dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="tsize_large">24sp</dimen>
 </resources>

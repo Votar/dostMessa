@@ -1,5 +1,6 @@
 package entrego.com.entrego.ui.auth.presenter
 
+import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.model.EntregoAuth
 import entrego.com.entrego.ui.auth.presenter.IAuthPresenter
 import entrego.com.entrego.ui.auth.view.IAuthView
@@ -10,9 +11,11 @@ import entrego.com.entrego.ui.auth.view.IAuthView
 class AuthPresenter(val view: IAuthView) : IAuthPresenter {
 
     val listener = object : EntregoAuth.ResultListener {
-        override fun onSuccessAuth() {
+        override fun onSuccessAuth(token:String?) {
             view.hideProgress()
 
+            EntregoStorage(view.getContext()).setToken(token)
+            view.goToMainScreen()
         }
 
         override fun onFailureAuth(message: String?) {

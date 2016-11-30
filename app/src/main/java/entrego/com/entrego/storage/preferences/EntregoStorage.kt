@@ -6,12 +6,13 @@ import android.content.SharedPreferences
 /**
  * Created by bertalt on 28.11.16.
  */
-class EtrneGOStorage private constructor(context: Context) {
+class EntregoStorage(context: Context) {
 
 
     private val storage: SharedPreferences
     private val KEY_TOKEN = "pref_key_token"
     private val PREF_NAME = "etrego_pref_store"
+
 
     init {
         storage = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -22,9 +23,9 @@ class EtrneGOStorage private constructor(context: Context) {
         return storage.getString(KEY_TOKEN, "")
     }
 
-    fun setToken(token: String) {
-
-        storage.edit().putString(KEY_TOKEN, token).apply()
+    fun setToken(token: String?) {
+        if (token != null)
+            storage.edit().putString(KEY_TOKEN, token).apply()
 
     }
 }

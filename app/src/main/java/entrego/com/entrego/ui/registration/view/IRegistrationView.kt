@@ -1,18 +1,16 @@
-package entrego.com.entrego.ui.auth.view
+package entrego.com.entrego.ui.registration.view
 
-import android.app.ProgressDialog
 import android.content.Context
 
 /**
  * Created by bertalt on 29.11.16.
  */
-interface IAuthView {
-    fun getContext() : Context
+interface IRegistrationView {
     fun setErrorEmail(message: String)
     fun setErrorPassword(message: String)
+    fun setErrorConfPassword()
     fun showMessage(message:String)
     fun showProgress()
     fun hideProgress()
-    fun goToRegistration()
-    fun goToMainScreen()
+    fun successRegistration()
 }
