@@ -6,7 +6,7 @@ import entrego.com.entrego.util.Logger
 import entrego.com.entrego.web.api.ApiCreator
 import entrego.com.entrego.web.api.EntregoApi
 import entrego.com.entrego.web.model.request.auth.AuthBody
-import entrego.com.entrego.web.model.request.common.EntregoPhoneModel
+import entrego.com.entrego.storage.model.EntregoPhoneModel
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.request.registration.RegistrationBody
 import entrego.com.entrego.web.model.response.registration.EntregoResultRegistration

@@ -17,8 +17,12 @@ import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity(), IAuthView {
 
+
     override fun goToMainScreen() {
-        startActivity(Intent(applicationContext, MainActivity::class.java))
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(intent)
+        finish()
     }
 
 
@@ -27,7 +31,6 @@ class AuthActivity : AppCompatActivity(), IAuthView {
         setContentView(R.layout.activity_auth)
 
         setupListeners()
-
 
     }
 
@@ -66,6 +69,9 @@ class AuthActivity : AppCompatActivity(), IAuthView {
         auth_il_email.error = getString(R.string.ui_error_password)
     }
 
+    override fun successRestorePassword() {
+        startActivity(Intent(applicationContext, SuccessRestoreActivity::class.java))
+    }
 
     fun setupListeners() {
         auth_btn_login.setOnClickListener {
@@ -75,5 +81,6 @@ class AuthActivity : AppCompatActivity(), IAuthView {
         }
 
         auth_btn_registration.setOnClickListener { goToRegistration() }
+        auth_btn_forgot_pass.setOnClickListener { presenter.requestForgotPassword() }
     }
 }

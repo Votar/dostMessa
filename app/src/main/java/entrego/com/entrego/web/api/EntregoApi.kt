@@ -4,6 +4,7 @@ import com.google.gson.JsonElement
 import entrego.com.entrego.web.model.request.auth.AuthBody
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.request.registration.RegistrationBody
+import entrego.com.entrego.web.model.response.profile.EntregoResultGetProfile
 import entrego.com.entrego.web.model.response.registration.EntregoResultRegistration
 import retrofit2.Call
 import retrofit2.http.*
@@ -39,7 +40,7 @@ object EntregoApi {
     interface GetProile {
         @Headers(CONTENT_JSON)
         @GET(REQUESTS.GET_PROFILE)
-        fun getProfile(@Header(TOKEN) token: String): Call<JsonElement>
+        fun getProfile(@Header(TOKEN) token: String): Call<EntregoResultGetProfile>
     }
 
 

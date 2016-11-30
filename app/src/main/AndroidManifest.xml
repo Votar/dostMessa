@@ -10,17 +10,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.splash.SplashActivity" />
-        <activity
-            android:name=".ui.auth.AuthActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
+        <activity android:name=".ui.splash.SplashActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".ui.registration.RegistrationActivity"
@@ -31,9 +34,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.auth.AuthActivity" />
         </activity>
-        <activity android:name=".ui.main.MainActivity" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.registration.SuccessRegistrationActivity"
+            android:noHistory="true"
+            android:parentActivityName=".ui.auth.AuthActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.auth.AuthActivity" />
+        </activity>
+        <activity
+            android:name=".ui.auth.SuccessRestoreActivity"
             android:noHistory="true"
             android:parentActivityName=".ui.auth.AuthActivity">
             <meta-data

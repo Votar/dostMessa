@@ -15,4 +15,5 @@ interface IAuthView {
     fun hideProgress()
     fun goToRegistration()
     fun goToMainScreen()
+    fun successRestorePassword()
 }

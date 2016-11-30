@@ -1,4 +1,4 @@
-package entrego.com.entrego.web.model.request.common
+package entrego.com.entrego.storage.model
 
 /**
  * Created by bertalt on 29.11.16.

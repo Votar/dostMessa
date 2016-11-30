@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_success_restore"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.auth.SuccessRestoreActivity">
+
+    <include
+        android:id="@+id/succ_reg_logo"
+        layout="@layout/logo" />
+
+
+    <TextView
+        android:id="@+id/succ_restore_descr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/default_screen_padding"
+        android:text="@string/ui_success_restore"
+        android:textAlignment="center"
+        android:textColor="@color/colorFont"
+        android:textSize="@dimen/tsize_large" />
+
+
+    <Button
+        android:id="@+id/succ_restore_btn_login"
+        style="@style/EntregoSacondaryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/succ_restore_descr"
+        android:layout_centerHorizontal="true"
+        android:text="@string/back_to_auth" />
+</RelativeLayout>

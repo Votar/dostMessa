@@ -1,5 +1,7 @@
 package entrego.com.entrego.ui.auth.presenter
 
+import android.os.Handler
+import android.os.Looper
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.model.EntregoAuth
 import entrego.com.entrego.ui.auth.presenter.IAuthPresenter
@@ -11,7 +13,7 @@ import entrego.com.entrego.ui.auth.view.IAuthView
 class AuthPresenter(val view: IAuthView) : IAuthPresenter {
 
     val listener = object : EntregoAuth.ResultListener {
-        override fun onSuccessAuth(token:String?) {
+        override fun onSuccessAuth(token: String?) {
             view.hideProgress()
 
             EntregoStorage(view.getContext()).setToken(token)
@@ -39,6 +41,18 @@ class AuthPresenter(val view: IAuthView) : IAuthPresenter {
     }
 
     override fun requestForgotPassword() {
+
+        view.showProgress()
+        Handler(Looper.getMainLooper()).postDelayed(
+                object : Runnable {
+                    override fun run() {
+
+                        view.hideProgress()
+                        view.successRestorePassword()
+                    }
+
+                }
+                , 1500)
 
     }
 }

@@ -75,7 +75,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/auth_forgot_pass"
+                android:id="@+id/auth_btn_forgot_pass"
                 style="@style/EntregoSacondaryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

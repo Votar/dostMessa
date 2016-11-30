@@ -26,6 +26,7 @@ class EntregoAuth(val email: String, val password: String) {
     fun requestAsync(listener: ResultListener) {
 
         val body = AuthBody(email, password)
+
         ApiCreator.server.create(EntregoApi.Authorization::class.java).auth(body)
                 .enqueue(object : Callback<EntregoResult> {
                     override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
