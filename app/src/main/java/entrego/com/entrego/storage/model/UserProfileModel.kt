@@ -7,4 +7,7 @@ class UserProfileModel(val email: String,
                        val name: String,
                        val phone: EntregoPhoneModel) {
 
+    override fun toString(): String {
+        return "UserProfileModel(email='$email', name='$name', phone=$phone)"
+    }
 }

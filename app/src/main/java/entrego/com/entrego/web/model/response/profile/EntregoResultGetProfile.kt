@@ -1,8 +1,6 @@
 package entrego.com.entrego.web.model.response.profile
 
-import com.google.gson.annotations.SerializedName
 import entrego.com.entrego.storage.model.UserProfileModel
-import entrego.com.entrego.web.model.request.common.UserProfile
 import entrego.com.entrego.web.model.response.EntregoResult
 
 /**

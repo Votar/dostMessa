@@ -20,4 +20,11 @@
     <string name="ui_success_regist">Almost done! \n To finish you register click the link we send to your email.</string>
     <string name="back_to_auth">back to login</string>
     <string name="ui_success_restore">We sent you an email \n to restore your password</string>
+    <string name="title_activity_order">Order</string>
+    <string name="font_fontFamily_medium">sans-serif</string>
+
+    <string name="ui_title_home">Home</string>
+    <string name="ui_title_account">Account</string>
+    <string name="ui_title_income">Income</string>
+    <string name="ui_title_score">Score</string>
 </resources>

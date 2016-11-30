@@ -5,4 +5,8 @@ package entrego.com.entrego.storage.model
  */
 class EntregoPhoneModel(val code: String,
                         val number: String) {
+
+    override fun toString(): String {
+        return "EntregoPhoneModel(code='$code', number='$number')"
+    }
 }

@@ -1,0 +1,21 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=DD:61:81:E5:6A:51:B5:51:A6:B2:13:59:99:FD:30:DC:89:93:87:8F%3Bentrego.com.entrego.ui.main
+
+    You can also add your credentials to an existing key, using this line:
+    DD:61:81:E5:6A:51:B5:51:A6:B2:13:59:99:FD:30:DC:89:93:87:8F;entrego.com.entrego.ui.main
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCxjfDQ4xTo059gJX5-jqumAChmydJVy1c
+    </string>
+</resources>
