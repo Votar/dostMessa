@@ -9,7 +9,7 @@ import entrego.com.entrego.R
 import entrego.com.entrego.ui.auth.presenter.AuthPresenter
 import entrego.com.entrego.ui.auth.presenter.IAuthPresenter
 import entrego.com.entrego.ui.auth.view.IAuthView
-import entrego.com.entrego.ui.main.MainActivity
+import entrego.com.entrego.ui.main.RootActivity
 import entrego.com.entrego.ui.registration.RegistrationActivity
 import entrego.com.entrego.util.ToastUtil
 import entrego.com.entrego.util.loading
@@ -19,7 +19,7 @@ class AuthActivity : AppCompatActivity(), IAuthView {
 
 
     override fun goToMainScreen() {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+        val intent = Intent(applicationContext, RootActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()

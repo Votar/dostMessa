@@ -3,19 +3,42 @@ package entrego.com.entrego.ui.main
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
-import entrego.com.entrego.R
-import android.support.v4.view.ViewPager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.GravityCompat
+import android.support.v4.view.ViewPager
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatDrawableManager
+import android.support.v7.widget.Toolbar
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
+import entrego.com.entrego.R
 import kotlinx.android.synthetic.main.activity_order.*
 import java.util.*
-import android.widget.TextView
-import android.view.LayoutInflater
-import android.widget.ImageView
 
+class RootActivity : AppCompatActivity() {
 
-class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_root)
+        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
+
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        val toggle = ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
+
+        setupViewPager(main_viewpager)
+        main_tabs.setupWithViewPager(main_viewpager)
+        setupTabIcons()
+    }
 
     private val tabIcons = intArrayOf(
             R.drawable.ic_home,
@@ -28,16 +51,6 @@ class MainActivity : AppCompatActivity() {
             R.string.ui_title_account,
             R.string.ui_title_income,
             R.string.ui_title_score)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_order)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-
-        setupViewPager(main_viewpager)
-        main_tabs.setupWithViewPager(main_viewpager)
-        setupTabIcons()
-    }
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
@@ -60,6 +73,37 @@ class MainActivity : AppCompatActivity() {
             (nextOne.findViewById(R.id.tab_icon) as ImageView).setImageDrawable(icon)
             main_tabs.getTabAt(i)?.customView = nextOne
         }
+    }
+
+
+
+    override fun onBackPressed() {
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.root, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+
+        if (id == R.id.action_settings) {
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
@@ -94,4 +138,5 @@ class MainActivity : AppCompatActivity() {
             return mFragmentTitleList.get(position)
         }
     }
+
 }

@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
+
     </style>
 
     <style name="EntregoBorderlessButton" parent="Widget.AppCompat.Button.Borderless.Colored">
@@ -14,6 +16,13 @@
     </style>
 
     <style name="EntregoSacondaryButton" parent="EntregoBorderlessButton">
-    <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

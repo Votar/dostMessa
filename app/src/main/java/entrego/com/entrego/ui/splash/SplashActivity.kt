@@ -6,7 +6,7 @@ import android.os.Bundle
 import entrego.com.entrego.R
 import entrego.com.entrego.storage.model.UserProfileModel
 import entrego.com.entrego.ui.auth.AuthActivity
-import entrego.com.entrego.ui.main.MainActivity
+import entrego.com.entrego.ui.main.RootActivity
 import entrego.com.entrego.web.model.request.common.UserProfile
 
 class SplashActivity : AppCompatActivity() {
@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
 
     val listener = object : UserProfile.ResultListener {
         override fun onSuccessRefresh(userProfile: UserProfileModel) {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            startActivity(Intent(applicationContext, RootActivity::class.java))
             finish()
         }
 
