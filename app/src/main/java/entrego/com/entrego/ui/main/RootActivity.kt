@@ -16,8 +16,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import entrego.com.entrego.R
 import entrego.com.entrego.ui.main.account.AccountFragment
+import entrego.com.entrego.util.event_bus.LogoutEvent
 import entrego.com.entrego.util.ui.ViewPagerAdapter
+import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
+import org.greenrobot.eventbus.EventBus
 
 class RootActivity : AppCompatActivity() {
 
@@ -37,7 +40,7 @@ class RootActivity : AppCompatActivity() {
         setupViewPager(main_viewpager)
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
-
+        root_btn_log_out.setOnClickListener { EventBus.getDefault().post(LogoutEvent()) }
 
     }
 

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import entrego.com.entrego.R
+import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.presenter.AuthPresenter
 import entrego.com.entrego.ui.auth.presenter.IAuthPresenter
 import entrego.com.entrego.ui.auth.view.IAuthView
@@ -30,6 +31,7 @@ class AuthActivity : AppCompatActivity(), IAuthView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
+        EntregoStorage(this).clear()
         setupListeners()
 
     }

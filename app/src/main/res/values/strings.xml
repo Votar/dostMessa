@@ -51,5 +51,14 @@
     <string name="ui_route">Route</string>
     <string name="ui_files">Files</string>
     <string name="ui_account">Account</string>
+    <string name="ui_save">Save</string>
+    <string name="btn_change_password">change password</string>
+
+    <string name="titile_edit_user">Edit profile</string>
+    <string name="success_profile_updated">Profile have been updated</string>
+    <string name="save_password">save password</string>
+
+    <string name="ui_success_pass_changed">Password have been changed</string>
+    <string name="ui_logout">logout</string>
 
 </resources>

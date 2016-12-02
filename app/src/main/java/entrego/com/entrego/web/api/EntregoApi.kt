@@ -1,7 +1,9 @@
 package entrego.com.entrego.web.api
 
 import com.google.gson.JsonElement
+import entrego.com.entrego.storage.model.UserProfileModel
 import entrego.com.entrego.web.model.request.auth.AuthBody
+import entrego.com.entrego.web.model.request.common.ChangePasswordRequest
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.request.registration.RegistrationBody
 import entrego.com.entrego.web.model.response.profile.EntregoResultGetProfile
@@ -23,7 +25,10 @@ object EntregoApi {
     object REQUESTS {
         const val AUTH = "login"
         const val REGISTRATION = "messenger/user/register"
-        const val GET_PROFILE = "messenger/user"
+        const val PROFILE = "messenger/user"
+        const val CHANGE_PROFILE ="messenger/user/change"
+        const val CHANGE_PROFILE_PASSWORD="messenger/user/change/password"
+
     }
 
     interface Authorization {
@@ -40,17 +45,28 @@ object EntregoApi {
 
     interface GetProfile {
         @Headers(CONTENT_JSON)
-        @GET(REQUESTS.GET_PROFILE)
+        @GET(REQUESTS.PROFILE)
         fun getProfile(@Header(TOKEN) token: String): Call<EntregoResultGetProfile>
     }
 
     interface GetVehicle {
         @Headers(CONTENT_JSON)
-        @GET(REQUESTS.GET_PROFILE)
+        @GET(REQUESTS.PROFILE)
         fun getVehicle(@Header(TOKEN) token: String): Call<EntregoResultGetVehicle>
     }
 
 
+    interface UpdateProfile {
+        @Headers(CONTENT_JSON)
+        @POST(REQUESTS.CHANGE_PROFILE)
+        fun updateProfile(@Header(TOKEN) token: String, @Body body: UserProfileModel): Call<EntregoResultGetProfile>
+    }
+
+    interface UpdateProfilePassword {
+        @Headers(CONTENT_JSON)
+        @POST(REQUESTS.CHANGE_PROFILE_PASSWORD)
+        fun updateProfile(@Header(TOKEN) token: String, @Body body: ChangePasswordRequest): Call<EntregoResult>
+    }
 
 
 

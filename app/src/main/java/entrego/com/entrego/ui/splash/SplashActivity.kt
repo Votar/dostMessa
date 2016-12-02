@@ -24,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
         UserProfile.refresh(applicationContext, listener)
     }
 
-    val listener = object : UserProfile.ResultListener {
+    val listener = object : UserProfile.ResultRefreshListener {
         override fun onSuccessRefresh(userProfile: UserProfileModel) {
             startActivity(Intent(applicationContext, RootActivity::class.java))
             finish()

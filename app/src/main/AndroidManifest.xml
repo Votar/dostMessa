@@ -77,8 +77,22 @@
             android:label="@string/title_activity_root"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ui.main.account.profile.edit.EditProfileActivity" />
-        <activity android:name=".ui.main.account.vehicle.edit.EditVehicleActivity"></activity>
+        <activity
+            android:name=".ui.main.account.profile.edit.EditProfileActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.main.account.vehicle.edit.EditVehicleActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.RootActivity" />
+        </activity>
     </application>
 
 </manifest>

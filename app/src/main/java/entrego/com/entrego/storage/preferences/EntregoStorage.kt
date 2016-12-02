@@ -18,7 +18,6 @@ class EntregoStorage(context: Context) {
     private val KEY_USER_VEHICLE = "pref_key_user_vehicle"
     private val PREF_STORAGE_NAME = "etrego_pref_store"
 
-
     init {
         storage = context.getSharedPreferences(PREF_STORAGE_NAME, Context.MODE_PRIVATE)
     }
@@ -30,14 +29,14 @@ class EntregoStorage(context: Context) {
 
     fun setToken(token: String?) {
         if (token != null)
-            storage.edit().putString(KEY_TOKEN, token).apply()
+            storage.edit().putString(KEY_TOKEN, token).commit()
 
     }
 
     fun setUserProfile(profile: UserProfileModel?) {
 
         val jsonProfile = Gson().toJson(profile, UserProfileModel::class.java)
-        storage.edit().putString(KEY_USER_PROFILE, jsonProfile).apply()
+        storage.edit().putString(KEY_USER_PROFILE, jsonProfile).commit()
     }
 
     fun getUserProfile(): UserProfileModel? {
@@ -53,7 +52,7 @@ class EntregoStorage(context: Context) {
 
     fun getUserVehicle(): UserVehicleModel? {
 
-        val jsonProfile = storage.getString(KEY_USER_PROFILE, "")
+        val jsonProfile = storage.getString(KEY_USER_VEHICLE, "")
 
         if (jsonProfile.isEmpty())
             return null
@@ -65,8 +64,13 @@ class EntregoStorage(context: Context) {
     fun setUserVehicle(profile: UserVehicleModel?) {
 
         val jsonVehicle = Gson().toJson(profile, UserVehicleModel::class.java)
-        storage.edit().putString(KEY_USER_PROFILE, jsonVehicle).apply()
+        storage.edit().putString(KEY_USER_VEHICLE, jsonVehicle).commit()
     }
+
+    fun clear(){
+        storage.edit().clear().commit()
+    }
+
 
 
 
