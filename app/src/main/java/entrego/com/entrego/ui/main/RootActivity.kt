@@ -2,8 +2,6 @@ package entrego.com.entrego.ui.main
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
@@ -17,8 +15,9 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import entrego.com.entrego.R
-import kotlinx.android.synthetic.main.activity_order.*
-import java.util.*
+import entrego.com.entrego.ui.main.account.AccountFragment
+import entrego.com.entrego.util.ui.ViewPagerAdapter
+import kotlinx.android.synthetic.main.content_root.*
 
 class RootActivity : AppCompatActivity() {
 
@@ -38,6 +37,8 @@ class RootActivity : AppCompatActivity() {
         setupViewPager(main_viewpager)
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
+
+
     }
 
     private val tabIcons = intArrayOf(
@@ -56,7 +57,7 @@ class RootActivity : AppCompatActivity() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
 
         adapter.addFrag(Fragment(), getString(tabTitles[0]))
-        adapter.addFrag(Fragment(), getString(tabTitles[1]))
+        adapter.addFrag(AccountFragment(), getString(tabTitles[1]))
         adapter.addFrag(Fragment(), getString(tabTitles[2]))
         adapter.addFrag(Fragment(), getString(tabTitles[3]))
 
@@ -74,7 +75,6 @@ class RootActivity : AppCompatActivity() {
             main_tabs.getTabAt(i)?.customView = nextOne
         }
     }
-
 
 
     override fun onBackPressed() {
@@ -106,37 +106,5 @@ class RootActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
-        private val mFragmentList: ArrayList<Fragment>
-        private val mFragmentTitleList: ArrayList<String>
-
-        init {
-            mFragmentList = ArrayList()
-            mFragmentTitleList = ArrayList()
-        }
-
-
-        override fun getItem(position: Int): Fragment {
-            return mFragmentList.get(position)
-        }
-
-        override fun getCount(): Int {
-            return mFragmentList.size
-        }
-
-        fun addFragment(fragment: Fragment, title: String) {
-            mFragmentList.add(fragment)
-            mFragmentTitleList.add(title)
-        }
-
-        fun addFrag(fragment: Fragment, title: String) {
-            mFragmentList.add(fragment)
-            mFragmentTitleList.add(title)
-        }
-
-        override fun getPageTitle(position: Int): CharSequence {
-            return mFragmentTitleList.get(position)
-        }
-    }
 
 }

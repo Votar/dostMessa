@@ -5,6 +5,7 @@ import entrego.com.entrego.web.model.request.auth.AuthBody
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.request.registration.RegistrationBody
 import entrego.com.entrego.web.model.response.profile.EntregoResultGetProfile
+import entrego.com.entrego.web.model.response.profile.EntregoResultGetVehicle
 import entrego.com.entrego.web.model.response.registration.EntregoResultRegistration
 import retrofit2.Call
 import retrofit2.http.*
@@ -37,11 +38,20 @@ object EntregoApi {
         fun registration(@Body body: RegistrationBody): Call<EntregoResultRegistration>
     }
 
-    interface GetProile {
+    interface GetProfile {
         @Headers(CONTENT_JSON)
         @GET(REQUESTS.GET_PROFILE)
         fun getProfile(@Header(TOKEN) token: String): Call<EntregoResultGetProfile>
     }
+
+    interface GetVehicle {
+        @Headers(CONTENT_JSON)
+        @GET(REQUESTS.GET_PROFILE)
+        fun getVehicle(@Header(TOKEN) token: String): Call<EntregoResultGetVehicle>
+    }
+
+
+
 
 
 }

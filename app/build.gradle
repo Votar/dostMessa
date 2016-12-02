@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "entrego.com.entrego"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -39,7 +39,7 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-
+    compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'

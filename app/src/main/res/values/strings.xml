@@ -37,4 +37,19 @@
     <string name="ui_restore">restore</string>
     <string name="title_activity_root">RootActivity</string>
     <string name="action_faq">FAQ</string>
+    <string name="ui_edit">edit</string>
+
+    <string name="ui_title_vehicle">Vehicle</string>
+    <string name="ui_title_profile">Profile</string>
+    <string name="ui_help">Help</string>
+    <string name="vehicle_brand">Brand</string>
+    <string name="unknown">Unknown</string>
+    <string name="vehicle_model">Model</string>
+    <string name="vehicle_year">Year</string>
+    <string name="vehicle_cylinder_capas">Cylinder capacity</string>
+    <string name="vehicle_plate">Plate</string>
+    <string name="ui_route">Route</string>
+    <string name="ui_files">Files</string>
+    <string name="ui_account">Account</string>
+
 </resources>
