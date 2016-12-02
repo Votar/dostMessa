@@ -1,4 +1,4 @@
-package entrego.com.entrego.web.model.request.common
+package entrego.com.entrego.ui.main.account.profile
 
 import android.content.Context
 import android.support.annotation.Nullable
@@ -8,6 +8,7 @@ import entrego.com.entrego.storage.model.UserProfileModel
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.web.api.ApiCreator
 import entrego.com.entrego.web.api.EntregoApi
+import entrego.com.entrego.web.model.request.common.ChangePasswordRequest
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.response.profile.EntregoResultGetProfile
 import retrofit2.Call

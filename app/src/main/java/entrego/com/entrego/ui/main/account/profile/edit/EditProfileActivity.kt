@@ -13,7 +13,7 @@ import entrego.com.entrego.storage.model.UserProfileModel
 import entrego.com.entrego.util.Logger
 import entrego.com.entrego.util.ToastUtil
 import entrego.com.entrego.util.loading
-import entrego.com.entrego.web.model.request.common.UserProfile
+import entrego.com.entrego.ui.main.account.profile.UserProfile
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 

@@ -6,7 +6,7 @@ import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.model.EntregoAuth
 import entrego.com.entrego.ui.auth.presenter.IAuthPresenter
 import entrego.com.entrego.ui.auth.view.IAuthView
-import entrego.com.entrego.web.model.request.common.UserVehicle
+import entrego.com.entrego.ui.main.account.vehicle.edit.model.UserVehicle
 
 /**
  * Created by bertalt on 29.11.16.

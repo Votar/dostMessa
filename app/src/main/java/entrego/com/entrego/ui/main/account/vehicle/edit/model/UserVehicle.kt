@@ -1,12 +1,15 @@
-package entrego.com.entrego.web.model.request.common
+package entrego.com.entrego.ui.main.account.vehicle.edit.model
 
 import android.content.Context
+import android.support.annotation.Nullable
 import com.google.gson.Gson
+import entrego.com.entrego.storage.model.EntregoPhoneModel
 import entrego.com.entrego.storage.model.UserProfileModel
 import entrego.com.entrego.storage.model.UserVehicleModel
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.web.api.ApiCreator
 import entrego.com.entrego.web.api.EntregoApi
+import entrego.com.entrego.ui.main.account.profile.UserProfile
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.response.profile.EntregoResultGetProfile
 import entrego.com.entrego.web.model.response.profile.EntregoResultGetVehicle
@@ -24,8 +27,13 @@ object UserVehicle {
         fun onFailureRefresh(message: String)
     }
 
-    fun getVehicle(context: Context): UserProfileModel? {
-        return EntregoStorage(context).getUserProfile()
+    interface ResultUpdateListener {
+        fun onSuccessUpdate(userVehicle: UserVehicleModel)
+        fun onFailureUpdate(message: String)
+    }
+
+    fun getVehicle(context: Context): UserVehicleModel? {
+        return EntregoStorage(context).getUserVehicle()
     }
 
 
@@ -40,7 +48,6 @@ object UserVehicle {
                             val responseBody = response?.body()
                             when (response?.body()?.code) {
                                 0 -> {
-                                    EntregoStorage(context).setUserVehicle(responseBody?.payload)
 
                                     if (cash)
                                         EntregoStorage(context).setUserVehicle(responseBody?.payload)
@@ -63,6 +70,36 @@ object UserVehicle {
                     }
 
                 })
+
+    }
+
+    fun update(token: String, vehicle: UserVehicleModel, @Nullable listener: UserVehicle.ResultUpdateListener?) {
+        ApiCreator.server.create(EntregoApi.UpdateVehicle::class.java)
+                .updateVehicle(token, vehicle)
+                .enqueue(object : Callback<EntregoResultGetVehicle> {
+                    override fun onResponse(call: Call<EntregoResultGetVehicle>?, response: Response<EntregoResultGetVehicle>?) {
+                        if (response?.body() != null) {
+                            val responseBody = response?.body()
+                            when (response?.body()?.code) {
+                                0 -> {
+                                    listener?.onSuccessUpdate(responseBody?.payload!!)
+                                }
+                                else -> listener?.onFailureUpdate(responseBody?.message!!)
+                            }
+                        } else {
+                            if (response?.errorBody() != null) {
+                                val errorBody = response?.errorBody()!!
+                                listener?.onFailureUpdate("")
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<EntregoResultGetVehicle>?, t: Throwable?) {
+                        listener?.onFailureUpdate("")
+                    }
+
+                })
+
 
     }
 

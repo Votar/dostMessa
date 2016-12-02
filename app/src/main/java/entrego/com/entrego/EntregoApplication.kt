@@ -6,7 +6,7 @@ import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.AuthActivity
 import entrego.com.entrego.util.Logger
 import entrego.com.entrego.util.event_bus.LogoutEvent
-import entrego.com.entrego.web.model.request.common.UserVehicle
+import entrego.com.entrego.ui.main.account.vehicle.edit.model.UserVehicle
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

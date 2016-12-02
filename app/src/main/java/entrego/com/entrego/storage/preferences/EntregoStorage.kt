@@ -61,9 +61,9 @@ class EntregoStorage(context: Context) {
 
     }
 
-    fun setUserVehicle(profile: UserVehicleModel?) {
+    fun setUserVehicle(vehicle: UserVehicleModel?) {
 
-        val jsonVehicle = Gson().toJson(profile, UserVehicleModel::class.java)
+        val jsonVehicle = Gson().toJson(vehicle, UserVehicleModel::class.java)
         storage.edit().putString(KEY_USER_VEHICLE, jsonVehicle).commit()
     }
 

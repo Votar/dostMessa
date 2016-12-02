@@ -54,7 +54,6 @@ class AccountFragment : Fragment() {
 
         Logger.logd("Account resumed")
         setupViewPager(account_viewpager)
-
         account_tabs.setupWithViewPager(account_viewpager)
     }
 

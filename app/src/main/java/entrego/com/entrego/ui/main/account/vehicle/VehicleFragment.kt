@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import entrego.com.entrego.R
 import entrego.com.entrego.storage.model.UserVehicleModel
 import entrego.com.entrego.storage.preferences.EntregoStorage
-import entrego.com.entrego.web.model.request.common.UserVehicle
+import entrego.com.entrego.ui.main.account.vehicle.edit.model.UserVehicle
 import kotlinx.android.synthetic.main.fragment_vecicle.*
 
 /**

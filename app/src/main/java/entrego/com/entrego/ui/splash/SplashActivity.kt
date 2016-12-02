@@ -7,7 +7,7 @@ import entrego.com.entrego.R
 import entrego.com.entrego.storage.model.UserProfileModel
 import entrego.com.entrego.ui.auth.AuthActivity
 import entrego.com.entrego.ui.main.RootActivity
-import entrego.com.entrego.web.model.request.common.UserProfile
+import entrego.com.entrego.ui.main.account.profile.UserProfile
 
 class SplashActivity : AppCompatActivity() {
 
