@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/registration_ll_email"
+                android:id="@+id/registration_il_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

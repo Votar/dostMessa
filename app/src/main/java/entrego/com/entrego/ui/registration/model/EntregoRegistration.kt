@@ -1,6 +1,7 @@
 package entrego.com.entrego.ui.auth.model
 
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import entrego.com.entrego.util.Logger
 import entrego.com.entrego.web.api.ApiCreator
@@ -9,6 +10,7 @@ import entrego.com.entrego.web.model.request.auth.AuthBody
 import entrego.com.entrego.storage.model.EntregoPhoneModel
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.request.registration.RegistrationBody
+import entrego.com.entrego.web.model.response.common.FieldErrorResponse
 import entrego.com.entrego.web.model.response.registration.EntregoResultRegistration
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +30,7 @@ class EntregoRegistration(val email: String,
     interface ResultListener {
         fun onSuccessRegistration()
         fun onFailureRegistration(message: String?)
+        fun onValidationError(field: FieldErrorResponse)
     }
 
     fun requestAsync(listener: ResultListener) {
@@ -38,17 +41,28 @@ class EntregoRegistration(val email: String,
                 .enqueue(object : Callback<EntregoResultRegistration> {
                     override fun onResponse(call: Call<EntregoResultRegistration>?, response: Response<EntregoResultRegistration>?) {
                         if (response?.body() != null) {
-                            Logger.logd(response?.body()?.toString())
-                            when (response?.body()?.code) {
+                            val result = response?.body()!!
+                            when (result.code) {
                                 0 -> listener.onSuccessRegistration()
-                                else -> listener.onFailureRegistration(response?.body()?.message)
+                                1 -> {
+                                    if (result.fields.isNotEmpty()) {
+                                        for (next in result.fields)
+                                            listener.onValidationError(next)
+                                    }
+                                }
+                                2 -> {
+
+                                    listener.onFailureRegistration(result.message)
+                                }
+                                else -> listener.onFailureRegistration("")
 
                             }
                         }
+
                     }
 
                     override fun onFailure(call: Call<EntregoResultRegistration>?, t: Throwable?) {
-                        listener.onFailureRegistration("")
+                        listener.onFailureRegistration("FUCK" + t?.message)
                     }
 
                 })

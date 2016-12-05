@@ -15,6 +15,23 @@ import entrego.com.entrego.util.loading
 import kotlinx.android.synthetic.main.activity_registration.*
 
 class RegistrationActivity : AppCompatActivity(), IRegistrationView {
+
+    override fun setErrorName(message: String) {
+        registration_edit_name.requestFocus()
+        registration_il_name.error = message
+    }
+
+    override fun setErrorPhoneCode(message: String) {
+        registration_edit_phone_code.requestFocus()
+        registration_il_phone_code.error = message
+    }
+
+    override fun setErrorPhoneNumber(message: String) {
+
+        registration_edit_phone.requestFocus()
+        registration_il_phone.error = message
+    }
+
     var presenter: IRegistrationPresenter? = null
     override fun setErrorConfPassword() {
         registration_edit_password_conf.requestFocus()
@@ -27,11 +44,13 @@ class RegistrationActivity : AppCompatActivity(), IRegistrationView {
     }
 
     override fun setErrorEmail(message: String) {
-
+        registration_edit_email.requestFocus()
+        registration_il_email.error = message
     }
 
     override fun setErrorPassword(message: String) {
-
+        registration_edit_password.requestFocus()
+        registration_il_password.error = message
     }
 
     override fun showMessage(message: String) {
@@ -62,6 +81,14 @@ class RegistrationActivity : AppCompatActivity(), IRegistrationView {
     fun setupDefaultListeners() {
 
         registration_btn_ok.setOnClickListener {
+
+            registration_il_name.error = null
+            registration_il_email.error = null
+            registration_il_password.error = null
+            registration_il_password_conf.error = null
+            registration_il_phone_code.error = null
+            registration_il_phone.error = null
+
             presenter?.requestRegistration(
                     registration_edit_email.text.toString(),
                     registration_edit_name.text.toString(),
