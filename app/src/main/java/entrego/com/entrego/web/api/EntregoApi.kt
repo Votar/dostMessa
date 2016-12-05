@@ -8,8 +8,7 @@ import entrego.com.entrego.web.model.request.auth.AuthBody
 import entrego.com.entrego.web.model.request.common.ChangePasswordRequest
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.request.registration.RegistrationBody
-import entrego.com.entrego.web.model.response.profile.EntregoResultGetProfile
-import entrego.com.entrego.web.model.response.profile.EntregoResultGetVehicle
+import entrego.com.entrego.web.model.response.profile.*
 import entrego.com.entrego.web.model.response.registration.EntregoResultRegistration
 import retrofit2.Call
 import retrofit2.http.*
@@ -62,20 +61,20 @@ object EntregoApi {
     interface UpdateVehicle {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.VEHICLE)
-        fun updateVehicle(@Header(TOKEN) token: String, @Body body: UserVehicleModel): Call<EntregoResultGetVehicle>
+        fun updateVehicle(@Header(TOKEN) token: String, @Body body: UserVehicleModel): Call<EntregoResultEditVehicle>
     }
 
 
     interface UpdateProfile {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.CHANGE_PROFILE)
-        fun updateProfile(@Header(TOKEN) token: String, @Body body: UserProfileModel): Call<EntregoResultGetProfile>
+        fun updateProfile(@Header(TOKEN) token: String, @Body body: UserProfileModel): Call<EntregoResultEditProfile>
     }
 
     interface UpdateProfilePassword {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.CHANGE_PROFILE_PASSWORD)
-        fun updateProfile(@Header(TOKEN) token: String, @Body body: ChangePasswordRequest): Call<EntregoResult>
+        fun updateProfile(@Header(TOKEN) token: String, @Body body: ChangePasswordRequest): Call<EntregoResultEditPassword>
     }
 
 

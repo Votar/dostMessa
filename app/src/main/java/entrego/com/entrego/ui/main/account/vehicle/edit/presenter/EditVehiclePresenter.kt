@@ -5,12 +5,18 @@ import entrego.com.entrego.storage.model.UserVehicleModel
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.main.account.vehicle.edit.model.UserVehicle
 import entrego.com.entrego.ui.main.account.vehicle.edit.view.IEditVehicleView
+import entrego.com.entrego.web.model.response.common.FieldErrorResponse
 
 /**
  * Created by bertalt on 02.12.16.
  */
 class EditVehiclePresenter(val view: IEditVehicleView) : IEditVehiclePresenter {
 
+    companion object FIELDS {
+        const val BRAND = "brand"
+        const val PLATE = "palte"
+        const val MODEL = "model"
+    }
 
     override fun updateVehicle(brand: String, model: String, year: Int, cylinders: Int, plate: String) {
 
@@ -24,6 +30,19 @@ class EditVehiclePresenter(val view: IEditVehicleView) : IEditVehiclePresenter {
             view.showProgress()
             UserVehicle.update(token, vehicle,
                     object : UserVehicle.ResultUpdateListener {
+                        override fun onFieldValidatorError(field: FieldErrorResponse) {
+
+                            view.hideProgress()
+
+                            when (field.field) {
+                                BRAND -> view.setErrorBrand(field.message)
+                                PLATE -> view.setErrorPlate(field.message)
+                                MODEL -> view.setErrorModel(field.message)
+                                else -> view.showMessage(field.field + " " + field.message)
+                            }
+
+                        }
+
                         override fun onSuccessUpdate(userVehicle: UserVehicleModel) {
                             view.hideProgress()
                             EntregoStorage(view.getContext()).setUserVehicle(vehicle)

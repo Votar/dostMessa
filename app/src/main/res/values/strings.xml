@@ -67,5 +67,9 @@
 
     <string name="error_empty_fields">Missed required fields</string>
     <string name="titile_edit_vehicle">Edit vehicle</string>
+    <string name="vehicle_empty_view">Vehicle haven\'t been registered yet</string>
+    <string name="add_vehicle">add vehicle</string>
+    <string name="hint_year">Year</string>
 
+    <string name="error_number_cylinder_year">Cylinder and year should be number</string>
 </resources>

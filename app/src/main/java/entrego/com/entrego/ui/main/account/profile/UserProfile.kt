@@ -10,6 +10,9 @@ import entrego.com.entrego.web.api.ApiCreator
 import entrego.com.entrego.web.api.EntregoApi
 import entrego.com.entrego.web.model.request.common.ChangePasswordRequest
 import entrego.com.entrego.web.model.response.EntregoResult
+import entrego.com.entrego.web.model.response.common.FieldErrorResponse
+import entrego.com.entrego.web.model.response.profile.EntregoResultEditPassword
+import entrego.com.entrego.web.model.response.profile.EntregoResultEditProfile
 import entrego.com.entrego.web.model.response.profile.EntregoResultGetProfile
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,11 +31,13 @@ object UserProfile {
     interface ResultUpdateListener {
         fun onSuccessUpdate(userProfile: UserProfileModel)
         fun onFailureUpdate(message: String)
+        fun onFieldError(field: FieldErrorResponse)
     }
 
     interface ResultUpdatePasswordListener {
         fun onSuccessUpdate()
         fun onFailureUpdate(message: String)
+        fun onFieldError(field: FieldErrorResponse)
     }
 
 
@@ -81,16 +86,20 @@ object UserProfile {
         val body = UserProfileModel(email, name, EntregoPhoneModel(phoneCode, phoneNumber))
         ApiCreator.server.create(EntregoApi.UpdateProfile::class.java)
                 .updateProfile(token, body)
-                .enqueue(object : Callback<EntregoResultGetProfile> {
-                    override fun onResponse(call: Call<EntregoResultGetProfile>?, response: Response<EntregoResultGetProfile>?) {
+                .enqueue(object : Callback<EntregoResultEditProfile> {
+                    override fun onResponse(call: Call<EntregoResultEditProfile>?, response: Response<EntregoResultEditProfile>?) {
                         if (response?.body() != null) {
-                            val responseBody = response?.body()
-                            when (response?.body()?.code) {
+                            val responseBody = response?.body()!!
+                            when (responseBody.code) {
                                 0 -> {
-                                    EntregoStorage(context).setUserProfile(responseBody?.payload)
-                                    listener?.onSuccessUpdate(responseBody?.payload!!)
+                                    EntregoStorage(context).setUserProfile(responseBody.payload)
+                                    listener?.onSuccessUpdate(responseBody.payload!!)
                                 }
-                                else -> listener?.onFailureUpdate(responseBody?.message!!)
+                                1 -> {
+                                    for (next in responseBody.fields)
+                                        listener?.onFieldError(next)
+                                }
+                                else -> listener?.onFailureUpdate(responseBody.message!!)
                             }
                         } else {
                             if (response?.errorBody() != null) {
@@ -100,7 +109,7 @@ object UserProfile {
                         }
                     }
 
-                    override fun onFailure(call: Call<EntregoResultGetProfile>?, t: Throwable?) {
+                    override fun onFailure(call: Call<EntregoResultEditProfile>?, t: Throwable?) {
                         listener?.onFailureUpdate("")
                     }
 
@@ -115,18 +124,24 @@ object UserProfile {
         val body = ChangePasswordRequest(newPassword)
         ApiCreator.server.create(EntregoApi.UpdateProfilePassword::class.java)
                 .updateProfile(token, body)
-                .enqueue(object : Callback<EntregoResult> {
-                    override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
+                .enqueue(object : Callback<EntregoResultEditPassword> {
+                    override fun onResponse(call: Call<EntregoResultEditPassword>?, response: Response<EntregoResultEditPassword>?) {
 
                         if (response != null) {
                             if (response.isSuccessful) {
-                                listener.onSuccessUpdate()
+                                val responseBody = response.body()
+                                when (responseBody.code) {
+                                    0 -> listener.onSuccessUpdate()
+                                    1 -> listener.onFieldError(responseBody.fields[0])
+                                    else -> listener.onFailureUpdate("")
+                                }
+
                             } else
                                 listener.onFailureUpdate("")
                         }
                     }
 
-                    override fun onFailure(call: Call<EntregoResult>?, t: Throwable?) {
+                    override fun onFailure(call: Call<EntregoResultEditPassword>?, t: Throwable?) {
                         listener.onFailureUpdate("")
                     }
 

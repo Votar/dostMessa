@@ -40,11 +40,9 @@ class AccountFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         profile_btn_edit.setOnClickListener {
-            when(account_tabs.selectedTabPosition){
-                0->{
-                    startActivityForResult(Intent(activity, EditProfileActivity::class.java), EditProfileActivity.RQT_CODE)
-                }
-                1->startActivityForResult(Intent(activity, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
+            when (account_tabs.selectedTabPosition) {
+                0 -> startActivityForResult(Intent(activity, EditProfileActivity::class.java), EditProfileActivity.RQT_CODE)
+                1 -> startActivityForResult(Intent(activity, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
             }
         }
     }

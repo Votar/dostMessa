@@ -40,7 +40,10 @@ class RootActivity : AppCompatActivity() {
         setupViewPager(main_viewpager)
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
-        root_btn_log_out.setOnClickListener { EventBus.getDefault().post(LogoutEvent()) }
+        root_btn_log_out.setOnClickListener {
+            EventBus.getDefault().post(LogoutEvent())
+            finish()
+        }
 
     }
 

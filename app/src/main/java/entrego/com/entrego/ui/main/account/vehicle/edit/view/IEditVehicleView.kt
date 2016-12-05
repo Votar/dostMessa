@@ -12,5 +12,8 @@ interface IEditVehicleView {
     fun getContext(): Context
     fun showMessage(message: String)
     fun onSuccessUpdate()
+    fun setErrorBrand(message:String)
+    fun setErrorModel(message:String)
+    fun setErrorPlate(message:String)
 
 }

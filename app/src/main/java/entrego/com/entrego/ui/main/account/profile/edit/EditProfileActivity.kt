@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import entrego.com.entrego.R
@@ -14,6 +15,7 @@ import entrego.com.entrego.util.Logger
 import entrego.com.entrego.util.ToastUtil
 import entrego.com.entrego.util.loading
 import entrego.com.entrego.ui.main.account.profile.UserProfile
+import entrego.com.entrego.web.model.response.common.FieldErrorResponse
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
@@ -21,6 +23,15 @@ class EditProfileActivity : AppCompatActivity() {
 
     companion object {
         val RQT_CODE = 0x691
+
+
+    }
+
+    object FIELDS {
+        val NAME = "name"
+        val EMAIL = "email"
+        val PHONE_CODE = "phone.code"
+        val PHONE_NUMBER = "phone.number"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,14 +70,27 @@ class EditProfileActivity : AppCompatActivity() {
 
         edit_profile_btn_save_pass.setOnClickListener {
 
+            edit_profile_il_password.error = null
+            edit_profile_il_password_conf.error = null
             val pass = edit_profile_edit_password.text.toString()
             val confPass = edit_profile_edit_password_conf.text.toString()
 
-            if (pass == confPass) {
+            if (TextUtils.isEmpty(pass)) {
+                edit_profile_il_password.error = getString(R.string.error_empty_fields)
+                edit_profile_edit_password.requestFocus()
+            } else if (pass != confPass) {
+                edit_profile_il_password_conf.error = getString(R.string.error_passwords_not_equals)
+                edit_profile_edit_password_conf.requestFocus()
 
+            } else {
                 showProgress()
+
                 UserProfile.updatePassword(this, pass,
                         object : UserProfile.ResultUpdatePasswordListener {
+                            override fun onFieldError(field: FieldErrorResponse) {
+                                edit_profile_il_password.error = field.message
+                            }
+
                             override fun onSuccessUpdate() {
 
                                 hideProgress()
@@ -80,21 +104,42 @@ class EditProfileActivity : AppCompatActivity() {
 
                         })
 
-            } else {
-                ToastUtil.show(this, R.string.error_passwords_not_equals)
             }
         }
     }
 
+
     fun saveData() {
 
         showProgress()
+        edit_profile_il_name.error = null
+        edit_profile_il_email.error = null
+        edit_profile_il_phone.error = null
+
         UserProfile.update(applicationContext,
                 edit_profile_edit_email.text.toString(),
                 edit_profile_edit_name.text.toString(),
                 edit_profile_edit_phone_code.text.toString(),
                 edit_profile_edit_phone.text.toString(),
                 object : UserProfile.ResultUpdateListener {
+                    override fun onFieldError(field: FieldErrorResponse) {
+
+                        hideProgress()
+                        when (field.field) {
+                            FIELDS.EMAIL -> {
+                                edit_profile_il_email.error = field.message
+                            }
+                            FIELDS.NAME -> {
+                                edit_profile_il_name.error = field.message
+                            }
+                            FIELDS.PHONE_NUMBER -> {
+                                edit_profile_il_phone.error = field.message
+                            }
+                            else -> showMessage(field.field + " " + field.message)
+                        }
+
+                    }
+
                     override fun onFailureUpdate(message: String) {
                         hideProgress()
                         ToastUtil.show(applicationContext, message)
@@ -111,7 +156,6 @@ class EditProfileActivity : AppCompatActivity() {
 
     }
 
-    var progress: ProgressDialog? = null
     fun showProgress() {
         navigation_progress.visibility = View.VISIBLE
     }
@@ -125,8 +169,8 @@ class EditProfileActivity : AppCompatActivity() {
         showProgress()
         UserProfile.refresh(this, object : UserProfile.ResultRefreshListener {
             override fun onSuccessRefresh(userProfile: UserProfileModel) {
-                setupView(userProfile)
                 hideProgress()
+                setupView(userProfile)
             }
 
             override fun onFailureRefresh(message: String) {

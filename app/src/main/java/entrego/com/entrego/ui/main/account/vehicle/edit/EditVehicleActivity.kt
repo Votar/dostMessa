@@ -18,10 +18,10 @@ import kotlinx.android.synthetic.main.activity_edit_vechile.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
-
     companion object {
         val RQT_CODE = 0x692
     }
+
 
     val presenter: IEditVehiclePresenter = EditVehiclePresenter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,13 +36,30 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
         supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
 
         edit_vehicle_btn_save.setOnClickListener {
-            presenter.updateVehicle(
-                    edit_vehicle_edit_brand.text.toString(),
-                    edit_vehicle_edit_model.text.toString(),
-                    edit_vehicle_edit_year.text.toString().toInt(),
-                    edit_vehicle_edit_cylinders.text.toString().toInt(),
-                    edit_vehicle_edit_plate.text.toString()
-            )
+
+            val cylinders = edit_vehicle_edit_cylinders.text.toString()
+            val year = edit_vehicle_edit_year.text.toString()
+            if (cylinders.isEmpty() && year.isEmpty())
+                showMessage(getString(R.string.error_empty_fields))
+            else {
+
+                try {
+
+                    edit_vehicle_il_brand.error = null
+                    edit_vehicle_il_model.error = null
+                    edit_vehicle_il_plate.error = null
+
+                    presenter.updateVehicle(
+                            edit_vehicle_edit_brand.text.toString(),
+                            edit_vehicle_edit_model.text.toString(),
+                            cylinders.toInt(),
+                            year.toInt(),
+                            edit_vehicle_edit_plate.text.toString()
+                    )
+                } catch (ex: NumberFormatException) {
+                    showMessage(getString(R.string.error_number_cylinder_year))
+                }
+            }
         }
         setupViews()
     }
@@ -58,6 +75,21 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
             edit_vehicle_edit_cylinders.setText(vehicle.cylinders.toString())
             edit_vehicle_edit_plate.setText(vehicle.plate)
         }
+    }
+
+    override fun setErrorBrand(message: String) {
+        edit_vehicle_edit_brand.requestFocus()
+        edit_vehicle_il_brand.error = message
+    }
+
+    override fun setErrorModel(message: String) {
+        edit_vehicle_edit_model.requestFocus()
+        edit_vehicle_il_model.error = message
+    }
+
+    override fun setErrorPlate(message: String) {
+        edit_vehicle_edit_plate.requestFocus()
+        edit_vehicle_il_plate.error = message
     }
 
 
