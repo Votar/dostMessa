@@ -6,6 +6,7 @@ import entrego.com.entrego.storage.model.UserVehicleModel
 import entrego.com.entrego.ui.main.account.vehicle.edit.model.UserVehicle
 import entrego.com.entrego.web.model.request.auth.AuthBody
 import entrego.com.entrego.web.model.request.common.ChangePasswordRequest
+import entrego.com.entrego.web.model.request.delivery.EntregoResultGetDelivery
 import entrego.com.entrego.web.model.response.EntregoResult
 import entrego.com.entrego.web.model.request.registration.RegistrationBody
 import entrego.com.entrego.web.model.response.profile.*
@@ -30,7 +31,7 @@ object EntregoApi {
         const val VEHICLE = "messenger/user/vehicle"
         const val CHANGE_PROFILE ="messenger/user/change"
         const val CHANGE_PROFILE_PASSWORD="messenger/user/change/password"
-
+        const val GET_DELIVERY = "messenger/delivery"
     }
 
     interface Authorization {
@@ -78,7 +79,11 @@ object EntregoApi {
     }
 
 
-
+    interface GetDelivery{
+        @Headers(CONTENT_JSON)
+        @GET(REQUESTS.GET_DELIVERY)
+        fun getDelivery(@Header(TOKEN) token: String): Call<EntregoResultGetDelivery>
+    }
 
 
 }

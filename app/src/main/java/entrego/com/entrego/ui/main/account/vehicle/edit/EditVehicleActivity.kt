@@ -13,7 +13,7 @@ import entrego.com.entrego.ui.main.account.vehicle.edit.model.UserVehicle
 import entrego.com.entrego.ui.main.account.vehicle.edit.presenter.EditVehiclePresenter
 import entrego.com.entrego.ui.main.account.vehicle.edit.presenter.IEditVehiclePresenter
 import entrego.com.entrego.ui.main.account.vehicle.edit.view.IEditVehicleView
-import entrego.com.entrego.util.ToastUtil
+import entrego.com.entrego.util.UserMessageUtil
 import kotlinx.android.synthetic.main.activity_edit_vechile.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
@@ -106,7 +106,7 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
     }
 
     override fun showMessage(message: String) {
-        ToastUtil.show(applicationContext, message)
+        UserMessageUtil.show(applicationContext, message)
     }
 
     override fun onSuccessUpdate() {

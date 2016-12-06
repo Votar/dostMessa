@@ -2,9 +2,12 @@ package entrego.com.entrego.storage.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.text.TextUtils
 import com.google.gson.Gson
 import entrego.com.entrego.storage.model.UserProfileModel
 import entrego.com.entrego.storage.model.UserVehicleModel
+import entrego.com.entrego.util.event_bus.LogoutEvent
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by bertalt on 28.11.16.
@@ -24,7 +27,14 @@ class EntregoStorage(context: Context) {
 
 
     fun getToken(): String {
-        return storage.getString(KEY_TOKEN, "")
+        val token = storage.getString(KEY_TOKEN, "")
+
+        if (TextUtils.isEmpty(token)) {
+            EventBus.getDefault().post(LogoutEvent())
+            return ""
+        }
+
+        return token
     }
 
     fun setToken(token: String?) {
@@ -67,11 +77,9 @@ class EntregoStorage(context: Context) {
         storage.edit().putString(KEY_USER_VEHICLE, jsonVehicle).commit()
     }
 
-    fun clear(){
+    fun clear() {
         storage.edit().clear().commit()
     }
-
-
 
 
 }

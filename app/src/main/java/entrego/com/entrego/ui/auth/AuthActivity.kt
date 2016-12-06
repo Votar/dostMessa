@@ -12,7 +12,7 @@ import entrego.com.entrego.ui.auth.presenter.IAuthPresenter
 import entrego.com.entrego.ui.auth.view.IAuthView
 import entrego.com.entrego.ui.main.RootActivity
 import entrego.com.entrego.ui.registration.RegistrationActivity
-import entrego.com.entrego.util.ToastUtil
+import entrego.com.entrego.util.UserMessageUtil
 import entrego.com.entrego.util.loading
 import kotlinx.android.synthetic.main.activity_auth.*
 
@@ -52,7 +52,7 @@ class AuthActivity : AppCompatActivity(), IAuthView {
     }
 
     override fun showMessage(message: String) {
-        ToastUtil.show(applicationContext, message)
+        UserMessageUtil.show(applicationContext, message)
     }
 
     val presenter: IAuthPresenter = AuthPresenter(this)

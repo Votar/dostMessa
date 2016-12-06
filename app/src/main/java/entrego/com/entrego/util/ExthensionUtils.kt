@@ -12,7 +12,7 @@ import entrego.com.entrego.R
 /**
  * Created by bertalt on 29.11.16.
  */
-object ToastUtil {
+object UserMessageUtil {
     @JvmStatic fun show(ctx: Context, message: String) {
         var text: String = ""
         if (TextUtils.isEmpty(message)) {
@@ -24,7 +24,7 @@ object ToastUtil {
     }
 
     @JvmStatic fun show(ctx: Context, messageId: Int) {
-        ToastUtil.show(ctx, ctx.getString(messageId))
+        UserMessageUtil.show(ctx, ctx.getString(messageId))
     }
 
 }

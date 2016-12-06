@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
+    signingConfigs {
+        build_config {
+            keyAlias 'entrego'
+            keyPassword '1140entrego'
+            storeFile file('/home/bertalt/Workspace/enterGO/keystore/entrego.jks')
+            storePassword '1138entrego'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -10,22 +18,27 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        signingConfig signingConfigs.build_config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.build_config
         }
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -38,10 +51,7 @@ dependencies {
     compile "com.google.android.gms:play-services-maps:$services_version"
     compile "com.google.android.gms:play-services-location:$services_version"
     compile "com.google.android.gms:play-services:$services_version"
-
     compile 'com.mikhaellopez:circularimageview:3.0.2'
-
-
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.google.code.gson:gson:2.8.0'

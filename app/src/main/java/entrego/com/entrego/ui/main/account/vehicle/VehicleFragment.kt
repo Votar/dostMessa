@@ -57,14 +57,14 @@ class VehicleFragment : Fragment() {
     }
 
     fun hideProgress(userVehicle: UserVehicleModel?) {
-        vehicle_progress.visibility = View.GONE
+        vehicle_progress?.visibility = View.GONE
 
         if (userVehicle != null) {
-            vehicle_main_content.visibility = View.VISIBLE
+            vehicle_main_content?.visibility = View.VISIBLE
             setupView(userVehicle)
         } else {
-            vehicle_empty_view.visibility = View.VISIBLE
-            vehicle_btn_add.setOnClickListener {
+            vehicle_empty_view?.visibility = View.VISIBLE
+            vehicle_btn_add?.setOnClickListener {
                 startActivityForResult(Intent(activity, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
             }
         }

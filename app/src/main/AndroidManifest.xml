@@ -22,6 +22,7 @@
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -75,8 +76,11 @@
         <activity
             android:name=".ui.main.RootActivity"
             android:label="@string/title_activity_root"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme" />
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme">
+
+
+        </activity>
         <activity
             android:name=".ui.main.account.profile.edit.EditProfileActivity"
             android:parentActivityName=".ui.main.RootActivity"
@@ -93,6 +97,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.main.RootActivity" />
         </activity>
+
+        <service android:name=".location.LocationService" />
     </application>
 
 </manifest>

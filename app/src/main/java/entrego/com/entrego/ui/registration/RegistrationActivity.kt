@@ -10,7 +10,7 @@ import entrego.com.entrego.ui.auth.AuthActivity
 import entrego.com.entrego.ui.registration.presenter.IRegistrationPresenter
 import entrego.com.entrego.ui.registration.presenter.RegistrationPresenter
 import entrego.com.entrego.ui.registration.view.IRegistrationView
-import entrego.com.entrego.util.ToastUtil
+import entrego.com.entrego.util.UserMessageUtil
 import entrego.com.entrego.util.loading
 import kotlinx.android.synthetic.main.activity_registration.*
 
@@ -55,7 +55,7 @@ class RegistrationActivity : AppCompatActivity(), IRegistrationView {
 
     override fun showMessage(message: String) {
 
-        ToastUtil.show(applicationContext, message)
+        UserMessageUtil.show(applicationContext, message)
     }
 
     var progress: ProgressDialog? = null

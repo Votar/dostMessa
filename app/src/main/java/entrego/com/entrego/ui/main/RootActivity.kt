@@ -1,7 +1,12 @@
 package entrego.com.entrego.ui.main
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
@@ -15,7 +20,11 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import entrego.com.entrego.R
+import entrego.com.entrego.location.LocationService
+import entrego.com.entrego.location.LocationTracker
 import entrego.com.entrego.ui.main.account.AccountFragment
+import entrego.com.entrego.ui.main.home.HomeFragment
+import entrego.com.entrego.util.Logger
 import entrego.com.entrego.util.event_bus.LogoutEvent
 import entrego.com.entrego.util.ui.ViewPagerAdapter
 import kotlinx.android.synthetic.main.content_drawer.*
@@ -37,6 +46,11 @@ class RootActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        checkLocationPermission()
         setupViewPager(main_viewpager)
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
@@ -44,7 +58,6 @@ class RootActivity : AppCompatActivity() {
             EventBus.getDefault().post(LogoutEvent())
             finish()
         }
-
     }
 
     private val tabIcons = intArrayOf(
@@ -62,7 +75,7 @@ class RootActivity : AppCompatActivity() {
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
 
-        adapter.addFrag(Fragment(), getString(tabTitles[0]))
+        adapter.addFrag(HomeFragment(), getString(tabTitles[0]))
         adapter.addFrag(AccountFragment(), getString(tabTitles[1]))
         adapter.addFrag(Fragment(), getString(tabTitles[2]))
         adapter.addFrag(Fragment(), getString(tabTitles[3]))
@@ -73,7 +86,6 @@ class RootActivity : AppCompatActivity() {
     fun setupTabIcons() {
 
         for (i in 0..tabTitles.size - 1) {
-
             val nextOne = LayoutInflater.from(this).inflate(R.layout.tab_view, null)
             (nextOne.findViewById(R.id.tab_text) as TextView).text = getString(tabTitles[i])
             val icon = AppCompatDrawableManager.get().getDrawable(applicationContext, tabIcons[i])
@@ -110,6 +122,47 @@ class RootActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+
+    fun checkLocationPermission() {
+
+        val permissionFine = ContextCompat.checkSelfPermission(RootActivity@ this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+
+        when (permissionFine) {
+            PackageManager.PERMISSION_GRANTED -> {
+                //    Toast.makeText(this, "ACCESS_FINE_LOCATION доступны", Toast.LENGTH_SHORT).show()
+
+
+                startLocationUpdates()
+            }
+            PackageManager.PERMISSION_DENIED -> {
+                // Toast.makeText(this, "ACCESS_FINE_LOCATION не доступны", Toast.LENGTH_SHORT).show()
+                ActivityCompat.requestPermissions(RootActivity@ this,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        HomeFragment.REQUEST_ACCESS_FINE_LOCATION)
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+
+        when (requestCode) {
+
+            HomeFragment.REQUEST_ACCESS_FINE_LOCATION -> {
+                if (grantResults.isNotEmpty()
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    startLocationUpdates()
+                }
+            }
+        }
+
+    }
+
+    fun startLocationUpdates() {
+        LocationTracker.startLocationTracker(applicationContext)
     }
 
 

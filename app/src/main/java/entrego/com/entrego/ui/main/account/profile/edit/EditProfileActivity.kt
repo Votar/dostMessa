@@ -12,7 +12,7 @@ import android.view.View
 import entrego.com.entrego.R
 import entrego.com.entrego.storage.model.UserProfileModel
 import entrego.com.entrego.util.Logger
-import entrego.com.entrego.util.ToastUtil
+import entrego.com.entrego.util.UserMessageUtil
 import entrego.com.entrego.util.loading
 import entrego.com.entrego.ui.main.account.profile.UserProfile
 import entrego.com.entrego.web.model.response.common.FieldErrorResponse
@@ -94,12 +94,12 @@ class EditProfileActivity : AppCompatActivity() {
                             override fun onSuccessUpdate() {
 
                                 hideProgress()
-                                ToastUtil.show(applicationContext, getString(R.string.ui_success_pass_changed))
+                                UserMessageUtil.show(applicationContext, getString(R.string.ui_success_pass_changed))
                             }
 
                             override fun onFailureUpdate(message: String) {
                                 hideProgress()
-                                ToastUtil.show(applicationContext, message)
+                                UserMessageUtil.show(applicationContext, message)
                             }
 
                         })
@@ -115,6 +115,7 @@ class EditProfileActivity : AppCompatActivity() {
         edit_profile_il_name.error = null
         edit_profile_il_email.error = null
         edit_profile_il_phone.error = null
+        edit_profile_il_phone_code.error = null
 
         UserProfile.update(applicationContext,
                 edit_profile_edit_email.text.toString(),
@@ -135,6 +136,9 @@ class EditProfileActivity : AppCompatActivity() {
                             FIELDS.PHONE_NUMBER -> {
                                 edit_profile_il_phone.error = field.message
                             }
+                            FIELDS.PHONE_CODE -> {
+                                edit_profile_il_phone_code.error = field.message
+                            }
                             else -> showMessage(field.field + " " + field.message)
                         }
 
@@ -142,12 +146,12 @@ class EditProfileActivity : AppCompatActivity() {
 
                     override fun onFailureUpdate(message: String) {
                         hideProgress()
-                        ToastUtil.show(applicationContext, message)
+                        UserMessageUtil.show(applicationContext, message)
                     }
 
                     override fun onSuccessUpdate(userProfile: UserProfileModel) {
                         hideProgress()
-                        ToastUtil.show(applicationContext, getString(R.string.success_profile_updated))
+                        UserMessageUtil.show(applicationContext, getString(R.string.success_profile_updated))
                     }
 
                 }
@@ -185,7 +189,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     fun showMessage(message: String) {
 
-        ToastUtil.show(this, message)
+        UserMessageUtil.show(this, message)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
