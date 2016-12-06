@@ -5,7 +5,7 @@ package entrego.com.entrego.storage.model
  */
 class DeliveryModel(val id: Int,
                     val customer: CustomerModel,
-                    val route: RouteModel) {
+                    val route: EntregoRouteModel) {
 
 
     override fun toString(): String {

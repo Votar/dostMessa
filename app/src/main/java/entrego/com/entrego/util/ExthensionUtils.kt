@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.support.v4.app.NavUtils
 import android.text.TextUtils
 import android.widget.Toast
+import com.google.android.gms.maps.model.LatLng
 import entrego.com.entrego.R
 
 /**
@@ -29,8 +30,18 @@ object UserMessageUtil {
 
 }
 
-fun ProgressDialog.loading(){
+fun ProgressDialog.loading() {
     this.setTitle(this.context.getString(R.string.ui_progress_dialog_title))
     this.setMessage(this.context.getString(R.string.ui_loading))
     this.show()
+}
+
+fun LatLng.toDirectionFormat(): String {
+
+    return StringBuilder().
+            append(this.latitude)
+            .append(",")
+            .append(this.longitude)
+            .toString()
+
 }

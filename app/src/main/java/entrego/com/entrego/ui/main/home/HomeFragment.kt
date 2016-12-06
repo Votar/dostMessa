@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
@@ -12,8 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Polyline
+import com.google.android.gms.maps.model.PolylineOptions
 import entrego.com.entrego.R
 import entrego.com.entrego.location.LocationTracker
+import entrego.com.entrego.location.diraction.Route
 import entrego.com.entrego.ui.main.home.presenter.HomePresenter
 import entrego.com.entrego.ui.main.home.presenter.IHomePresenter
 import entrego.com.entrego.ui.main.home.view.IHomeView
@@ -21,12 +26,29 @@ import entrego.com.entrego.storage.model.DeliveryModel
 import entrego.com.entrego.util.Logger
 import entrego.com.entrego.util.UserMessageUtil
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
 
 
 /**
  * Created by bertalt on 05.12.16.
  */
 class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
+    override fun buildRoute(route: Route) {
+
+        val polylinePaths = ArrayList<Polyline>()
+
+        val polylineOptions = PolylineOptions().geodesic(true).color(Color.BLUE).width(10f)
+        for (i in 0..route.points.size - 1)
+            polylineOptions.add(route.points[i])
+
+        if (mMap != null) {
+            polylinePaths.add(mMap!!.addPolyline(polylineOptions))
+        }
+
+        val routeBounds = LatLngBounds(route.bounds.southwest, route.bounds.northeast)
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(routeBounds, 10))
+    }
+
     override fun getFragmentContext(): Context {
         return context
     }

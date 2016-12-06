@@ -19,6 +19,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import entrego.com.entrego.util.Logger;
+
 /**
  * Created by Mai Thanh Hiep on 4/3/2016.
  */
@@ -38,14 +40,18 @@ public class DirectionFinder {
 
     public void execute() throws UnsupportedEncodingException {
         listener.onDirectionFinderStart();
-        new DownloadRawData().execute(createUrl());
+
+        String url = createUrl();
+        Logger.logd(url);
+        new DownloadRawData().execute(url);
     }
 
     private String createUrl() throws UnsupportedEncodingException {
         String urlOrigin = URLEncoder.encode(origin, "utf-8");
         String urlDestination = URLEncoder.encode(destination, "utf-8");
 
-        return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
+        //+ "&key=" + GOOGLE_API_KEY
+        return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination;
     }
 
     private class DownloadRawData extends AsyncTask<String, Void, String> {
@@ -102,6 +108,15 @@ public class DirectionFinder {
             JSONObject jsonDuration = jsonLeg.getJSONObject("duration");
             JSONObject jsonEndLocation = jsonLeg.getJSONObject("end_location");
             JSONObject jsonStartLocation = jsonLeg.getJSONObject("start_location");
+            JSONObject jsonBounds = jsonRoute.getJSONObject("bounds");
+            LatLng northeast = new LatLng(
+                    jsonBounds.getJSONObject("northeast").getDouble("lat"),
+                    jsonBounds.getJSONObject("northeast").getDouble("lng"));
+            LatLng southwest = new LatLng(
+                    jsonBounds.getJSONObject("southwest").getDouble("lat"),
+                    jsonBounds.getJSONObject("southwest").getDouble("lng"));
+
+            route.bounds = new Bounds(northeast, southwest);
 
             route.distance = new Distance(jsonDistance.getString("text"), jsonDistance.getInt("value"));
             route.duration = new Duration(jsonDuration.getString("text"), jsonDuration.getInt("value"));

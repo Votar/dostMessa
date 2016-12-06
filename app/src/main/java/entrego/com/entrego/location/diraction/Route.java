@@ -14,6 +14,6 @@ public class Route {
     public LatLng endLocation;
     public String startAddress;
     public LatLng startLocation;
-
+    public Bounds bounds;
     public List<LatLng> points;
 }

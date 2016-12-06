@@ -23,11 +23,7 @@
             android:launchMode="singleTask"
             android:noHistory="true">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.auth.AuthActivity"
@@ -79,7 +75,11 @@
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.main.account.profile.edit.EditProfileActivity"

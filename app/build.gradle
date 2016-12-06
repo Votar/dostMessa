@@ -7,7 +7,7 @@ android {
             keyAlias 'entrego'
             keyPassword '1140entrego'
             storeFile file('/home/bertalt/Workspace/enterGO/keystore/entrego.jks')
-            storePassword '1138entrego'
+            storePassword '1138enterego'
         }
     }
     compileSdkVersion 25
@@ -27,6 +27,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.build_config
+        }
+        debug {
             signingConfig signingConfigs.build_config
         }
     }

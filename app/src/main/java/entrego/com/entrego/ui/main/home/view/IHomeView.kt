@@ -1,6 +1,7 @@
 package entrego.com.entrego.ui.main.home.view
 
 import android.content.Context
+import entrego.com.entrego.location.diraction.Route
 import entrego.com.entrego.storage.model.DeliveryModel
 
 /**
@@ -11,6 +12,8 @@ interface IHomeView {
     fun moveCamera(latitude: Double, longitude: Double)
     fun prepareNoDelivery()
     fun prepareDelivery(delivery: DeliveryModel)
+    fun buildRoute(route: Route)
     fun getFragmentContext() :Context
     fun showMessage(message:String)
+
 }
