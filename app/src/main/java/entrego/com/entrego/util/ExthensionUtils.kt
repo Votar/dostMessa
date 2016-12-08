@@ -9,13 +9,14 @@ import android.text.TextUtils
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import entrego.com.entrego.R
+import entrego.com.entrego.storage.model.EntregoPoint
 
 /**
  * Created by bertalt on 29.11.16.
  */
 object UserMessageUtil {
     @JvmStatic fun show(ctx: Context, message: String) {
-        var text: String = ""
+        var text: String
         if (TextUtils.isEmpty(message)) {
             text = ctx.getString(R.string.er_default_network_error)
         } else
@@ -36,7 +37,7 @@ fun ProgressDialog.loading() {
     this.show()
 }
 
-fun LatLng.toDirectionFormat(): String {
+fun EntregoPoint.toDirectionFormat(): String {
 
     return StringBuilder().
             append(this.latitude)

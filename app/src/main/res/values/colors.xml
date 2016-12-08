@@ -13,4 +13,9 @@
     <color name="divider">#BDBDBD</color>
     <color name="shadowEndColor">#428e8e8e</color>
     <color name="colorTransparent">#00ffffff</color>
+    <color name="colorBlue">#84caff</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorDivider">#cdcdcd</color>
+    <color name="colorTomato">#e64245</color>
+    <color name="colorGrey">#ebebeb</color>
 </resources>

@@ -70,6 +70,13 @@
     <string name="vehicle_empty_view">Vehicle haven\'t been registered yet</string>
     <string name="add_vehicle">add vehicle</string>
     <string name="hint_year">Year</string>
+    <string name="start_point">Start point</string>
+    <string name="finish_point">Finish point</string>
 
     <string name="error_number_cylinder_year">Cylinder and year should be number</string>
+    <string name="ui_user">User</string>
+    <string name="debug_text">text</string>
+    <string name="ui_customer">Customer</string>
+    <string name="inc_report">Incident report</string>
+    <string name="realtime_assist">Real time assistance</string>
 </resources>

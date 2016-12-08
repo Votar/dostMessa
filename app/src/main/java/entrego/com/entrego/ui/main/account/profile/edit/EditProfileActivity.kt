@@ -23,8 +23,6 @@ class EditProfileActivity : AppCompatActivity() {
 
     companion object {
         val RQT_CODE = 0x691
-
-
     }
 
     object FIELDS {

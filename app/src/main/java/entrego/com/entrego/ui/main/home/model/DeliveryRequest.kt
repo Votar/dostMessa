@@ -33,6 +33,8 @@ object DeliveryRequest {
                             when (responseResult.code) {
                                 0 -> {
                                     listener?.onSuccessGetDelivery(responseResult.payload)
+
+
                                 }
 
                                 else -> listener?.onFailureGetDelivery(responseResult.code, "")

@@ -1,6 +1,10 @@
 package entrego.com.entrego.ui.main.home.presenter
 
-import android.text.TextUtils
+import android.content.Context
+import android.location.Geocoder
+import android.os.AsyncTask
+import android.os.Handler
+import com.google.android.gms.maps.model.LatLng
 import entrego.com.entrego.R
 import entrego.com.entrego.location.diraction.DirectionFinder
 import entrego.com.entrego.location.diraction.DirectionFinderListener
@@ -10,13 +14,14 @@ import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.main.home.model.DeliveryRequest
 import entrego.com.entrego.ui.main.home.view.IHomeView
 import entrego.com.entrego.util.Logger
+import entrego.com.entrego.util.event_bus.LogoutEvent
 import entrego.com.entrego.util.toDirectionFormat
-import entrego.com.entrego.web.api.EntregoApi
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by bertalt on 06.12.16.
  */
-class HomePresenter(val view: IHomeView) : IHomePresenter {
+class HomePresenter(var view: IHomeView) : IHomePresenter {
 
 
     val getDeliveryListener = object : DeliveryRequest.ResultGetDelivery {
@@ -25,7 +30,8 @@ class HomePresenter(val view: IHomeView) : IHomePresenter {
 
             if (delivery != null) {
 
-                DirectionFinder(getDiractionListener,
+                view.prepareDelivery(delivery)
+                DirectionFinder(getDirectionListener,
                         delivery.route.start.toDirectionFormat(),
                         delivery.route.destination.toDirectionFormat(),
                         view.getFragmentContext().getString(R.string.google_maps_key))
@@ -41,11 +47,13 @@ class HomePresenter(val view: IHomeView) : IHomePresenter {
             view.prepareNoDelivery()
 
             when (code) {
+
+                2 -> EventBus.getDefault().post(LogoutEvent())
                 null -> view.showMessage("")
             }
         }
     }
-    val getDiractionListener = object : DirectionFinderListener {
+    val getDirectionListener = object : DirectionFinderListener {
 
         override fun onDirectionFinderStart() {
 
@@ -76,5 +84,4 @@ class HomePresenter(val view: IHomeView) : IHomePresenter {
     override fun onDestroy() {
 
     }
-
 }

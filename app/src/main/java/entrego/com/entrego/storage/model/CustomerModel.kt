@@ -5,7 +5,5 @@ package entrego.com.entrego.storage.model
  */
 class CustomerModel(val name:String, val company:String?){
 
-    override fun toString(): String {
-        return "CustomerModel(name='$name', company=$company)"
-    }
+
 }

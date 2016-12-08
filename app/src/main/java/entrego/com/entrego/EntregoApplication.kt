@@ -24,17 +24,8 @@ class EntregoApplication : Application() {
 
         UserVehicle.refresh(applicationContext, null)
 
-        EventBus.getDefault().register(this)
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onLogoutEvent(event: LogoutEvent) {
 
-        EntregoStorage(this).setToken("")
-        val intent = Intent(this, AuthActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-
-    }
 }

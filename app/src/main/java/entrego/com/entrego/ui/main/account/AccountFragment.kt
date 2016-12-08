@@ -41,8 +41,8 @@ class AccountFragment : Fragment() {
         super.onStart()
         profile_btn_edit.setOnClickListener {
             when (account_tabs.selectedTabPosition) {
-                0 -> startActivityForResult(Intent(activity, EditProfileActivity::class.java), EditProfileActivity.RQT_CODE)
-                1 -> startActivityForResult(Intent(activity, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
+                0 -> startActivityForResult(Intent(context, EditProfileActivity::class.java), EditProfileActivity.RQT_CODE)
+                1 -> startActivityForResult(Intent(context, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
             }
         }
     }

@@ -22,8 +22,11 @@
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.auth.AuthActivity"
@@ -72,15 +75,8 @@
         <activity
             android:name=".ui.main.RootActivity"
             android:label="@string/title_activity_root"
-            android:launchMode="singleInstance"
-            android:theme="@style/AppTheme">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.account.profile.edit.EditProfileActivity"
             android:parentActivityName=".ui.main.RootActivity"
@@ -99,6 +95,15 @@
         </activity>
 
         <service android:name=".location.LocationService" />
+
+        <activity
+            android:name=".ui.help.HelpActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.RootActivity" />
+        </activity>
     </application>
 
 </manifest>

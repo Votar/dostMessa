@@ -22,6 +22,8 @@ import android.widget.TextView
 import entrego.com.entrego.R
 import entrego.com.entrego.location.LocationService
 import entrego.com.entrego.location.LocationTracker
+import entrego.com.entrego.storage.preferences.EntregoStorage
+import entrego.com.entrego.ui.auth.AuthActivity
 import entrego.com.entrego.ui.main.account.AccountFragment
 import entrego.com.entrego.ui.main.home.HomeFragment
 import entrego.com.entrego.util.Logger
@@ -30,6 +32,8 @@ import entrego.com.entrego.util.ui.ViewPagerAdapter
 import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class RootActivity : AppCompatActivity() {
 
@@ -46,11 +50,6 @@ class RootActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-    }
-
-    override fun onStart() {
-        super.onStart()
-        checkLocationPermission()
         setupViewPager(main_viewpager)
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
@@ -58,6 +57,18 @@ class RootActivity : AppCompatActivity() {
             EventBus.getDefault().post(LogoutEvent())
             finish()
         }
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        checkLocationPermission()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
     private val tabIcons = intArrayOf(
@@ -165,5 +176,13 @@ class RootActivity : AppCompatActivity() {
         LocationTracker.startLocationTracker(applicationContext)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onLogoutEvent(event: LogoutEvent) {
 
+        EntregoStorage(this).setToken("")
+        val intent = Intent(this, AuthActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+
+    }
 }

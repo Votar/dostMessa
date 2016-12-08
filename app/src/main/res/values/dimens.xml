@@ -18,4 +18,5 @@
     <dimen name="user_pic_size">80dp</dimen>
     <dimen name="menu_item_min_height">52dp</dimen>
     <dimen name="tsize_normal">18sp</dimen>
+    <dimen name="description_header_height">90dp</dimen>
 </resources>
