@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:background="@drawable/bg_bubble_white"
+        android:background="@drawable/bg_bubble_blue"
         android:textIsSelectable="true"
         android:textSize="14sp" />
 

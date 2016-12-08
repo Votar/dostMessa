@@ -104,6 +104,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.main.RootActivity" />
         </activity>
+        <activity android:name=".ui.help.chat.ChatHelpActivity"
+            android:parentActivityName=".ui.help.HelpActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.help.HelpActivity" />
+
+        </activity>
     </application>
 
 </manifest>

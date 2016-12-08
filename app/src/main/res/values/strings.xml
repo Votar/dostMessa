@@ -79,4 +79,5 @@
     <string name="ui_customer">Customer</string>
     <string name="inc_report">Incident report</string>
     <string name="realtime_assist">Real time assistance</string>
+    <string name="ui_chatting">Support</string>
 </resources>
