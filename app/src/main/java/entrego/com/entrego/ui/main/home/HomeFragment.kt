@@ -17,6 +17,9 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import entrego.com.entrego.R
 import entrego.com.entrego.location.LocationTracker
 import entrego.com.entrego.location.diraction.Route
+import entrego.com.entrego.storage.model.CustomerModel
+import entrego.com.entrego.storage.model.DeliveryModel
+import entrego.com.entrego.storage.model.EntregoRouteModel
 import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.ui.main.description.DescriptionFragment
 import entrego.com.entrego.ui.main.home.presenter.HomePresenter
@@ -33,7 +36,7 @@ import java.util.*
 class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
 
-    val presenter: IHomePresenter = HomePresenter(this)
+    val presenter: IHomePresenter = HomePresenter()
 
     var mCurrentLocation: LatLng? = null
     var mMap: GoogleMap? = null
@@ -71,44 +74,48 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
             sliding_layout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
 
         }
+
+        val description = fragmentManager.findFragmentByTag(DescriptionFragment.TAG)
+        if (description != null)
+            fragmentManager.beginTransaction()
+                    .remove(description)
+                    .commit()
     }
 
-    override fun prepareDelivery() {
+    override fun prepareRoute(route: EntregoRouteModel, customer: CustomerModel) {
 
-        val delivery = DeliveryInstance.getInstance()
+        mMap?.clear()
 
-        if (delivery != null) {
-            //add start point
-            val startLatLng = LatLng(delivery.route.start.latitude, delivery.route.start.longitude)
-            mMap?.addMarker(MarkerOptions()
-                    .position(startLatLng)
-                    .draggable(false)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_pin))
-                    .title(getString(R.string.start_point))
-                    .snippet("" + delivery.customer.company + "\n" + delivery.customer.name))
+        //add start point
+        val startLatLng = LatLng(route.start.latitude, route.start.longitude)
+        mMap?.addMarker(MarkerOptions()
+                .position(startLatLng)
+                .draggable(false)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_pin))
+                .title(getString(R.string.start_point))
+                .snippet("" + customer.company + "\n" + customer.name))
 
-            //add finish point
-            val finishLatLng = LatLng(delivery.route.destination.latitude, delivery.route.destination.longitude)
-            mMap?.addMarker(MarkerOptions()
-                    .position(finishLatLng)
-                    .draggable(false)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.finish_pin))
-                    .title(getString(R.string.finish_point)))
-
-
-            if (home_sliding_view != null) {
-
-                sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+        //add finish point
+        val finishLatLng = LatLng(route.destination.latitude, route.destination.longitude)
+        mMap?.addMarker(MarkerOptions()
+                .position(finishLatLng)
+                .draggable(false)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.finish_pin))
+                .title(getString(R.string.finish_point)))
 
 
-                val fragment = DescriptionFragment.getInstance()
+        if (home_sliding_container != null) {
 
-                fragmentManager.beginTransaction()
-                        .replace(R.id.home_sliding_view, fragment)
-                        .commit()
-            }
+            sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+
+            val fragment = DescriptionFragment.getInstance()
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.home_sliding_container, fragment, DescriptionFragment.TAG)
+                    .commit()
 
         }
+
 
     }
 
@@ -138,6 +145,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun onStart() {
         super.onStart()
+        presenter.onStart(this)
+
 
         reenterTransition = true
         map_view.getMapAsync(this)
@@ -161,6 +170,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun onStop() {
         super.onStop()
+        presenter.onStop()
         LocalBroadcastManager.getInstance(context).unregisterReceiver(mReceiverCurrentLocation)
     }
 
@@ -180,7 +190,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         val dnipro = LatLng(48.4619585, 34.7201766)
         moveCamera(dnipro.latitude, dnipro.longitude)
 
-        presenter.onCreate()
 
     }
 

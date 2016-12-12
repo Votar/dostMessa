@@ -1,7 +1,9 @@
 package entrego.com.entrego.storage.model.binding;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
+import entrego.com.entrego.BR;
 import entrego.com.entrego.location.diraction.Route;
 import entrego.com.entrego.storage.model.CustomerModel;
 import entrego.com.entrego.storage.model.DeliveryModel;
@@ -13,16 +15,27 @@ import entrego.com.entrego.storage.model.EntregoRouteModel;
 
 public class DeliveryInstance extends BaseObservable {
 
-    private static DeliveryInstance instance;
+    @Bindable
+    private static DeliveryInstance instance = new DeliveryInstance();
 
     public static DeliveryInstance getInstance() {
         return instance;
     }
 
-    public static void createInstance(DeliveryModel model) {
+    public void update(DeliveryModel model) {
 
-        if (instance == null)
-            instance = new DeliveryInstance(model.getId(), model.getCustomer(), model.getRoute());
+        if (model != null) {
+            route = model.getRoute();
+            customer = model.getCustomer();
+            id = model.getId();
+        } else {
+            route = null;
+            customer = null;
+            id = 0;
+        }
+
+
+        notifyPropertyChanged(BR.instance);
 
     }
 
@@ -35,6 +48,9 @@ public class DeliveryInstance extends BaseObservable {
         this.id = id;
         this.customer = customer;
         this.route = route;
+    }
+
+    private DeliveryInstance() {
     }
 
 

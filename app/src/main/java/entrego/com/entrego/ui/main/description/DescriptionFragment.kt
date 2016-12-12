@@ -33,7 +33,7 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
     companion object {
 
-
+        val TAG = "DescriptionFragmentTAG"
         fun getInstance(): DescriptionFragment {
 
             val fragment = DescriptionFragment()
@@ -42,7 +42,6 @@ class DescriptionFragment : Fragment(), IDescreptionView {
     }
 
     var recycler: RecyclerView? = null
-    var progress: ProgressBar? = null
     val presenter: IDescriptionPresenter = DescriptionPresenter()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,7 +52,6 @@ class DescriptionFragment : Fragment(), IDescreptionView {
         val view = binder.root
 
         recycler = view.findViewById(R.id.descr_frag_points_recycler) as RecyclerView
-        progress = view.findViewById(R.id.addresses_progress) as ProgressBar
 
         return view
 
@@ -84,20 +82,8 @@ class DescriptionFragment : Fragment(), IDescreptionView {
         return context
     }
 
-    override fun showLoadingPoints() {
-        progress?.visibility = View.VISIBLE
-        recycler?.visibility = View.GONE
-    }
-
     override fun showEmptyView() {
 
     }
 
-    override fun showFullDescription(listAddress: List<EntregoPointBinding>) {
-
-//        progress?.visibility = View.GONE
-//        recycler?.visibility = View.VISIBLE
-//        recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-    }
 }

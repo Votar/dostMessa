@@ -2,10 +2,12 @@ package entrego.com.entrego.ui.main.home.model
 
 import entrego.com.entrego.storage.model.DeliveryModel
 import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.ui.main.mvp.model.DeliveryUpdatedEvent
 import entrego.com.entrego.util.Logger
 import entrego.com.entrego.web.api.ApiCreator
 import entrego.com.entrego.web.api.EntregoApi
 import entrego.com.entrego.web.model.request.delivery.EntregoResultGetDelivery
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,7 +35,7 @@ object DeliveryRequest {
 
                             when (responseResult.code) {
                                 0 -> {
-                                    DeliveryInstance.createInstance(responseResult.payload)
+                                    DeliveryInstance.getInstance().update(responseResult.payload)
                                     listener?.onSuccessGetDelivery()
                                 }
 

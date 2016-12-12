@@ -8,8 +8,6 @@ import entrego.com.entrego.storage.model.binding.EntregoPointBinding
  * Created by bertalt on 07.12.16.
  */
 interface IDescreptionView {
-    fun getViewContext():Context
-    fun showLoadingPoints()
+    fun getViewContext(): Context
     fun showEmptyView()
-    fun showFullDescription(listAddress: List<EntregoPointBinding>)
 }

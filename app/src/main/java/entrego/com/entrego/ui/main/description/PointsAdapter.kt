@@ -1,5 +1,6 @@
 package entrego.com.entrego.ui.main.description
 
+import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
@@ -38,17 +39,13 @@ class PointsAdapter(route: EntregoRouteModel) : RecyclerView.Adapter<PointsAdapt
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
 
         var binder: ItemDeliveryPointBinding? = null
-
         init {
             binder = DataBindingUtil.bind(rootView)
         }
 
 
-        var address: TextView? = null
-        var pointPin: ImageView? = null
-
-
     }
+
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 
@@ -56,16 +53,18 @@ class PointsAdapter(route: EntregoRouteModel) : RecyclerView.Adapter<PointsAdapt
 
         val nextPoint = addresses[position]
 
-//        when (nextPoint.status) {
-//            EntregoPointStatus.DONE.name -> resId = R.drawable.points_list_done_icon
-//            EntregoPointStatus.NEXT.name -> resId = R.drawable.start_pin
-//            EntregoPointStatus.SCHEDULE.name -> resId = R.drawable.points_list_next_pin
-//        }
-//        val icon = ContextCompat.getDrawable(holder?.pointPin?.context, resId)
-
-//        holder?.pointPin?.setImageDrawable(icon)
-
         holder?.binder?.point = nextPoint
+
+        when (nextPoint.status) {
+            EntregoPointStatus.DONE.name -> resId = R.drawable.points_list_done_icon
+            EntregoPointStatus.NEXT.name -> resId = R.drawable.start_pin
+            EntregoPointStatus.SCHEDULE.name -> resId = R.drawable.points_list_next_pin
+            else -> resId = R.drawable.points_list_done_icon
+        }
+        val icon = ContextCompat.getDrawable(holder?.binder?.itemPointPin?.context, resId)
+
+        holder?.binder?.itemPointPin?.setImageDrawable(icon)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): PointsAdapter.ViewHolder {
@@ -76,6 +75,7 @@ class PointsAdapter(route: EntregoRouteModel) : RecyclerView.Adapter<PointsAdapt
 
 
         // set the view's size, margins, paddings and layout parameters
+
 
         return ViewHolder(binding.root)
     }

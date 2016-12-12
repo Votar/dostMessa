@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.Observable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -28,6 +30,7 @@ import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.AuthActivity
 import entrego.com.entrego.ui.main.account.AccountFragment
 import entrego.com.entrego.ui.main.home.HomeFragment
+import entrego.com.entrego.ui.main.home.model.DeliveryRequest
 import entrego.com.entrego.util.Logger
 import entrego.com.entrego.util.event_bus.LogoutEvent
 import entrego.com.entrego.util.ui.ViewPagerAdapter
@@ -60,7 +63,13 @@ class RootActivity : AppCompatActivity() {
             EventBus.getDefault().post(LogoutEvent())
             finish()
         }
+
         EventBus.getDefault().register(this)
+
+        val token = EntregoStorage(this).getToken()
+        DeliveryRequest.requestDelivery(token, null)
+
+//        Handler(Looper.getMainLooper()).postDelayed({DeliveryInstance.getInstance().update(null)}, 5000)
     }
 
     override fun onStart() {
@@ -130,8 +139,7 @@ class RootActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
 
-
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_faq) {
             return true
         }
 
@@ -146,13 +154,9 @@ class RootActivity : AppCompatActivity() {
 
         when (permissionFine) {
             PackageManager.PERMISSION_GRANTED -> {
-                //    Toast.makeText(this, "ACCESS_FINE_LOCATION доступны", Toast.LENGTH_SHORT).show()
-
-
                 startLocationUpdates()
             }
             PackageManager.PERMISSION_DENIED -> {
-                // Toast.makeText(this, "ACCESS_FINE_LOCATION не доступны", Toast.LENGTH_SHORT).show()
                 ActivityCompat.requestPermissions(RootActivity@ this,
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         HomeFragment.REQUEST_ACCESS_FINE_LOCATION)
@@ -167,8 +171,10 @@ class RootActivity : AppCompatActivity() {
             HomeFragment.REQUEST_ACCESS_FINE_LOCATION -> {
                 if (grantResults.isNotEmpty()
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     startLocationUpdates()
+                } else {
+                    //TODO: Show blocker
+
                 }
             }
         }
@@ -188,9 +194,6 @@ class RootActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
-
-
-
 
 
 }
