@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+        <variable
+            name="customer"
+            type="entrego.com.entrego.storage.model.CustomerModel"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/description_header_height"
+        android:padding="@dimen/default_screen_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/descr_frag_label_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ui_user"
+                android:textColor="@color/colorBlue" />
+
+            <TextView
+                android:id="@+id/descr_frag_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/default_screen_padding"
+                android:text="@{customer.name}"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/tsize_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ui_customer"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorBlue" />
+
+            <TextView
+                android:id="@+id/descr_frag_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingTop="@dimen/default_screen_padding"
+                android:text="@string/debug_text"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/tsize_normal" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

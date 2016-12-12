@@ -1,7 +1,10 @@
 package entrego.com.entrego.ui.main.description
 
 import android.content.Context
+import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,10 +14,15 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.google.gson.Gson
 import entrego.com.entrego.R
+import entrego.com.entrego.databinding.FragmentDescriptionBinding
+import entrego.com.entrego.storage.model.DeliveryModel
 import entrego.com.entrego.storage.model.EntregoPoint
+import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.storage.model.binding.EntregoPointBinding
 import entrego.com.entrego.ui.main.description.presenter.DescriptionPresenter
 import entrego.com.entrego.ui.main.description.presenter.IDescriptionPresenter
 import entrego.com.entrego.ui.main.description.view.IDescreptionView
+import entrego.com.entrego.util.Logger
 import java.util.*
 
 /**
@@ -25,21 +33,10 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
     companion object {
 
-        const val EXT_POINTS = "ext_points_key"
 
-        fun getInstance(addresses: List<EntregoPoint>): DescriptionFragment {
-
-            val gson = Gson()
-            val resultList: Array<String?> = kotlin.arrayOfNulls<String>(addresses.size)
-
-            for (next in 0..addresses.size - 1)
-                resultList[next] = gson.toJson(addresses[next], EntregoPoint::class.java)
-
-            val args = Bundle()
-            args.putStringArray(EXT_POINTS, resultList)
+        fun getInstance(): DescriptionFragment {
 
             val fragment = DescriptionFragment()
-            fragment.arguments = args
             return fragment
         }
     }
@@ -50,23 +47,35 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val view = inflater?.inflate(R.layout.fragment_description, container, false)
+        retainInstance = true
+        val binder: FragmentDescriptionBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_description, container, false)
+        binder.delivery = DeliveryInstance.getInstance()
+        val view = binder.root
 
-        recycler = view?.findViewById(R.id.descr_frag_points_recycler) as RecyclerView
-        progress = view?.findViewById(R.id.addresses_progress) as ProgressBar
+        recycler = view.findViewById(R.id.descr_frag_points_recycler) as RecyclerView
+        progress = view.findViewById(R.id.addresses_progress) as ProgressBar
+
         return view
+
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Logger.logd("FragmentView have been destroyed")
+    }
 
     override fun onStart() {
         super.onStart()
         presenter.onStart(this)
-        retainInstance = true
-        if (arguments != null) {
-            val pointsListJson = arguments.getStringArray(EXT_POINTS)
-            val gson = Gson()
-            val pointsListObject: ArrayList<EntregoPoint> = pointsListJson.mapTo(ArrayList()) { gson.fromJson(it, EntregoPoint::class.java) }
-            presenter.requestAddresses(pointsListObject)
+        val delivery = DeliveryInstance.getInstance()
+        if (delivery != null) {
+
+            Logger.logd("delivery start")
+
+            recycler?.visibility = View.VISIBLE
+            recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            recycler?.adapter = PointsAdapter(delivery.route)
+            presenter.requestAddresses(delivery.route)
         }
     }
 
@@ -84,12 +93,11 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
     }
 
-    override fun showFullDescription(listAddress: List<EntregoPoint>) {
+    override fun showFullDescription(listAddress: List<EntregoPointBinding>) {
 
-        progress?.visibility = View.GONE
-        recycler?.visibility = View.VISIBLE
-        recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recycler?.adapter = PointsAdapter(listAddress)
+//        progress?.visibility = View.GONE
+//        recycler?.visibility = View.VISIBLE
+//        recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
     }
 }

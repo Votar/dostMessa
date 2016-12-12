@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,14 +17,12 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import entrego.com.entrego.R
 import entrego.com.entrego.location.LocationTracker
 import entrego.com.entrego.location.diraction.Route
-import entrego.com.entrego.storage.model.DeliveryModel
-import entrego.com.entrego.storage.model.EntregoPoint
+import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.ui.main.description.DescriptionFragment
 import entrego.com.entrego.ui.main.home.presenter.HomePresenter
 import entrego.com.entrego.ui.main.home.presenter.IHomePresenter
 import entrego.com.entrego.ui.main.home.view.IHomeView
 import entrego.com.entrego.util.UserMessageUtil
-import kotlinx.android.synthetic.main.fragment_description.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 
@@ -37,6 +34,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
 
     val presenter: IHomePresenter = HomePresenter(this)
+
     var mCurrentLocation: LatLng? = null
     var mMap: GoogleMap? = null
 
@@ -75,38 +73,42 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         }
     }
 
-    override fun prepareDelivery(delivery: DeliveryModel) {
+    override fun prepareDelivery() {
 
-        //add start point
-        val startLatLng = LatLng(delivery.route.start.latitude, delivery.route.start.longitude)
-        mMap?.addMarker(MarkerOptions()
-                .position(startLatLng)
-                .draggable(false)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_pin))
-                .title(getString(R.string.start_point))
-                .snippet("" + delivery.customer.company + "\n" + delivery.customer.name))
+        val delivery = DeliveryInstance.getInstance()
 
-        //add finish point
-        val finishLatLng = LatLng(delivery.route.destination.latitude, delivery.route.destination.longitude)
-        mMap?.addMarker(MarkerOptions()
-                .position(finishLatLng)
-                .draggable(false)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.finish_pin))
-                .title(getString(R.string.finish_point)))
+        if (delivery != null) {
+            //add start point
+            val startLatLng = LatLng(delivery.route.start.latitude, delivery.route.start.longitude)
+            mMap?.addMarker(MarkerOptions()
+                    .position(startLatLng)
+                    .draggable(false)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_pin))
+                    .title(getString(R.string.start_point))
+                    .snippet("" + delivery.customer.company + "\n" + delivery.customer.name))
+
+            //add finish point
+            val finishLatLng = LatLng(delivery.route.destination.latitude, delivery.route.destination.longitude)
+            mMap?.addMarker(MarkerOptions()
+                    .position(finishLatLng)
+                    .draggable(false)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.finish_pin))
+                    .title(getString(R.string.finish_point)))
 
 
-        if (home_sliding_view != null) {
+            if (home_sliding_view != null) {
 
-            sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+                sliding_layout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
 
-            val list = listOf(delivery.route.start, delivery.route.destination)
-            val fragment = DescriptionFragment.getInstance(list)
 
-            fragmentManager.beginTransaction()
-                    .replace(R.id.home_sliding_view, fragment)
-                    .commit()
+                val fragment = DescriptionFragment.getInstance()
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.home_sliding_view, fragment)
+                        .commit()
+            }
+
         }
-
 
     }
 

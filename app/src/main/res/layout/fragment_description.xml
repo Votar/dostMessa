@@ -1,206 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
 
-    <RelativeLayout
+        <variable
+            name="delivery"
+            type="entrego.com.entrego.storage.model.binding.DeliveryInstance" />
+    </data>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/description_header_height"
-        android:padding="@dimen/default_screen_padding">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/descr_frag_label_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ui_user"
-                android:textColor="@color/colorBlue" />
-
-            <TextView
-                android:id="@+id/descr_frag_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/default_screen_padding"
-                android:text="@string/debug_text"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/tsize_normal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ui_customer"
-                android:textAlignment="textEnd"
-                android:textColor="@color/colorBlue" />
-
-            <TextView
-                android:id="@+id/descr_frag_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:paddingTop="@dimen/default_screen_padding"
-                android:text="@string/debug_text"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/tsize_normal" />
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorGrey"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
         android:orientation="vertical">
 
+
+        <include
+            layout="@layout/include_delivery_header"
+            bind:customer="@{delivery.customer}" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorGrey"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/default_screen_padding">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/descr_frag_order_type"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/default_screen_padding">
+
+                    <TextView
+                        android:id="@+id/descr_frag_order_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/debug_text"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/tsize_normal" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="fill_parent"
+                        android:background="@color/colorDivider" />
+
+                    <TextView
+                        android:id="@+id/descr_frag_order_schedule"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/debug_text"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/tsize_normal" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="fill_parent"
+                        android:background="@color/colorDivider" />
+
+                    <TextView
+                        android:id="@+id/descr_frag_order_dimensions"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/debug_text"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/tsize_normal" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    style="@style/ClickableView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/debug_text"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/tsize_normal" />
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="4dp"
+                        app:srcCompat="@drawable/call_icon" />
+                </RelativeLayout>
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
-                    android:background="@color/colorDivider" />
+                    android:layout_gravity="center"
+                    android:background="@color/colorDivider"
 
-                <TextView
-                    android:id="@+id/descr_frag_order_schedule"
+                    />
+
+                <RelativeLayout
+                    style="@style/ClickableView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/debug_text"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/tsize_normal" />
+                    android:layout_weight="1">
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="fill_parent"
-                    android:background="@color/colorDivider" />
-
-                <TextView
-                    android:id="@+id/descr_frag_order_dimensions"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/debug_text"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/tsize_normal" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="4dp"
+                        app:srcCompat="@drawable/chat_icon" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorDivider" />
-
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@color/colorTomato"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="@dimen/default_screen_padding">
 
-            <RelativeLayout
-                style="@style/ClickableView"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:text="@android:string/cancel"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite" />
+        </FrameLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="4dp"
-                    app:srcCompat="@drawable/call_icon" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:background="@color/colorDivider"
-
-                />
-
-            <RelativeLayout
-                style="@style/ClickableView"
-                android:layout_width="0dp"
+            <ProgressBar
+                android:id="@+id/addresses_progress"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="4dp"
-                    app:srcCompat="@drawable/chat_icon" />
-            </RelativeLayout>
-        </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/descr_frag_points_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorTomato"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="@dimen/default_screen_padding">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@android:string/cancel"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite" />
-    </FrameLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ProgressBar
-            android:id="@+id/addresses_progress"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/descr_frag_points_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-
-</LinearLayout>
+</layout>

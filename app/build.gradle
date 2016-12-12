@@ -38,6 +38,18 @@ android {
     }
     productFlavors {
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    dependencies {
+        kapt "com.android.databinding:compiler:$android_plugin_version"
+    }
+
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {

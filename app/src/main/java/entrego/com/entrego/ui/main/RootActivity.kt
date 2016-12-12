@@ -3,6 +3,7 @@ package entrego.com.entrego.ui.main
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.databinding.Observable
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -22,6 +23,7 @@ import android.widget.TextView
 import entrego.com.entrego.R
 import entrego.com.entrego.location.LocationService
 import entrego.com.entrego.location.LocationTracker
+import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.AuthActivity
 import entrego.com.entrego.ui.main.account.AccountFragment
@@ -34,6 +36,7 @@ import kotlinx.android.synthetic.main.content_root.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 class RootActivity : AppCompatActivity() {
 
@@ -185,4 +188,9 @@ class RootActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
+
+
+
+
+
 }

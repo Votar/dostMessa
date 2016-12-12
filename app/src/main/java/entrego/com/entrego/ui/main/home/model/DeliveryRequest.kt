@@ -1,9 +1,10 @@
 package entrego.com.entrego.ui.main.home.model
 
+import entrego.com.entrego.storage.model.DeliveryModel
+import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.util.Logger
 import entrego.com.entrego.web.api.ApiCreator
 import entrego.com.entrego.web.api.EntregoApi
-import entrego.com.entrego.storage.model.DeliveryModel
-import entrego.com.entrego.util.Logger
 import entrego.com.entrego.web.model.request.delivery.EntregoResultGetDelivery
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +16,7 @@ import retrofit2.Response
 object DeliveryRequest {
 
     interface ResultGetDelivery {
-        fun onSuccessGetDelivery(delivery: DeliveryModel?)
+        fun onSuccessGetDelivery()
         fun onFailureGetDelivery(code: Int?, message: String?)
     }
 
@@ -32,9 +33,8 @@ object DeliveryRequest {
 
                             when (responseResult.code) {
                                 0 -> {
-                                    listener?.onSuccessGetDelivery(responseResult.payload)
-
-
+                                    DeliveryInstance.createInstance(responseResult.payload)
+                                    listener?.onSuccessGetDelivery()
                                 }
 
                                 else -> listener?.onFailureGetDelivery(responseResult.code, "")

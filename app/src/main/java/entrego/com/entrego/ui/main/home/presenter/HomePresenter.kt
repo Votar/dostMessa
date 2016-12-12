@@ -10,6 +10,8 @@ import entrego.com.entrego.location.diraction.DirectionFinder
 import entrego.com.entrego.location.diraction.DirectionFinderListener
 import entrego.com.entrego.location.diraction.Route
 import entrego.com.entrego.storage.model.DeliveryModel
+import entrego.com.entrego.storage.model.EntregoRouteModel
+import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.main.home.model.DeliveryRequest
 import entrego.com.entrego.ui.main.home.view.IHomeView
@@ -21,35 +23,34 @@ import org.greenrobot.eventbus.EventBus
 /**
  * Created by bertalt on 06.12.16.
  */
-class HomePresenter(var view: IHomeView) : IHomePresenter {
+class HomePresenter(var view: IHomeView?) : IHomePresenter {
 
 
     val getDeliveryListener = object : DeliveryRequest.ResultGetDelivery {
 
-        override fun onSuccessGetDelivery(delivery: DeliveryModel?) {
+        override fun onSuccessGetDelivery() {
 
-            if (delivery != null) {
+            if (view != null) {
+                val delivery = DeliveryInstance.getInstance()
+                if (delivery != null) {
 
-                view.prepareDelivery(delivery)
-                DirectionFinder(getDirectionListener,
-                        delivery.route.start.toDirectionFormat(),
-                        delivery.route.destination.toDirectionFormat(),
-                        view.getFragmentContext().getString(R.string.google_maps_key))
-                        .execute()
+                    view!!.prepareDelivery()
+                    requestDirection(delivery.route)
 
-            } else {
-                view.prepareNoDelivery()
+                } else {
+                    view!!.prepareNoDelivery()
+                }
             }
         }
 
         override fun onFailureGetDelivery(code: Int?, message: String?) {
 
-            view.prepareNoDelivery()
+            view?.prepareNoDelivery()
 
             when (code) {
 
                 2 -> EventBus.getDefault().post(LogoutEvent())
-                null -> view.showMessage("")
+                null -> view?.showMessage("")
             }
         }
     }
@@ -65,7 +66,8 @@ class HomePresenter(var view: IHomeView) : IHomePresenter {
 
 
             if (route != null) {
-                view.buildRoute(route[0])
+                DeliveryInstance.getInstance().path = route[0]
+                view?.buildRoute(route[0])
             }
         }
 
@@ -73,15 +75,33 @@ class HomePresenter(var view: IHomeView) : IHomePresenter {
 
     override fun onCreate() {
 
-        val token = EntregoStorage(view.getFragmentContext()).getToken()
-        if (!token.isEmpty()) {
-            DeliveryRequest.requestDelivery(token, getDeliveryListener)
+        val delivery = DeliveryInstance.getInstance()
+        if (delivery == null) {
+            if (view != null) {
+                val token = EntregoStorage(view!!.getFragmentContext()).getToken()
+                if (!token.isEmpty()) {
+                    DeliveryRequest.requestDelivery(token, getDeliveryListener)
+                }
+            }
+        } else {
+            view?.prepareDelivery()
+            if (delivery.path == null)
+                requestDirection(delivery.route)
+            else
+                view?.buildRoute(delivery.path)
         }
+    }
 
-
+    fun requestDirection(route: EntregoRouteModel) {
+        DirectionFinder(getDirectionListener,
+                route.start.toDirectionFormat(),
+                route.destination.toDirectionFormat(),
+                view!!.getFragmentContext().getString(R.string.google_maps_key))
+                .execute()
     }
 
     override fun onDestroy() {
 
+        view = null
     }
 }

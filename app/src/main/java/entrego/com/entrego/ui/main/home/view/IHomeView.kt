@@ -11,7 +11,7 @@ interface IHomeView {
 
     fun moveCamera(latitude: Double, longitude: Double)
     fun prepareNoDelivery()
-    fun prepareDelivery(delivery: DeliveryModel)
+    fun prepareDelivery()
     fun buildRoute(route: Route)
     fun getFragmentContext() :Context
     fun showMessage(message:String)

@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import entrego.com.entrego.R
 import entrego.com.entrego.storage.model.EntregoPoint
+import entrego.com.entrego.storage.model.binding.EntregoPointBinding
 
 /**
  * Created by bertalt on 29.11.16.
@@ -37,12 +38,16 @@ fun ProgressDialog.loading() {
     this.show()
 }
 
-fun EntregoPoint.toDirectionFormat(): String {
+fun EntregoPoint.toDirectionFormat(): String =
+        StringBuilder()
+                .append(this.latitude)
+                .append(",")
+                .append(this.longitude)
+                .toString()
 
-    return StringBuilder().
-            append(this.latitude)
-            .append(",")
-            .append(this.longitude)
-            .toString()
-
-}
+fun EntregoPointBinding.toDirectionFormat(): String =
+        StringBuilder()
+                .append(this.latitude)
+                .append(",")
+                .append(this.longitude)
+                .toString()
