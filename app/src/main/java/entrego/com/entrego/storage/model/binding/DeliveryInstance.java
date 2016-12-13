@@ -42,13 +42,17 @@ public class DeliveryInstance extends BaseObservable {
     }
 
     private int id;
+    @Bindable
     private CustomerModel customer;
+    @Bindable
     private EntregoRouteModel route;
+    @Bindable
     private Route path;
 
 
     public void setPath(Route path) {
         this.path = path;
+        notifyPropertyChanged(BR.customer);
     }
 
     public Route getPath() {

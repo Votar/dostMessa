@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="cancel_reasons">
+        <item>Otak</item>
+        <item>Zahotel</item>
+    </array>
+</resources>

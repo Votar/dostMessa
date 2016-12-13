@@ -26,16 +26,15 @@ class DrawerFragment : Fragment(), IDrawerView {
     var binder: FragmentDrawerBinding? = null
     override fun showEmptyView() {
 
-        binder?.delivery = DeliveryInstance.getInstance()
-        drawer_delivery_ll?.visibility = View.GONE
+//        drawer_delivery_ll?.visibility = View.GONE
 
+        binder?.invalidateAll()
     }
 
     override fun showDeliveryView() {
 
-        drawer_delivery_ll?.visibility = View.VISIBLE
-        binder?.delivery = DeliveryInstance.getInstance()
-
+//        drawer_delivery_ll?.visibility = View.VISIBLE
+        binder?.invalidateAll()
     }
 
 
@@ -63,10 +62,10 @@ class DrawerFragment : Fragment(), IDrawerView {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         retainInstance = true
-        val binder: FragmentDrawerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_drawer, container, false)
-        binder.delivery = DeliveryInstance.getInstance()
+        binder = DataBindingUtil.inflate(inflater, R.layout.fragment_drawer, container, false)
+        binder?.delivery = DeliveryInstance.getInstance()
 
-        return binder.root
+        return binder?.root
     }
 
 }

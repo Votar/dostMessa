@@ -19,10 +19,12 @@ import entrego.com.entrego.storage.model.DeliveryModel
 import entrego.com.entrego.storage.model.EntregoPoint
 import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.storage.model.binding.EntregoPointBinding
+import entrego.com.entrego.ui.main.delivery.description.cancel.CancelDeliveryFragment
 import entrego.com.entrego.ui.main.delivery.description.presenter.DescriptionPresenter
 import entrego.com.entrego.ui.main.delivery.description.presenter.IDescriptionPresenter
 import entrego.com.entrego.ui.main.delivery.description.view.IDescreptionView
 import entrego.com.entrego.util.Logger
+import kotlinx.android.synthetic.main.fragment_description.*
 import java.util.*
 
 /**
@@ -74,6 +76,10 @@ class DescriptionFragment : Fragment(), IDescreptionView {
             recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             recycler?.adapter = PointsAdapter(delivery.route)
             presenter.requestAddresses(delivery.route)
+
+            fragment_descr_cancel.setOnClickListener {
+                CancelDeliveryFragment().show(fragmentManager, null)
+            }
         }
     }
 
