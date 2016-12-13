@@ -90,14 +90,14 @@
                     style="@style/ClickableView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:padding="4dp"
-                        app:srcCompat="@drawable/call_icon" />
+                        app:srcCompat="@drawable/ic_phone_32dp" />
                 </RelativeLayout>
 
                 <View
@@ -112,14 +112,14 @@
                     style="@style/ClickableView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:padding="4dp"
-                        app:srcCompat="@drawable/chat_icon" />
+                        app:srcCompat="@drawable/ic_question_answer_32dp" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -133,6 +133,7 @@
             android:padding="@dimen/default_screen_padding">
 
             <TextView
+                android:textAllCaps="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@android:string/cancel"

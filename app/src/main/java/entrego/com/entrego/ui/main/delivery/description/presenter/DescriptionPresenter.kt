@@ -1,12 +1,12 @@
-package entrego.com.entrego.ui.main.description.presenter
+package entrego.com.entrego.ui.main.delivery.description.presenter
 
 import android.os.AsyncTask
 import entrego.com.entrego.storage.model.EntregoPoint
 import entrego.com.entrego.storage.model.EntregoRouteModel
 import entrego.com.entrego.storage.model.binding.EntregoPointBinding
-import entrego.com.entrego.ui.main.description.model.GeocoderGetAddress
-import entrego.com.entrego.ui.main.description.model.GeocoderGetAddressListener
-import entrego.com.entrego.ui.main.description.view.IDescreptionView
+import entrego.com.entrego.ui.main.delivery.description.model.GeocoderGetAddress
+import entrego.com.entrego.ui.main.delivery.description.model.GeocoderGetAddressListener
+import entrego.com.entrego.ui.main.delivery.description.view.IDescreptionView
 
 /**
  * Created by bertalt on 07.12.16.

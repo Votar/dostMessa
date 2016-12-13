@@ -1,4 +1,4 @@
-package entrego.com.entrego.ui.main.description
+package entrego.com.entrego.ui.main.delivery.description
 
 import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil

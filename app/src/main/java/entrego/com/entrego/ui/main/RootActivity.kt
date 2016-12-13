@@ -29,6 +29,7 @@ import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.AuthActivity
 import entrego.com.entrego.ui.main.account.AccountFragment
+import entrego.com.entrego.ui.main.drawer.DrawerFragment
 import entrego.com.entrego.ui.main.home.HomeFragment
 import entrego.com.entrego.ui.main.home.model.DeliveryRequest
 import entrego.com.entrego.util.Logger
@@ -36,6 +37,7 @@ import entrego.com.entrego.util.event_bus.LogoutEvent
 import entrego.com.entrego.util.ui.ViewPagerAdapter
 import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
+
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -57,6 +59,13 @@ class RootActivity : AppCompatActivity() {
         toggle.syncState()
 
         setupViewPager(main_viewpager)
+
+        val fragment = DrawerFragment()
+
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.root_drawer_container, fragment)
+                .commit()
+
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
         root_btn_log_out.setOnClickListener {
@@ -69,7 +78,9 @@ class RootActivity : AppCompatActivity() {
         val token = EntregoStorage(this).getToken()
         DeliveryRequest.requestDelivery(token, null)
 
-//        Handler(Looper.getMainLooper()).postDelayed({DeliveryInstance.getInstance().update(null)}, 5000)
+
+        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().update(null) }, 5000)
+        Handler(Looper.getMainLooper()).postDelayed({ DeliveryRequest.requestDelivery(token, null) }, 7000)
     }
 
     override fun onStart() {

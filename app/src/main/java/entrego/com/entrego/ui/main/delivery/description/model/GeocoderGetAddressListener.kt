@@ -1,4 +1,4 @@
-package entrego.com.entrego.ui.main.description.model
+package entrego.com.entrego.ui.main.delivery.description.model
 
 import entrego.com.entrego.storage.model.EntregoPoint
 import entrego.com.entrego.storage.model.binding.EntregoPointBinding

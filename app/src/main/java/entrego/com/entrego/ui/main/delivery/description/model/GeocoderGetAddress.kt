@@ -1,4 +1,4 @@
-package entrego.com.entrego.ui.main.description.model
+package entrego.com.entrego.ui.main.delivery.description.model
 
 import android.content.Context
 import android.location.Geocoder

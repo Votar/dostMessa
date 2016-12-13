@@ -1,4 +1,4 @@
-package entrego.com.entrego.ui.main.description
+package entrego.com.entrego.ui.main.delivery.description
 
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -19,9 +19,9 @@ import entrego.com.entrego.storage.model.DeliveryModel
 import entrego.com.entrego.storage.model.EntregoPoint
 import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.storage.model.binding.EntregoPointBinding
-import entrego.com.entrego.ui.main.description.presenter.DescriptionPresenter
-import entrego.com.entrego.ui.main.description.presenter.IDescriptionPresenter
-import entrego.com.entrego.ui.main.description.view.IDescreptionView
+import entrego.com.entrego.ui.main.delivery.description.presenter.DescriptionPresenter
+import entrego.com.entrego.ui.main.delivery.description.presenter.IDescriptionPresenter
+import entrego.com.entrego.ui.main.delivery.description.view.IDescreptionView
 import entrego.com.entrego.util.Logger
 import java.util.*
 

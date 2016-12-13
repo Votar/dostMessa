@@ -18,6 +18,8 @@ public class DeliveryInstance extends BaseObservable {
     @Bindable
     private static DeliveryInstance instance = new DeliveryInstance();
 
+    private DeliveryInstance() {    }
+
     public static DeliveryInstance getInstance() {
         return instance;
     }
@@ -43,15 +45,6 @@ public class DeliveryInstance extends BaseObservable {
     private CustomerModel customer;
     private EntregoRouteModel route;
     private Route path;
-
-    private DeliveryInstance(int id, CustomerModel customer, EntregoRouteModel route) {
-        this.id = id;
-        this.customer = customer;
-        this.route = route;
-    }
-
-    private DeliveryInstance() {
-    }
 
 
     public void setPath(Route path) {

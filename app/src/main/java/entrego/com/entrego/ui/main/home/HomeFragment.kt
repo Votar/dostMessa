@@ -21,7 +21,7 @@ import entrego.com.entrego.storage.model.CustomerModel
 import entrego.com.entrego.storage.model.DeliveryModel
 import entrego.com.entrego.storage.model.EntregoRouteModel
 import entrego.com.entrego.storage.model.binding.DeliveryInstance
-import entrego.com.entrego.ui.main.description.DescriptionFragment
+import entrego.com.entrego.ui.main.delivery.description.DescriptionFragment
 import entrego.com.entrego.ui.main.home.presenter.HomePresenter
 import entrego.com.entrego.ui.main.home.presenter.IHomePresenter
 import entrego.com.entrego.ui.main.home.view.IHomeView

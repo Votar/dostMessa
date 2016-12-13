@@ -35,10 +35,8 @@ class HomePresenter : IHomePresenter {
                 BR.instance -> {
                     onBuildView()
                 }
-
             }
         }
-
     }
 
     override fun onStart(view: IHomeView) {

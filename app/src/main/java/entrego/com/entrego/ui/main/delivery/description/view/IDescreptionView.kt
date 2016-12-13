@@ -1,4 +1,4 @@
-package entrego.com.entrego.ui.main.description.view
+package entrego.com.entrego.ui.main.delivery.description.view
 
 import android.content.Context
 import entrego.com.entrego.storage.model.EntregoPoint
