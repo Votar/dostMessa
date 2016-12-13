@@ -74,7 +74,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.sothree.slidinguppanel:library:3.3.1'
     compile 'com.android.support:appcompat-v7:25.0.0'
-
+    compile 'com.byox.drawview:drawview:1.0.5'
     compile 'com.neovisionaries:nv-websocket-client:1.26'
 
     testCompile 'junit:junit:4.12'

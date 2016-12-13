@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/default_screen_padding">
+
+
+        <com.byox.drawview.views.DrawView
+            android:id="@+id/sign_drawing_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:dv_draw_mode="draw"
+            app:dv_draw_style="stroke"
+            app:dv_draw_tool="pen"
+            app:dv_draw_width="4" />
+
+        <ImageButton
+            android:id="@+id/sign_dismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_off_black_32dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sign_title"
+            android:textColor="@color/colorDarkBlue" />
+
+        <ImageButton
+            android:id="@+id/sign_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_done_32dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGrey" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/default_screen_padding"
+        android:text="@string/debug_text"
+        android:textSize="@dimen/tsize_large" />
+
+
+</LinearLayout>

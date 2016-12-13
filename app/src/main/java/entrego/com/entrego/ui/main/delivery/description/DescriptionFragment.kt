@@ -68,7 +68,7 @@ class DescriptionFragment : Fragment(), IDescreptionView {
         super.onStart()
         presenter.onStart(this)
         val delivery = DeliveryInstance.getInstance()
-        if (delivery != null) {
+        if (delivery.route != null) {
 
             Logger.logd("delivery start")
 
@@ -77,9 +77,10 @@ class DescriptionFragment : Fragment(), IDescreptionView {
             recycler?.adapter = PointsAdapter(delivery.route)
             presenter.requestAddresses(delivery.route)
 
-            fragment_descr_cancel.setOnClickListener {
-                CancelDeliveryFragment().show(fragmentManager, null)
-            }
+
+        }
+        fragment_descr_cancel.setOnClickListener {
+            CancelDeliveryFragment().show(fragmentManager, null)
         }
     }
 

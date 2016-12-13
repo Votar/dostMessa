@@ -81,4 +81,5 @@
     <string name="realtime_assist">Real time assistance</string>
     <string name="ui_chatting">Support</string>
     <string name="sign_bill">sign bill</string>
+    <string name="sign_title">Please sign bellow</string>
 </resources>

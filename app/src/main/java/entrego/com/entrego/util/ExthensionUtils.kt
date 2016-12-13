@@ -38,13 +38,6 @@ fun ProgressDialog.loading() {
     this.show()
 }
 
-fun EntregoPoint.toDirectionFormat(): String =
-        StringBuilder()
-                .append(this.latitude)
-                .append(",")
-                .append(this.longitude)
-                .toString()
-
 fun EntregoPointBinding.toDirectionFormat(): String =
         StringBuilder()
                 .append(this.latitude)

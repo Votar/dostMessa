@@ -1,5 +1,6 @@
 package entrego.com.entrego.ui.main.drawer
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -15,6 +16,7 @@ import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.ui.main.drawer.presenter.DrawerPresenter
 import entrego.com.entrego.ui.main.drawer.presenter.IDrawerPresenter
 import entrego.com.entrego.ui.main.drawer.view.IDrawerView
+import entrego.com.entrego.ui.sign.SignActivity
 import kotlinx.android.synthetic.main.fragment_drawer.*
 
 /**
@@ -51,6 +53,9 @@ class DrawerFragment : Fragment(), IDrawerView {
     override fun onStart() {
         super.onStart()
         presenter.onStart(this)
+        drawer_sign_bill.setOnClickListener {
+            startSignActivity()
+        }
     }
 
     override fun onStop() {
@@ -67,5 +72,11 @@ class DrawerFragment : Fragment(), IDrawerView {
 
         return binder?.root
     }
+
+    fun startSignActivity() {
+        val intent = Intent(context, SignActivity::class.java)
+        startActivity(intent)
+    }
+
 
 }
