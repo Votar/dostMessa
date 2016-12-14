@@ -177,7 +177,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         startMarker = mMap?.addMarker(MarkerOptions()
                 .position(startLatLng)
                 .draggable(false)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_pin))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                 .title(getString(R.string.start_point)))
 
         //add finish point
@@ -185,7 +185,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         finishMarker = mMap?.addMarker(MarkerOptions()
                 .position(finishLatLng)
                 .draggable(false)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.finish_pin))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 .title(getString(R.string.finish_point)))
 
         if (home_sliding_container != null) {

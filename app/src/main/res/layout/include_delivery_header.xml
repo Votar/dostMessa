@@ -12,9 +12,9 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="@dimen/description_header_height"
-        android:background="@color/colorTransparent"
         android:padding="@dimen/default_screen_padding"
         android:visibility="@{customer != null? View.VISIBLE:View.GONE}">
 
