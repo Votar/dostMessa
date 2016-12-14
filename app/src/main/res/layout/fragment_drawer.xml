@@ -27,13 +27,13 @@
                 android:layout_height="wrap_content"
                 bind:customer="@{delivery.customer}" />
 
-            <include
-                layout="@layout/include_delivery_route"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                bind:route="@{delivery.route}" />
+            <!--<include-->
+                <!--layout="@layout/include_delivery_route"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--bind:route="@{delivery.route}" />-->
 
-       
+
 
             <Button
                 android:id="@+id/drawer_sign_bill"
