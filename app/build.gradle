@@ -76,7 +76,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.byox.drawview:drawview:1.0.5'
     compile 'com.neovisionaries:nv-websocket-client:1.26'
-
+    compile 'com.squareup.picasso:picasso:2.5.2'
     testCompile 'junit:junit:4.12'
 }
 repositories {

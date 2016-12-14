@@ -14,6 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/description_header_height"
+        android:background="@color/colorTransparent"
         android:padding="@dimen/default_screen_padding"
         android:visibility="@{customer != null? View.VISIBLE:View.GONE}">
 
@@ -34,7 +35,7 @@
                 android:id="@+id/descr_frag_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/normal_text_padding"
+                android:paddingTop="@dimen/small_text_padding"
                 android:text="@{customer.name}"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/tsize_normal" />

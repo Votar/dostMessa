@@ -21,4 +21,5 @@
     <dimen name="description_header_height">90dp</dimen>
     <dimen name="dot_size">15dp</dimen>
     <dimen name="normal_text_padding">8dp</dimen>
+    <dimen name="small_text_padding">4dp</dimen>
 </resources>

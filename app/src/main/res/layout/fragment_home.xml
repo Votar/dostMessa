@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
-    app:umanoDragView="@+id/home_sliding_view"
+    app:umanoClipPanel="false"
+    app:umanoDragView="@+id/home_sliding_container"
     app:umanoPanelHeight="@dimen/description_header_height"
     app:umanoShadowHeight="0dp">
 
@@ -19,6 +20,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <include
+                android:id="@+id/home_navigation_ll"
+                layout="@layout/include_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <com.google.android.gms.maps.MapView
                 android:id="@+id/map_view"
                 android:layout_width="match_parent"
@@ -28,8 +35,8 @@
                 android:id="@+id/home_my_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:layout_margin="@dimen/default_screen_padding"
                 android:layout_marginBottom="@dimen/default_screen_padding"
                 app:backgroundTint="@color/colorWhite"
@@ -40,16 +47,21 @@
     </FrameLayout>
 
     <RelativeLayout
-        android:id="@+id/home_sliding_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
 
         <FrameLayout
             android:id="@+id/home_sliding_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite" />
 
-        </FrameLayout>
-
+        <View
+            android:layout_width="60dp"
+            android:layout_height="3dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/normal_text_padding"
+            android:background="@color/colorGrey" />
     </RelativeLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

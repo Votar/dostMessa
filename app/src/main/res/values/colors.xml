@@ -19,4 +19,5 @@
     <color name="colorDivider">#cdcdcd</color>
     <color name="colorTomato">#e64245</color>
     <color name="colorGrey">#ebebeb</color>
+    <color name="colorTransparentGrey">#c4616160</color>
 </resources>

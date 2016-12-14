@@ -81,7 +81,7 @@ class RootActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().update(null) }, 5000)
         Handler(Looper.getMainLooper()).postDelayed({ DeliveryRequest.requestDelivery(token, null) }, 7000)
-        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().route.start.address= "asdads" }, 8000)
+//        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().route.start.address= "asdads" }, 8000)
     }
 
     override fun onStart() {

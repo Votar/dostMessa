@@ -82,4 +82,5 @@
     <string name="ui_chatting">Support</string>
     <string name="sign_bill">sign bill</string>
     <string name="sign_title">Please sign bellow</string>
+    <string name="ui_navigation">Navigation</string>
 </resources>

@@ -7,12 +7,14 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import entrego.com.entrego.R
 import entrego.com.entrego.ui.main.account.profile.ProfileFragment
 import entrego.com.entrego.ui.main.account.profile.VehicleFragment
 import entrego.com.entrego.ui.main.account.profile.edit.EditProfileActivity
 import entrego.com.entrego.ui.main.account.vehicle.edit.EditVehicleActivity
 import entrego.com.entrego.util.Logger
+import entrego.com.entrego.util.loadPicasson
 import entrego.com.entrego.util.ui.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
 
@@ -32,7 +34,6 @@ class AccountFragment : Fragment() {
         retainInstance = true
         val view = inflater?.inflate(R.layout.fragment_account, container, false)
 
-
         return view
     }
 
@@ -45,6 +46,7 @@ class AccountFragment : Fragment() {
                 1 -> startActivityForResult(Intent(context, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
             }
         }
+        account_user_pic.loadPicasson(R.drawable.call_icon)
     }
 
     override fun onResume() {

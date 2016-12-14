@@ -6,8 +6,10 @@ import android.content.Context
 import android.content.DialogInterface
 import android.support.v4.app.NavUtils
 import android.text.TextUtils
+import android.widget.ImageView
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
+import com.squareup.picasso.Picasso
 import entrego.com.entrego.R
 import entrego.com.entrego.storage.model.EntregoPoint
 import entrego.com.entrego.storage.model.binding.EntregoPointBinding
@@ -44,3 +46,8 @@ fun EntregoPointBinding.toDirectionFormat(): String =
                 .append(",")
                 .append(this.longitude)
                 .toString()
+
+
+fun ImageView.loadPicasson(resId: Int){
+    Picasso.with(this.context).load(resId).into(this)
+}
