@@ -12,7 +12,7 @@ import entrego.com.entrego.databinding.FragmentDescriptionBinding
 import entrego.com.entrego.databinding.FragmentDrawerBinding
 import entrego.com.entrego.storage.model.CustomerModel
 import entrego.com.entrego.storage.model.EntregoRouteModel
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.binding.DeliveryInstance
 import entrego.com.entrego.ui.main.drawer.presenter.DrawerPresenter
 import entrego.com.entrego.ui.main.drawer.presenter.IDrawerPresenter
 import entrego.com.entrego.ui.main.drawer.view.IDrawerView

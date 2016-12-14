@@ -4,7 +4,7 @@ import android.content.Context
 import android.location.Geocoder
 import android.os.AsyncTask
 import entrego.com.entrego.storage.model.EntregoPointStatus
-import entrego.com.entrego.storage.model.binding.EntregoPointBinding
+import entrego.com.entrego.binding.EntregoPointBinding
 import java.io.IOException
 
 /**

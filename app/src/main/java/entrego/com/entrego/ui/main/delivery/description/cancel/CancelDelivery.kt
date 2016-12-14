@@ -3,7 +3,7 @@ package entrego.com.entrego.ui.main.delivery.description.cancel
 import android.os.Handler
 import android.os.Looper
 import android.support.annotation.Nullable
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.binding.DeliveryInstance
 
 /**
  * Created by bertalt on 13.12.16.

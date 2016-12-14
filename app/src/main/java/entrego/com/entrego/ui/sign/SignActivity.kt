@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.byox.drawview.enums.DrawingCapture
 import entrego.com.entrego.R
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.binding.DeliveryInstance
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.sign.presenter.ISignPresenter
 import entrego.com.entrego.ui.sign.presenter.SignPresenter

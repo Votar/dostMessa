@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.databinding.DataBindingUtil
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
@@ -15,22 +17,19 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import entrego.com.entrego.R
+import entrego.com.entrego.binding.DeliveryInstance
+import entrego.com.entrego.databinding.FragmentHomeBinding
 import entrego.com.entrego.location.LocationTracker
 import entrego.com.entrego.location.diraction.Route
-import entrego.com.entrego.storage.model.CustomerModel
-import entrego.com.entrego.storage.model.DeliveryModel
 import entrego.com.entrego.storage.model.EntregoRouteModel
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
 import entrego.com.entrego.ui.main.delivery.description.DescriptionFragment
 import entrego.com.entrego.ui.main.home.presenter.HomePresenter
 import entrego.com.entrego.ui.main.home.presenter.IHomePresenter
 import entrego.com.entrego.ui.main.home.view.IHomeView
 import entrego.com.entrego.util.UserMessageUtil
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.*
-
-import android.net.Uri
 import kotlinx.android.synthetic.main.include_navigation.*
+import java.util.*
 
 
 /**
@@ -46,23 +45,26 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     var mCurrentLocation: LatLng? = null
     var mMap: GoogleMap? = null
     var mPolylinePath: ArrayList<Polyline> = ArrayList()
-
+    var mBinder: FragmentHomeBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val view = inflater?.inflate(R.layout.fragment_home, container, false)
 
-        val mapView = view!!.findViewById(R.id.map_view) as MapView
+        val binder: FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binder.delivery = DeliveryInstance.getInstance()
+        val mapView = binder.mapView
 
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
+
 
         try {
             MapsInitializer.initialize(activity.applicationContext)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return view
+        mBinder = binder
+        return binder.root
     }
 
 
@@ -145,13 +147,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
         removePolyline()
         mMap?.clear()
-        home_navigation_ll?.visibility = View.GONE
-
-        if (sliding_layout != null) {
-            sliding_layout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
-//            home_sliding_container.visibility = View.GONE
-        }
-
+        sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
+        home_navigation_ll.visibility = View.GONE
         val description = fragmentManager.findFragmentByTag(DescriptionFragment.TAG)
         if (description != null)
             fragmentManager.beginTransaction()
@@ -165,11 +162,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         mPolylinePath.clear()
     }
 
+    var startMarker: Marker? = null
+    var finishMarker: Marker? = null
+
     override fun prepareRoute(route: EntregoRouteModel) {
 
+        mBinder?.delivery = DeliveryInstance.getInstance()
+        mBinder?.invalidateAll()
+
+        startMarker?.remove()
+        finishMarker?.remove()
         //add start point
         val startLatLng = LatLng(route.start.latitude, route.start.longitude)
-        mMap?.addMarker(MarkerOptions()
+        startMarker = mMap?.addMarker(MarkerOptions()
                 .position(startLatLng)
                 .draggable(false)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_pin))
@@ -177,7 +182,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
         //add finish point
         val finishLatLng = LatLng(route.destination.latitude, route.destination.longitude)
-        mMap?.addMarker(MarkerOptions()
+        finishMarker = mMap?.addMarker(MarkerOptions()
                 .position(finishLatLng)
                 .draggable(false)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.finish_pin))
@@ -194,8 +199,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         }
 
         home_navigation_ll.visibility = View.VISIBLE
-        if (route.destination.address != null)
-            home_navigation_address.text = route.destination.address
+
+        home_navigation_address.text = route.destination.address
 
         navigation_clickable_ll.setOnClickListener { showNavigation(startLatLng, finishLatLng) }
 

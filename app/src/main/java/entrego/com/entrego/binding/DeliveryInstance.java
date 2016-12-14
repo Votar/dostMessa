@@ -1,4 +1,4 @@
-package entrego.com.entrego.storage.model.binding;
+package entrego.com.entrego.binding;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

@@ -5,7 +5,7 @@ import entrego.com.entrego.BR
 import entrego.com.entrego.location.diraction.DirectionFinder
 import entrego.com.entrego.location.diraction.DirectionFinderListener
 import entrego.com.entrego.location.diraction.Route
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.binding.DeliveryInstance
 import entrego.com.entrego.ui.main.home.view.IHomeView
 import entrego.com.entrego.util.toDirectionFormat
 

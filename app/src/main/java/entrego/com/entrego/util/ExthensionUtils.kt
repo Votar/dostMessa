@@ -12,7 +12,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.squareup.picasso.Picasso
 import entrego.com.entrego.R
 import entrego.com.entrego.storage.model.EntregoPoint
-import entrego.com.entrego.storage.model.binding.EntregoPointBinding
+import entrego.com.entrego.binding.EntregoPointBinding
 
 /**
  * Created by bertalt on 29.11.16.

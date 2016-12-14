@@ -2,7 +2,7 @@ package entrego.com.entrego.ui.main.drawer.presenter
 
 import android.databinding.Observable
 import entrego.com.entrego.BR
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.binding.DeliveryInstance
 import entrego.com.entrego.ui.main.drawer.view.IDrawerView
 import entrego.com.entrego.ui.main.home.model.DeliveryRequest
 import entrego.com.entrego.util.Logger

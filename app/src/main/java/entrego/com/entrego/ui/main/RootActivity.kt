@@ -25,7 +25,7 @@ import android.widget.TextView
 import entrego.com.entrego.R
 import entrego.com.entrego.location.LocationService
 import entrego.com.entrego.location.LocationTracker
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.binding.DeliveryInstance
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.ui.auth.AuthActivity
 import entrego.com.entrego.ui.main.account.AccountFragment

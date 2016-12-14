@@ -1,8 +1,7 @@
-package entrego.com.entrego.storage.model.binding;
+package entrego.com.entrego.binding;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.view.View;
 
 import entrego.com.entrego.BR;
 
@@ -14,7 +13,7 @@ public class EntregoPointBinding extends BaseObservable{
 
     private double latitude;
     private double longitude;
-    @Bindable private String address ="Loading...";
+    @Bindable private String address ="";
     @Bindable private String status ="";
 
     public EntregoPointBinding(double latitude, double longitude, String address, String status) {

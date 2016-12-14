@@ -17,6 +17,6 @@
         android:layout_below="@+id/tab_icon"
         android:layout_centerHorizontal="true"
         android:fontFamily="@string/font_fontFamily_medium"
-        android:textColor="@color/colorFont"
+        android:textColor="@color/colorWhite"
         android:textSize="@dimen/tab_label" />
 </RelativeLayout>

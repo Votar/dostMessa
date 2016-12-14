@@ -1,7 +1,7 @@
 package entrego.com.entrego.ui.main.home.model
 
 import entrego.com.entrego.storage.model.DeliveryModel
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
+import entrego.com.entrego.binding.DeliveryInstance
 import entrego.com.entrego.util.Logger
 import entrego.com.entrego.web.api.ApiCreator
 import entrego.com.entrego.web.api.EntregoApi

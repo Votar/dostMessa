@@ -15,7 +15,7 @@ import entrego.com.entrego.databinding.ItemDeliveryPointBinding
 import entrego.com.entrego.storage.model.EntregoPoint
 import entrego.com.entrego.storage.model.EntregoPointStatus
 import entrego.com.entrego.storage.model.EntregoRouteModel
-import entrego.com.entrego.storage.model.binding.EntregoPointBinding
+import entrego.com.entrego.binding.EntregoPointBinding
 import entrego.com.entrego.storage.preferences.EntregoStorage
 import entrego.com.entrego.util.Logger
 import java.util.*

@@ -17,8 +17,8 @@ import entrego.com.entrego.R
 import entrego.com.entrego.databinding.FragmentDescriptionBinding
 import entrego.com.entrego.storage.model.DeliveryModel
 import entrego.com.entrego.storage.model.EntregoPoint
-import entrego.com.entrego.storage.model.binding.DeliveryInstance
-import entrego.com.entrego.storage.model.binding.EntregoPointBinding
+import entrego.com.entrego.binding.DeliveryInstance
+import entrego.com.entrego.binding.EntregoPointBinding
 import entrego.com.entrego.ui.main.delivery.description.cancel.CancelDeliveryFragment
 import entrego.com.entrego.ui.main.delivery.description.presenter.DescriptionPresenter
 import entrego.com.entrego.ui.main.delivery.description.presenter.IDescriptionPresenter
