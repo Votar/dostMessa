@@ -55,10 +55,13 @@ class RegistrationPresenter(val view: IRegistrationView) : IRegistrationPresente
                         view.successRegistration()
                     }
 
-                    override fun onFailureRegistration(message: String?) {
+                    override fun onFailureRegistration(message: String, code: Int?) {
                         view.hideProgress()
 
-                        view.showMessage(message!!)
+                        when (code) {
+                            3 -> view.setErrorEmailRegistered()
+                            else -> view.showMessage(message)
+                        }
                     }
 
                 })

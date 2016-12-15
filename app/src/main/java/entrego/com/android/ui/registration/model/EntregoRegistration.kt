@@ -21,8 +21,9 @@ class EntregoRegistration(val email: String,
 
     interface ResultListener {
         fun onSuccessRegistration()
-        fun onFailureRegistration(message: String?)
+        fun onFailureRegistration(message: String, code: Int?)
         fun onValidationError(field: FieldErrorResponse)
+
     }
 
     fun requestAsync(listener: ResultListener) {
@@ -37,10 +38,10 @@ class EntregoRegistration(val email: String,
                             when (result.code) {
                                 0 -> listener.onSuccessRegistration()
                                 1 -> if (result.fields.isNotEmpty()) {
-                                        for (next in result.fields)
-                                            listener.onValidationError(next)
-                                    }
-                                else -> listener.onFailureRegistration("")
+                                    for (next in result.fields)
+                                        listener.onValidationError(next)
+                                }
+                                else -> listener.onFailureRegistration("", result.code)
 
                             }
                         }
@@ -48,7 +49,7 @@ class EntregoRegistration(val email: String,
                     }
 
                     override fun onFailure(call: Call<EntregoResultRegistration>?, t: Throwable?) {
-                        listener.onFailureRegistration("" + t?.message)
+                        listener.onFailureRegistration("" + t?.message, null)
                     }
 
                 })

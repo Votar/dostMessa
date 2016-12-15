@@ -16,6 +16,12 @@ import kotlinx.android.synthetic.main.activity_registration.*
 
 class RegistrationActivity : AppCompatActivity(), IRegistrationView {
 
+
+    override fun setErrorEmailRegistered() {
+        registration_edit_name.requestFocus()
+        registration_il_name.error = getString(R.string.error_email_registered)
+    }
+
     override fun setErrorName(message: String) {
         registration_edit_name.requestFocus()
         registration_il_name.error = message
