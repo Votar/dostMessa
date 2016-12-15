@@ -3,7 +3,7 @@ package entrego.com.android.web.api
 import com.google.gson.JsonElement
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.storage.model.UserVehicleModel
-import entrego.com.android.ui.main.account.vehicle.edit.model.UserVehicle
+import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
 import entrego.com.android.web.model.request.auth.AuthBody
 import entrego.com.android.web.model.request.common.ChangePasswordRequest
 import entrego.com.android.web.model.request.delivery.EntregoResultGetDelivery

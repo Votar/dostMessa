@@ -1,6 +1,6 @@
 package entrego.com.android.ui.registration.presenter
 
-import entrego.com.android.ui.auth.model.EntregoRegistration
+import entrego.com.android.ui.registration.model.EntregoRegistration
 import entrego.com.android.ui.registration.view.IRegistrationView
 import entrego.com.android.web.model.response.common.FieldErrorResponse
 

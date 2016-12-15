@@ -78,7 +78,7 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="entrego.com.android.ui.main.account.profile.edit.EditProfileActivity"
+            android:name="entrego.com.android.ui.account.profile.edit.EditProfileActivity"
             android:parentActivityName="entrego.com.android.ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
@@ -86,7 +86,7 @@
                 android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="entrego.com.android.ui.main.account.vehicle.edit.EditVehicleActivity"
+            android:name="entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity"
             android:parentActivityName="entrego.com.android.ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
@@ -97,7 +97,7 @@
         <service android:name="entrego.com.android.location.LocationService" />
 
         <activity
-            android:name="entrego.com.android.ui.help.HelpActivity"
+            android:name="entrego.com.android.ui.account.help.HelpActivity"
             android:parentActivityName="entrego.com.android.ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
@@ -105,12 +105,12 @@
                 android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="entrego.com.android.ui.help.chat.ChatHelpActivity"
-            android:parentActivityName="entrego.com.android.ui.help.HelpActivity"
+            android:name="entrego.com.android.ui.account.help.chat.ChatHelpActivity"
+            android:parentActivityName="entrego.com.android.ui.account.help.HelpActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="entrego.com.android.ui.help.HelpActivity" />
+                android:value="entrego.com.android.ui.account.help.HelpActivity" />
         </activity>
         <activity android:name="entrego.com.android.ui.sign.SignActivity"
             android:parentActivityName="entrego.com.android.ui.main.RootActivity"

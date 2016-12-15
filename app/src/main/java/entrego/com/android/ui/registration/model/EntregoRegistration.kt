@@ -1,4 +1,4 @@
-package entrego.com.android.ui.auth.model
+package entrego.com.android.ui.registration.model
 
 import entrego.com.android.storage.model.EntregoPhoneModel
 import entrego.com.android.web.api.ApiCreator
@@ -23,7 +23,6 @@ class EntregoRegistration(val email: String,
         fun onSuccessRegistration()
         fun onFailureRegistration(message: String, code: Int?)
         fun onValidationError(field: FieldErrorResponse)
-
     }
 
     fun requestAsync(listener: ResultListener) {

@@ -5,7 +5,7 @@
     android:id="@+id/activity_edit_vechile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="entrego.com.android.ui.main.account.vehicle.edit.EditVehicleActivity">
+    tools:context=".ui.account.vehicle.edit.EditVehicleActivity">
 
 
     <ImageView

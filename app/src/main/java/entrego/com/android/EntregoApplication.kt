@@ -7,7 +7,7 @@ import entrego.com.android.storage.realm.RealmController
 import entrego.com.android.ui.auth.AuthActivity
 import entrego.com.android.util.Logger
 import entrego.com.android.util.event_bus.LogoutEvent
-import entrego.com.android.ui.main.account.vehicle.edit.model.UserVehicle
+import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
 import io.realm.Realm
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -28,6 +28,5 @@ class EntregoApplication : Application() {
 
         Realm.init(this)
     }
-
 
 }

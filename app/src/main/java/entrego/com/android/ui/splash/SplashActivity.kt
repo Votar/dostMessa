@@ -7,7 +7,7 @@ import entrego.com.android.R
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.ui.auth.AuthActivity
 import entrego.com.android.ui.main.RootActivity
-import entrego.com.android.ui.main.account.profile.UserProfile
+import entrego.com.android.ui.account.profile.UserProfile
 
 class SplashActivity : AppCompatActivity() {
 

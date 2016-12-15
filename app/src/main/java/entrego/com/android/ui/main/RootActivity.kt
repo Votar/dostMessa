@@ -28,7 +28,7 @@ import entrego.com.android.location.LocationTracker
 import entrego.com.android.binding.DeliveryInstance
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.auth.AuthActivity
-import entrego.com.android.ui.main.account.AccountFragment
+import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest

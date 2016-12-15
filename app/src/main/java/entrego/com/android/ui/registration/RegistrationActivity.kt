@@ -18,8 +18,8 @@ class RegistrationActivity : AppCompatActivity(), IRegistrationView {
 
 
     override fun setErrorEmailRegistered() {
-        registration_edit_name.requestFocus()
-        registration_il_name.error = getString(R.string.error_email_registered)
+        registration_edit_email.requestFocus()
+        registration_il_email.error = getString(R.string.error_email_registered)
     }
 
     override fun setErrorName(message: String) {
@@ -94,6 +94,7 @@ class RegistrationActivity : AppCompatActivity(), IRegistrationView {
             registration_il_password_conf.error = null
             registration_il_phone_code.error = null
             registration_il_phone.error = null
+
 
             presenter?.requestRegistration(
                     registration_edit_email.text.toString(),

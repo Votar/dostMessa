@@ -6,7 +6,7 @@ import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.auth.model.EntregoAuth
 import entrego.com.android.ui.auth.presenter.IAuthPresenter
 import entrego.com.android.ui.auth.view.IAuthView
-import entrego.com.android.ui.main.account.vehicle.edit.model.UserVehicle
+import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
 
 /**
  * Created by bertalt on 29.11.16.
