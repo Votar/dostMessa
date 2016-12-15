@@ -7,7 +7,7 @@
 
         <variable
             name="route"
-            type="entrego.com.entrego.storage.model.EntregoRouteModel" />
+            type="entrego.com.android.storage.model.EntregoRouteModel" />
     </data>
 
 

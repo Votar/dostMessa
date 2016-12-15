@@ -8,7 +8,7 @@
 
         <variable
             name="delivery"
-            type="entrego.com.entrego.binding.DeliveryInstance" />
+            type="entrego.com.android.binding.DeliveryInstance" />
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,13 +27,12 @@
                 android:layout_height="wrap_content"
                 bind:customer="@{delivery.customer}" />
 
-            <!--<include-->
-                <!--layout="@layout/include_delivery_route"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--bind:route="@{delivery.route}" />-->
-
-
+            <include
+                layout="@layout/include_delivery_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                bind:route="@{delivery.route}" />
+            
 
             <Button
                 android:id="@+id/drawer_sign_bill"

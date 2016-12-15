@@ -5,7 +5,7 @@
 
         <variable
             name="point"
-            type="entrego.com.entrego.binding.EntregoPointBinding" />
+            type="entrego.com.android.binding.EntregoPointBinding" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
