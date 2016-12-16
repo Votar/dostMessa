@@ -18,12 +18,12 @@ import entrego.com.android.binding.EntregoPointBinding
  * Created by bertalt on 29.11.16.
  */
 object UserMessageUtil {
-    @JvmStatic fun show(ctx: Context, message: String) {
+    @JvmStatic fun show(ctx: Context, message: String?) {
         var text: String
         if (TextUtils.isEmpty(message)) {
             text = ctx.getString(R.string.er_default_network_error)
         } else
-            text = message
+            text = message!!
 
         Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show()
     }

@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import entrego.com.android.R
 import entrego.com.android.ui.account.help.HelpActivity
+import entrego.com.android.ui.account.history.DeliveryHistoryActivity
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 /**
  * Created by bertalt on 01.12.16.
@@ -20,24 +22,27 @@ class ProfileFragment : Fragment() {
 
         val view = inflater?.inflate(R.layout.fragment_profile, container, false)
 
-
         return view
     }
 
     override fun onStart() {
         super.onStart()
 
-
         helpItem = view?.findViewById(R.id.profile_help)
         helpItem?.setOnClickListener { startHelpActivity() }
+        profile_routes.setOnClickListener { startDeliveryHistoryActivity() }
     }
 
 
     fun startHelpActivity() {
-
         val intent = Intent(context, HelpActivity::class.java)
         startActivity(intent)
 
+    }
+
+    fun startDeliveryHistoryActivity() {
+        val intent = Intent(context, DeliveryHistoryActivity::class.java)
+        startActivity(intent)
     }
 }
 

@@ -12,14 +12,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="entrego.com.android.EntregoApplication"
+        android:name=".EntregoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="entrego.com.android.ui.splash.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
@@ -29,14 +29,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="entrego.com.android.ui.auth.AuthActivity"
+            android:name=".ui.auth.AuthActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="entrego.com.android.ui.registration.RegistrationActivity"
-            android:parentActivityName="entrego.com.android.ui.auth.AuthActivity"
+            android:name=".ui.registration.RegistrationActivity"
+            android:parentActivityName=".ui.auth.AuthActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <meta-data
@@ -44,17 +44,17 @@
                 android:value="entrego.com.android.ui.auth.AuthActivity" />
         </activity>
         <activity
-            android:name="entrego.com.android.ui.registration.SuccessRegistrationActivity"
+            android:name=".ui.registration.SuccessRegistrationActivity"
             android:noHistory="true"
-            android:parentActivityName="entrego.com.android.ui.auth.AuthActivity">
+            android:parentActivityName=".ui.auth.AuthActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.auth.AuthActivity" />
         </activity>
         <activity
-            android:name="entrego.com.android.ui.auth.SuccessRestoreActivity"
+            android:name=".ui.auth.SuccessRestoreActivity"
             android:noHistory="true"
-            android:parentActivityName="entrego.com.android.ui.auth.AuthActivity">
+            android:parentActivityName=".ui.auth.AuthActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.auth.AuthActivity" />
@@ -71,50 +71,59 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name="entrego.com.android.ui.auth.RestorePasswordActivity" />
+        <activity android:name=".ui.auth.RestorePasswordActivity" />
         <activity
-            android:name="entrego.com.android.ui.main.RootActivity"
+            android:name=".ui.main.RootActivity"
             android:label="@string/title_activity_root"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="entrego.com.android.ui.account.profile.edit.EditProfileActivity"
-            android:parentActivityName="entrego.com.android.ui.main.RootActivity"
+            android:name=".ui.account.profile.edit.EditProfileActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity"
-            android:parentActivityName="entrego.com.android.ui.main.RootActivity"
+            android:name=".ui.account.vehicle.edit.EditVehicleActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
 
-        <service android:name="entrego.com.android.location.LocationService" />
+        <service android:name=".location.LocationService" />
 
         <activity
-            android:name="entrego.com.android.ui.account.help.HelpActivity"
-            android:parentActivityName="entrego.com.android.ui.main.RootActivity"
+            android:name=".ui.account.help.HelpActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="entrego.com.android.ui.account.help.chat.ChatHelpActivity"
-            android:parentActivityName="entrego.com.android.ui.account.help.HelpActivity"
+            android:name=".ui.account.help.chat.ChatHelpActivity"
+            android:parentActivityName=".ui.account.help.HelpActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.account.help.HelpActivity" />
         </activity>
-        <activity android:name="entrego.com.android.ui.sign.SignActivity"
-            android:parentActivityName="entrego.com.android.ui.main.RootActivity"
+        <activity
+            android:name=".ui.sign.SignActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="landscape">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.account.history.DeliveryHistoryActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
