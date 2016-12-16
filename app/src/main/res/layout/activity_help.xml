@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     app:fabSize="normal"
-                    app:srcCompat="@drawable/call_icon"
+                    app:srcCompat="@drawable/ic_phone_32dp"
                     app:useCompatPadding="true"
                     android:id="@+id/help_call_phone" />
             </FrameLayout>
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     app:fabSize="normal"
-                    app:srcCompat="@drawable/chat_icon"
+                    app:srcCompat="@drawable/ic_question_answer_32dp"
                     app:useCompatPadding="true"
                     app:elevation="6dp"
                     android:id="@+id/help_chatting" />

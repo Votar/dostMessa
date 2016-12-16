@@ -38,10 +38,6 @@ class LocationService(val name: String) : IntentService(name), GoogleApiClient.C
                 .addOnConnectionFailedListener(this)
                 .build()
         mGoogleApiClient?.connect()
-
-        Logger.logd("onHandleTracker INTENT!!")
-        Log.d(name, "onHandleTracker INTENT!!")
-
     }
 
     override fun onConnected(p0: Bundle?) {

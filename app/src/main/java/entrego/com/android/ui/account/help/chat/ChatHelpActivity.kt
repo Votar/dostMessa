@@ -25,10 +25,7 @@ class ChatHelpActivity : AppCompatActivity(), IChatView {
 
         navigation_toolbar.title = getString(R.string.ui_chatting)
         setSupportActionBar(navigation_toolbar)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
-
+        nav_toolbar_back.setOnClickListener { onBackPressed() }
 
         val layoutManager = LinearLayoutManager(this)
 
@@ -68,9 +65,9 @@ class ChatHelpActivity : AppCompatActivity(), IChatView {
     }
 
     override fun showMessage(message: ChatMessage) {
-        if(mAdapter!= null){
+        if (mAdapter != null) {
             mAdapter?.addMessage(message)
-            chat_recycler.scrollToPosition(mAdapter?.itemCount!!-1)
+            chat_recycler.scrollToPosition(mAdapter?.itemCount!! - 1)
         }
     }
 

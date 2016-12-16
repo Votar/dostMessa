@@ -19,9 +19,7 @@ class HelpActivity : AppCompatActivity() {
         navigation_toolbar.title = getString(R.string.ui_help)
         setSupportActionBar(navigation_toolbar)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
-
+        nav_toolbar_back.setOnClickListener { onBackPressed() }
         help_chatting.setOnClickListener { startChattingActivity() }
     }
 

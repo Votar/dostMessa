@@ -25,7 +25,7 @@
             android:id="@+id/sign_dismiss"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
+            android:background="?attr/selectableItemBackgroundBorderless"
             app:srcCompat="@drawable/ic_off_black_32dp" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="@null"
+            android:background="?attr/selectableItemBackgroundBorderless"
             app:srcCompat="@drawable/ic_done_32dp" />
     </RelativeLayout>
 

@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import entrego.com.android.R
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.auth.presenter.AuthPresenter
@@ -77,12 +80,30 @@ class AuthActivity : AppCompatActivity(), IAuthView {
 
     fun setupListeners() {
         auth_btn_login.setOnClickListener {
-            val email = auth_edit_email.text.toString()
-            val password = auth_edit_password.text.toString()
-            presenter.requestAuth(email, password)
+            startAuth()
         }
+
+        auth_edit_password.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(p0: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if ((actionId == EditorInfo.IME_ACTION_DONE) || ((event?.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                        && (event?.getAction() == KeyEvent.ACTION_DOWN))) {
+                    startAuth()
+                    return true
+                } else {
+                    return false
+                }
+            }
+
+        })
+
 
         auth_btn_registration.setOnClickListener { goToRegistration() }
         auth_btn_forgot_pass.setOnClickListener { presenter.requestForgotPassword() }
+    }
+
+    fun startAuth() {
+        val email = auth_edit_email.text.toString()
+        val password = auth_edit_password.text.toString()
+        presenter.requestAuth(email, password)
     }
 }

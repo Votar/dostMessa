@@ -34,7 +34,7 @@ public class SplashValidLoginActivityTest {
     public void splashValidLoginActivityTest() {
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.auth_edit_email), isDisplayed()));
-        appCompatEditText.perform(replaceText("n@FM"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("n@g1"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.auth_edit_password), isDisplayed()));

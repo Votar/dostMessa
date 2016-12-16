@@ -32,9 +32,6 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
 
         setSupportActionBar(navigation_toolbar)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
-
         edit_vehicle_btn_save.setOnClickListener {
 
             val cylinders = edit_vehicle_edit_cylinders.text.toString()
@@ -94,11 +91,11 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
 
 
     override fun showProgress() {
-        navigation_progress.visibility = View.VISIBLE
+        //navigation_progress.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        navigation_progress.visibility = View.GONE
+       // navigation_progress.visibility = View.GONE
     }
 
     override fun getContext(): Context {

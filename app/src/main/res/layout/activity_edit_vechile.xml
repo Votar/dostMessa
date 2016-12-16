@@ -8,22 +8,18 @@
     tools:context=".ui.account.vehicle.edit.EditVehicleActivity">
 
 
-    <ImageView
-        android:id="@+id/edit_vehicle_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_vehicle_toolbar"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="@dimen/double_screen_padding"
-        app:srcCompat="@drawable/ic_car_black_80dp" />
-
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_vehicle_logo"
+        android:layout_below="@+id/edit_vehicle_toolbar"
         android:layout_centerHorizontal="true">
-
+        <ImageView
+            android:id="@+id/edit_vehicle_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/ic_car_black_80dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -40,9 +40,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         setSupportActionBar(navigation_toolbar)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
-
+        nav_toolbar_back.setOnClickListener { onBackPressed() }
 
         val userProfile = UserProfile.getProfile(this)
         if (userProfile != null && userProfile.phone != null) {
@@ -64,6 +62,8 @@ class EditProfileActivity : AppCompatActivity() {
             edit_profile_change_password.visibility = View.GONE
             edit_profile_ll_passwords.visibility = View.VISIBLE
             edit_profile_btn_save_pass.visibility = View.VISIBLE
+            edit_profile_edit_password.requestFocus()
+
         }
 
         edit_profile_btn_save_pass.setOnClickListener {
@@ -159,11 +159,11 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     fun showProgress() {
-        navigation_progress.visibility = View.VISIBLE
+        //navigation_progress.visibility = View.VISIBLE
     }
 
     fun hideProgress() {
-        navigation_progress.visibility = View.GONE
+        //navigation_progress.visibility = View.GONE
     }
 
     fun requestUserProfile() {
