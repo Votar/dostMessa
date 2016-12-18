@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import entrego.com.android.R
 import entrego.com.android.ui.account.profile.ProfileFragment
 import entrego.com.android.ui.account.profile.VehicleFragment

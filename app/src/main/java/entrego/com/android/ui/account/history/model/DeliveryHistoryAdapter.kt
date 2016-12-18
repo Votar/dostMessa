@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.databinding.ItemDeliveryPointBinding
 import entrego.com.android.storage.model.EntregoPoint
@@ -53,7 +53,7 @@ class DeliveryHistoryAdapter(val context: Context?) : RecyclerView.Adapter<Deliv
 
         holder?.binder?.debugText = "debug"
         if (context != null)
-            Picasso.with(context).load(url).into(holder?.binder?.historyRoutesStaticMap)
+            Glide.with(context).load(url).into(holder?.binder?.historyRoutesStaticMap)
         holder?.binder?.historyRoutesStaticMap
 
     }

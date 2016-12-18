@@ -1,17 +1,15 @@
 package entrego.com.android.util
 
-import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.DialogInterface
-import android.support.v4.app.NavUtils
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.widget.ImageView
 import android.widget.Toast
-import com.google.android.gms.maps.model.LatLng
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import entrego.com.android.R
-import entrego.com.android.storage.model.EntregoPoint
 import entrego.com.android.binding.EntregoPointBinding
 
 /**
@@ -48,6 +46,33 @@ fun EntregoPointBinding.toDirectionFormat(): String =
                 .toString()
 
 
-fun ImageView.loadPicasson(resId: Int){
-    Picasso.with(this.context).load(resId).into(this)
+fun ImageView.loadPicasson(resId: Int) {
+    Glide.with(this.context).load(resId).into(this)
+}
+
+fun Uri.getRealPathFromURI(context: Context?): String {
+
+    if (context != null)
+        try {
+            Logger.logd(this.toString())
+            var cursor: Cursor? = null
+            try {
+                val proj = arrayOf(MediaStore.Images.Media.DATA)
+                cursor = context.contentResolver.query(this, proj, null, null, null)
+                val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                cursor.moveToFirst()
+                return cursor.getString(column_index)
+            } finally {
+                if (cursor != null) {
+                    cursor.close()
+                }
+            }
+
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+
+            return ""
+        }
+    else
+        return ""
 }

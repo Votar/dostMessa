@@ -84,4 +84,9 @@
     <string name="sign_title">Please sign bellow</string>
     <string name="ui_navigation">Navigation</string>
     <string name="error_email_registered">Email already registered</string>
+    <string name="add_file_descr">Add a photo of your document or chosse a picture from the gallery</string>
+    <string name="error_loading_image">Cannot load this image</string>
+
+    <string name="ui_image_folder">Select image</string>
+    <string name="ui_tap_to_select">Tap to select</string>
 </resources>
