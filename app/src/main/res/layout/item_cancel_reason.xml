@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
     <data>
-
         <variable
             name="reason"
             type="java.lang.String" />
@@ -17,7 +15,7 @@
         style="@style/ClickableView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> onReasonListener.onClicked(reason) }"
+        android:onClick="@{() -> onReasonListener.onClickedReason(reason) }"
         android:orientation="horizontal"
         android:padding="@dimen/normal_text_padding">
 

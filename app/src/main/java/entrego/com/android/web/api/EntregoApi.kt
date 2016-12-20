@@ -29,9 +29,10 @@ object EntregoApi {
         const val REGISTRATION = "messenger/user/register"
         const val PROFILE = "messenger/user"
         const val VEHICLE = "messenger/user/vehicle"
-        const val CHANGE_PROFILE ="messenger/user/change"
-        const val CHANGE_PROFILE_PASSWORD="messenger/user/change/password"
+        const val CHANGE_PROFILE = "messenger/user/change"
+        const val CHANGE_PROFILE_PASSWORD = "messenger/user/change/password"
         const val GET_DELIVERY = "messenger/delivery"
+        const val POST_LOCATION = ""
     }
 
     interface Authorization {
@@ -79,10 +80,16 @@ object EntregoApi {
     }
 
 
-    interface GetDelivery{
+    interface GetDelivery {
         @Headers(CONTENT_JSON)
         @GET(REQUESTS.GET_DELIVERY)
         fun getDelivery(@Header(TOKEN) token: String): Call<EntregoResultGetDelivery>
+    }
+
+    interface PostLocation {
+        @Headers(CONTENT_JSON)
+        @POST(REQUESTS.POST_LOCATION)
+        fun postLocation(@Header(TOKEN) token: String): Call<JsonElement>
     }
 
 

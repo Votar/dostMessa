@@ -8,8 +8,8 @@
     android:background="@color/colorPrimary"
     tools:context="entrego.com.android.ui.account.history.DeliveryHistoryActivity">
 
-    <ProgressBar
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large.Inverse"
+    <include
+        layout="@layout/include_progress_view"
         android:id="@+id/del_hist_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

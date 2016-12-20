@@ -20,4 +20,6 @@ object LocationTracker {
         context.stopService(intent)
         context.startService(intent)
     }
+
+
 }

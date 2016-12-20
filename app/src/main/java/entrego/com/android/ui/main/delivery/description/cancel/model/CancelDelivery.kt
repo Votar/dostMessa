@@ -1,4 +1,4 @@
-package entrego.com.android.ui.main.delivery.description.cancel
+package entrego.com.android.ui.main.delivery.description.cancel.model
 
 import android.os.Handler
 import android.os.Looper

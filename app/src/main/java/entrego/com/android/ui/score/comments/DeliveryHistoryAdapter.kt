@@ -4,7 +4,6 @@ import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.support.v4.content.ContextCompat
-import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -18,28 +17,20 @@ import entrego.com.android.storage.model.EntregoPoint
 import entrego.com.android.storage.model.EntregoPointStatus
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.binding.EntregoPointBinding
+import entrego.com.android.databinding.CommentsItemRecyclerBinding
 import entrego.com.android.databinding.ItemHistoryRoutesBinding
 import entrego.com.android.ui.main.delivery.description.PointsAdapter
 import entrego.com.android.util.Logger
 import java.util.*
 
-/**
- * Created by bertalt on 07.12.16.
- */
-class DeliveryHistoryAdapter(val context: Context?) : RecyclerView.Adapter<DeliveryHistoryAdapter.ViewHolder>() {
-
-
-    init {
-
-    }
-
+class CommentsAdapter() : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
 
-        var binder: ItemHistoryRoutesBinding? = null
+        var binder: CommentsItemRecyclerBinding? = null
 
         init {
             binder = DataBindingUtil.bind(rootView)
@@ -52,26 +43,15 @@ class DeliveryHistoryAdapter(val context: Context?) : RecyclerView.Adapter<Deliv
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 
-        holder?.binder?.debugText = "debug"
+        holder?.binder?.comment = "debug"
 
-        val ctx = holder?.itemView?.context
-        if (ctx != null) {
-
-            val loadingIcon = AppCompatResources.getDrawable(ctx, R.drawable.ic_cloud_download_50dp)
-            if (context != null)
-                Glide.with(context)
-                        .load(url)
-                        .into(holder?.binder?.historyRoutesStaticMap)
-                        .onLoadStarted(loadingIcon)
-
-        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DeliveryHistoryAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CommentsAdapter.ViewHolder {
 
         val inflater = LayoutInflater.from(parent?.context)
 
-        val binding = ItemHistoryRoutesBinding.inflate(inflater, parent, false)
+        val binding = CommentsItemRecyclerBinding.inflate(inflater, parent, false)
 
 
         return ViewHolder(binding.root)

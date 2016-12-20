@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="entrego.com.android">
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="PERMISSION_REQUEST_CAMERA" />
 
-    <uses-permission android:name="PERMISSION_REQUEST_CAMERA"/>
     <provider
         android:name="android.support.v4.content.FileProvider"
         android:authorities="entrego.com.android.fileprovider"
@@ -34,7 +37,10 @@
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.auth.AuthActivity"
@@ -84,7 +90,9 @@
             android:name=".ui.main.RootActivity"
             android:label="@string/title_activity_root"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme">
+
+        </activity>
         <activity
             android:name=".ui.account.profile.edit.EditProfileActivity"
             android:parentActivityName=".ui.main.RootActivity"
@@ -140,11 +148,22 @@
             android:name=".ui.account.files.AddFilesActivity"
             android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.score.comments.CommentsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.main.delivery.description.cancel.CancelDeliveryActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />

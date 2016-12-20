@@ -31,8 +31,6 @@ class DeliveryHistoryActivity : AppCompatActivity(), IDeliveryHistoryView {
         mPresenter.onCreate(this)
         val token = EntregoStorage(this).getToken()
         mPresenter.requestHistoryList(token)
-
-//        del_hist_progress.indeterminateDrawable.setColorFilter(R.color.colorWhite, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 
     override fun onDestroy() {

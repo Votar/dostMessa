@@ -1,6 +1,7 @@
 package entrego.com.android.ui.main.delivery.description
 
 import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
@@ -19,7 +20,7 @@ import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.storage.model.EntregoPoint
 import entrego.com.android.binding.DeliveryInstance
 import entrego.com.android.binding.EntregoPointBinding
-import entrego.com.android.ui.main.delivery.description.cancel.CancelDeliveryFragment
+import entrego.com.android.ui.main.delivery.description.cancel.CancelDeliveryActivity
 import entrego.com.android.ui.main.delivery.description.presenter.DescriptionPresenter
 import entrego.com.android.ui.main.delivery.description.presenter.IDescriptionPresenter
 import entrego.com.android.ui.main.delivery.description.view.IDescreptionView
@@ -80,7 +81,8 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
         }
         fragment_descr_cancel.setOnClickListener {
-            CancelDeliveryFragment().show(fragmentManager, null)
+            val intent = Intent(context, CancelDeliveryActivity::class.java)
+            startActivity(intent)
         }
     }
 

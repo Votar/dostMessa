@@ -3,10 +3,7 @@ package entrego.com.android.ui.main
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.databinding.Observable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -23,25 +20,21 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import entrego.com.android.R
-import entrego.com.android.location.LocationService
 import entrego.com.android.location.LocationTracker
-import entrego.com.android.binding.DeliveryInstance
 import entrego.com.android.storage.preferences.EntregoStorage
-import entrego.com.android.ui.auth.AuthActivity
 import entrego.com.android.ui.account.AccountFragment
+import entrego.com.android.ui.auth.AuthActivity
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest
-import entrego.com.android.util.Logger
+import entrego.com.android.ui.score.ScoreFragment
 import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.util.ui.ViewPagerAdapter
 import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
-
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
 
 class RootActivity : AppCompatActivity() {
 
@@ -52,12 +45,14 @@ class RootActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
 
+
         val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+        root_drawer_container.setOnClickListener {  }
         setupViewPager(main_viewpager)
 
         val fragment = DrawerFragment()
@@ -77,8 +72,6 @@ class RootActivity : AppCompatActivity() {
 
         val token = EntregoStorage(this).getToken()
         DeliveryRequest.requestDelivery(token, null)
-
-
 //        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().update(null) }, 5000)
  //       Handler(Looper.getMainLooper()).postDelayed({ DeliveryRequest.requestDelivery(token, null) }, 7000)
 //        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().route.start.address= "asdads" }, 8000)
@@ -113,9 +106,10 @@ class RootActivity : AppCompatActivity() {
         adapter.addFrag(HomeFragment(), getString(tabTitles[0]))
         adapter.addFrag(AccountFragment(), getString(tabTitles[1]))
         adapter.addFrag(Fragment(), getString(tabTitles[2]))
-        adapter.addFrag(Fragment(), getString(tabTitles[3]))
+        adapter.addFrag(ScoreFragment(), getString(tabTitles[3]))
 
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 4
     }
 
     fun setupTabIcons() {

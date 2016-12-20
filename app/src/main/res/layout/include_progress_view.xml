@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/colorTransparent"
     android:padding="@dimen/default_screen_padding">
 
     <FrameLayout
         android:id="@+id/progress_container"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="@drawable/small_circle">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_with_shadow">
 
         <ProgressBar
-            style="?android:attr/progressBarStyleSmall"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />

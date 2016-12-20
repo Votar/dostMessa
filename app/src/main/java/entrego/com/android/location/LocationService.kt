@@ -16,6 +16,8 @@ import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import entrego.com.android.location.diraction.PostUserLocation
+import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.util.Logger
 
 /**
@@ -48,8 +50,10 @@ class LocationService(val name: String) : IntentService(name), GoogleApiClient.C
 
         if (mUpdateLocStatus == null) {
             // interface for update location
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
                 return
             }
             mUpdateLocStatus = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, locLis)
@@ -64,9 +68,6 @@ class LocationService(val name: String) : IntentService(name), GoogleApiClient.C
 
     val locLis = LocationListener {
         Logger.logd("Location changed")
-//        mCurrentLocation = LatLng(it.latitude, it.longitude)
-//        DobroPreferencesManager.getInstance(applicationContext).lastLocation = mCurrentLocation
-//        if (mFlagFirstUpdate) {
         Logger.logd("" + it.latitude + " " + it.longitude)
 
         val intent = Intent(LocationTracker.BROADCAST_ACTION_CURRENT_LOCATION)
@@ -76,9 +77,10 @@ class LocationService(val name: String) : IntentService(name), GoogleApiClient.C
 
         LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent)
 
+        val token = EntregoStorage(applicationContext).getToken()
+        val curLatLng = LatLng(it.latitude, it.longitude)
 
-//            mFlagFirstUpdate = false
-//        }
+        PostUserLocation.sendAsync(token, curLatLng, null)
     }
 
     override fun onConnectionSuspended(p0: Int) {

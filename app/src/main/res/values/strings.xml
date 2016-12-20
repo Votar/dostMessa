@@ -89,4 +89,8 @@
 
     <string name="ui_image_folder">Select image</string>
     <string name="ui_tap_to_select">Tap to select</string>
+    <string name="customer_comments">Customer Comments</string>
+    <string name="improvement_tips">Improvement tips</string>
+    <string name="weekly_updates">Weekly updates</string>
+    <string name="best_messengers">Best messengers</string>
 </resources>
