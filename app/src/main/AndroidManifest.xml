@@ -39,6 +39,7 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -90,9 +91,7 @@
             android:name=".ui.main.RootActivity"
             android:label="@string/title_activity_root"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.account.profile.edit.EditProfileActivity"
             android:parentActivityName=".ui.main.RootActivity"
@@ -167,6 +166,21 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity android:name=".ui.faq.FaqListActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.faq.FaqDetailActivity"
+            android:parentActivityName=".ui.faq.FaqListActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.faq.FaqListActivity" />
         </activity>
     </application>
 

@@ -24,6 +24,7 @@ import entrego.com.android.location.LocationTracker
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.auth.AuthActivity
+import entrego.com.android.ui.faq.FaqListActivity
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest
@@ -52,7 +53,7 @@ class RootActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-        root_drawer_container.setOnClickListener {  }
+        root_drawer_container.setOnClickListener { }
         setupViewPager(main_viewpager)
 
         val fragment = DrawerFragment()
@@ -73,7 +74,7 @@ class RootActivity : AppCompatActivity() {
         val token = EntregoStorage(this).getToken()
         DeliveryRequest.requestDelivery(token, null)
 //        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().update(null) }, 5000)
- //       Handler(Looper.getMainLooper()).postDelayed({ DeliveryRequest.requestDelivery(token, null) }, 7000)
+        //       Handler(Looper.getMainLooper()).postDelayed({ DeliveryRequest.requestDelivery(token, null) }, 7000)
 //        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().route.start.address= "asdads" }, 8000)
     }
 
@@ -146,6 +147,7 @@ class RootActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_faq) {
+            startActivity(Intent(this, FaqListActivity::class.java))
             return true
         }
 

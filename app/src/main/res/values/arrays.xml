@@ -5,4 +5,33 @@
         <item>Zahotel</item>
         <item>Ну а че?"!!"</item>
     </array>
+
+    <array name="faq_titles">
+        <item>I can’t accept the service</item>
+        <item>I can’t see the shipping adress</item>
+        <item>Service cancelled</item>
+        <item>Troubles with the POD</item>
+        <item>I can’t sign in</item>
+        <item>Traceability is lost</item>
+    </array>
+
+    <array name="faq_body">
+        <item>Por favor prenda y apague su celular o hágale reset.\n\n
+            En caso de que el problema persista comuniquese con operaciones.</item>
+        <item>Verifique que la cobertura celular en el área sea óptima. \n\n
+            Si el problema persiste por favor comuní-quese con operaciones.</item>
+        <item>Si el servicio fué cancelado por el cliente, por favor comuniquese con el departamento de operaciones.</item>
+        <item>Compruebe que la cobertura celular en el área sea óptima.\n\n
+            Si el problema persista comuniquese con operaciones.</item>
+        <item>
+            Apague y prenda el móvil o hágale reset.\n\n
+            También verifique su clave y su contraseña.\n\n
+            En caso de que el problema persista por favor comuníquese con operaciones.
+        </item>
+        <item>
+            Apague y prenda el móvil o hágale reset.\n\n
+            También verifique su clave y su contraseña.\n\n
+            En caso de que el problema persista por favor comuníquese con operaciones.
+        </item>
+    </array>
 </resources>

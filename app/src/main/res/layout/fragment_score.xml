@@ -20,12 +20,13 @@
 
             <ImageView
 
-                android:layout_width="@dimen/star_size"
-                android:layout_height="@dimen/star_size"
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 app:srcCompat="@drawable/ic_star_24dp" />
 
             <TextView
+                android:paddingLeft="@dimen/default_screen_padding"
                 android:id="@+id/score_user_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -17,19 +17,15 @@ class ScoreFragment : Fragment() {
         val view = inflater?.inflate(R.layout.fragment_score, container, false)
         return view
     }
-
     override fun onStart() {
         super.onStart()
         setupListeners()
     }
-
     fun setupListeners() {
         score_comments_item.setOnClickListener { startCommentsActivity() }
     }
-
     private fun startCommentsActivity() {
         val intent = Intent(context, CommentsActivity::class.java)
         startActivity(intent)
     }
-
 }
