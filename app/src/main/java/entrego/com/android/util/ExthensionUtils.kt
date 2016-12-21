@@ -6,11 +6,15 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
+import kotlinx.android.synthetic.main.best_messenger_charts.*
 
 /**
  * Created by bertalt on 29.11.16.
@@ -75,4 +79,17 @@ fun Uri.getRealPathFromURI(context: Context?): String {
         }
     else
         return ""
+}
+
+fun View.buildRatingBar(rating: Double) {
+
+    val density = this.resources.displayMetrics.density
+    val sourceWidth = 250 * density
+    val sourceHeight = (10 * density).toInt()
+    val MAX_VALUE = 5
+    val stepInBar = (sourceWidth / MAX_VALUE).toInt()
+    val resultWidth = (rating * stepInBar).toInt()
+    val userLayoutParams = LinearLayout.LayoutParams(resultWidth, sourceHeight)
+    userLayoutParams.gravity = Gravity.CENTER_VERTICAL
+    this.layoutParams = userLayoutParams
 }

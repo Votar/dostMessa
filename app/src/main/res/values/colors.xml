@@ -20,4 +20,5 @@
     <color name="colorTomato">#e64245</color>
     <color name="colorGrey">#ebebeb</color>
     <color name="colorTransparentGrey">#c4616160</color>
+    <color name="colorDarkGrey">#666565</color>
 </resources>

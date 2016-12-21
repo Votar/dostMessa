@@ -30,7 +30,6 @@ class CancelDeliveryActivity : AppCompatActivity(), ICancelDeliveryView {
         cancel_delivery_recycler_reasons.addItemDecoration(dividerItemDecoration)
         cancel_delivery_recycler_reasons.layoutManager = layoutManager
         // setup adapter
-
         val reasons = resources.getStringArray(R.array.cancel_reasons).toList()
         mPresenter.setupRecyclerView(cancel_delivery_recycler_reasons, reasons)
         setSupportActionBar(navigation_toolbar)

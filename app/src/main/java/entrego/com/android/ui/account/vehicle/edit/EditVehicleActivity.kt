@@ -30,6 +30,7 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
 
         navigation_toolbar.title = getString(R.string.titile_edit_vehicle)
 
+        nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
         setSupportActionBar(navigation_toolbar)
 
         edit_vehicle_btn_save.setOnClickListener {
@@ -60,7 +61,6 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
         }
         setupViews()
     }
-
     fun setupViews() {
 
         val vehicle = UserVehicle.getVehicle(this)
@@ -73,7 +73,6 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
             edit_vehicle_edit_plate.setText(vehicle.plate)
         }
     }
-
     override fun setErrorBrand(message: String) {
         edit_vehicle_edit_brand.requestFocus()
         edit_vehicle_il_brand.error = message
@@ -88,8 +87,6 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
         edit_vehicle_edit_plate.requestFocus()
         edit_vehicle_il_plate.error = message
     }
-
-
     override fun showProgress() {
         //navigation_progress.visibility = View.VISIBLE
     }
@@ -111,15 +108,4 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
         setResult(Activity.RESULT_OK)
         NavUtils.navigateUpFromSameTask(this)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        when (item?.itemId) {
-            android.R.id.home -> NavUtils.navigateUpFromSameTask(this)
-
-        }
-        return super.onOptionsItemSelected(item)
-
-    }
-
 }

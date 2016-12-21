@@ -26,11 +26,11 @@
                 app:srcCompat="@drawable/ic_star_24dp" />
 
             <TextView
-                android:paddingLeft="@dimen/default_screen_padding"
                 android:id="@+id/score_user_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:paddingLeft="@dimen/default_screen_padding"
                 android:text="@string/debug_text"
                 android:textSize="65sp" />
         </LinearLayout>
@@ -108,24 +108,29 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/best_messengers"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/tsize_large" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/best_messengers"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/tsize_large" />
+
+                        <include layout="@layout/best_messenger_charts" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_next_24dp" />
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/debug_text" />
             </LinearLayout>
         </FrameLayout>
 
@@ -170,6 +175,7 @@
                     android:text="@string/debug_text" />
             </LinearLayout>
         </FrameLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -212,7 +218,6 @@
                     android:text="@string/debug_text" />
             </LinearLayout>
         </FrameLayout>
-
 
 
     </LinearLayout>
