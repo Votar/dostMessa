@@ -47,9 +47,7 @@ class SignActivity : AppCompatActivity(), ISignView {
             sign_drawing_ll.undo()
         }
         sign_next.setOnClickListener {
-
             val token = EntregoStorage(this).getToken()
-
             sign_drawing_ll.createCapture(DrawingCapture.BYTES)
             presenter.sendSign(token)
 

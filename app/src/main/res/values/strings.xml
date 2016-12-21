@@ -95,4 +95,5 @@
     <string name="best_messengers">Best messengers</string>
     <string name="you">You</string>
     <string name="best_messenger">Best messenger</string>
+    <string name="cancel_delivery_message">Do you really want to cancel?</string>
 </resources>
