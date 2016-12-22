@@ -1,4 +1,4 @@
-package entrego.com.android.ui.account.history.model
+package entrego.com.android.ui.score.comments
 
 import android.content.Context
 import android.databinding.BindingAdapter
@@ -29,31 +29,21 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
-
         var binder: CommentsItemRecyclerBinding? = null
-
         init {
             binder = DataBindingUtil.bind(rootView)
         }
-
-
     }
 
     val url = "http://maps.googleapis.com/maps/api/staticmap?center=Albany,+NY&zoom=13&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true"
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-
         holder?.binder?.comment = "debug"
-
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CommentsAdapter.ViewHolder {
-
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
-
         val binding = CommentsItemRecyclerBinding.inflate(inflater, parent, false)
-
-
         return ViewHolder(binding.root)
     }
 

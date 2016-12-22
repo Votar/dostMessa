@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import entrego.com.android.R
-import entrego.com.android.ui.account.history.model.CommentsAdapter
+import entrego.com.android.ui.score.comments.CommentsAdapter
 import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 

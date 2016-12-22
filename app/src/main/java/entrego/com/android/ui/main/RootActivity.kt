@@ -25,6 +25,7 @@ import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.auth.AuthActivity
 import entrego.com.android.ui.faq.FaqListActivity
+import entrego.com.android.ui.incomes.IncomesFragment
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest
@@ -106,7 +107,7 @@ class RootActivity : AppCompatActivity() {
 
         adapter.addFrag(HomeFragment(), getString(tabTitles[0]))
         adapter.addFrag(AccountFragment(), getString(tabTitles[1]))
-        adapter.addFrag(Fragment(), getString(tabTitles[2]))
+        adapter.addFrag(IncomesFragment(), getString(tabTitles[2]))
         adapter.addFrag(ScoreFragment(), getString(tabTitles[3]))
 
         viewPager.adapter = adapter
