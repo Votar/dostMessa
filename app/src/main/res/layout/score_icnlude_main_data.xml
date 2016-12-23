@@ -17,7 +17,7 @@
 
         <TextView
             android:textColor="@color/colorDarkBlue"
-            android:textSize="@dimen/tsize_normal"
+            android:textSize="@dimen/tsize_medium"
             android:id="@+id/score_total_delivery_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
         android:layout_weight="1">
 
         <TextView
-            android:textSize="@dimen/tsize_normal"
+            android:textSize="@dimen/tsize_medium"
             android:id="@+id/score_total_accepted_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
 
         <TextView
             android:textColor="@color/colorDarkBlue"
-            android:textSize="@dimen/tsize_normal"
+            android:textSize="@dimen/tsize_medium"
             android:id="@+id/score_total_cnceled_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

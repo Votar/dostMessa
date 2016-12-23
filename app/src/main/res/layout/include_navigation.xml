@@ -25,7 +25,7 @@
             android:paddingRight="@dimen/default_screen_padding"
             android:text="@{route.destination.address}"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/tsize_normal" />
+            android:textSize="@dimen/tsize_medium" />
 
         <View
             android:layout_width="1dp"

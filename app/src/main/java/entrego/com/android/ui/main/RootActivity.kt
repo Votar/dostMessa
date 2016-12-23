@@ -53,16 +53,12 @@ class RootActivity : AppCompatActivity() {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
-
         root_drawer_container.setOnClickListener { }
         setupViewPager(main_viewpager)
-
         val fragment = DrawerFragment()
-
         supportFragmentManager.beginTransaction()
                 .replace(R.id.root_drawer_container, fragment)
                 .commit()
-
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
         root_btn_log_out.setOnClickListener {
@@ -183,7 +179,6 @@ class RootActivity : AppCompatActivity() {
                     startLocationUpdates()
                 } else {
                     //TODO: Show blocker
-
                 }
             }
         }

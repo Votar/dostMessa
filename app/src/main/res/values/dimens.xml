@@ -18,7 +18,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="user_pic_size">80dp</dimen>
     <dimen name="menu_item_min_height">52dp</dimen>
-    <dimen name="tsize_normal">18sp</dimen>
+    <dimen name="tsize_medium">18sp</dimen>
     <dimen name="description_header_height">90dp</dimen>
     <dimen name="dot_size">15dp</dimen>
     <dimen name="normal_text_padding">8dp</dimen>

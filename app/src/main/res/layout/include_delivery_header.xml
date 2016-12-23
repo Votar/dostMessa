@@ -38,7 +38,7 @@
                 android:paddingTop="@dimen/small_text_padding"
                 android:text="@{customer.name}"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/tsize_normal" />
+                android:textSize="@dimen/tsize_medium" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:paddingTop="@dimen/normal_text_padding"
                 android:text="@{customer.company?? customer.company}"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/tsize_normal" />
+                android:textSize="@dimen/tsize_medium" />
         </LinearLayout>
 
 

@@ -7,6 +7,7 @@ import entrego.com.android.BR;
 import entrego.com.android.location.diraction.Route;
 import entrego.com.android.storage.model.CustomerModel;
 import entrego.com.android.storage.model.DeliveryModel;
+import entrego.com.android.storage.model.DeliveryState;
 import entrego.com.android.storage.model.EntregoRouteModel;
 
 /**
@@ -51,6 +52,11 @@ public class DeliveryInstance extends BaseObservable {
     @Bindable
     private Route path;
 
+    private DeliveryState deliveryState = null;
+
+    public DeliveryState getDeliveryState() {
+        return deliveryState;
+    }
 
     public void setPath(Route path) {
         this.path = path;

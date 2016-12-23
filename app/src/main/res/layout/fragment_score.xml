@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/debug_text"
-            android:textSize="@dimen/tsize_normal" />
+            android:textSize="@dimen/tsize_medium" />
 
         <include
             layout="@layout/score_icnlude_main_data"

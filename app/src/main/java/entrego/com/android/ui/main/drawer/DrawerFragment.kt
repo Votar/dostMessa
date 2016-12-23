@@ -2,6 +2,7 @@ package entrego.com.android.ui.main.drawer
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.databinding.Observable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +27,31 @@ class DrawerFragment : Fragment(), IDrawerView {
 
     var presenter: IDrawerPresenter = DrawerPresenter()
     var binder: FragmentDrawerBinding? = null
+
+
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        retainInstance = true
+        binder = DataBindingUtil.inflate(inflater, R.layout.fragment_drawer, container, false)
+        binder?.delivery = DeliveryInstance.getInstance()
+
+        return binder?.root
+    }
+    override fun onStart() {
+        super.onStart()
+        presenter.onStart(this)
+
+        drawer_sign_bill.setOnClickListener {
+            startSignActivity()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.onStop()
+
+    }
+
     override fun showEmptyView() {
 
 //        drawer_delivery_ll?.visibility = View.GONE
@@ -49,29 +75,6 @@ class DrawerFragment : Fragment(), IDrawerView {
 
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        presenter.onStart(this)
-        drawer_sign_bill.setOnClickListener {
-            startSignActivity()
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        presenter.onStop()
-
-    }
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        retainInstance = true
-        binder = DataBindingUtil.inflate(inflater, R.layout.fragment_drawer, container, false)
-        binder?.delivery = DeliveryInstance.getInstance()
-
-        return binder?.root
-    }
 
     fun startSignActivity() {
         val intent = Intent(context, SignActivity::class.java)

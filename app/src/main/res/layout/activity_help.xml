@@ -54,7 +54,7 @@
             android:text="@string/realtime_assist"
             android:textAllCaps="true"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/tsize_normal" />
+            android:textSize="@dimen/tsize_medium" />
 
         <LinearLayout
             android:layout_width="match_parent"

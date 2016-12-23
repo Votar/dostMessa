@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -34,6 +33,10 @@
                 bind:route="@{delivery.route}" />
 
 
+            <include
+                layout="@layout/include_delivery_states"
+                bind:delivery="@{delivery}" />
+
             <Button
                 android:id="@+id/drawer_sign_bill"
                 android:layout_width="wrap_content"
@@ -41,8 +44,6 @@
                 android:layout_gravity="center"
                 android:text="@string/sign_bill"
                 android:visibility="@{delivery.customer != null? View.VISIBLE: View.GONE}" />
-
-
         </LinearLayout>
 
     </ScrollView>
