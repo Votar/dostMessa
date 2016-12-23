@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="route"
             type="entrego.com.android.storage.model.EntregoRouteModel" />
     </data>
-
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

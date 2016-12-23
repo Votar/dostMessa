@@ -98,4 +98,9 @@
     <string name="cancel_delivery_message">Do you really want to cancel?</string>
     <string name="charts_estimated_pay">Espimated pay</string>
     <string name="history_of_services">History of services</string>
+    <string name="todays_services">Today\'s services</string>
+    <string name="empty_list_history_services">No services in list</string>
+    <string name="recent_services">Recent services</string>
+    <string name="current_currency">$</string>
+    <string name="base_price">Base price</string>
 </resources>

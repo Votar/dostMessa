@@ -1,5 +1,6 @@
 package entrego.com.android.ui.incomes
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import entrego.com.android.R
 import entrego.com.android.ui.incomes.charts.DayAxisValueFormatter
 import entrego.com.android.ui.incomes.charts.EaringAxisValueFormatter
 import entrego.com.android.ui.incomes.charts.XYMarkerView
+import entrego.com.android.ui.incomes.history.HistoryServiceActivity
 import kotlinx.android.synthetic.main.fragment_incomes.*
 import java.util.*
 
@@ -34,18 +36,17 @@ class IncomesFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setupCharts()
+        incomes_history_card.setOnClickListener({ startHistoryServicesActivity() })
     }
+
 
     fun setupCharts() {
         incomes_weekly_chart?.setDrawBarShadow(false)
         incomes_weekly_chart?.setDrawValueAboveBar(true)
-
         incomes_weekly_chart?.setMaxVisibleValueCount(7)
-
-        incomes_weekly_chart.axisRight.setDrawAxisLine(false)
-        incomes_weekly_chart.setPinchZoom(false)
-
-        incomes_weekly_chart.setDrawGridBackground(false)
+        incomes_weekly_chart?.axisRight?.setDrawAxisLine(false)
+        incomes_weekly_chart?.setPinchZoom(false)
+        incomes_weekly_chart?.setDrawGridBackground(false)
 
         val xAxisFormatter: IAxisValueFormatter = DayAxisValueFormatter()
         incomes_weekly_chart.getDescription().setEnabled(false)
@@ -64,7 +65,7 @@ class IncomesFragment : Fragment() {
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
         leftAxis.setSpaceTop(15f)
         leftAxis.setAxisMinimum(0f) // this replaces setStartAtZero(true)
-//
+
         val rightAxis = incomes_weekly_chart.getAxisRight()
         rightAxis.setDrawAxisLine(false)
         rightAxis.setDrawLabels(false)
@@ -74,15 +75,12 @@ class IncomesFragment : Fragment() {
         mv.setChartView(incomes_weekly_chart) // For bounds control
         incomes_weekly_chart.setMarker(mv) // Set the marker to the chart
         incomes_weekly_chart.getLegend().setEnabled(false)
-//        incomes_weekly_chart.getAxisRight()
+//      incomes_weekly_chart.getAxisRight()
         setData(3, 50f)
-
     }
 
     private fun setData(count: Int, range: Float) {
-
         val yVals = ArrayList<BarEntry>()
-
         var maxEaring = 0f
         var maxIndex: Int = 0
         for (i: Int in 0..count) {
@@ -94,9 +92,7 @@ class IncomesFragment : Fragment() {
             }
             yVals.add(BarEntry(i.toFloat(), earing))
         }
-
         val dataSets = ArrayList<IBarDataSet>()
-
         for (i in 0..yVals.size - 2) {
             if (maxIndex.equals(i)) {
                 val max = BarDataSet(listOf(yVals[i]), "")
@@ -110,18 +106,20 @@ class IncomesFragment : Fragment() {
                 dataSets.add(default)
             }
         }
-
         val last = BarDataSet(listOf(yVals.last()), "")
         val color = resources.getColor(R.color.colorPrimary)
         last.setColor(color)
         dataSets.add(last)
-
         val data = BarData(dataSets)
-
         data.setValueTextSize(10f)
         data.barWidth = 0.9f
-
         incomes_weekly_chart.setData(data)
-
     }
+
+
+    private fun startHistoryServicesActivity() {
+        val intent = Intent(activity, HistoryServiceActivity::class.java)
+        startActivity(intent)
+    }
+
 }

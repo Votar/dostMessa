@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_service_history"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="entrego.com.android.ui.incomes.history.HistoryServiceActivity">
+
+
+
+    <ScrollView
+        android:paddingTop="?attr/actionBarSize"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/default_screen_padding"
+        android:paddingRight="@dimen/default_screen_padding">
+
+        <FrameLayout
+            android:paddingTop="@dimen/default_screen_padding"
+            android:paddingBottom="@dimen/default_screen_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorGrey"
+                    android:padding="@dimen/default_screen_padding"
+                    android:text="@string/todays_services" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp">
+
+                    <TextView
+                        android:id="@+id/history_service_today_empty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/empty_list_history_services"
+                        android:visibility="gone" />
+
+                    <ProgressBar
+                        android:id="@+id/history_service_today_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/history_service_today_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorGrey"
+                    android:padding="@dimen/default_screen_padding"
+                    android:text="@string/recent_services" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp">
+
+                    <ProgressBar
+                        android:id="@+id/history_service_recent_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+
+                    <TextView
+                        android:id="@+id/history_service_recent_empty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/empty_list_history_services"
+                        android:visibility="gone" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/history_service_recent_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                       />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        </FrameLayout>
+
+    </ScrollView>
+    <include
+        android:id="@+id/history_service_toolbar"
+        layout="@layout/navigation_toolbar" />
+</RelativeLayout>
