@@ -35,10 +35,8 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
 
     companion object {
-
         val TAG = "DescriptionFragmentTAG"
         fun getInstance(): DescriptionFragment {
-
             val fragment = DescriptionFragment()
             return fragment
         }

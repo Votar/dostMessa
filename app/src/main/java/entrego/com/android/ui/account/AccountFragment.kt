@@ -13,7 +13,7 @@ import entrego.com.android.ui.account.profile.VehicleFragment
 import entrego.com.android.ui.account.profile.edit.EditProfileActivity
 import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
 import entrego.com.android.util.Logger
-import entrego.com.android.util.loadPicasson
+import entrego.com.android.util.loadImg
 import entrego.com.android.util.ui.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
 
@@ -45,12 +45,10 @@ class AccountFragment : Fragment() {
                 1 -> startActivityForResult(Intent(context, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
             }
         }
-        account_user_pic.loadPicasson(R.drawable.call_icon)
+        account_user_pic.loadImg(R.drawable.smalllogo)
     }
-
     override fun onResume() {
         super.onResume()
-
         Logger.logd("Account resumed")
         setupViewPager(account_viewpager)
         account_tabs.setupWithViewPager(account_viewpager)

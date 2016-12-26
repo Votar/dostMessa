@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="entrego.com.android.ui.account.profile.account.AccountActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingLeft="@dimen/default_screen_padding"
+        android:paddingRight="@dimen/default_screen_padding"
+        android:paddingTop="?attr/actionBarSize"
+        android:scrollbars="none">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/default_screen_padding"
+            android:paddingTop="@dimen/default_screen_padding">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/account_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:padding="@dimen/double_screen_padding"
+                        app:srcCompat="@drawable/logo_medium" />
+
+                    <LinearLayout
+                        android:layout_below="@id/account_logo"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/account_bank_name_il"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/account_bank_name_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/hint_bank_name"
+                                android:inputType="textPersonName"
+                                android:nextFocusDown="@+id/account_edit_full_name" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/account_full_name_il"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/account_edit_full_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/hint_full_name"
+                                android:nextFocusDown="@+id/account_edit_number"
+                                android:singleLine="true" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/account_number_il"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/account_edit_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/hint_account_number"
+                                android:nextFocusDown="@+id/registration_edit_password"
+                                android:singleLine="true" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/account_swift_il"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/account_edit_swift_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/hint_account_swift_code"
+                                android:nextFocusDown="@+id/registration_edit_password"
+                                android:singleLine="true" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <Button
+                            android:text="@string/ui_save"
+                            android:layout_margin="@dimen/default_screen_padding"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/account_btn_save" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+        </FrameLayout>
+    </ScrollView>
+
+    <include layout="@layout/navigation_toolbar" />
+
+</RelativeLayout>

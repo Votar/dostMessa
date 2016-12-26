@@ -10,5 +10,5 @@ interface ICancelDeliveryView {
     fun onHideProgress()
     fun showMessage(message: String)
     fun getActivityContext(): Context
-    fun onReturnToRoot()
+    fun showSuccessScreen()
 }

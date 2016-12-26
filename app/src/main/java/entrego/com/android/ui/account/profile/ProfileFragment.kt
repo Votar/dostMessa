@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import entrego.com.android.R
 import entrego.com.android.ui.account.files.AddFilesActivity
+import entrego.com.android.ui.account.files.FileVariantsActivity
 import entrego.com.android.ui.account.help.HelpActivity
 import entrego.com.android.ui.account.history.DeliveryHistoryActivity
+import entrego.com.android.ui.account.profile.account.AccountActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 /**
@@ -33,6 +35,11 @@ class ProfileFragment : Fragment() {
         helpItem?.setOnClickListener { startHelpActivity() }
         profile_routes.setOnClickListener { startDeliveryHistoryActivity() }
         profile_files.setOnClickListener { startAddFilesActivity() }
+        profile_account.setOnClickListener { startAccountActivity() }
+    }
+
+    private fun startAccountActivity() {
+        startActivity(Intent(context, AccountActivity::class.java))
     }
 
 
@@ -47,7 +54,7 @@ class ProfileFragment : Fragment() {
     }
 
     fun startAddFilesActivity() {
-        val intent = Intent(context, AddFilesActivity::class.java)
+        val intent = Intent(context, FileVariantsActivity::class.java)
         startActivity(intent)
     }
 }

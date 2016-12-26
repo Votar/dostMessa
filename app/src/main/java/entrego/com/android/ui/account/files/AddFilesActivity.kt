@@ -16,6 +16,37 @@ import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 
 class AddFilesActivity : AppCompatActivity(), IAddFilesView {
+
+    companion object {
+        val KEY_RQT_CODE = "ext_rqt_code"
+        val RQT_LICENCE = 0x1558
+        val RQT_ID = 0x1559
+    }
+
+    val mPresenter: IAddFilesPresenter = AddFilesPresenter()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_files)
+        setSupportActionBar(navigation_toolbar)
+        mPresenter.onCreate(this)
+        nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
+        add_files_camera.setOnClickListener {
+            mPresenter.takePhotoFromCamera()
+        }
+        add_files_gallery.setOnClickListener {
+            mPresenter.pickPhotoFromGallery()
+        }
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        mPresenter.handleResultActivity(requestCode, resultCode, data)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.onDestroy()
+    }
+
     override fun showMessage(message: String?) {
         UserMessageUtil.show(this, message)
     }
@@ -37,33 +68,7 @@ class AddFilesActivity : AppCompatActivity(), IAddFilesView {
     }
 
 
-    val mPresenter: IAddFilesPresenter = AddFilesPresenter()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_files)
 
-        setSupportActionBar(navigation_toolbar)
-
-        mPresenter.onCreate(this)
-        nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
-
-        add_files_camera.setOnClickListener {
-            mPresenter.takePhotoFromCamera()
-        }
-        add_files_gallery.setOnClickListener {
-            mPresenter.pickPhotoFromGallery()
-        }
-
-    }
-
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        mPresenter.handleResultActivity(requestCode, resultCode, data)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mPresenter.onDestroy()
-    }
 }
 
 

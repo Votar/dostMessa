@@ -6,16 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
-
         <ImageView
             android:layout_gravity="center_horizontal"
             android:id="@+id/account_user_pic"
-            android:layout_width="@dimen/user_pic_size"
-            android:layout_height="@dimen/user_pic_size" />
-
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/account_user_name"
         android:layout_width="wrap_content"

@@ -46,8 +46,7 @@ class CancelDeliveryPresenter : ICancelDeliveryPresenter {
             CancelDelivery.executeAsync(token, reason, object : CancelDelivery.CancelDeliveryListener {
                 override fun onSuccessCancel() {
                     mView?.onHideProgress()
-                    mView?.showMessage("GC")
-                    mView?.onReturnToRoot()
+                    mView?.showSuccessScreen()
                 }
 
                 override fun onFailureCancel(message: String) {

@@ -50,7 +50,7 @@ fun EntregoPointBinding.toDirectionFormat(): String =
                 .toString()
 
 
-fun ImageView.loadPicasson(resId: Int) {
+fun ImageView.loadImg(resId: Int) {
     Glide.with(this.context).load(resId).into(this)
 }
 

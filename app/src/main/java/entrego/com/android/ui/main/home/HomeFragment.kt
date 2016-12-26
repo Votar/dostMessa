@@ -70,7 +70,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun onStart() {
         super.onStart()
-
         reenterTransition = true
         map_view.getMapAsync(this)
 

@@ -145,11 +145,11 @@
         </activity>
         <activity
             android:name=".ui.account.files.AddFilesActivity"
-            android:parentActivityName=".ui.main.RootActivity"
+            android:parentActivityName=".ui.account.files.FileVariantsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="entrego.com.android.ui.main.RootActivity" />
+                android:value=".ui.account.files.FileVariantsActivity" />
         </activity>
         <activity
             android:name=".ui.score.comments.CommentsActivity"
@@ -185,18 +185,43 @@
         </activity>
         <activity
             android:name=".ui.incomes.history.HistoryServiceActivity"
+            android:launchMode="singleTask"
             android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
-        <activity android:name=".ui.incomes.history.details.DetailsOfServiceActivity"
+        <activity
+            android:name=".ui.incomes.history.details.DetailsOfServiceActivity"
             android:parentActivityName=".ui.incomes.history.HistoryServiceActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.incomes.history.HistoryServiceActivity" />
+        </activity>
+        <activity
+            android:name=".ui.account.profile.account.AccountActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.main.delivery.description.cancel.SuccessCancelationActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.account.files.FileVariantsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
     </application>
 

@@ -5,4 +5,4 @@
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="@dimen/default_logo_margin"
-    app:srcCompat="@drawable/biglogo" />
+    app:srcCompat="@drawable/logo_medium" />

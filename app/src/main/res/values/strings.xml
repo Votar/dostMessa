@@ -98,10 +98,17 @@
     <string name="cancel_delivery_message">Do you really want to cancel?</string>
     <string name="charts_estimated_pay">Espimated pay</string>
     <string name="history_of_services">History of services</string>
-    <string name="todays_services">Today\'s services</string>
+    <string name="todays_services">Today\'serverName services</string>
     <string name="empty_list_history_services">No services in list</string>
     <string name="recent_services">Recent services</string>
     <string name="current_currency">$</string>
     <string name="base_price">Base price</string>
     <string name="support_email">operaciones@entregoya.com</string>
+    <string name="hint_bank_name">Bank name</string>
+    <string name="ui_success_calncelation">Successfull cancelation!</string>
+    <string name="hint_full_name">Full name</string>
+    <string name="hint_account_number">Account number</string>
+    <string name="hint_account_swift_code">Swift code</string>
+    <string name="ui_license">Licence</string>
+    <string name="ui_id">Id</string>
 </resources>

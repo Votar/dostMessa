@@ -62,8 +62,8 @@ class CancelDeliveryActivity : AppCompatActivity(), ICancelDeliveryView {
         return this
     }
 
-    override fun onReturnToRoot() {
-        NavUtils.navigateUpFromSameTask(this)
+    override fun showSuccessScreen() {
+        startActivity(Intent(this, SuccessCancelationActivity::class.java))
     }
 
 
