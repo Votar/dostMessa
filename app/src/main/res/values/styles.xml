@@ -28,13 +28,19 @@
         <item name="android:clickable">true</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
-    <style name="ClickableView" >
+
+    <style name="ClickableView">
         <item name="android:clickable">true</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
+
     <style name="MenuCardView" parent="CardView.Light">
         <item name="android:layout_marginTop">4dp</item>
+    </style>
 
+    <style name="DefaultEditText">
+        <item name="android:padding">@dimen/small_text_padding</item>
+        <item name="android:background">@drawable/edit_text_background</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

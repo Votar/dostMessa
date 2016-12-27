@@ -111,4 +111,5 @@
     <string name="hint_account_swift_code">Swift code</string>
     <string name="ui_license">Licence</string>
     <string name="ui_id">Id</string>
+    <string name="ui_send">send</string>
 </resources>

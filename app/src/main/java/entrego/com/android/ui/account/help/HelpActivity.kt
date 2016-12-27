@@ -7,6 +7,7 @@ import android.support.v4.app.NavUtils
 import android.view.MenuItem
 import entrego.com.android.R
 import entrego.com.android.ui.account.help.chat.ChatHelpActivity
+import entrego.com.android.ui.account.help.reports.ReportsListActivity
 import kotlinx.android.synthetic.main.activity_help.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
@@ -21,6 +22,7 @@ class HelpActivity : AppCompatActivity() {
 
         nav_toolbar_back.setOnClickListener { onBackPressed() }
         help_chatting.setOnClickListener { startChattingActivity() }
+        help_incident_report_item.setOnClickListener { startReportsActivity() }
     }
 
 
@@ -31,6 +33,10 @@ class HelpActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    private fun startReportsActivity() {
+        startActivity(Intent(this, ReportsListActivity::class.java))
     }
 
     fun startChattingActivity() {
