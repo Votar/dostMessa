@@ -61,18 +61,11 @@ class RootActivity : AppCompatActivity() {
                 .commit()
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
-        root_btn_log_out.setOnClickListener {
-            EventBus.getDefault().post(LogoutEvent())
-            finish()
-        }
 
         EventBus.getDefault().register(this)
 
         val token = EntregoStorage(this).getToken()
         DeliveryRequest.requestDelivery(token, null)
-//        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().update(null) }, 5000)
-        //       Handler(Looper.getMainLooper()).postDelayed({ DeliveryRequest.requestDelivery(token, null) }, 7000)
-//        Handler(Looper.getMainLooper()).postDelayed({ DeliveryInstance.getInstance().route.start.address= "asdads" }, 8000)
     }
 
     override fun onStart() {

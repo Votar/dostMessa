@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
+import com.google.maps.android.PolyUtil
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import entrego.com.android.R
 import entrego.com.android.binding.DeliveryInstance
@@ -26,6 +27,7 @@ import entrego.com.android.ui.main.delivery.description.DescriptionFragment
 import entrego.com.android.ui.main.home.presenter.HomePresenter
 import entrego.com.android.ui.main.home.presenter.IHomePresenter
 import entrego.com.android.ui.main.home.view.IHomeView
+import entrego.com.android.util.Logger
 import entrego.com.android.util.UserMessageUtil
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_navigation.*
@@ -56,7 +58,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
-
 
         try {
             MapsInitializer.initialize(activity.applicationContext)
@@ -116,20 +117,20 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
 
-    override fun buildPath(route: Route) {
+    override fun buildPath(path: String) {
 
         removePolyline()
 
+        val points = PolyUtil.decode(path)
+
         val polylineOptions = PolylineOptions().geodesic(true).color(Color.BLUE).width(10f)
-        for (i in 0..route.points.size - 1)
-            polylineOptions.add(route.points[i])
+
+        for (i in 0..points.size - 1)
+            polylineOptions.add(points[i])
 
         if (mMap != null) {
             mPolylinePath.add(mMap!!.addPolyline(polylineOptions))
         }
-
-        val routeBounds = LatLngBounds(route.bounds.southwest, route.bounds.northeast)
-        mMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(routeBounds, 60))
     }
 
     override fun getFragmentContext(): Context {
@@ -143,11 +144,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
 
     override fun prepareNoDelivery() {
-
+        Logger.logd("No delivery!"+Thread.currentThread().name)
         removePolyline()
         mMap?.clear()
-        sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
-        home_navigation_ll.visibility = View.GONE
+       sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
         val description = fragmentManager.findFragmentByTag(DescriptionFragment.TAG)
         if (description != null)
             fragmentManager.beginTransaction()
@@ -163,16 +163,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     var startMarker: Marker? = null
     var finishMarker: Marker? = null
-
+    var wayPointsMarker: Array<Marker>? = null
     override fun prepareRoute(route: EntregoRouteModel) {
+
 
         mBinder?.delivery = DeliveryInstance.getInstance()
         mBinder?.invalidateAll()
 
         startMarker?.remove()
         finishMarker?.remove()
+        sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+
         //add start point
-        val startLatLng = LatLng(route.start.latitude, route.start.longitude)
+        val startLatLng = LatLng(route.getCurrentPoint().point.latitude, route.getCurrentPoint().point.longitude)
         startMarker = mMap?.addMarker(MarkerOptions()
                 .position(startLatLng)
                 .draggable(false)
@@ -180,16 +183,17 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 .title(getString(R.string.start_point)))
 
         //add finish point
-        val finishLatLng = LatLng(route.destination.latitude, route.destination.longitude)
+        val finishLatLng = LatLng(route.getDestinationPoint().point.latitude,
+                route.getDestinationPoint().point.longitude)
         finishMarker = mMap?.addMarker(MarkerOptions()
                 .position(finishLatLng)
                 .draggable(false)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 .title(getString(R.string.finish_point)))
 
+        moveCamera(startLatLng.latitude, startLatLng.longitude)
+
         if (home_sliding_container != null) {
-            home_sliding_container.visibility = View.VISIBLE
-            sliding_layout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             val fragment = DescriptionFragment.getInstance()
 
             fragmentManager.beginTransaction()
@@ -197,11 +201,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                     .commit()
         }
 
-        home_navigation_ll.visibility = View.VISIBLE
-
-        home_navigation_address.text = route.destination.address
-
-        navigation_clickable_ll.setOnClickListener { showNavigation(startLatLng, finishLatLng) }
+        navigation_clickable_ll.setOnClickListener {
+            showNavigation(route.getCurrentPoint().point,
+                    route.getDestinationPoint().point)
+        }
 
     }
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="route"
             type="entrego.com.android.storage.model.EntregoRouteModel" />
@@ -14,7 +13,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorTransparentGrey"
         android:orientation="horizontal"
-        android:padding="@dimen/default_screen_padding">
+        android:padding="@dimen/default_screen_padding"
+        android:visibility="@{route == null? View.GONE: View.VISIBLE}">
 
         <TextView
             android:id="@+id/home_navigation_address"
@@ -23,7 +23,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:paddingRight="@dimen/default_screen_padding"
-            android:text="@{route.destination.address}"
+            android:text="@{route.destinationPoint.address}"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/tsize_medium" />
 

@@ -1,18 +1,28 @@
 package entrego.com.android.storage.model
 
-import com.google.android.gms.maps.model.LatLng
 import entrego.com.android.binding.EntregoPointBinding
 
 /**
  * Created by bertalt on 05.12.16.
  */
-class EntregoRouteModel(val start: EntregoPointBinding,
-                        val destination: EntregoPointBinding) {
+class EntregoRouteModel(val path: EntregoPath,
+                        val waypoints: Array<EntregoPointBinding>) {
 
-
-    fun toList() : List<EntregoPointBinding>{
-
-        return listOf(start, destination)
+    //TODO:remove mocked values
+    fun getCurrentPoint(): EntregoPointBinding {
+        return waypoints[0]
     }
+
+    fun getDestinationPoint(): EntregoPointBinding {
+        return waypoints[1]
+    }
+
+    fun getNextPoint(): EntregoPointBinding? {
+        if (waypoints.size > 2)
+            return waypoints[2]
+        else
+            return null
+    }
+
 
 }

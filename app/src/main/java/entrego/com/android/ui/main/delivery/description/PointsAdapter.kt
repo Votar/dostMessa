@@ -21,24 +21,23 @@ import java.util.*
 /**
  * Created by bertalt on 07.12.16.
  */
-class PointsAdapter(route: EntregoRouteModel) : RecyclerView.Adapter<PointsAdapter.ViewHolder>() {
+class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<PointsAdapter.ViewHolder>() {
 
     val addresses: List<EntregoPointBinding>
 
     init {
 
-        addresses = listOf(route.start, route.destination)
+        addresses = route.toList()
         Logger.logd(addresses.toString())
 
     }
-
-
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
 
         var binder: ItemDeliveryPointBinding? = null
+
         init {
             binder = DataBindingUtil.bind(rootView)
         }

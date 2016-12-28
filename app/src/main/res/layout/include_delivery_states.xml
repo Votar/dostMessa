@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="delivery"
+            type="entrego.com.android.binding.DeliveryInstance" />
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <include layout="@layout/item_status_service"/>
-    <include layout="@layout/item_status_service"/>
-    <include layout="@layout/item_status_service"/>
-    <include layout="@layout/item_status_service"/>
+        android:orientation="vertical"
+        android:visibility="@{delivery.route==null?View.GONE: View.VISIBLE}">
+
+        <include layout="@layout/status_service_on_the_way" />
+
+        <include layout="@layout/dashed_divider" />
+
+        <include layout="@layout/status_service_waiting_for_ship" />
+
+        <include layout="@layout/dashed_divider" />
+
+        <include layout="@layout/status_service_ship_on_way" />
+
+        <include layout="@layout/dashed_divider" />
+
+        <include layout="@layout/status_service_waiting_for_delivery" />
+
+        <include layout="@layout/dashed_divider" />
+
+        <include layout="@layout/status_service_delivered" />
+
+
     </LinearLayout>
 
+</layout>

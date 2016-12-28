@@ -240,12 +240,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.account.help.reports.ReportsListActivity" />
         </activity>
-        <activity android:name=".ui.account.help.reports.details.ReportDetailsActivity"
+        <activity
+            android:name=".ui.account.help.reports.details.ReportDetailsActivity"
             android:parentActivityName=".ui.account.help.reports.ReportsListActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.account.help.reports.ReportsListActivity" />
+        </activity>
+        <activity android:name=".ui.incomes.details.IncomesDetailsActivity"
+            android:parentActivityName="entrego.com.android.ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
     </application>
 

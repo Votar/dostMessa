@@ -44,9 +44,9 @@ fun ProgressDialog.loading() {
 
 fun EntregoPointBinding.toDirectionFormat(): String =
         StringBuilder()
-                .append(this.latitude)
+                .append(this.point.latitude)
                 .append(",")
-                .append(this.longitude)
+                .append(this.point.longitude)
                 .toString()
 
 

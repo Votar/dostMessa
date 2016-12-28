@@ -112,4 +112,11 @@
     <string name="ui_license">Licence</string>
     <string name="ui_id">Id</string>
     <string name="ui_send">send</string>
+    <string name="status_on_the_way">On the way</string>
+    <string name="status_waiting_for_ship">Waiting for the shipment</string>
+    <string name="status_ship_on_way">Shipment on the way</string>
+    <string name="status_waiting_for_delivery">Waiting for delivery</string>
+    <string name="status_delivered">Delivered</string>
+    <string name="this_week">This week</string>
+    <string name="earning_week">Earning of the week</string>
 </resources>

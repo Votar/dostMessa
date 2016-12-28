@@ -10,6 +10,7 @@ interface IDrawerView {
 
     fun showEmptyView()
     fun showDeliveryView()
+    fun buildMultiDelivery()
     fun setupHeader(customer: CustomerModel?)
     fun setupRoute(route: EntregoRouteModel?)
 

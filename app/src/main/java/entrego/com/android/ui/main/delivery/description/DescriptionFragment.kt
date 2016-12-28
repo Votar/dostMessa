@@ -4,33 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import com.google.gson.Gson
 import entrego.com.android.R
-import entrego.com.android.databinding.FragmentDescriptionBinding
-import entrego.com.android.storage.model.DeliveryModel
-import entrego.com.android.storage.model.EntregoPoint
 import entrego.com.android.binding.DeliveryInstance
-import entrego.com.android.binding.EntregoPointBinding
+import entrego.com.android.databinding.FragmentDescriptionBinding
 import entrego.com.android.ui.main.delivery.description.cancel.CancelDeliveryActivity
 import entrego.com.android.ui.main.delivery.description.presenter.DescriptionPresenter
 import entrego.com.android.ui.main.delivery.description.presenter.IDescriptionPresenter
 import entrego.com.android.ui.main.delivery.description.view.IDescreptionView
 import entrego.com.android.util.Logger
 import kotlinx.android.synthetic.main.fragment_description.*
-import java.util.*
 
-/**
- * Created by bertalt on 06.12.16.
- */
+
 class DescriptionFragment : Fragment(), IDescreptionView {
 
 
@@ -73,8 +63,7 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
             recycler?.visibility = View.VISIBLE
             recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            recycler?.adapter = PointsAdapter(delivery.route)
-            presenter.requestAddresses(delivery.route)
+            recycler?.adapter = PointsAdapter(delivery.route.waypoints)
 
 
         }

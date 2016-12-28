@@ -3,42 +3,43 @@ package entrego.com.android.binding;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import entrego.com.android.BR;
 
 /**
  * Created by bertalt on 09.12.16.
  */
 
-public class EntregoPointBinding extends BaseObservable{
+public class EntregoPointBinding extends BaseObservable {
 
-    private double latitude;
-    private double longitude;
-    @Bindable private String address ="";
-    @Bindable private String status ="";
 
-    public EntregoPointBinding(double latitude, double longitude, String address, String status) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+    private LatLng point;
+    private String address = "";
+    @Bindable
+    private String status = "";
+
+    public EntregoPointBinding(LatLng point, String address, String status) {
+        this.point = point;
         this.address = address;
         this.status = status;
     }
 
     public void setAddress(String address) {
         this.address = address;
-        notifyPropertyChanged(BR.address);
+    }
+
+    public LatLng getPoint() {
+        return point;
+    }
+
+    public void setPoint(LatLng point) {
+        this.point = point;
     }
 
     public void setStatus(String status) {
         this.status = status;
         notifyPropertyChanged(BR.status);
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
     }
 
     public String getAddress() {
@@ -52,8 +53,6 @@ public class EntregoPointBinding extends BaseObservable{
     @Override
     public String toString() {
         return "EntregoPointBinding{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
                 ", address='" + address + '\'' +
                 ", status='" + status + '\'' +
                 '}';

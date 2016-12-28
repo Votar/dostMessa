@@ -26,7 +26,7 @@ public class DeliveryInstance extends BaseObservable {
         return instance;
     }
 
-    public void update(DeliveryModel model) {
+    public synchronized void update(DeliveryModel model) {
 
         if (model != null) {
             route = model.getRoute();
@@ -39,7 +39,7 @@ public class DeliveryInstance extends BaseObservable {
             path = null;
         }
 
-
+        notifyPropertyChanged(BR.route);
         notifyPropertyChanged(BR.instance);
 
     }
@@ -60,7 +60,7 @@ public class DeliveryInstance extends BaseObservable {
 
     public void setPath(Route path) {
         this.path = path;
-        notifyPropertyChanged(BR.path);
+        notifyPropertyChanged(BR.instance);
     }
 
     public Route getPath() {

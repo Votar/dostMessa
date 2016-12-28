@@ -1,6 +1,8 @@
 package entrego.com.android.ui.main.home.presenter
 
 import android.databinding.Observable
+import android.os.Handler
+import android.text.TextUtils
 import entrego.com.android.BR
 import entrego.com.android.location.diraction.DirectionFinder
 import entrego.com.android.location.diraction.DirectionFinderListener
@@ -17,49 +19,31 @@ class HomePresenter : IHomePresenter {
     var view: IHomeView? = null
     val mDeliveryChangedListener = object : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(p0: Observable?, p1: Int) {
-
             when (p1) {
                 BR.instance -> {
                     onBuildView()
-                }
-                BR.path -> {
-                    val path = DeliveryInstance.getInstance().path
-                    view?.buildPath(path)
                 }
             }
         }
     }
 
     override fun onStart(view: IHomeView) {
-
         this.view = view
-        onBuildView()
         DeliveryInstance.getInstance().addOnPropertyChangedCallback(mDeliveryChangedListener)
-
+        onBuildView()
     }
 
-
     fun onBuildView() {
-
         val delivery = DeliveryInstance.getInstance()
-
-
-
         if (delivery.route != null) {
             view?.prepareRoute(delivery.route)
-
-            if (delivery.path != null)
-                view?.buildPath(delivery.path)
-            else {
-                DirectionFinder(directionListener,
-                        delivery.route.start.toDirectionFormat(),
-                        delivery.route.destination.toDirectionFormat(),
-                        null)
-                        .execute()
+            if (!TextUtils.isEmpty(delivery.route.path.line)) {
+                view?.buildPath(delivery.route.path.line)
             }
-        } else
-            view?.prepareNoDelivery()
+        } else {
+          view?.prepareNoDelivery()
 
+        }
     }
 
     override fun onStop() {
@@ -68,16 +52,4 @@ class HomePresenter : IHomePresenter {
         view = null
     }
 
-    val directionListener = object : DirectionFinderListener {
-        override fun onDirectionFinderStart() {
-
-        }
-
-        override fun onDirectionFinderSuccess(route: MutableList<Route>?) {
-
-            if (route != null && route.size > 0)
-                view?.buildPath(route[0])
-        }
-
-    }
 }

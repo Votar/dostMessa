@@ -18,6 +18,7 @@ import entrego.com.android.R
 import entrego.com.android.ui.incomes.charts.DayAxisValueFormatter
 import entrego.com.android.ui.incomes.charts.EaringAxisValueFormatter
 import entrego.com.android.ui.incomes.charts.XYMarkerView
+import entrego.com.android.ui.incomes.details.IncomesDetailsActivity
 import entrego.com.android.ui.incomes.history.HistoryServiceActivity
 import kotlinx.android.synthetic.main.fragment_incomes.*
 import java.util.*
@@ -36,7 +37,14 @@ class IncomesFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setupCharts()
-        incomes_history_card.setOnClickListener({ startHistoryServicesActivity() })
+        incomes_history_card.setOnClickListener { startHistoryServicesActivity() }
+
+        incomes_chart_ll.setOnClickListener { startIncomesDetailsActivity() }
+    }
+
+    private fun startIncomesDetailsActivity() {
+        val intent = Intent(context, IncomesDetailsActivity::class.java)
+        startActivity(intent)
     }
 
 

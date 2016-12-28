@@ -9,7 +9,6 @@ import entrego.com.android.ui.main.delivery.description.view.IDescreptionView
  * Created by bertalt on 07.12.16.
  */
 interface IDescriptionPresenter {
-    fun requestAddresses(route: EntregoRouteModel)
     fun onStart(view: IDescreptionView)
     fun onStop()
 

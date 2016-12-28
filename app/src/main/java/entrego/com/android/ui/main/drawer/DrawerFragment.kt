@@ -34,7 +34,6 @@ class DrawerFragment : Fragment(), IDrawerView {
         retainInstance = true
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_drawer, container, false)
         binder?.delivery = DeliveryInstance.getInstance()
-
         return binder?.root
     }
     override fun onStart() {
@@ -51,6 +50,11 @@ class DrawerFragment : Fragment(), IDrawerView {
         presenter.onStop()
 
     }
+
+    override fun buildMultiDelivery() {
+
+    }
+
 
     override fun showEmptyView() {
 

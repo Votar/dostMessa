@@ -1,48 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="delivery"
             type="entrego.com.android.binding.DeliveryInstance" />
+
+        <variable
+            name="start"
+            type="entrego.com.android.binding.EntregoPointBinding" />
+
+        <variable
+            name="destination"
+            type="entrego.com.android.binding.EntregoPointBinding" />
     </data>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:background="@color/colorWhite"
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/drawer_delivery_ll"
+        <ScrollView
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/drawer_delivery_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/include_delivery_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    bind:customer="@{delivery.customer}" />
+
+                <include
+                    layout="@layout/include_delivery_route"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:destination="@{delivery.route.destinationPoint}"
+                    bind:start="@{delivery.route.currentPoint}" />
+
+                <include
+                    layout="@layout/include_delivery_states"
+                    bind:delivery="@{delivery}" />
+
+                <LinearLayout
+                    android:background="@color/colorGrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:visibility="@{delivery.route.nextPoint == null? View.GONE : View.VISIBLE}">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/next_point_dot" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/small_text_padding"
+                        android:text="@{delivery.route.nextPoint.address}" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+        <Button
+            android:id="@+id/drawer_sign_bill"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include
-                layout="@layout/include_delivery_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                bind:customer="@{delivery.customer}" />
-
-            <include
-                layout="@layout/include_delivery_route"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                bind:route="@{delivery.route}" />
-
-
-            <include
-                layout="@layout/include_delivery_states"
-                bind:delivery="@{delivery}" />
-
-            <Button
-                android:id="@+id/drawer_sign_bill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/sign_bill"
-                android:visibility="@{delivery.customer != null? View.VISIBLE: View.GONE}" />
-        </LinearLayout>
-
-    </ScrollView>
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sign_bill"
+            android:visibility="@{delivery.customer != null? View.VISIBLE: View.GONE}" />
+    </RelativeLayout>
 </layout>
 
