@@ -123,7 +123,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
         val points = PolyUtil.decode(path)
 
-        val polylineOptions = PolylineOptions().geodesic(true).color(Color.BLUE).width(10f)
+        val polylineOptions = PolylineOptions().geodesic(true).color(resources.getColor(R.color.colorDarkBlue)).width(10f)
 
         for (i in 0..points.size - 1)
             polylineOptions.add(points[i])

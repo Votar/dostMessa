@@ -8,8 +8,6 @@ import android.content.Context
 interface IDeliveryHistoryView {
     fun showEmptyView()
     fun showHistoryList()
-    fun showProgress()
-    fun hideProgress()
     fun showMessage(message:String?)
     fun getAppContext(): Context?
 }

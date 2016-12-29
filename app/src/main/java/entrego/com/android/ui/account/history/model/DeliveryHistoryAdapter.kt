@@ -14,15 +14,13 @@ import entrego.com.android.databinding.ItemHistoryRoutesBinding
 /**
  * Created by bertalt on 07.12.16.
  */
-class DeliveryHistoryAdapter(val context: Context?) : RecyclerView.Adapter<DeliveryHistoryAdapter.ViewHolder>() {
+class DeliveryHistoryAdapter(val context: Context?, val listener: ClickItemListener) : RecyclerView.Adapter<DeliveryHistoryAdapter.ViewHolder>() {
 
 
-    init {
-
+    interface ClickItemListener{
+        fun onItemClicked()
     }
-
-
-    // Provide a reference to the views for each data item
+     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
@@ -32,8 +30,6 @@ class DeliveryHistoryAdapter(val context: Context?) : RecyclerView.Adapter<Deliv
         init {
             binder = DataBindingUtil.bind(rootView)
         }
-
-
     }
 
     val url = "http://maps.googleapis.com/maps/api/staticmap?center=Albany,+NY&zoom=13&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true"
@@ -53,6 +49,8 @@ class DeliveryHistoryAdapter(val context: Context?) : RecyclerView.Adapter<Deliv
                         .onLoadStarted(loadingIcon)
 
         }
+
+        holder?.binder?.root?.setOnClickListener { listener.onItemClicked() }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DeliveryHistoryAdapter.ViewHolder {

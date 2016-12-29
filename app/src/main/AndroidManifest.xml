@@ -272,14 +272,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
-        <activity android:name=".ui.score.updates.details.UpdatesDetailsActivity"
+        <activity
+            android:name=".ui.score.updates.details.UpdatesDetailsActivity"
             android:parentActivityName=".ui.score.updates.WeeklyUpdatesListActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.score.updates.WeeklyUpdatesListActivity" />
-
         </activity>
+        <activity android:name=".ui.account.history.details.RouteHistoryDetailsActivity"></activity>
     </application>
 
 </manifest>
