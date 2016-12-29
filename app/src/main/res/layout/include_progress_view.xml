@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:id="@+id/common_progress_view"
     android:background="@color/colorTransparent"
     android:padding="@dimen/default_screen_padding">
 

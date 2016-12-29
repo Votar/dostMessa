@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/common_empty_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    i
 
     <ImageView
         android:id="@+id/include_empty_icon"
@@ -13,7 +13,7 @@
         app:srcCompat="@drawable/ic_cloud_off_48dp" />
 
     <TextView
-        android:id="@+id/include_empty_text"
+        android:id="@+id/common_empty_text"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_below="@id/include_empty_icon"
         android:text="@string/no_data_found"

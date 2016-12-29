@@ -263,6 +263,21 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.score.tips.ImprovementTipsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity android:name=".ui.score.updates.details.UpdatesDetailsActivity"
+            android:parentActivityName=".ui.score.updates.WeeklyUpdatesListActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.score.updates.WeeklyUpdatesListActivity" />
 
         </activity>
     </application>

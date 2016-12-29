@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import entrego.com.android.R
 import entrego.com.android.ui.faq.UpdatesAdapter
+import entrego.com.android.ui.score.updates.details.UpdatesDetailsActivity
 import entrego.com.android.ui.score.updates.model.RatingModel
 import entrego.com.android.ui.score.updates.presenter.IWeeklyUpdatesPresenter
 import entrego.com.android.ui.score.updates.presenter.WeeklyUpdatesPresenter
@@ -54,8 +55,8 @@ class WeeklyUpdatesListActivity : AppCompatActivity(), IWeeklyUpdatesView {
         weekly_updates_recycler.visibility = View.GONE
         weekly_updates_empty.visibility = View.VISIBLE
 
-        if(message != null)
-        include_empty_text.text = message
+        if (message != null)
+            common_empty_text.text = message
     }
 
     override fun buildView(list: List<RatingModel>) {
@@ -67,9 +68,8 @@ class WeeklyUpdatesListActivity : AppCompatActivity(), IWeeklyUpdatesView {
 
     val mClickItemListener = object : UpdatesAdapter.RatingClickListener {
         override fun onItemClicked(item: RatingModel) {
-
+            UpdatesDetailsActivity.start(weekly_updates_scroll.context)
         }
-
     }
 
 }
