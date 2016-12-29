@@ -19,8 +19,6 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
         }
     }
 
-    val url = "http://maps.googleapis.com/maps/api/staticmap?center=Albany,+NY&zoom=13&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true"
-
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder?.binder?.comment = "debug"
     }

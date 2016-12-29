@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import entrego.com.android.R
 import entrego.com.android.ui.score.comments.CommentsActivity
+import entrego.com.android.ui.score.updates.WeeklyUpdatesListActivity
 import entrego.com.android.util.buildRatingBar
 import kotlinx.android.synthetic.main.best_messenger_charts.*
 import kotlinx.android.synthetic.main.fragment_score.*
@@ -34,6 +35,11 @@ class ScoreFragment : Fragment() {
 
     fun setupListeners() {
         score_comments_item.setOnClickListener { startCommentsActivity() }
+        score_weekly_updates_item.setOnClickListener { startWeeklyListActivity() }
+    }
+
+    private fun startWeeklyListActivity() {
+        WeeklyUpdatesListActivity.start(context)
     }
 
     private fun startCommentsActivity() {

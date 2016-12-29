@@ -248,12 +248,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.account.help.reports.ReportsListActivity" />
         </activity>
-        <activity android:name=".ui.incomes.details.IncomesDetailsActivity"
-            android:parentActivityName="entrego.com.android.ui.main.RootActivity"
+        <activity
+            android:name=".ui.incomes.details.IncomesDetailsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="entrego.com.android.ui.main.RootActivity" />
+        </activity>
+        <activity
+            android:name=".ui.score.updates.WeeklyUpdatesListActivity"
+            android:parentActivityName=".ui.main.RootActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="entrego.com.android.ui.main.RootActivity" />
+
         </activity>
     </application>
 

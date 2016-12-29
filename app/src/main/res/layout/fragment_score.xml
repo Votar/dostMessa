@@ -184,6 +184,7 @@
 
 
         <FrameLayout
+            android:id="@+id/score_weekly_updates_item"
             style="@style/ClickableView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

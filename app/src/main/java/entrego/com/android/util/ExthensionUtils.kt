@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
+import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
@@ -93,3 +94,5 @@ fun View.buildRatingBar(rating: Double) {
     userLayoutParams.gravity = Gravity.CENTER_VERTICAL
     this.layoutParams = userLayoutParams
 }
+
+fun Float.formatRating(digits:Float) = java.lang.String.format("%${digits}f", this)

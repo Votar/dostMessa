@@ -119,4 +119,5 @@
     <string name="status_delivered">Delivered</string>
     <string name="this_week">This week</string>
     <string name="earning_week">Earning of the week</string>
+    <string name="no_data_found">No data found</string>
 </resources>
