@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -29,6 +30,7 @@ import entrego.com.android.ui.incomes.IncomesFragment
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest
+import entrego.com.android.ui.main.special.SpecialActionFragment
 import entrego.com.android.ui.score.ScoreFragment
 import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.util.ui.ViewPagerAdapter
@@ -71,7 +73,7 @@ class RootActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         checkLocationPermission()
-
+        // Handler().postDelayed({ SpecialActionFragment.newInstance().show(supportFragmentManager, null) }, 1500)
     }
 
     override fun onDestroy() {

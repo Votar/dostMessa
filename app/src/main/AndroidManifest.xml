@@ -280,7 +280,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.score.updates.WeeklyUpdatesListActivity" />
         </activity>
-        <activity android:name=".ui.account.history.details.RouteHistoryDetailsActivity"></activity>
+        <activity android:name=".ui.account.history.details.RouteHistoryDetailsActivity" />
+        <activity
+            android:name=".ui.main.special.SpecialDetailsActivity"
+            android:parentActivityName=".ui.account.history.DeliveryHistoryActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.account.history.DeliveryHistoryActivity" />
+        </activity>
     </application>
 
 </manifest>

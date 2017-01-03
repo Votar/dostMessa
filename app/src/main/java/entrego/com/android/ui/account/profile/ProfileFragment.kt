@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import entrego.com.android.R
-import entrego.com.android.ui.account.files.AddFilesActivity
 import entrego.com.android.ui.account.files.FileVariantsActivity
 import entrego.com.android.ui.account.help.HelpActivity
 import entrego.com.android.ui.account.history.DeliveryHistoryActivity
 import entrego.com.android.ui.account.profile.account.AccountActivity
+import entrego.com.android.util.event_bus.LogoutEvent
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by bertalt on 01.12.16.
@@ -36,7 +37,9 @@ class ProfileFragment : Fragment() {
         profile_routes.setOnClickListener { startDeliveryHistoryActivity() }
         profile_files.setOnClickListener { startAddFilesActivity() }
         profile_account.setOnClickListener { startAccountActivity() }
+        profile_logout.setOnClickListener{ logout()}
     }
+
 
     private fun startAccountActivity() {
         startActivity(Intent(context, AccountActivity::class.java))
@@ -56,6 +59,11 @@ class ProfileFragment : Fragment() {
     fun startAddFilesActivity() {
         val intent = Intent(context, FileVariantsActivity::class.java)
         startActivity(intent)
+    }
+
+
+    private fun logout() {
+        EventBus.getDefault().post(LogoutEvent())
     }
 }
 
