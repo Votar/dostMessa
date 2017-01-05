@@ -73,18 +73,21 @@
                         android:text="@{delivery.route.nextPoint.address}" />
                 </LinearLayout>
 
+                <Button
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:id="@+id/drawer_sign_bill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/double_screen_padding"
+                    android:paddingRight="@dimen/double_screen_padding"
+                    android:text="@string/sign_bill"
+                    android:visibility="@{delivery.customer != null? View.VISIBLE: View.GONE}" />
             </LinearLayout>
         </ScrollView>
 
 
-        <Button
-            android:id="@+id/drawer_sign_bill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/sign_bill"
-            android:visibility="@{delivery.customer != null? View.VISIBLE: View.GONE}" />
+
     </RelativeLayout>
 </layout>
 

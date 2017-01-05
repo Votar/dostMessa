@@ -49,7 +49,7 @@ class DeliveryHistoryActivity : AppCompatActivity(), IDeliveryHistoryView {
     }
 
     override fun showMessage(message: String?) {
-        UserMessageUtil.show(this, message)
+        UserMessageUtil.showSnackMessage(activity_delivery_history, message)
     }
 
     override fun getAppContext(): Context {

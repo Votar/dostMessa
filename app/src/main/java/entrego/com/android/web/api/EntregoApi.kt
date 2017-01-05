@@ -1,5 +1,6 @@
 package entrego.com.android.web.api
 
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.JsonElement
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.storage.model.UserVehicleModel
@@ -32,7 +33,7 @@ object EntregoApi {
         const val CHANGE_PROFILE = "messenger/user/change"
         const val CHANGE_PROFILE_PASSWORD = "messenger/user/change/password"
         const val GET_DELIVERY = "messenger/delivery"
-        const val POST_LOCATION = ""
+        const val POST_LOCATION = "messenger/user/track"
     }
 
     interface Authorization {
@@ -89,7 +90,7 @@ object EntregoApi {
     interface PostLocation {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_LOCATION)
-        fun postLocation(@Header(TOKEN) token: String): Call<JsonElement>
+        fun postLocation(@Header(TOKEN) token: String, @Body location: LatLng): Call<JsonElement>
     }
 
 

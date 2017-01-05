@@ -40,10 +40,10 @@ class AddFilesPresenter : IAddFilesPresenter {
             if (requestCode === RQT_GALLERY) {
                 val images: ArrayList<Image> = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES)
                 mView?.replaceDocumentHolder(images[0].path)
-                // do your logic ....
+
             } else if (requestCode === RQT_CAMERA) {
                 val photo = data.extras?.get("data") as Bitmap
-                mView?.showMessage("picture caught")
+                mView?.replaceDocumentHolder(photo)
             }
     }
 
@@ -69,7 +69,6 @@ class AddFilesPresenter : IAddFilesPresenter {
 
     var permissionlistener: PermissionListener = object : PermissionListener {
         override fun onPermissionGranted() {
-            mView?.showMessage("Permission Granted")
             val cameraIntent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
             mView?.getActivityContext()?.startActivityForResult(cameraIntent, RQT_CAMERA)
         }
@@ -77,8 +76,6 @@ class AddFilesPresenter : IAddFilesPresenter {
         override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
             mView?.showMessage("Permission Denied\n")
         }
-
-
     }
 
 

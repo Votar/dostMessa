@@ -15,9 +15,6 @@ import entrego.com.android.util.event_bus.LogoutEvent
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.greenrobot.eventbus.EventBus
 
-/**
- * Created by bertalt on 01.12.16.
- */
 class ProfileFragment : Fragment() {
 
     var helpItem: View? = null

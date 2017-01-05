@@ -17,25 +17,7 @@ import kotlinx.android.synthetic.main.activity_sign.*
 class SignActivity : AppCompatActivity(), ISignView {
 
     var progressDialog: ProgressDialog? = null
-    override fun showProgress() {
-        progressDialog = ProgressDialog(this)
-        progressDialog?.loading()
-    }
 
-    override fun hideProgress() {
-        progressDialog?.dismiss()
-    }
-
-    override fun onSuccessSign() {
-        DeliveryInstance.getInstance().update(null)
-        finish()
-    }
-
-    override fun onFailureSign(message: String) {
-
-        UserMessageUtil.show(this, message)
-
-    }
 
     val presenter: ISignPresenter = SignPresenter()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,5 +39,25 @@ class SignActivity : AppCompatActivity(), ISignView {
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDestroy()
+    }
+
+    override fun showProgress() {
+        progressDialog = ProgressDialog(this)
+        progressDialog?.loading()
+    }
+
+    override fun hideProgress() {
+        progressDialog?.dismiss()
+    }
+
+    override fun onSuccessSign() {
+        DeliveryInstance.getInstance().update(null)
+        finish()
+    }
+
+    override fun onFailureSign(message: String) {
+
+        UserMessageUtil.showSnackMessage(activity_sign, message)
+
     }
 }

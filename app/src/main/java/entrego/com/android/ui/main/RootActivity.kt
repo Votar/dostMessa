@@ -73,7 +73,6 @@ class RootActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         checkLocationPermission()
-        // Handler().postDelayed({ SpecialActionFragment.newInstance().show(supportFragmentManager, null) }, 1500)
     }
 
     override fun onDestroy() {
@@ -181,7 +180,7 @@ class RootActivity : AppCompatActivity() {
     }
 
     fun startLocationUpdates() {
-        LocationTracker.startLocationTracker(applicationContext)
+        LocationTracker.startLocationListener(this)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -2,6 +2,7 @@ package entrego.com.android.ui.account.files
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 
 class AddFilesActivity : AppCompatActivity(), IAddFilesView {
+
 
     companion object {
         val KEY_RQT_CODE = "ext_rqt_code"
@@ -48,7 +50,7 @@ class AddFilesActivity : AppCompatActivity(), IAddFilesView {
     }
 
     override fun showMessage(message: String?) {
-        UserMessageUtil.show(this, message)
+        UserMessageUtil.showSnackMessage(activity_add_files, message)
     }
 
     override fun showProgress() {
@@ -63,10 +65,13 @@ class AddFilesActivity : AppCompatActivity(), IAddFilesView {
         return this
     }
 
+    override fun replaceDocumentHolder(pic: Bitmap) {
+        add_files_doc_holder.setImageBitmap(pic)
+    }
+
     override fun replaceDocumentHolder(path: String) {
         Glide.with(this).load(path).into(add_files_doc_holder)
     }
-
 
 
 }

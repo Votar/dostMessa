@@ -80,7 +80,6 @@ class LocationService(val name: String) : IntentService(name), GoogleApiClient.C
         val token = EntregoStorage(applicationContext).getToken()
         val curLatLng = LatLng(it.latitude, it.longitude)
 
-        PostUserLocation.sendAsync(token, curLatLng, null)
     }
 
     override fun onConnectionSuspended(p0: Int) {

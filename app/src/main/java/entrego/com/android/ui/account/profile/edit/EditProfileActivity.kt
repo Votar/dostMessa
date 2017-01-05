@@ -90,14 +90,13 @@ class EditProfileActivity : AppCompatActivity() {
                             }
 
                             override fun onSuccessUpdate() {
-
                                 hideProgress()
-                                UserMessageUtil.show(applicationContext, getString(R.string.ui_success_pass_changed))
+                                UserMessageUtil.showSnackMessage(activity_edit_profile, getString(R.string.ui_success_pass_changed))
                             }
 
                             override fun onFailureUpdate(message: String) {
                                 hideProgress()
-                                UserMessageUtil.show(applicationContext, message)
+                                UserMessageUtil.showSnackMessage(activity_edit_profile, message)
                             }
 
                         })
@@ -144,12 +143,12 @@ class EditProfileActivity : AppCompatActivity() {
 
                     override fun onFailureUpdate(message: String) {
                         hideProgress()
-                        UserMessageUtil.show(applicationContext, message)
+                        UserMessageUtil.showSnackMessage(activity_edit_profile, message)
                     }
 
                     override fun onSuccessUpdate(userProfile: UserProfileModel) {
                         hideProgress()
-                        UserMessageUtil.show(applicationContext, getString(R.string.success_profile_updated))
+                        UserMessageUtil.showSnackMessage(activity_edit_profile, getString(R.string.success_profile_updated))
                     }
 
                 }
@@ -158,12 +157,15 @@ class EditProfileActivity : AppCompatActivity() {
 
     }
 
+    var progress: ProgressDialog? = null
     fun showProgress() {
-        //navigation_progress.visibility = View.VISIBLE
+        progress = ProgressDialog(this)
+        progress?.loading()
+
     }
 
     fun hideProgress() {
-        //navigation_progress.visibility = View.GONE
+        progress?.dismiss()
     }
 
     fun requestUserProfile() {
@@ -187,7 +189,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     fun showMessage(message: String) {
 
-        UserMessageUtil.show(this, message)
+        UserMessageUtil.showSnackMessage(activity_edit_profile, message)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -5,15 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.PolyUtil
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -21,14 +24,14 @@ import entrego.com.android.R
 import entrego.com.android.binding.DeliveryInstance
 import entrego.com.android.databinding.FragmentHomeBinding
 import entrego.com.android.location.LocationTracker
-import entrego.com.android.location.diraction.Route
 import entrego.com.android.storage.model.EntregoRouteModel
+import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.delivery.description.DescriptionFragment
 import entrego.com.android.ui.main.home.presenter.HomePresenter
 import entrego.com.android.ui.main.home.presenter.IHomePresenter
 import entrego.com.android.ui.main.home.view.IHomeView
 import entrego.com.android.util.Logger
-import entrego.com.android.util.UserMessageUtil
+import kotlinx.android.synthetic.main.connect_selector.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_navigation.*
 import java.util.*
@@ -42,16 +45,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         val REQUEST_ACCESS_FINE_LOCATION = 0x811
     }
 
-    val presenter: IHomePresenter = HomePresenter()
+    val mPresenter: IHomePresenter = HomePresenter()
 
-    var mCurrentLocation: LatLng? = null
+    var mTimer: Timer? = null
+    val dnipro = LatLng(50.483472, 30.549829)
+    var mCurrentLocation = dnipro
     var mMap: GoogleMap? = null
     var mPolylinePath: ArrayList<Polyline> = ArrayList()
     var mBinder: FragmentHomeBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-
         val binder: FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binder.delivery = DeliveryInstance.getInstance()
         val mapView = binder.mapView
@@ -73,27 +76,55 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         super.onStart()
         reenterTransition = true
         map_view.getMapAsync(this)
-
         LocalBroadcastManager.getInstance(context).registerReceiver(mReceiverCurrentLocation,
                 IntentFilter(LocationTracker.BROADCAST_ACTION_CURRENT_LOCATION))
-
         home_my_loc.setOnClickListener { moveCameraToCurrentLocation() }
+
+        setupToggleConnect()
+    }
+
+    fun setupToggleConnect() {
+        val displaymetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displaymetrics)
+        val width = displaymetrics.widthPixels
+        home_switch_connect.switchMinWidth = width
+        home_switch_connect.setOnCheckedChangeListener { button, state ->
+            run {
+                if (state)
+                    startLocationTracker()
+                else
+                    stopLocationTracker()
+            }
+        }
+
+    }
+
+    private fun stopLocationTracker() {
+        mTimer?.cancel()
+        mTimer?.purge()
+        mTimer = null
+    }
+
+    private fun startLocationTracker() {
+        mTimer = Timer()
+        mTimer?.schedule(object : TimerTask() {
+            override fun run() {
+                val token = EntregoStorage(context).getToken()
+                LocationTracker.sendLocation(token, mCurrentLocation)
+            }
+        }, 0, 3000)
     }
 
     override fun onMapReady(map: GoogleMap?) {
         mMap = map
-
         val settings = mMap!!.uiSettings
-
         settings.setCompassEnabled(false)
         settings.setZoomControlsEnabled(false)
         settings.setMapToolbarEnabled(false);
         //TODO:Remove on real devices
         val dnipro = LatLng(48.4619585, 34.7201766)
         moveCamera(dnipro.latitude, dnipro.longitude)
-
-        presenter.onStart(this)
-
+        mPresenter.onStart(this)
     }
 
     override fun onResume() {
@@ -108,26 +139,23 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun onStop() {
         super.onStop()
-        presenter.onStop()
+        mPresenter.onStop()
         LocalBroadcastManager.getInstance(context).unregisterReceiver(mReceiverCurrentLocation)
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        stopLocationTracker()
     }
 
 
     override fun buildPath(path: String) {
 
         removePolyline()
-
         val points = PolyUtil.decode(path)
-
         val polylineOptions = PolylineOptions().geodesic(true).color(resources.getColor(R.color.colorDarkBlue)).width(10f)
-
         for (i in 0..points.size - 1)
             polylineOptions.add(points[i])
-
         if (mMap != null) {
             mPolylinePath.add(mMap!!.addPolyline(polylineOptions))
         }
@@ -137,22 +165,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         return context
     }
 
-
-    override fun showMessage(message: String) {
-        UserMessageUtil.show(context, message)
-    }
-
-
     override fun prepareNoDelivery() {
-        Logger.logd("No delivery!"+Thread.currentThread().name)
+        Logger.logd("No delivery!" + Thread.currentThread().name)
         removePolyline()
         mMap?.clear()
-       sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
+        sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
         val description = fragmentManager.findFragmentByTag(DescriptionFragment.TAG)
         if (description != null)
             fragmentManager.beginTransaction()
                     .remove(description)
                     .commit()
+
+        home_switcher_ll.visibility = View.VISIBLE
     }
 
     fun removePolyline() {
@@ -165,7 +189,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     var finishMarker: Marker? = null
     var wayPointsMarker: Array<Marker>? = null
     override fun prepareRoute(route: EntregoRouteModel) {
-
 
         mBinder?.delivery = DeliveryInstance.getInstance()
         mBinder?.invalidateAll()
@@ -202,10 +225,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         }
 
         navigation_clickable_ll.setOnClickListener {
-            showNavigation(route.getCurrentPoint().point,
-                    route.getDestinationPoint().point)
+            showNavigation(route.getCurrentPoint().point, route.getDestinationPoint().point)
         }
 
+        home_switcher_ll.visibility = View.GONE
     }
 
 
@@ -233,11 +256,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         override fun onReceive(ctx: Context?, intent: Intent?) {
             val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
             val lon = intent?.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
-
             if (lat != 0.0 && lon != 0.0)
                 mCurrentLocation = LatLng(lat, lon)
         }
-
     }
 
     override fun moveCamera(latitude: Double, longitude: Double) {

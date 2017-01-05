@@ -70,7 +70,7 @@ class RegistrationActivity : AppCompatActivity(), IRegistrationView {
 
     override fun showMessage(message: String) {
 
-        UserMessageUtil.show(applicationContext, message)
+        UserMessageUtil.showSnackMessage(activity_registration, message)
     }
 
     var progress: ProgressDialog? = null

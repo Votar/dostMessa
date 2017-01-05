@@ -38,10 +38,8 @@ public class DeliveryInstance extends BaseObservable {
             id = 0;
             path = null;
         }
-
         notifyPropertyChanged(BR.route);
         notifyPropertyChanged(BR.instance);
-
     }
 
     private int id;

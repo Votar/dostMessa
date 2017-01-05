@@ -56,6 +56,7 @@
 
     <string name="titile_edit_user">Edit vehicle</string>
     <string name="success_profile_updated">Profile have been updated</string>
+    <string name="success_vehicle_update">Vehicle have been updated</string>
     <string name="save_password">save password</string>
 
     <string name="ui_success_pass_changed">Password have been changed</string>
@@ -120,4 +121,5 @@
     <string name="this_week">This week</string>
     <string name="earning_week">Earning of the week</string>
     <string name="no_data_found">No data found</string>
+    <string name="cancel">cancel</string>
 </resources>

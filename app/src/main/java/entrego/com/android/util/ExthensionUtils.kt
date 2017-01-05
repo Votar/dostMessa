@@ -5,17 +5,19 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
-import android.support.v7.app.AppCompatActivity
+import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
-import kotlinx.android.synthetic.main.best_messenger_charts.*
+
 
 /**
  * Created by bertalt on 29.11.16.
@@ -33,6 +35,25 @@ object UserMessageUtil {
 
     @JvmStatic fun show(ctx: Context, messageId: Int) {
         UserMessageUtil.show(ctx, ctx.getString(messageId))
+    }
+
+    @JvmStatic fun showSnackMessage(view: View, message: String?) {
+
+        var text: String
+        if (TextUtils.isEmpty(message)) {
+            text = view.context.getString(R.string.er_default_network_error)
+        } else
+            text = message!!
+
+        val snackBar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT)
+        val sbMessageTextView = snackBar.view.findViewById(android.support.design.R.id.snackbar_text) as TextView
+        val primaryColor = ContextCompat.getColor(view.context, R.color.colorPrimary)
+        sbMessageTextView.setTextColor(primaryColor)
+        snackBar.show()
+    }
+
+    @JvmStatic fun showSnackMessage(view: View, messageResId: Int) {
+        showSnackMessage(view, view.context.getString(messageResId))
     }
 
 }
@@ -95,4 +116,4 @@ fun View.buildRatingBar(rating: Double) {
     this.layoutParams = userLayoutParams
 }
 
-fun Float.formatRating(digits:Float) = java.lang.String.format("%${digits}f", this)
+fun Float.formatRating(digits: Float) = java.lang.String.format("%${digits}f", this)

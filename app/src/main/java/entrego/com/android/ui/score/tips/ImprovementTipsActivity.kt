@@ -44,7 +44,7 @@ class ImprovementTipsActivity : AppCompatActivity(), ITipsView {
     }
 
     override fun showMessage(message: String?) {
-        UserMessageUtil.show(this, message)
+        UserMessageUtil.showSnackMessage(activity_improvment_tips, message)
     }
 
     override fun showEmptyView(message: String?) {

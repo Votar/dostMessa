@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.NavUtils
+import android.widget.EditText
 import entrego.com.android.R
 import entrego.com.android.ui.account.profile.account.AccountActivity.AccountFields.*
 import entrego.com.android.ui.account.profile.account.model.AccountModel
@@ -17,12 +18,12 @@ import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 class AccountActivity : AppCompatActivity(), IAccountEditView {
 
-    //    val mActivityFields = listOf(account_bank_name_edit, account_edit_full_name, account_edit_number, account_edit_swift_code)
-//    val mActivityInputLayouts = listOf(account_bank_name_il, account_full_name_il, account_number_il, account_swift_il)
+    var mActivityFields: List<EditText> = emptyList()
+    var mActivityInputLayouts: List<TextInputLayout> = emptyList()
     var progressDialog: ProgressDialog? = null
     var mPresenter: IAccountEditPresenter = AccountEditPresenter()
 
-    enum class AccountFields(serverName: String) {
+    enum class AccountFields(name: String) {
         BANK_NAME("bank_name"),
         FULL_NAME("full_name"),
         ACCOUNT_NUMBER("account_number"),
@@ -36,7 +37,10 @@ class AccountActivity : AppCompatActivity(), IAccountEditView {
         account_btn_save.setOnClickListener { requestUpdate() }
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
+        mActivityFields = listOf(account_edit_bank_name, account_edit_full_name, account_edit_number, account_edit_swift_code)
+        mActivityInputLayouts = listOf(account_bank_name_il, account_full_name_il, account_number_il, account_swift_il)
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -54,15 +58,16 @@ class AccountActivity : AppCompatActivity(), IAccountEditView {
     }
 
     override fun showMessage(message: String?) {
+
     }
 
     override fun prepareView(account: AccountModel) {
-        account_bank_name_edit.setText(account.bankName)
+        account_edit_bank_name.setText(account.bankName)
         account_edit_full_name.setText(account.fullName)
         account_edit_number.setText(account.accountNumber)
         account_edit_swift_code.setText(account.swiftCode)
-//        mActivityFields.forEach { it.error = null }
-//        mActivityInputLayouts.forEach { it.isErrorEnabled = false }
+        mActivityFields.forEach { it?.error = null }
+        mActivityInputLayouts.forEach { it?.isErrorEnabled = false }
     }
 
     override fun showFieldError(fieldsName: String, message: String?) {
@@ -88,7 +93,7 @@ class AccountActivity : AppCompatActivity(), IAccountEditView {
 
     private fun requestUpdate() {
 
-        val bankName = account_bank_name_edit.text.toString()
+        val bankName = account_edit_bank_name.text.toString()
         val fullName = account_edit_full_name.text.toString()
         val accountNumber = account_edit_number.text.toString()
         val swiftCode = account_edit_swift_code.text.toString()

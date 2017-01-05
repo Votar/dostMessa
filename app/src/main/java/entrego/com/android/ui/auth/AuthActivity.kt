@@ -55,7 +55,7 @@ class AuthActivity : AppCompatActivity(), IAuthView {
     }
 
     override fun showMessage(message: String) {
-        UserMessageUtil.show(applicationContext, message)
+        UserMessageUtil.showSnackMessage(activity_registration, message)
     }
 
     val presenter: IAuthPresenter = AuthPresenter(this)

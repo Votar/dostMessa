@@ -57,7 +57,7 @@ class ReportsListActivity : AppCompatActivity(), IReportsListView {
     }
 
     override fun showMessage(message: String?) {
-        UserMessageUtil.show(this, message)
+        UserMessageUtil.showSnackMessage(activity_reports_list, message)
     }
 
     private fun startNewReportActivity() {

@@ -42,7 +42,6 @@ class HomePresenter : IHomePresenter {
             }
         } else {
           view?.prepareNoDelivery()
-
         }
     }
 

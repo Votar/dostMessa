@@ -20,7 +20,6 @@ import entrego.com.android.ui.main.delivery.description.view.IDescreptionView
 import entrego.com.android.util.Logger
 import kotlinx.android.synthetic.main.fragment_description.*
 
-
 class DescriptionFragment : Fragment(), IDescreptionView {
 
 

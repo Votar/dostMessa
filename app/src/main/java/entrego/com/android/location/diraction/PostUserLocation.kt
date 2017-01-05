@@ -22,17 +22,17 @@ object PostUserLocation {
 
     fun sendAsync(token: String, currentLocation: LatLng, @Nullable listener: PostUserLocation?) {
 
-        ApiCreator.server.create(EntregoApi.PostLocation::class.java)
-                .postLocation(token)
-                .enqueue(object : Callback<JsonElement> {
-                    override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
-                        Logger.loge("network", "post location failed")
-                    }
-
-                    override fun onResponse(call: Call<JsonElement>?, response: Response<JsonElement>?) {
-                        Logger.logd(response?.body().toString())
-                    }
-
-                })
+//        ApiCreator.server.create(EntregoApi.PostLocation::class.java)
+//                .postLocation(token)
+//                .enqueue(object : Callback<JsonElement> {
+//                    override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+//                        Logger.loge("network", "post location failed")
+//                    }
+//
+//                    override fun onResponse(call: Call<JsonElement>?, response: Response<JsonElement>?) {
+//                        Logger.logd(response?.body().toString())
+//                    }
+//
+//                })
     }
 }

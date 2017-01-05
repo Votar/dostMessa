@@ -47,7 +47,7 @@ class WeeklyUpdatesListActivity : AppCompatActivity(), IWeeklyUpdatesView {
     }
 
     override fun showMessage(message: String?) {
-        UserMessageUtil.show(this, message)
+        UserMessageUtil.showSnackMessage(activity_weekly_updates_list, message)
     }
 
     override fun showEmptyView(message: String?) {

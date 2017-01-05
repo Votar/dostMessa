@@ -52,7 +52,7 @@
                             android:layout_height="wrap_content">
 
                             <android.support.v7.widget.AppCompatEditText
-                                android:id="@+id/account_bank_name_edit"
+                                android:id="@+id/account_edit_bank_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/hint_bank_name"

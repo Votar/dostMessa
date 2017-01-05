@@ -6,6 +6,7 @@ import android.support.v4.app.NavUtils
 import entrego.com.android.R
 import entrego.com.android.ui.incomes.history.details.view.IDetailsOfServiceView
 import entrego.com.android.util.UserMessageUtil
+import kotlinx.android.synthetic.main.activity_details_of_service.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 class DetailsOfServiceActivity : AppCompatActivity(), IDetailsOfServiceView {
@@ -22,7 +23,7 @@ class DetailsOfServiceActivity : AppCompatActivity(), IDetailsOfServiceView {
     }
 
     override fun onShowMessage(message: String) {
-        UserMessageUtil.show(this, message)
+        UserMessageUtil.showSnackMessage(activity_details_of_service, message)
     }
 
     override fun onShowProgress() {
