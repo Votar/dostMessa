@@ -1,10 +1,14 @@
 package entrego.com.android.ui.main
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -27,6 +31,7 @@ import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.auth.AuthActivity
 import entrego.com.android.ui.faq.FaqListActivity
 import entrego.com.android.ui.incomes.IncomesFragment
+import entrego.com.android.ui.main.dialog.LocationRequiredFragment
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest
@@ -34,6 +39,7 @@ import entrego.com.android.ui.main.special.SpecialActionFragment
 import entrego.com.android.ui.score.ScoreFragment
 import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.util.ui.ViewPagerAdapter
+import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
 import org.greenrobot.eventbus.EventBus
@@ -66,8 +72,6 @@ class RootActivity : AppCompatActivity() {
 
         EventBus.getDefault().register(this)
 
-        val token = EntregoStorage(this).getToken()
-        DeliveryRequest.requestDelivery(token, null)
     }
 
     override fun onStart() {
@@ -145,6 +149,11 @@ class RootActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun requestDelivery() {
+        val token = EntregoStorage(this).getToken()
+        DeliveryRequest.requestDelivery(token, null)
+    }
+
 
     fun checkLocationPermission() {
 
@@ -159,6 +168,8 @@ class RootActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(RootActivity@ this,
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         HomeFragment.REQUEST_ACCESS_FINE_LOCATION)
+
+                
             }
         }
     }
@@ -166,13 +177,12 @@ class RootActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
         when (requestCode) {
-
             HomeFragment.REQUEST_ACCESS_FINE_LOCATION -> {
                 if (grantResults.isNotEmpty()
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startLocationUpdates()
                 } else {
-                    //TODO: Show blocker
+
                 }
             }
         }
@@ -180,7 +190,10 @@ class RootActivity : AppCompatActivity() {
     }
 
     fun startLocationUpdates() {
-        LocationTracker.startLocationListener(this)
+        if (isGpsEnabled(this)) {
+            LocationTracker.startLocationListener(this)
+            requestDelivery()
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -191,6 +204,16 @@ class RootActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
 
+    }
+
+    fun isGpsEnabled(activity: AppCompatActivity): Boolean {
+
+        val manager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            LocationRequiredFragment.show(supportFragmentManager)
+            return false
+        } else return true
     }
 
 

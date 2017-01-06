@@ -11,7 +11,7 @@ import entrego.com.android.storage.model.UserVehicleModel
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
 import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
-import kotlinx.android.synthetic.main.fragment_vecicle.*
+import kotlinx.android.synthetic.main.fragment_vehicle.*
 import kotlinx.android.synthetic.main.vehicle_empty_view.*
 
 /**
@@ -23,7 +23,7 @@ class VehicleFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
 
-        val view = inflater?.inflate(R.layout.fragment_vecicle, container, false)
+        val view = inflater?.inflate(R.layout.fragment_vehicle, container, false)
 
         return view
     }

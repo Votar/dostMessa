@@ -19,7 +19,6 @@ class SpecialActionFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val v = inflater?.inflate(R.layout.dialog_special_action, container, false)
-
         return v
     }
 

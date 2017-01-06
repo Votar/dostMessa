@@ -15,7 +15,9 @@
     <string name="hint_phone">Phone number</string>
     <string name="ui_i_have_account">i already have an account</string>
     <string name="hint_phone_code">code</string>
+    <string name="turn_on">Turn on GPS</string>
 
+    <string name="should_enable_gps">Your GPS is disabled</string>
     <string name="error_passwords_not_equals">Password mismatch</string>
     <string name="ui_success_regist">Almost done! \n To finish you register click the link we send to your email.</string>
     <string name="back_to_auth">back to login</string>
@@ -122,4 +124,8 @@
     <string name="earning_week">Earning of the week</string>
     <string name="no_data_found">No data found</string>
     <string name="cancel">cancel</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="connected">Connected</string>
+    <string name="alert">Attention!</string>
+    <string name="dialog_location_required">If you want to receive orders you should turn on GPS and grant location permission in your device</string>
 </resources>

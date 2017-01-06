@@ -96,7 +96,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                     stopLocationTracker()
             }
         }
-
     }
 
     private fun stopLocationTracker() {
@@ -106,13 +105,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     private fun startLocationTracker() {
-        mTimer = Timer()
-        mTimer?.schedule(object : TimerTask() {
-            override fun run() {
-                val token = EntregoStorage(context).getToken()
-                LocationTracker.sendLocation(token, mCurrentLocation)
-            }
-        }, 0, 3000)
+        if (mTimer == null) {
+            mTimer = Timer()
+            mTimer?.schedule(object : TimerTask() {
+                override fun run() {
+                    val token = EntregoStorage(context).getToken()
+                    LocationTracker.sendLocation(token, mCurrentLocation)
+                }
+            }, 0, 3000)
+        }
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -150,7 +151,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
 
     override fun buildPath(path: String) {
-
         removePolyline()
         val points = PolyUtil.decode(path)
         val polylineOptions = PolylineOptions().geodesic(true).color(resources.getColor(R.color.colorDarkBlue)).width(10f)
@@ -176,7 +176,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                     .remove(description)
                     .commit()
 
-        home_switcher_ll.visibility = View.VISIBLE
+        stopLocationTracker()
     }
 
     fun removePolyline() {
@@ -228,7 +228,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
             showNavigation(route.getCurrentPoint().point, route.getDestinationPoint().point)
         }
 
-        home_switcher_ll.visibility = View.GONE
+        startLocationTracker()
     }
 
 
@@ -265,6 +265,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         val nextCamera = CameraUpdateFactory
                 .newLatLngZoom(LatLng(latitude, longitude), 16f)
 
-        mMap?.animateCamera(nextCamera)
+        mMap?.moveCamera(nextCamera)
     }
 }
