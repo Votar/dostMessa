@@ -55,7 +55,7 @@ class RegistrationPresenter(val view: IRegistrationView) : IRegistrationPresente
                         view.successRegistration()
                     }
 
-                    override fun onFailureRegistration(message: String, code: Int?) {
+                    override fun onFailureRegistration(message: String?, code: Int?) {
                         view.hideProgress()
 
                         when (code) {

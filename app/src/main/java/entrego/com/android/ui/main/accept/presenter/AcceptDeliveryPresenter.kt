@@ -43,6 +43,7 @@ class AcceptDeliveryPresenter : IAcceptDeliveryPresenter {
         override fun onSuccess() {
             mView?.hideProgress()
             mView?.hideAcceptFragment()
+            mView?.showMessage(R.string.accepted)
         }
 
         override fun onFailure(message: String?, code: Int?) {
@@ -54,6 +55,7 @@ class AcceptDeliveryPresenter : IAcceptDeliveryPresenter {
     val mDeliveryDeclineListener = object : DeliveryInteractor.ResultListener {
         override fun onSuccess() {
             mView?.hideProgress()
+            mView?.showMessage(R.string.declined)
             mView?.hideAcceptFragment()
             Delivery.getInstance().update(null)
         }

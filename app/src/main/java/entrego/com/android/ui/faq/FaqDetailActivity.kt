@@ -20,7 +20,6 @@ class FaqDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_faq_detail)
 
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
-        nav_toolbar_faq.visibility = View.GONE
         if (intent != null) {
             val title = intent.getStringExtra(EXT_TITLE)
             val message = intent.getStringExtra(EXT_MSG)

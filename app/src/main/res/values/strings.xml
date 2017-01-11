@@ -41,6 +41,8 @@
     <string name="title_activity_root">RootActivity</string>
     <string name="action_faq">FAQ</string>
     <string name="ui_edit">edit</string>
+    <string name="accepted">Accepted</string>
+    <string name="declined">Declined</string>
 
     <string name="ui_title_vehicle">Vehicle</string>
     <string name="ui_title_profile">Profile</string>
@@ -63,7 +65,7 @@
     <string name="save_password">save password</string>
 
     <string name="ui_success_pass_changed">Password have been changed</string>
-    <string name="ui_logout">logout</string>
+    <string name="ui_logout">Logout</string>
     <string name="hint_model">Model</string>
     <string name="hint_brand">Brand</string>
     <string name="hint_cylinders">Cylinders</string>

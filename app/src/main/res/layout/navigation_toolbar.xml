@@ -32,6 +32,7 @@
                 app:srcCompat="@drawable/smalllogo" />
 
             <ImageButton
+                android:visibility="gone"
                 android:id="@+id/nav_toolbar_faq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

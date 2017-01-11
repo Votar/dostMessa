@@ -13,7 +13,7 @@ interface IRegistrationView {
     fun setErrorPhoneNumber(message:String)
     fun setErrorConfPassword()
     fun setErrorEmailRegistered()
-    fun showMessage(message:String)
+    fun showMessage(message:String?)
     fun showProgress()
     fun hideProgress()
     fun successRegistration()

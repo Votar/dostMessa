@@ -12,10 +12,10 @@ import entrego.com.android.ui.registration.presenter.RegistrationPresenter
 import entrego.com.android.ui.registration.view.IRegistrationView
 import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.loading
+import entrego.com.android.util.snackSimple
 import kotlinx.android.synthetic.main.activity_registration.*
 
 class RegistrationActivity : AppCompatActivity(), IRegistrationView {
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,9 +68,8 @@ class RegistrationActivity : AppCompatActivity(), IRegistrationView {
         registration_il_password.error = message
     }
 
-    override fun showMessage(message: String) {
-
-        UserMessageUtil.showSnackMessage(activity_registration, message)
+    override fun showMessage(message: String?) {
+        activity_registration.snackSimple(message)
     }
 
     var progress: ProgressDialog? = null

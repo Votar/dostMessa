@@ -21,7 +21,7 @@ class EntregoRegistration(val email: String,
 
     interface ResultListener {
         fun onSuccessRegistration()
-        fun onFailureRegistration(message: String, code: Int?)
+        fun onFailureRegistration(message: String?, code: Int?)
         fun onValidationError(field: FieldErrorResponse)
     }
 
@@ -48,7 +48,7 @@ class EntregoRegistration(val email: String,
                     }
 
                     override fun onFailure(call: Call<EntregoResultRegistration>?, t: Throwable?) {
-                        listener.onFailureRegistration("" + t?.message, null)
+                        listener.onFailureRegistration(t?.message, null)
                     }
 
                 })

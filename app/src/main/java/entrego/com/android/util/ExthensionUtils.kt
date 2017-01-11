@@ -10,10 +10,8 @@ import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
 import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
@@ -37,6 +35,7 @@ object UserMessageUtil {
         UserMessageUtil.show(ctx, ctx.getString(messageId))
     }
 
+
     @JvmStatic fun showSnackMessage(view: View, message: String?) {
 
         var text: String
@@ -47,8 +46,11 @@ object UserMessageUtil {
 
         val snackBar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT)
         val sbMessageTextView = snackBar.view.findViewById(android.support.design.R.id.snackbar_text) as TextView
+        val normalPadding = view.context.resources.getDimensionPixelSize(R.dimen.padding_medium)
         val primaryColor = ContextCompat.getColor(view.context, R.color.colorPrimary)
         sbMessageTextView.setTextColor(primaryColor)
+        sbMessageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.accept_icon, 0, 0, 0)
+        sbMessageTextView.setCompoundDrawablePadding(normalPadding)
         snackBar.show()
     }
 
@@ -56,6 +58,10 @@ object UserMessageUtil {
         showSnackMessage(view, view.context.getString(messageResId))
     }
 
+}
+
+fun View.snackSimple(message: String?) {
+    UserMessageUtil.showSnackMessage(this, message)
 }
 
 fun ProgressDialog.loading() {

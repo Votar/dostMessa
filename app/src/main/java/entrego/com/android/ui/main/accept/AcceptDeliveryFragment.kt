@@ -18,6 +18,7 @@ import entrego.com.android.ui.main.accept.presenter.IAcceptDeliveryPresenter
 import entrego.com.android.ui.main.accept.view.IAcceptDeliveryView
 import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.loading
+import entrego.com.android.util.snackSimple
 
 /**
  * Created by bertalt on 10.01.17.
@@ -47,7 +48,7 @@ class AcceptDeliveryFragment private constructor() : Fragment(), IAcceptDelivery
         }
     }
 
-    val mPresenter :IAcceptDeliveryPresenter = AcceptDeliveryPresenter()
+    val mPresenter: IAcceptDeliveryPresenter = AcceptDeliveryPresenter()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binder: FragmentAcceptDeliveryBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_accept_delivery, container, false)
@@ -85,7 +86,8 @@ class AcceptDeliveryFragment private constructor() : Fragment(), IAcceptDelivery
     }
 
     override fun showMessage(stringId: Int) {
-        UserMessageUtil.show(activity, stringId)
+        val message = getString(stringId)
+        view?.snackSimple(message)
     }
 
 }

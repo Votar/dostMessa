@@ -18,7 +18,6 @@ class FaqListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_faq_list)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
-        nav_toolbar_faq.visibility = View.GONE
         setupView()
     }
 

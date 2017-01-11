@@ -37,6 +37,7 @@ import entrego.com.android.ui.main.home.model.DeliveryRequest
 import entrego.com.android.ui.score.ScoreFragment
 import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.util.ui.ViewPagerAdapter
+import kotlinx.android.synthetic.main.app_bar_root.*
 import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
 import org.greenrobot.eventbus.EventBus
@@ -48,14 +49,12 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(root_toolbar)
         supportActionBar?.title = ""
-
 
         val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this, drawer, root_toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
         root_drawer_container.setOnClickListener { }
@@ -66,9 +65,7 @@ class RootActivity : AppCompatActivity() {
                 .commit()
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
-
         EventBus.getDefault().register(this)
-
     }
 
     override fun onStart() {
