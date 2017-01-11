@@ -7,7 +7,7 @@
 
         <variable
             name="delivery"
-            type="entrego.com.android.binding.DeliveryInstance" />
+            type="entrego.com.android.binding.Delivery" />
 
         <variable
             name="start"

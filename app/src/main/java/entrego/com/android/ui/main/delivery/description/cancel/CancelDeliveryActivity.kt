@@ -54,7 +54,7 @@ class CancelDeliveryActivity : AppCompatActivity(), ICancelDeliveryView {
         loadingDialog?.dismiss()
     }
 
-    override fun showMessage(message: String) {
+    override fun showMessage(message: String?) {
         UserMessageUtil.showSnackMessage(activity_cancel_delivery, message)
     }
 

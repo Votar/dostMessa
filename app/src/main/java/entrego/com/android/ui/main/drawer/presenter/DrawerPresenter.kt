@@ -2,7 +2,7 @@ package entrego.com.android.ui.main.drawer.presenter
 
 import android.databinding.Observable
 import entrego.com.android.BR
-import entrego.com.android.binding.DeliveryInstance
+import entrego.com.android.binding.Delivery
 import entrego.com.android.ui.main.drawer.view.IDrawerView
 import entrego.com.android.ui.main.home.model.DeliveryRequest
 import entrego.com.android.util.Logger
@@ -27,13 +27,13 @@ class DrawerPresenter : IDrawerPresenter {
     override fun onStart(view: IDrawerView) {
 
         this.view = view
-        DeliveryInstance.getInstance().addOnPropertyChangedCallback(mDeliveryChangedListener)
+        Delivery.getInstance().addOnPropertyChangedCallback(mDeliveryChangedListener)
 
         onBuildView()
     }
 
     fun onBuildView() {
-        val delivery = DeliveryInstance.getInstance()
+        val delivery = Delivery.getInstance()
         Logger.logd(delivery.toString())
 
         when (delivery.customer) {
@@ -53,7 +53,7 @@ class DrawerPresenter : IDrawerPresenter {
     }
 
     override fun onStop() {
-        DeliveryInstance.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
+        Delivery.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
         view = null
     }
 }

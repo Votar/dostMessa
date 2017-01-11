@@ -1,7 +1,7 @@
 package entrego.com.android.ui.main.home.model
 
 import entrego.com.android.storage.model.DeliveryModel
-import entrego.com.android.binding.DeliveryInstance
+import entrego.com.android.binding.Delivery
 import entrego.com.android.util.Logger
 import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi
@@ -29,22 +29,25 @@ object DeliveryRequest {
 
                         if (response?.body() != null) {
 
-                            val responseResult = response?.body()!!
+                            val responseResult = response?.body()
                             Logger.logd(responseResult.toString())
 
-                            when (responseResult.code) {
+                            when (responseResult?.code) {
                                 0 -> {
-                                    DeliveryInstance.getInstance().update(responseResult.payload)
+                                    Delivery.getInstance().update(responseResult?.payload)
                                     listener?.onSuccessGetDelivery()
                                 }
-
-                                else -> listener?.onFailureGetDelivery(responseResult.code, "")
+                                else -> {
+                                    listener?.onFailureGetDelivery(responseResult?.code, "")
+                                    Delivery.getInstance().update(null)
+                                }
                             }
                         }
                     }
 
                     override fun onFailure(call: Call<EntregoResultGetDelivery>?, t: Throwable?) {
                         listener?.onFailureGetDelivery(null, "")
+                        Delivery.getInstance().update(null)
                     }
 
                 })

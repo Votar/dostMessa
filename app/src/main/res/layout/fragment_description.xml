@@ -3,7 +3,7 @@
     <data>
         <variable
             name="delivery"
-            type="entrego.com.android.binding.DeliveryInstance" />
+            type="entrego.com.android.binding.Delivery" />
     </data>
 
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"

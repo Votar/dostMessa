@@ -21,11 +21,12 @@ import com.google.android.gms.maps.model.*
 import com.google.maps.android.PolyUtil
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import entrego.com.android.R
-import entrego.com.android.binding.DeliveryInstance
+import entrego.com.android.binding.Delivery
 import entrego.com.android.databinding.FragmentHomeBinding
 import entrego.com.android.location.LocationTracker
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.preferences.EntregoStorage
+import entrego.com.android.ui.main.accept.AcceptDeliveryFragment
 import entrego.com.android.ui.main.delivery.description.DescriptionFragment
 import entrego.com.android.ui.main.home.presenter.HomePresenter
 import entrego.com.android.ui.main.home.presenter.IHomePresenter
@@ -56,7 +57,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binder: FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binder.delivery = DeliveryInstance.getInstance()
+        binder.delivery = Delivery.getInstance()
         val mapView = binder.mapView
 
         mapView.onCreate(savedInstanceState)
@@ -168,6 +169,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     override fun prepareNoDelivery() {
         Logger.logd("No delivery!" + Thread.currentThread().name)
         removePolyline()
+        AcceptDeliveryFragment.dismiss(activity.supportFragmentManager)
         mMap?.clear()
         sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
         val description = fragmentManager.findFragmentByTag(DescriptionFragment.TAG)
@@ -176,7 +178,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                     .remove(description)
                     .commit()
 
-        stopLocationTracker()
+        home_switch_connect.isChecked = false
     }
 
     fun removePolyline() {
@@ -190,7 +192,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     var wayPointsMarker: Array<Marker>? = null
     override fun prepareRoute(route: EntregoRouteModel) {
 
-        mBinder?.delivery = DeliveryInstance.getInstance()
+        mBinder?.delivery = Delivery.getInstance()
         mBinder?.invalidateAll()
 
         startMarker?.remove()
@@ -266,5 +268,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 .newLatLngZoom(LatLng(latitude, longitude), 16f)
 
         mMap?.moveCamera(nextCamera)
+    }
+
+    override fun showAcceptFragment() {
+        AcceptDeliveryFragment.show(activity.supportFragmentManager)
     }
 }

@@ -21,14 +21,19 @@ import android.net.Uri
 /**
  * Created by bertalt on 06.01.17.
  */
-class LocationRequiredFragment : DialogFragment() {
+class GPSRequiredFragment : DialogFragment() {
 
     companion object {
-        val TAG = "LocationRequiredFragment"
-        fun show(fragmentManager: android.support.v4.app.FragmentManager) {
-            if (fragmentManager.findFragmentByTag(TAG) != null)
+        val TAG = "GPSRequiredFragment"
+        fun show(supportFragmentManager: android.support.v4.app.FragmentManager) {
+            if (supportFragmentManager.findFragmentByTag(TAG) != null)
                 return
-            LocationRequiredFragment().show(fragmentManager, TAG)
+            GPSRequiredFragment().show(supportFragmentManager, TAG)
+        }
+
+        fun dismiss(supportFragmentManager: android.support.v4.app.FragmentManager?): Unit {
+            val fragment = supportFragmentManager?.findFragmentByTag(TAG) as DialogFragment
+            fragment?.dismiss()
         }
     }
 
@@ -36,29 +41,13 @@ class LocationRequiredFragment : DialogFragment() {
         // Use the Builder class for convenient dialog construction
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(R.string.alert)
-        builder.setMessage(R.string.dialog_location_permission_required)
-                .setPositiveButton(R.string.grant_permission, { dialog, id ->
-                    startInstalledAppDetailsActivity(activity)
+        builder.setMessage(R.string.dialog_gps_required)
+                .setPositiveButton(R.string.turn_on, { dialog, id ->
+                    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                 })
                 .setNegativeButton(R.string.cancel, { dialog, id ->
                 })
         // Create the AlertDialog object and return it
         return builder.create()
     }
-
-    fun startInstalledAppDetailsActivity(context: Activity?) {
-        if (context == null) {
-            return
-        }
-        val i = Intent()
-        i.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        i.addCategory(Intent.CATEGORY_DEFAULT)
-        i.data = Uri.parse("package:" + context.packageName)
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-        i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-        context.startActivity(i)
-    }
-
-
 }

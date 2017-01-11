@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.byox.drawview.enums.DrawingCapture
 import entrego.com.android.R
-import entrego.com.android.binding.DeliveryInstance
+import entrego.com.android.binding.Delivery
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.sign.presenter.ISignPresenter
 import entrego.com.android.ui.sign.presenter.SignPresenter
@@ -51,7 +51,7 @@ class SignActivity : AppCompatActivity(), ISignView {
     }
 
     override fun onSuccessSign() {
-        DeliveryInstance.getInstance().update(null)
+        Delivery.getInstance().update(null)
         finish()
     }
 

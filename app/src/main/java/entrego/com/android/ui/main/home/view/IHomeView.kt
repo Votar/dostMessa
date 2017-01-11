@@ -15,6 +15,7 @@ interface IHomeView {
     fun prepareNoDelivery()
     fun prepareRoute(route: EntregoRouteModel)
     fun buildPath(path: String)
+    fun showAcceptFragment()
     fun getFragmentContext(): Context
 
 }

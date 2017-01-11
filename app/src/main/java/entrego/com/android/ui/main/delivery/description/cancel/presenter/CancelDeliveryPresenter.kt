@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import entrego.com.android.R
+import entrego.com.android.binding.Delivery
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.delivery.description.cancel.ReasonsAdapter
 import entrego.com.android.ui.main.delivery.description.cancel.model.CancelDelivery
@@ -43,13 +44,15 @@ class CancelDeliveryPresenter : ICancelDeliveryPresenter {
             val token = EntregoStorage(context).getToken()
             mView?.onShowProgress()
 
-            CancelDelivery.executeAsync(token, reason, object : CancelDelivery.CancelDeliveryListener {
+            val deliveryId = Delivery.getInstance().id
+
+            CancelDelivery.executeAsync(token,deliveryId,reason, object : CancelDelivery.CancelDeliveryListener {
                 override fun onSuccessCancel() {
                     mView?.onHideProgress()
                     mView?.showSuccessScreen()
                 }
 
-                override fun onFailureCancel(message: String) {
+                override fun onFailureCancel(message: String?, code:Int?) {
                     mView?.onHideProgress()
                     mView?.showMessage(message)
                 }

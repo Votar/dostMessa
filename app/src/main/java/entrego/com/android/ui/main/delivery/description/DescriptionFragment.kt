@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import entrego.com.android.R
-import entrego.com.android.binding.DeliveryInstance
+import entrego.com.android.binding.Delivery
 import entrego.com.android.databinding.FragmentDescriptionBinding
 import entrego.com.android.ui.main.delivery.description.cancel.CancelDeliveryActivity
 import entrego.com.android.ui.main.delivery.description.presenter.DescriptionPresenter
@@ -38,7 +38,7 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
         retainInstance = true
         val binder: FragmentDescriptionBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_description, container, false)
-        binder.delivery = DeliveryInstance.getInstance()
+        binder.delivery = Delivery.getInstance()
         val view = binder.root
 
         recycler = view.findViewById(R.id.descr_frag_points_recycler) as RecyclerView
@@ -55,7 +55,7 @@ class DescriptionFragment : Fragment(), IDescreptionView {
     override fun onStart() {
         super.onStart()
         presenter.onStart(this)
-        val delivery = DeliveryInstance.getInstance()
+        val delivery = Delivery.getInstance()
         if (delivery.route != null) {
 
             Logger.logd("delivery start")

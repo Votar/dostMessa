@@ -13,7 +13,7 @@ import entrego.com.android.databinding.FragmentDescriptionBinding
 import entrego.com.android.databinding.FragmentDrawerBinding
 import entrego.com.android.storage.model.CustomerModel
 import entrego.com.android.storage.model.EntregoRouteModel
-import entrego.com.android.binding.DeliveryInstance
+import entrego.com.android.binding.Delivery
 import entrego.com.android.ui.main.drawer.presenter.DrawerPresenter
 import entrego.com.android.ui.main.drawer.presenter.IDrawerPresenter
 import entrego.com.android.ui.main.drawer.view.IDrawerView
@@ -33,7 +33,7 @@ class DrawerFragment : Fragment(), IDrawerView {
 
         retainInstance = true
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_drawer, container, false)
-        binder?.delivery = DeliveryInstance.getInstance()
+        binder?.delivery = Delivery.getInstance()
         return binder?.root
     }
     override fun onStart() {

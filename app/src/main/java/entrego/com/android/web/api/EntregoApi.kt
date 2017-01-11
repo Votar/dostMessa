@@ -34,6 +34,9 @@ object EntregoApi {
         const val CHANGE_PROFILE_PASSWORD = "messenger/user/change/password"
         const val GET_DELIVERY = "messenger/delivery"
         const val POST_LOCATION = "messenger/user/track"
+        const val POST_CANCEL_DELIVERY = "messenger/delivery/{id}/cancel"
+        const val POST_ACCEPT_DELIVERY = "messenger/delivery/{id}/accept"
+        const val POST_DECLINE_DELIVERY = "messenger/delivery/{id}/decline"
     }
 
     interface Authorization {
@@ -90,8 +93,26 @@ object EntregoApi {
     interface PostLocation {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_LOCATION)
-        fun postLocation(@Header(TOKEN) token: String, @Body location: LatLng): Call<JsonElement>
+        fun postLocation(@Header(TOKEN) token: String, @Body location: LatLng): Call<EntregoResult>
     }
+
+    interface CancelDelivery{
+        @Headers(CONTENT_JSON)
+        @POST(REQUESTS.POST_CANCEL_DELIVERY)
+        fun cancelDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<JsonElement>
+    }
+    interface AcceptDelivery{
+        @Headers(CONTENT_JSON)
+        @POST(REQUESTS.POST_ACCEPT_DELIVERY)
+        fun acceptDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<EntregoResult>
+    }
+
+    interface DeclineDelivery{
+        @Headers(CONTENT_JSON)
+        @POST(REQUESTS.POST_DECLINE_DELIVERY)
+        fun declineDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<EntregoResult>
+    }
+
 
 
 }

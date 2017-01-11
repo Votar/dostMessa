@@ -14,15 +14,15 @@ import entrego.com.android.storage.model.EntregoRouteModel;
  * Created by bertalt on 09.12.16.
  */
 
-public class DeliveryInstance extends BaseObservable {
+public class Delivery extends BaseObservable {
 
     @Bindable
-    private static DeliveryInstance instance = new DeliveryInstance();
+    private static Delivery instance = new Delivery();
 
-    private DeliveryInstance() {
+    private Delivery() {
     }
 
-    public static DeliveryInstance getInstance() {
+    public static Delivery getInstance() {
         return instance;
     }
 
@@ -32,11 +32,13 @@ public class DeliveryInstance extends BaseObservable {
             route = model.getRoute();
             customer = model.getCustomer();
             id = model.getId();
+            status = model.getStatus();
         } else {
             route = null;
             customer = null;
             id = 0;
             path = null;
+            status = "";
         }
         notifyPropertyChanged(BR.route);
         notifyPropertyChanged(BR.instance);
@@ -50,11 +52,14 @@ public class DeliveryInstance extends BaseObservable {
     @Bindable
     private Route path;
 
+    public String getStatus() {
+        return status;
+    }
+
+    private String status = "";
+
     private DeliveryState deliveryState = null;
 
-    public DeliveryState getDeliveryState() {
-        return deliveryState;
-    }
 
     public void setPath(Route path) {
         this.path = path;
@@ -77,9 +82,9 @@ public class DeliveryInstance extends BaseObservable {
         return customer;
     }
 
-    private DeliveryInstance(DeliveryModel deliveryModel) {
+    private Delivery(DeliveryModel deliveryModel) {
 
-        instance = new DeliveryInstance(deliveryModel);
+        instance = new Delivery(deliveryModel);
 
     }
 

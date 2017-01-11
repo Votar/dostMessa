@@ -15,6 +15,7 @@
     <string name="hint_phone">Phone number</string>
     <string name="ui_i_have_account">i already have an account</string>
     <string name="hint_phone_code">code</string>
+    <string name="grant_permission">OK</string>
     <string name="turn_on">Turn on GPS</string>
 
     <string name="should_enable_gps">Your GPS is disabled</string>
@@ -127,5 +128,8 @@
     <string name="disconnected">Disconnected</string>
     <string name="connected">Connected</string>
     <string name="alert">Attention!</string>
-    <string name="dialog_location_required">If you want to receive orders you should turn on GPS and grant location permission in your device</string>
+    <string name="dialog_location_permission_required">If you want to receive orders you should grant location permission</string>
+    <string name="dialog_gps_required">If you want to receive orders you should turn on GPS and in your device</string>
+
+
 </resources>

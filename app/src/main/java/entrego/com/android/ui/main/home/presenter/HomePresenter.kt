@@ -7,7 +7,8 @@ import entrego.com.android.BR
 import entrego.com.android.location.diraction.DirectionFinder
 import entrego.com.android.location.diraction.DirectionFinderListener
 import entrego.com.android.location.diraction.Route
-import entrego.com.android.binding.DeliveryInstance
+import entrego.com.android.binding.Delivery
+import entrego.com.android.storage.model.OrderStatus
 import entrego.com.android.ui.main.home.view.IHomeView
 import entrego.com.android.util.toDirectionFormat
 
@@ -29,25 +30,29 @@ class HomePresenter : IHomePresenter {
 
     override fun onStart(view: IHomeView) {
         this.view = view
-        DeliveryInstance.getInstance().addOnPropertyChangedCallback(mDeliveryChangedListener)
+        Delivery.getInstance().addOnPropertyChangedCallback(mDeliveryChangedListener)
         onBuildView()
     }
 
     fun onBuildView() {
-        val delivery = DeliveryInstance.getInstance()
+        val delivery = Delivery.getInstance()
+
+        if (delivery.status.equals(OrderStatus.PENDING.value, true))
+            view?.showAcceptFragment()
+
         if (delivery.route != null) {
             view?.prepareRoute(delivery.route)
             if (!TextUtils.isEmpty(delivery.route.path.line)) {
                 view?.buildPath(delivery.route.path.line)
             }
         } else {
-          view?.prepareNoDelivery()
+            view?.prepareNoDelivery()
         }
     }
 
     override fun onStop() {
 
-        DeliveryInstance.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
+        Delivery.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
         view = null
     }
 

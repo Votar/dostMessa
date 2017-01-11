@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.JsonElement
-import entrego.com.android.binding.DeliveryInstance
+import entrego.com.android.binding.Delivery
 import entrego.com.android.ui.main.home.model.DeliveryRequest
 import entrego.com.android.util.Logger
+import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi
+import entrego.com.android.web.model.response.EntregoResult
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,13 +37,16 @@ object LocationTracker {
 
         ApiCreator.server.create(EntregoApi.PostLocation::class.java)
                 .postLocation(token, location)
-                .enqueue(object : Callback<JsonElement> {
-                    override fun onResponse(call: Call<JsonElement>?, response: Response<JsonElement>?) {
+                .enqueue(object : Callback<EntregoResult> {
+                    override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
                         Logger.logd(response?.body().toString())
-                        DeliveryRequest.requestDelivery(token, null)
+                        when(response?.body()?.code){
+                            0->DeliveryRequest.requestDelivery(token, null)
+                            2->EventBus.getDefault().post(LogoutEvent())
+                        }
                     }
 
-                    override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    override fun onFailure(call: Call<EntregoResult>?, t: Throwable?) {
                         Logger.loge(LocationTracker::class.simpleName, "LocationTrack failed")
                     }
                 })

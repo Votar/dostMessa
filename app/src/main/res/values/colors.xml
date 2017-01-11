@@ -21,4 +21,5 @@
     <color name="colorGrey">#ebebeb</color>
     <color name="colorTransparentGrey">#c4616160</color>
     <color name="colorDarkGrey">#666565</color>
+    <color name="colorTransparentBlack">#b1000000</color>
 </resources>

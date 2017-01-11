@@ -1,16 +1,14 @@
 package entrego.com.android.ui.main
 
 import android.Manifest
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
-import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
@@ -31,15 +29,14 @@ import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.auth.AuthActivity
 import entrego.com.android.ui.faq.FaqListActivity
 import entrego.com.android.ui.incomes.IncomesFragment
+import entrego.com.android.ui.main.dialog.GPSRequiredFragment
 import entrego.com.android.ui.main.dialog.LocationRequiredFragment
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest
-import entrego.com.android.ui.main.special.SpecialActionFragment
 import entrego.com.android.ui.score.ScoreFragment
 import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.util.ui.ViewPagerAdapter
-import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
 import org.greenrobot.eventbus.EventBus
@@ -77,6 +74,12 @@ class RootActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         checkLocationPermission()
+        registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(mGpsSwitchStateReceiver)
     }
 
     override fun onDestroy() {
@@ -169,7 +172,7 @@ class RootActivity : AppCompatActivity() {
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         HomeFragment.REQUEST_ACCESS_FINE_LOCATION)
 
-                
+
             }
         }
     }
@@ -182,7 +185,7 @@ class RootActivity : AppCompatActivity() {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startLocationUpdates()
                 } else {
-
+                    LocationRequiredFragment.show(supportFragmentManager)
                 }
             }
         }
@@ -193,6 +196,8 @@ class RootActivity : AppCompatActivity() {
         if (isGpsEnabled(this)) {
             LocationTracker.startLocationListener(this)
             requestDelivery()
+        } else {
+            GPSRequiredFragment.show(supportFragmentManager)
         }
     }
 
@@ -206,15 +211,17 @@ class RootActivity : AppCompatActivity() {
 
     }
 
-    fun isGpsEnabled(activity: AppCompatActivity): Boolean {
-
+    fun isGpsEnabled(activity: Context): Boolean {
         val manager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            LocationRequiredFragment.show(supportFragmentManager)
-            return false
-        } else return true
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
-
+    val mGpsSwitchStateReceiver = object : BroadcastReceiver() {
+        override fun onReceive(ctx: Context, p1: Intent?) {
+            if (isGpsEnabled(ctx))
+                GPSRequiredFragment.dismiss(supportFragmentManager)
+            else
+                GPSRequiredFragment.show(supportFragmentManager)
+        }
+    }
 }
