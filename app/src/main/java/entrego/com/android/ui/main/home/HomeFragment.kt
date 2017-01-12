@@ -49,8 +49,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     val mPresenter: IHomePresenter = HomePresenter()
 
     var mTimer: Timer? = null
-    val dnipro = LatLng(50.483472, 30.549829)
-    var mCurrentLocation = dnipro
+    //Dnipro
+    val defaulLocation = LatLng(50.483472, 30.549829)
+    var mCurrentLocation = defaulLocation
     var mMap: GoogleMap? = null
     var mPolylinePath: ArrayList<Polyline> = ArrayList()
     var mBinder: FragmentHomeBinding? = null
@@ -88,13 +89,17 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         val displaymetrics = DisplayMetrics()
         activity.windowManager.defaultDisplay.getMetrics(displaymetrics)
         val width = displaymetrics.widthPixels
-        home_switch_connect.switchMinWidth = width
-        home_switch_connect.setOnCheckedChangeListener { button, state ->
+        switcher_disconnected.isChecked = true
+        switcher_disconnected.setOnCheckedChangeListener { button, state ->
+            run {
+                if (state)
+                    stopLocationTracker()
+            }
+        }
+        switcher_connected.setOnCheckedChangeListener { button, state ->
             run {
                 if (state)
                     startLocationTracker()
-                else
-                    stopLocationTracker()
             }
         }
     }
@@ -114,162 +119,160 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 LocationTracker.sendLocation(token, mCurrentLocation)
             }
         }, 0, 3000)
-}
-
-override fun onMapReady(map: GoogleMap?) {
-    mMap = map
-    val settings = mMap!!.uiSettings
-    settings.setCompassEnabled(false)
-    settings.setZoomControlsEnabled(false)
-    settings.setMapToolbarEnabled(false);
-    //TODO:Remove on real devices
-    val dnipro = LatLng(48.4619585, 34.7201766)
-    moveCamera(dnipro.latitude, dnipro.longitude)
-    mPresenter.onStart(this)
-}
-
-override fun onResume() {
-    super.onResume()
-    map_view.onResume()
-}
-
-override fun onPause() {
-    super.onPause()
-    map_view.onPause()
-}
-
-override fun onStop() {
-    super.onStop()
-    mPresenter.onStop()
-    LocalBroadcastManager.getInstance(context).unregisterReceiver(mReceiverCurrentLocation)
-}
-
-override fun onDestroy() {
-    super.onDestroy()
-    stopLocationTracker()
-}
-
-
-override fun buildPath(path: String) {
-    removePolyline()
-    val points = PolyUtil.decode(path)
-    val polylineOptions = PolylineOptions().geodesic(true).color(resources.getColor(R.color.colorDarkBlue)).width(10f)
-    for (i in 0..points.size - 1)
-        polylineOptions.add(points[i])
-    if (mMap != null) {
-        mPolylinePath.add(mMap!!.addPolyline(polylineOptions))
-    }
-}
-
-override fun getFragmentContext(): Context {
-    return context
-}
-
-override fun prepareNoDelivery() {
-    Logger.logd("No delivery!" + Thread.currentThread().name)
-    removePolyline()
-    AcceptDeliveryFragment.dismiss(activity.supportFragmentManager)
-    mMap?.clear()
-    sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
-    val description = fragmentManager.findFragmentByTag(DescriptionFragment.TAG)
-    if (description != null)
-        fragmentManager.beginTransaction()
-                .remove(description)
-                .commit()
-
-    home_switch_connect.isChecked = false
-}
-
-fun removePolyline() {
-    for (nextLine in mPolylinePath)
-        nextLine.remove()
-    mPolylinePath.clear()
-}
-
-var startMarker: Marker? = null
-var finishMarker: Marker? = null
-var wayPointsMarker: Array<Marker>? = null
-override fun prepareRoute(route: EntregoRouteModel) {
-
-    mBinder?.delivery = Delivery.getInstance()
-    mBinder?.invalidateAll()
-
-    startMarker?.remove()
-    finishMarker?.remove()
-    sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-    //add start point
-    val startLatLng = LatLng(route.getCurrentPoint().point.latitude, route.getCurrentPoint().point.longitude)
-    startMarker = mMap?.addMarker(MarkerOptions()
-            .position(startLatLng)
-            .draggable(false)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-            .title(getString(R.string.start_point)))
-
-    //add finish point
-    val finishLatLng = LatLng(route.getDestinationPoint().point.latitude,
-            route.getDestinationPoint().point.longitude)
-    finishMarker = mMap?.addMarker(MarkerOptions()
-            .position(finishLatLng)
-            .draggable(false)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-            .title(getString(R.string.finish_point)))
-
-    moveCamera(startLatLng.latitude, startLatLng.longitude)
-
-    if (home_sliding_container != null) {
-        val fragment = DescriptionFragment.getInstance()
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.home_sliding_container, fragment, DescriptionFragment.TAG)
-                .commit()
     }
 
-    navigation_clickable_ll.setOnClickListener {
-        showNavigation(route.getCurrentPoint().point, route.getDestinationPoint().point)
+    override fun onMapReady(map: GoogleMap?) {
+        mMap = map
+        val settings = mMap!!.uiSettings
+        settings.setCompassEnabled(false)
+        settings.setZoomControlsEnabled(false)
+        settings.setMapToolbarEnabled(false)
+        moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
+        mPresenter.onStart(this)
     }
 
-    startLocationTracker()
-}
-
-
-fun showNavigation(source: LatLng, destination: LatLng) {
-
-    val sourceLat = source.latitude
-    val sourceLon = source.longitude
-    val destLat = destination.latitude
-    val destLon = destination.longitude
-
-    val uri = String.format("http://maps.google.com/maps?saddr=$sourceLat,$sourceLon&daddr=$destLat,$destLon")
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-    intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
-    startActivity(intent)
-}
-
-
-fun moveCameraToCurrentLocation() {
-    if (mCurrentLocation != null) {
-        moveCamera(mCurrentLocation!!.latitude, mCurrentLocation!!.longitude)
+    override fun onResume() {
+        super.onResume()
+        map_view.onResume()
     }
-}
 
-val mReceiverCurrentLocation = object : BroadcastReceiver() {
-    override fun onReceive(ctx: Context?, intent: Intent?) {
-        val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
-        val lon = intent?.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
-        if (lat != 0.0 && lon != 0.0)
-            mCurrentLocation = LatLng(lat, lon)
+    override fun onPause() {
+        super.onPause()
+        map_view.onPause()
     }
-}
 
-override fun moveCamera(latitude: Double, longitude: Double) {
-    val nextCamera = CameraUpdateFactory
-            .newLatLngZoom(LatLng(latitude, longitude), 16f)
+    override fun onStop() {
+        super.onStop()
+        mPresenter.onStop()
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(mReceiverCurrentLocation)
+    }
 
-    mMap?.moveCamera(nextCamera)
-}
+    override fun onDestroy() {
+        super.onDestroy()
+        stopLocationTracker()
+    }
 
-override fun showAcceptFragment() {
-    AcceptDeliveryFragment.show(activity.supportFragmentManager)
-}
+
+    override fun buildPath(path: String) {
+        removePolyline()
+        val points = PolyUtil.decode(path)
+        val polylineOptions = PolylineOptions().geodesic(true).color(resources.getColor(R.color.colorDarkBlue)).width(10f)
+        for (i in 0..points.size - 1)
+            polylineOptions.add(points[i])
+        if (mMap != null) {
+            mPolylinePath.add(mMap!!.addPolyline(polylineOptions))
+        }
+    }
+
+    override fun getFragmentContext(): Context {
+        return context
+    }
+
+    override fun prepareNoDelivery() {
+        Logger.logd("No delivery!" + Thread.currentThread().name)
+        removePolyline()
+        AcceptDeliveryFragment.dismiss(activity.supportFragmentManager)
+        mMap?.clear()
+        sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
+        val description = fragmentManager.findFragmentByTag(DescriptionFragment.TAG)
+        if (description != null)
+            fragmentManager.beginTransaction()
+                    .remove(description)
+                    .commit()
+
+//    home_switch_connect.isChecked = false
+    }
+
+    fun removePolyline() {
+        for (nextLine in mPolylinePath)
+            nextLine.remove()
+        mPolylinePath.clear()
+    }
+
+    var startMarker: Marker? = null
+    var finishMarker: Marker? = null
+    var wayPointsMarker: Array<Marker>? = null
+    override fun prepareRoute(route: EntregoRouteModel) {
+
+        mBinder?.delivery = Delivery.getInstance()
+        mBinder?.invalidateAll()
+
+        startMarker?.remove()
+        finishMarker?.remove()
+        sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+
+        //add start point
+        val startLatLng = LatLng(route.getCurrentPoint().point.latitude, route.getCurrentPoint().point.longitude)
+        startMarker = mMap?.addMarker(MarkerOptions()
+                .position(startLatLng)
+                .draggable(false)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                .title(getString(R.string.start_point)))
+
+        //add finish point
+        val finishLatLng = LatLng(route.getDestinationPoint().point.latitude,
+                route.getDestinationPoint().point.longitude)
+        finishMarker = mMap?.addMarker(MarkerOptions()
+                .position(finishLatLng)
+                .draggable(false)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                .title(getString(R.string.finish_point)))
+
+        moveCamera(startLatLng.latitude, startLatLng.longitude)
+
+        if (home_sliding_container != null) {
+            val fragment = DescriptionFragment.getInstance()
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.home_sliding_container, fragment, DescriptionFragment.TAG)
+                    .commit()
+        }
+
+        navigation_clickable_ll.setOnClickListener {
+            showNavigation(route.getCurrentPoint().point, route.getDestinationPoint().point)
+        }
+
+        startLocationTracker()
+    }
+
+
+    fun showNavigation(source: LatLng, destination: LatLng) {
+
+        val sourceLat = source.latitude
+        val sourceLon = source.longitude
+        val destLat = destination.latitude
+        val destLon = destination.longitude
+
+        val uri = String.format("http://maps.google.com/maps?saddr=$sourceLat,$sourceLon&daddr=$destLat,$destLon")
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
+        startActivity(intent)
+    }
+
+
+    fun moveCameraToCurrentLocation() {
+        if (mCurrentLocation != null) {
+            moveCamera(mCurrentLocation!!.latitude, mCurrentLocation!!.longitude)
+        }
+    }
+
+    val mReceiverCurrentLocation = object : BroadcastReceiver() {
+        override fun onReceive(ctx: Context?, intent: Intent?) {
+            val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
+            val lon = intent?.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
+            if (lat != 0.0 && lon != 0.0)
+                mCurrentLocation = LatLng(lat, lon)
+        }
+    }
+
+    override fun moveCamera(latitude: Double, longitude: Double) {
+        val nextCamera = CameraUpdateFactory
+                .newLatLngZoom(LatLng(latitude, longitude), 16f)
+
+        mMap?.moveCamera(nextCamera)
+    }
+
+    override fun showAcceptFragment() {
+        AcceptDeliveryFragment.show(activity.supportFragmentManager)
+    }
 }

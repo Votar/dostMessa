@@ -110,7 +110,6 @@
         </activity>
 
         <service android:name=".location.LocationService" />
-        <service android:name=".location.TrackerService"/>
         <activity
             android:name=".ui.account.help.HelpActivity"
             android:parentActivityName=".ui.main.RootActivity"
