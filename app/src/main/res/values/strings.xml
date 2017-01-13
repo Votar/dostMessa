@@ -132,6 +132,7 @@
     <string name="alert">Attention!</string>
     <string name="dialog_location_permission_required">If you want to receive orders you should grant location permission</string>
     <string name="dialog_gps_required">If you want to receive orders you should turn on GPS and in your device</string>
+    <string name="no_delivery">(No services available)</string>
 
 
 </resources>

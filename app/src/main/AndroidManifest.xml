@@ -110,6 +110,8 @@
         </activity>
 
         <service android:name=".location.LocationService" />
+        <service android:name=".socket.SocketService" />
+
         <activity
             android:name=".ui.account.help.HelpActivity"
             android:parentActivityName=".ui.main.RootActivity"
@@ -279,7 +281,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.score.updates.WeeklyUpdatesListActivity" />
         </activity>
-        <activity android:name=".ui.account.history.details.RouteHistoryDetailsActivity"
+        <activity
+            android:name=".ui.account.history.details.RouteHistoryDetailsActivity"
             android:parentActivityName=".ui.account.history.DeliveryHistoryActivity"
             android:screenOrientation="portrait">
             <meta-data

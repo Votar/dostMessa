@@ -21,8 +21,19 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:background="@color/colorWhite"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{delivery.route == null?View.VISIBLE:View.GONE}">
+
+            <include
+                layout="@layout/include_delivery_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -52,9 +63,9 @@
                     bind:delivery="@{delivery}" />
 
                 <LinearLayout
-                    android:background="@color/colorGrey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorGrey"
                     android:orientation="horizontal"
                     android:padding="12dp"
                     android:visibility="@{delivery.route.nextPoint == null? View.GONE : View.VISIBLE}">
@@ -74,18 +85,17 @@
                 </LinearLayout>
 
                 <Button
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/margin_medium"
                     android:id="@+id/drawer_sign_bill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_medium"
                     android:paddingLeft="@dimen/double_screen_padding"
                     android:paddingRight="@dimen/double_screen_padding"
                     android:text="@string/sign_bill"
                     android:visibility="@{delivery.customer != null? View.VISIBLE: View.GONE}" />
             </LinearLayout>
         </ScrollView>
-
 
 
     </RelativeLayout>

@@ -24,6 +24,7 @@ import entrego.com.android.R
 import entrego.com.android.binding.Delivery
 import entrego.com.android.databinding.FragmentHomeBinding
 import entrego.com.android.location.LocationTracker
+import entrego.com.android.socket.SocketService
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.accept.AcceptDeliveryFragment
@@ -38,9 +39,6 @@ import kotlinx.android.synthetic.main.include_navigation.*
 import java.util.*
 
 
-/**
- * Created by bertalt on 05.12.16.
- */
 class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     companion object {
         val REQUEST_ACCESS_FINE_LOCATION = 0x811
@@ -111,12 +109,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     private fun startLocationTracker() {
-        stopLocationTracker()
+
+        if (mTimer != null) return
+
         mTimer = Timer()
         mTimer?.schedule(object : TimerTask() {
             override fun run() {
                 val token = EntregoStorage(context).getToken()
                 LocationTracker.sendLocation(token, mCurrentLocation)
+                LocalBroadcastManager
+                        .getInstance(context)
+                        .sendBroadcast(Intent(SocketService.ACTION_FILTER)
+                                .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.SEND_TEXT.value))
             }
         }, 0, 3000)
     }
@@ -179,8 +183,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
             fragmentManager.beginTransaction()
                     .remove(description)
                     .commit()
-
-//    home_switch_connect.isChecked = false
     }
 
     fun removePolyline() {
@@ -249,7 +251,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         startActivity(intent)
     }
 
-
     fun moveCameraToCurrentLocation() {
         if (mCurrentLocation != null) {
             moveCamera(mCurrentLocation!!.latitude, mCurrentLocation!!.longitude)
@@ -268,7 +269,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     override fun moveCamera(latitude: Double, longitude: Double) {
         val nextCamera = CameraUpdateFactory
                 .newLatLngZoom(LatLng(latitude, longitude), 16f)
-
         mMap?.moveCamera(nextCamera)
     }
 

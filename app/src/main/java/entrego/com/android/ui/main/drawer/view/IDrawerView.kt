@@ -8,10 +8,7 @@ import entrego.com.android.storage.model.EntregoRouteModel
  */
 interface IDrawerView {
 
-    fun showEmptyView()
-    fun showDeliveryView()
+    fun refreshView()
     fun buildMultiDelivery()
-    fun setupHeader(customer: CustomerModel?)
-    fun setupRoute(route: EntregoRouteModel?)
 
 }

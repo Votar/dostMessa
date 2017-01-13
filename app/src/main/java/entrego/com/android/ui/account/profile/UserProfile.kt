@@ -55,7 +55,7 @@ object UserProfile {
                     override fun onResponse(call: Call<EntregoResultGetProfile>?, response: Response<EntregoResultGetProfile>?) {
                         if (response?.body() != null) {
                             val responseBody = response?.body()
-                            when (response?.body()?.code) {
+                            when (responseBody?.code) {
                                 0 -> {
                                     EntregoStorage(context).setUserProfile(responseBody?.payload)
                                     listener?.onSuccessRefresh(responseBody?.payload!!)

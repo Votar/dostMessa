@@ -7,7 +7,7 @@ android {
         build_config {
             keyAlias 'entrego'
             keyPassword '1140entrego'
-            storeFile file('/home/bertalt/Workspace/enterGO/keystore/entrego.jks')
+            storeFile file('C:/Users/Admin/workspace/enterGO/keystore/entrego.jks')
             storePassword '1138enterego'
         }
     }
@@ -82,6 +82,7 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     compile 'com.google.maps.android:android-maps-utils:0.4+'
     compile 'info.hoang8f:android-segmented:1.0.6'
+    compile 'com.neovisionaries:nv-websocket-client:1.31'
     testCompile 'junit:junit:4.12'
 }
 repositories {

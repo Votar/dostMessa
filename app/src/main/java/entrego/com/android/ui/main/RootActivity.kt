@@ -24,6 +24,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import entrego.com.android.R
 import entrego.com.android.location.LocationTracker
+import entrego.com.android.socket.SocketService
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.auth.AuthActivity
@@ -49,6 +50,7 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
+        startService(Intent(this, SocketService::class.java))
         setSupportActionBar(root_toolbar)
         supportActionBar?.title = ""
 
@@ -82,6 +84,7 @@ class RootActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+        stopService(Intent(this, SocketService::class.java))
     }
 
     private val tabIcons = intArrayOf(
@@ -221,4 +224,5 @@ class RootActivity : AppCompatActivity() {
                 GPSRequiredFragment.show(supportFragmentManager)
         }
     }
+
 }

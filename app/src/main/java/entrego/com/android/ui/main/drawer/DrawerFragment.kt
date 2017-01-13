@@ -36,6 +36,7 @@ class DrawerFragment : Fragment(), IDrawerView {
         binder?.delivery = Delivery.getInstance()
         return binder?.root
     }
+
     override fun onStart() {
         super.onStart()
         presenter.onStart(this)
@@ -56,27 +57,9 @@ class DrawerFragment : Fragment(), IDrawerView {
     }
 
 
-    override fun showEmptyView() {
-
-//        drawer_delivery_ll?.visibility = View.GONE
-
+    override fun refreshView() {
         binder?.invalidateAll()
-    }
-
-    override fun showDeliveryView() {
-
-//        drawer_delivery_ll?.visibility = View.VISIBLE
-        binder?.invalidateAll()
-    }
-
-
-    override fun setupHeader(customer: CustomerModel?) {
-
-
-    }
-
-    override fun setupRoute(route: EntregoRouteModel?) {
-
+        binder?.executePendingBindings()
     }
 
 
@@ -84,6 +67,5 @@ class DrawerFragment : Fragment(), IDrawerView {
         val intent = Intent(context, SignActivity::class.java)
         startActivity(intent)
     }
-
 
 }

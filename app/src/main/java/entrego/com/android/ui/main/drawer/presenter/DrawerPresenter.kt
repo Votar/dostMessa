@@ -11,45 +11,27 @@ import entrego.com.android.util.Logger
  * Created by bertalt on 12.12.16.
  */
 class DrawerPresenter : IDrawerPresenter {
-
+    var view: IDrawerView? = null
     val mDeliveryChangedListener = object : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(p0: Observable?, p1: Int) {
 
             when (p1) {
-                BR.instance -> {
-                    onBuildView()
-                }
+                BR.instance -> onBuildView()
             }
         }
     }
 
-    var view: IDrawerView? = null
     override fun onStart(view: IDrawerView) {
 
         this.view = view
         Delivery.getInstance().addOnPropertyChangedCallback(mDeliveryChangedListener)
-
         onBuildView()
     }
 
     fun onBuildView() {
         val delivery = Delivery.getInstance()
         Logger.logd(delivery.toString())
-
-        when (delivery.customer) {
-            null ->{ view?.showEmptyView()
-            }
-            else -> {
-                view?.showDeliveryView()
-//                if (delivery.customer != null) {
-//                    view?.setupHeader(delivery.customer)
-//                }
-//                if (delivery.route != null) {
-//                    view?.setupRoute(delivery.route)
-//                }
-            }
-        }
-
+        view?.refreshView()
     }
 
     override fun onStop() {
