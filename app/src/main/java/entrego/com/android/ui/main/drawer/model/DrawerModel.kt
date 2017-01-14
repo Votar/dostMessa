@@ -1,4 +1,4 @@
-package entrego.com.android.ui.main.drawer
+package entrego.com.android.ui.main.drawer.model
 
 import com.google.gson.Gson
 import entrego.com.android.storage.model.DeliveryModel

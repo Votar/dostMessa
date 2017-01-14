@@ -7,7 +7,7 @@ import entrego.com.android.binding.Delivery
 import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.model.PointStatus
-import entrego.com.android.ui.main.drawer.DrawerModel
+import entrego.com.android.ui.main.drawer.model.DrawerModel
 import entrego.com.android.ui.main.drawer.view.IDrawerView
 import entrego.com.android.util.Logger
 

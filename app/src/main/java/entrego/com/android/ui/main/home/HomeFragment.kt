@@ -102,7 +102,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         LocalBroadcastManager.getInstance(context).registerReceiver(mReceiverCurrentLocation,
                 IntentFilter(LocationTracker.BROADCAST_ACTION_CURRENT_LOCATION))
         home_my_loc.setOnClickListener { moveCameraToCurrentLocation() }
-        if(switcher_connected.isChecked)
+        if (switcher_connected.isChecked)
             startLocationTracker()
         else
             stopLocationTracker()
@@ -262,7 +262,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     fun moveCameraToCurrentLocation() {
-            moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
+        moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
     }
 
     val mReceiverCurrentLocation = object : BroadcastReceiver() {
