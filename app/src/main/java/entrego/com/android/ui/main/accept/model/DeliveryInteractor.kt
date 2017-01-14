@@ -1,7 +1,5 @@
 package entrego.com.android.ui.main.accept.model
 
-import com.google.gson.JsonElement
-import entrego.com.android.binding.Delivery
 import entrego.com.android.util.Logger
 import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi

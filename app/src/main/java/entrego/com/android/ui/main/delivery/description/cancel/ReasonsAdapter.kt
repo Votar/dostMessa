@@ -24,8 +24,8 @@ class ReasonsAdapter(reasons: List<String>, listener: OnReasonClicked) : Recycle
         fun onClickedReason(reason: String)
     }
     // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    // Complex data items may need more than one mView per item, and
+    // you provide access to all the views for a data item in a mView holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
 
         var binder: ItemCancelReasonBinding? = null
@@ -45,7 +45,7 @@ class ReasonsAdapter(reasons: List<String>, listener: OnReasonClicked) : Recycle
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
         val binding = ItemCancelReasonBinding.inflate(inflater, parent, false)
-        // set the view's size, margins, paddings and layout parameters
+        // set the mView's size, margins, paddings and layout parameters
         return ViewHolder(binding.root)
     }
 

@@ -25,7 +25,7 @@ object UserProfile {
 
     interface ResultRefreshListener {
         fun onSuccessRefresh(userProfile: UserProfileModel)
-        fun onFailureRefresh(message: String)
+        fun onFailureRefresh(message: String?)
     }
 
     interface ResultUpdateListener {
@@ -53,20 +53,20 @@ object UserProfile {
                 .getProfile(token)
                 .enqueue(object : Callback<EntregoResultGetProfile> {
                     override fun onResponse(call: Call<EntregoResultGetProfile>?, response: Response<EntregoResultGetProfile>?) {
-                        if (response?.body() != null) {
-                            val responseBody = response?.body()
+                        if (response != null) {
+                            val responseBody = response.body()
                             when (responseBody?.code) {
                                 0 -> {
-                                    EntregoStorage(context).setUserProfile(responseBody?.payload)
-                                    listener?.onSuccessRefresh(responseBody?.payload!!)
+                                    EntregoStorage(context).setUserProfile(responseBody.payload)
+                                    listener?.onSuccessRefresh(responseBody.payload)
                                 }
-                                else -> listener?.onFailureRefresh(responseBody?.message!!)
+                                else -> listener?.onFailureRefresh(responseBody.message)
                             }
                         } else {
                             if (response?.errorBody() != null) {
                                 val errorBody = response?.errorBody()!!
                                 val resultBody = Gson().fromJson(errorBody.string(), EntregoResult::class.java)
-                                listener?.onFailureRefresh(resultBody.message!!)
+                                listener?.onFailureRefresh(resultBody.message)
                             }
                         }
                     }

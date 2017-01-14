@@ -3,8 +3,6 @@ package entrego.com.android.location
 import android.content.Context
 import android.content.Intent
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.JsonElement
-import entrego.com.android.binding.Delivery
 import entrego.com.android.ui.main.home.model.DeliveryRequest
 import entrego.com.android.util.Logger
 import entrego.com.android.util.event_bus.LogoutEvent
@@ -16,9 +14,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * Created by bertalt on 05.12.16.
- */
 object LocationTracker {
 
     const val BROADCAST_ACTION_CURRENT_LOCATION = "com.entrego.location.current_location"

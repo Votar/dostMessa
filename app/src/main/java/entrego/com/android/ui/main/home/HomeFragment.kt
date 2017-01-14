@@ -57,6 +57,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binder: FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binder.delivery = Delivery.getInstance()
+        retainInstance = true
         val mapView = binder.mapView
 
         mapView.onCreate(savedInstanceState)
@@ -71,6 +72,28 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         return binder.root
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        switcher_disconnected.setOnCheckedChangeListener { button, state ->
+            run {
+                if (state) {
+                    LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(SocketService.ACTION_FILTER)
+                            .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.DISCONNECT.value))
+                    stopLocationTracker()
+                }
+            }
+        }
+        switcher_connected.setOnCheckedChangeListener { button, state ->
+            run {
+                if (state)
+                    startLocationTracker()
+
+            }
+        }
+        switcher_disconnected.isChecked = true
+
+    }
 
     override fun onStart() {
         super.onStart()
@@ -79,27 +102,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         LocalBroadcastManager.getInstance(context).registerReceiver(mReceiverCurrentLocation,
                 IntentFilter(LocationTracker.BROADCAST_ACTION_CURRENT_LOCATION))
         home_my_loc.setOnClickListener { moveCameraToCurrentLocation() }
-
-        setupToggleConnect()
-    }
-
-    fun setupToggleConnect() {
-        val displaymetrics = DisplayMetrics()
-        activity.windowManager.defaultDisplay.getMetrics(displaymetrics)
-        val width = displaymetrics.widthPixels
-        switcher_disconnected.isChecked = true
-        switcher_disconnected.setOnCheckedChangeListener { button, state ->
-            run {
-                if (state)
-                    stopLocationTracker()
-            }
-        }
-        switcher_connected.setOnCheckedChangeListener { button, state ->
-            run {
-                if (state)
-                    startLocationTracker()
-            }
-        }
+        if(switcher_connected.isChecked)
+            startLocationTracker()
+        else
+            stopLocationTracker()
     }
 
     private fun stopLocationTracker() {
@@ -113,16 +119,21 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         if (mTimer != null) return
 
         mTimer = Timer()
+        LocalBroadcastManager
+                .getInstance(context)
+                .sendBroadcast(Intent(SocketService.ACTION_FILTER)
+                        .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.CONNECT.value))
         mTimer?.schedule(object : TimerTask() {
             override fun run() {
                 val token = EntregoStorage(context).getToken()
                 LocationTracker.sendLocation(token, mCurrentLocation)
+
                 LocalBroadcastManager
                         .getInstance(context)
                         .sendBroadcast(Intent(SocketService.ACTION_FILTER)
                                 .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.SEND_TEXT.value))
             }
-        }, 0, 3000)
+        }, 2000, 3000)
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -149,11 +160,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         super.onStop()
         mPresenter.onStop()
         LocalBroadcastManager.getInstance(context).unregisterReceiver(mReceiverCurrentLocation)
+        stopLocationTracker()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        stopLocationTracker()
     }
 
 
@@ -224,7 +235,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
         if (home_sliding_container != null) {
             val fragment = DescriptionFragment.getInstance()
-
             fragmentManager.beginTransaction()
                     .replace(R.id.home_sliding_container, fragment, DescriptionFragment.TAG)
                     .commit()
@@ -252,9 +262,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     fun moveCameraToCurrentLocation() {
-        if (mCurrentLocation != null) {
-            moveCamera(mCurrentLocation!!.latitude, mCurrentLocation!!.longitude)
-        }
+            moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
     }
 
     val mReceiverCurrentLocation = object : BroadcastReceiver() {

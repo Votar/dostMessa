@@ -23,7 +23,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:paddingRight="@dimen/default_screen_padding"
-            android:text="@{route.currentPoint.address}"
+            android:text="@{route.goingPoint.address}"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/tsize_medium" />
 

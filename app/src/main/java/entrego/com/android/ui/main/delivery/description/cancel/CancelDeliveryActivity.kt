@@ -27,7 +27,7 @@ class CancelDeliveryActivity : AppCompatActivity(), ICancelDeliveryView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cancel_delivery)
         mPresenter.onCreate(this)
-        //setup view
+        //setup mView
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val dividerItemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         cancel_delivery_recycler_reasons.addItemDecoration(dividerItemDecoration)

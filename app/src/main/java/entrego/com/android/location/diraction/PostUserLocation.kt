@@ -23,7 +23,7 @@ object PostUserLocation {
     fun sendAsync(token: String, currentLocation: LatLng, @Nullable listener: PostUserLocation?) {
 
 //        ApiCreator.server.create(EntregoApi.PostLocation::class.java)
-//                .postLocation(token)
+//                .postLocation(mToken)
 //                .enqueue(object : Callback<JsonElement> {
 //                    override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
 //                        Logger.loge("network", "post location failed")

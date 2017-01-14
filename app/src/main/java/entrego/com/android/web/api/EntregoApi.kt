@@ -7,9 +7,11 @@ import entrego.com.android.storage.model.UserVehicleModel
 import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
 import entrego.com.android.web.model.request.auth.AuthBody
 import entrego.com.android.web.model.request.common.ChangePasswordRequest
+import entrego.com.android.web.model.request.delivery.ChangeStatusBody
 import entrego.com.android.web.model.request.delivery.EntregoResultGetDelivery
 import entrego.com.android.web.model.response.EntregoResult
 import entrego.com.android.web.model.request.registration.RegistrationBody
+import entrego.com.android.web.model.response.delivery.EntregoResultStatusChanged
 import entrego.com.android.web.model.response.profile.*
 import entrego.com.android.web.model.response.registration.EntregoResultRegistration
 import retrofit2.Call
@@ -37,6 +39,7 @@ object EntregoApi {
         const val POST_CANCEL_DELIVERY = "messenger/delivery/{id}/cancel"
         const val POST_ACCEPT_DELIVERY = "messenger/delivery/{id}/accept"
         const val POST_DECLINE_DELIVERY = "messenger/delivery/{id}/decline"
+        const val POST_CHANGE_STATUS = "messenger/delivery/{id}/status"
     }
 
     interface Authorization {
@@ -96,23 +99,27 @@ object EntregoApi {
         fun postLocation(@Header(TOKEN) token: String, @Body location: LatLng): Call<EntregoResult>
     }
 
-    interface CancelDelivery{
+    interface CancelDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_CANCEL_DELIVERY)
         fun cancelDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<JsonElement>
     }
-    interface AcceptDelivery{
+
+    interface AcceptDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_ACCEPT_DELIVERY)
         fun acceptDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<EntregoResult>
     }
 
-    interface DeclineDelivery{
+    interface DeclineDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_DECLINE_DELIVERY)
         fun declineDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<EntregoResult>
     }
 
-
-
+    interface ChangeStatus {
+        @Headers(CONTENT_JSON)
+        @POST(REQUESTS.POST_CHANGE_STATUS)
+        fun changeStatus(@Header(TOKEN) token: String, @Path("id") deliveryId: Int, @Body body: ChangeStatusBody): Call<EntregoResultStatusChanged>
+    }
 }

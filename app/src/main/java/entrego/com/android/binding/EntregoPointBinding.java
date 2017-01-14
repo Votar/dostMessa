@@ -6,10 +6,7 @@ import android.databinding.Bindable;
 import com.google.android.gms.maps.model.LatLng;
 
 import entrego.com.android.BR;
-
-/**
- * Created by bertalt on 09.12.16.
- */
+import entrego.com.android.storage.model.PointStatus;
 
 public class EntregoPointBinding extends BaseObservable {
 
@@ -17,12 +14,12 @@ public class EntregoPointBinding extends BaseObservable {
     private LatLng point;
     private String address = "";
     @Bindable
-    private String status = "";
+    private PointStatus status;
 
     public EntregoPointBinding(LatLng point, String address, String status) {
         this.point = point;
         this.address = address;
-        this.status = status;
+        this.status = PointStatus.valueOf(status);
     }
 
     public void setAddress(String address) {
@@ -38,7 +35,7 @@ public class EntregoPointBinding extends BaseObservable {
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.status = PointStatus.valueOf(status);
         notifyPropertyChanged(BR.status);
     }
 
@@ -46,7 +43,7 @@ public class EntregoPointBinding extends BaseObservable {
         return address;
     }
 
-    public String getStatus() {
+    public PointStatus getStatus() {
         return status;
     }
 

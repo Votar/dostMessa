@@ -4,7 +4,7 @@
     <data>
 
         <import type="android.view.View" />
-
+        <import type="entrego.com.android.storage.model.PointStatus"/>
         <variable
             name="delivery"
             type="entrego.com.android.binding.Delivery" />
@@ -92,8 +92,8 @@
                     android:layout_marginTop="@dimen/margin_medium"
                     android:paddingLeft="@dimen/double_screen_padding"
                     android:paddingRight="@dimen/double_screen_padding"
-                    android:text="@string/sign_bill"
-                    android:visibility="@{delivery.customer != null? View.VISIBLE: View.GONE}" />
+                    android:visibility="@{delivery.route.destinationPoint.status == PointStatus.DONE? View.VISIBLE:View.GONE}"
+                    android:text="@string/sign_bill" />
             </LinearLayout>
         </ScrollView>
 

@@ -177,7 +177,7 @@ class EditProfileActivity : AppCompatActivity() {
                 setupView(userProfile)
             }
 
-            override fun onFailureRefresh(message: String) {
+            override fun onFailureRefresh(message: String?) {
                 hideProgress()
                 showMessage(message)
                 finish()
@@ -187,7 +187,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
 
-    fun showMessage(message: String) {
+    fun showMessage(message: String?) {
 
         UserMessageUtil.showSnackMessage(activity_edit_profile, message)
     }

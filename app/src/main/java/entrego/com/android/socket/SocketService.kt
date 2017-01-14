@@ -58,8 +58,6 @@ class SocketService : Service() {
         super.onCreate()
         mSocketClient = SocketClient()
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, IntentFilter(ACTION_FILTER))
-        mSocketClient?.openConnection()
-        Logger.logd("Service open connection")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -70,7 +68,7 @@ class SocketService : Service() {
         super.onDestroy()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver)
         mSocketClient?.closeConnection()
-        Logger.logd("$SocketService::class.java.simpleName destroyed")
+        Logger.logd("SocketService destroyed")
     }
 
 }

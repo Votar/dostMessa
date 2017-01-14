@@ -15,6 +15,7 @@ import entrego.com.android.storage.model.EntregoPoint
 import entrego.com.android.storage.model.EntregoPointStatus
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.binding.EntregoPointBinding
+import entrego.com.android.storage.model.PointStatus
 import entrego.com.android.util.Logger
 import java.util.*
 
@@ -32,8 +33,8 @@ class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<Po
 
     }
     // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    // Complex data items may need more than one mView per item, and
+    // you provide access to all the views for a data item in a mView holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
 
         var binder: ItemDeliveryPointBinding? = null
@@ -55,9 +56,9 @@ class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<Po
         holder?.binder?.point = nextPoint
 
         when (nextPoint.status) {
-            EntregoPointStatus.DONE.name -> resId = R.drawable.points_list_done_icon
-            EntregoPointStatus.NEXT.name -> resId = R.drawable.start_pin
-            EntregoPointStatus.SCHEDULE.name -> resId = R.drawable.points_list_next_pin
+            PointStatus.DONE-> resId = R.drawable.points_list_done_icon
+            PointStatus.GOING -> resId = R.drawable.start_pin
+            PointStatus.PENDING -> resId = R.drawable.points_list_next_pin
             else -> resId = R.drawable.points_list_done_icon
         }
         val icon = ContextCompat.getDrawable(holder?.binder?.itemPointPin?.context, resId)
@@ -71,10 +72,6 @@ class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<Po
         val inflater = LayoutInflater.from(parent?.context)
 
         val binding = ItemDeliveryPointBinding.inflate(inflater, parent, false)
-
-
-        // set the view's size, margins, paddings and layout parameters
-
 
         return ViewHolder(binding.root)
     }

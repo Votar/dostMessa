@@ -21,8 +21,8 @@ class DeliveryHistoryAdapter(val context: Context?, val listener: ClickItemListe
         fun onItemClicked()
     }
      // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    // Complex data items may need more than one mView per item, and
+    // you provide access to all the views for a data item in a mView holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
 
         var binder: ItemHistoryRoutesBinding? = null
