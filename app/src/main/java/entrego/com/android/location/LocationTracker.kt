@@ -3,6 +3,8 @@ package entrego.com.android.location
 import android.content.Context
 import android.content.Intent
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.JsonElement
+import entrego.com.android.binding.Delivery
 import entrego.com.android.ui.main.home.model.DeliveryRequest
 import entrego.com.android.util.Logger
 import entrego.com.android.util.event_bus.LogoutEvent
@@ -36,7 +38,7 @@ object LocationTracker {
                     override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
                         Logger.logd(response?.body().toString())
                         when(response?.body()?.code){
-                            0->DeliveryRequest.requestDelivery(token, null)
+//                            0->DeliveryRequest.requestDelivery(token, null)
                             2->EventBus.getDefault().post(LogoutEvent())
                         }
                     }

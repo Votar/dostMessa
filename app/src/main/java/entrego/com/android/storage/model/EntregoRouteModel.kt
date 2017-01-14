@@ -39,11 +39,13 @@ class EntregoRouteModel(val path: EntregoPath,
 
     fun getNextPoint(): EntregoPointBinding? {
         if (waypoints.size > 2) {
-            val indexDestination = waypoints.indexOf(getDestinationPoint()) + 1
-            return waypoints[indexDestination]
-        } else
+            val destinationPoint = getDestinationPoint()
+            val indexNextToDestination = waypoints.indexOf(destinationPoint)
+            (indexNextToDestination..waypoints.size - 1)
+                    .filter { waypoints[it].status == PointStatus.PENDING }
+                    .forEach { return waypoints[indexNextToDestination] }
+        }
             return null
     }
-
-
 }
+

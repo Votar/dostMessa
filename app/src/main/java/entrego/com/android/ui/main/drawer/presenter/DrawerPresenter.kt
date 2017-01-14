@@ -45,18 +45,29 @@ class DrawerPresenter : IDrawerPresenter {
 
         for (next in switchList)
             next.isEnabled = false
+
         when (route.getCurrentPoint().status) {
             PointStatus.PENDING -> {
                 switchList[0].isEnabled = true
             }
             PointStatus.GOING -> {
                 switchList[1].isEnabled = true
+                switchList[1].isChecked = false
             }
             PointStatus.WAITING, PointStatus.DONE -> {
                 when (route.getDestinationPoint().status) {
-                    PointStatus.PENDING -> switchList[2].isEnabled = true
-                    PointStatus.GOING -> switchList[3].isEnabled = true
-                    PointStatus.WAITING -> switchList[4].isEnabled = true
+                    PointStatus.PENDING -> {
+                        switchList[2].isEnabled = true
+                        switchList[2].isChecked = false
+                    }
+                    PointStatus.GOING -> {
+                        switchList[3].isEnabled = true
+                        switchList[3].isChecked = false
+                    }
+                    PointStatus.WAITING -> {
+                        switchList[4].isEnabled = true
+                        switchList[4].isChecked = false
+                    }
                     PointStatus.DONE -> mView?.signBill()
                     else -> TODO()
                 }
