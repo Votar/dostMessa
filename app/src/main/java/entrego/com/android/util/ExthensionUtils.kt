@@ -134,3 +134,6 @@ fun Bitmap.encodeToStringBase64(): String {
     val photoEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
     return photoEncoded
 }
+
+fun ByteArray.encodeToStringBase64(): String = Base64.encodeToString(this, Base64.DEFAULT)
+

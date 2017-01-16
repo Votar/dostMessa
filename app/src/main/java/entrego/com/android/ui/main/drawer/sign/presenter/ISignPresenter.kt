@@ -9,5 +9,5 @@ import entrego.com.android.ui.main.drawer.sign.view.ISignView
 interface ISignPresenter {
     fun onCreate(view : ISignView)
     fun onDestroy()
-    fun sendSign(token:String, signBill: Bitmap)
+    fun sendSign(token:String, signBill: ByteArray)
 }

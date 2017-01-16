@@ -28,7 +28,7 @@ class SignPresenter : ISignPresenter {
         view = null
     }
 
-    override fun sendSign(token: String, signBill: Bitmap) {
+    override fun sendSign(token: String, signBill: ByteArray) {
         view?.showProgress()
         Delivery.getInstance().id
         SendSignRequest.executeAsync(token,

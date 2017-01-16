@@ -23,7 +23,7 @@ object SendSignRequest {
         fun onFailureSendSign(code: Int?, message: String?)
     }
 
-    fun executeAsync(token: String, deliveryId: Int, picture: Bitmap, @Nullable listener: SendSignListener?) {
+    fun executeAsync(token: String, deliveryId: Int, picture: ByteArray, @Nullable listener: SendSignListener?) {
         val encodedPhoto = picture.encodeToStringBase64()
         val body = FinishDeliveryBody(encodedPhoto)
         ApiCreator.server.create(EntregoApi.FinishDelivery::class.java)

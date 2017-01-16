@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.NavUtils
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.byox.drawview.enums.DrawingCapture
 import entrego.com.android.R
@@ -27,14 +28,15 @@ class SignActivity : AppCompatActivity(), ISignView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign)
         presenter.onCreate(this)
-
+        sign_drawing_ll.backgroundColor = ContextCompat.getColor(this, R.color.colorTransparent)
         sign_dismiss.setOnClickListener {
             sign_drawing_ll.undo()
         }
         sign_next.setOnClickListener {
             val token = EntregoStorage(this).getToken()
-            val signPic = sign_drawing_ll.createCapture(DrawingCapture.BITMAP)
-            if (signPic is Bitmap)
+            val signPic = sign_drawing_ll.createCapture(DrawingCapture.BYTES)
+
+            if (signPic is ByteArray)
                 presenter.sendSign(token, signPic)
             else
                 Logger.loge(TAG, "Cannot parse image from DrawView")
