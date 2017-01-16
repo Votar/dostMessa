@@ -110,7 +110,7 @@
         </activity>
 
         <service android:name=".location.LocationService" />
-        <service android:name=".socket.SocketService" />
+        <service android:name="entrego.com.android.web.socket.SocketService" />
 
         <activity
             android:name=".ui.account.help.HelpActivity"
@@ -129,7 +129,7 @@
                 android:value="entrego.com.android.ui.account.help.HelpActivity" />
         </activity>
         <activity
-            android:name=".ui.sign.SignActivity"
+            android:name="entrego.com.android.ui.main.drawer.sign.SignActivity"
             android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="landscape">
             <meta-data

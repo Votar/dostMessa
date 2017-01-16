@@ -1,4 +1,4 @@
-package entrego.com.android.socket
+package entrego.com.android.web.socket
 
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -21,7 +21,7 @@ import java.net.Socket
  */
 class SocketService : Service() {
     companion object {
-        val ACTION_FILTER = "entrego.com.android.socket.SOCKET_RECEIVER"
+        val ACTION_FILTER = "entrego.com.android.web.socket.SOCKET_RECEIVER"
         val KEY_EVENT = "key_event"
         val KEY_MESSAGE = "ext_key_message"
         val KEY_LOCATION = "ext_key_latlng"

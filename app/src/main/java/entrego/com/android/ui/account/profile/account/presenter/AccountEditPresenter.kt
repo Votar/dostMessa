@@ -2,7 +2,7 @@ package entrego.com.android.ui.account.profile.account.presenter
 
 import android.os.Handler
 import entrego.com.android.ui.account.profile.account.model.AccountController
-import entrego.com.android.ui.account.profile.account.model.AccountModel
+import entrego.com.android.ui.account.profile.account.model.AccountEntity
 import entrego.com.android.ui.account.profile.account.view.IAccountEditView
 
 /**
@@ -22,9 +22,9 @@ class AccountEditPresenter : IAccountEditPresenter {
             mView?.showMessage(message)
         }
 
-        override fun onAccountUpdated(accountModel: AccountModel) {
+        override fun onAccountUpdated(accountEntity: AccountEntity) {
             mView?.hideProgress()
-            mView?.prepareView(accountModel)
+            mView?.prepareView(accountEntity)
         }
     }
 

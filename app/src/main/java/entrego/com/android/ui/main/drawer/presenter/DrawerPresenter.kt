@@ -95,8 +95,6 @@ class DrawerPresenter : IDrawerPresenter {
         val deliveryId = Delivery.getInstance().id
         DrawerModel.nextStatus(mToken, deliveryId, status, changeStatusListener)
     }
-
-
     override fun onStop() {
         Delivery.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
         mView = null

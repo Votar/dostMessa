@@ -7,8 +7,11 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import entrego.com.android.R
+import entrego.com.android.ui.account.files.AddFilesActivity
 import entrego.com.android.ui.account.profile.ProfileFragment
+import entrego.com.android.ui.account.profile.UserProfile
 import entrego.com.android.ui.account.profile.VehicleFragment
 import entrego.com.android.ui.account.profile.edit.EditProfileActivity
 import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
@@ -45,8 +48,33 @@ class AccountFragment : Fragment() {
                 1 -> startActivityForResult(Intent(context, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
             }
         }
-        account_user_pic.loadImg(R.drawable.smalllogo)
+
+        account_user_edit_pic.setOnClickListener { startEditProfilePhotoActivity() }
+
+        val profile = UserProfile.getProfile(activity)
+        if (profile?.userPicUrl.isNullOrEmpty()) {
+            Glide.with(activity)
+                    .load(R.drawable.ic_user_pic_holder)
+                    .into(account_user_pic_holder)
+            account_user_edit_pic.visibility = View.GONE
+        } else {
+            Glide.with(activity)
+                    .load(profile?.userPicUrl)
+                    .error(R.drawable.ic_user_pic_holder)
+                    .placeholder(R.drawable.ic_user_pic_holder)
+                    .into(account_user_pic_holder)
+            account_user_edit_pic.visibility = View.VISIBLE
+
+        }
+
     }
+
+    private fun startEditProfilePhotoActivity() {
+        val intent = Intent(activity, AddFilesActivity::class.java)
+        intent.putExtra(AddFilesActivity.KEY_RQT_CODE, AddFilesActivity.RQT_USER_PHOTO)
+        startActivity(intent)
+    }
+
     override fun onResume() {
         super.onResume()
         Logger.logd("Account resumed")

@@ -3,11 +3,13 @@ package entrego.com.android.util
 import android.app.ProgressDialog
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
+import android.util.Base64
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
+import java.io.ByteArrayOutputStream
 
 
 /**
@@ -123,3 +126,11 @@ fun View.buildRatingBar(rating: Double) {
 }
 
 fun Float.formatRating(digits: Float) = java.lang.String.format("%${digits}f", this)
+
+fun Bitmap.encodeToStringBase64(): String {
+    val baos = ByteArrayOutputStream()
+    this.compress(Bitmap.CompressFormat.JPEG, 100, baos) //bm is the bitmap object
+    val byteArray = baos.toByteArray()
+    val photoEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
+    return photoEncoded
+}

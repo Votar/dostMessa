@@ -24,7 +24,7 @@ import entrego.com.android.R
 import entrego.com.android.binding.Delivery
 import entrego.com.android.databinding.FragmentHomeBinding
 import entrego.com.android.location.LocationTracker
-import entrego.com.android.socket.SocketService
+import entrego.com.android.web.socket.SocketService
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.accept.AcceptDeliveryFragment

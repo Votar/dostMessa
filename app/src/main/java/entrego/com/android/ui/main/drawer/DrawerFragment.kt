@@ -16,7 +16,7 @@ import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.drawer.presenter.DrawerPresenter
 import entrego.com.android.ui.main.drawer.presenter.IDrawerPresenter
 import entrego.com.android.ui.main.drawer.view.IDrawerView
-import entrego.com.android.ui.sign.SignActivity
+import entrego.com.android.ui.main.drawer.sign.SignActivity
 import entrego.com.android.util.snackSimple
 import kotlinx.android.synthetic.main.fragment_drawer.*
 import kotlinx.android.synthetic.main.status_service_delivered.*

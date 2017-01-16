@@ -1,15 +1,18 @@
-package entrego.com.android.ui.sign
+package entrego.com.android.ui.main.drawer.sign
 
 import android.app.ProgressDialog
-import android.support.v7.app.AppCompatActivity
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.support.v4.app.NavUtils
+import android.support.v7.app.AppCompatActivity
 import com.byox.drawview.enums.DrawingCapture
 import entrego.com.android.R
 import entrego.com.android.binding.Delivery
 import entrego.com.android.storage.preferences.EntregoStorage
-import entrego.com.android.ui.sign.presenter.ISignPresenter
-import entrego.com.android.ui.sign.presenter.SignPresenter
-import entrego.com.android.ui.sign.view.ISignView
+import entrego.com.android.ui.main.drawer.sign.presenter.ISignPresenter
+import entrego.com.android.ui.main.drawer.sign.presenter.SignPresenter
+import entrego.com.android.ui.main.drawer.sign.view.ISignView
+import entrego.com.android.util.Logger
 import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.loading
 import kotlinx.android.synthetic.main.activity_sign.*
@@ -17,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_sign.*
 class SignActivity : AppCompatActivity(), ISignView {
 
     var progressDialog: ProgressDialog? = null
-
+    val TAG = "SignActivity"
 
     val presenter: ISignPresenter = SignPresenter()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +33,11 @@ class SignActivity : AppCompatActivity(), ISignView {
         }
         sign_next.setOnClickListener {
             val token = EntregoStorage(this).getToken()
-            sign_drawing_ll.createCapture(DrawingCapture.BYTES)
-            presenter.sendSign(token)
-
+            val signPic = sign_drawing_ll.createCapture(DrawingCapture.BITMAP)
+            if (signPic is Bitmap)
+                presenter.sendSign(token, signPic)
+            else
+                Logger.loge(TAG, "Cannot parse image from DrawView")
         }
     }
 
@@ -52,12 +57,10 @@ class SignActivity : AppCompatActivity(), ISignView {
 
     override fun onSuccessSign() {
         Delivery.getInstance().update(null)
-        finish()
+        NavUtils.navigateUpFromSameTask(this)
     }
 
-    override fun onFailureSign(message: String) {
-
+    override fun onFailureSign(message: String?) {
         UserMessageUtil.showSnackMessage(activity_sign, message)
-
     }
 }

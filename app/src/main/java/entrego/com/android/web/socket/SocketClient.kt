@@ -1,4 +1,4 @@
-package entrego.com.android.socket
+package entrego.com.android.web.socket
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
@@ -31,7 +31,8 @@ class SocketClient {
         override fun onDisconnected(websocket: WebSocket?, serverCloseFrame: WebSocketFrame?, clientCloseFrame: WebSocketFrame?, closedByServer: Boolean) {
             super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer)
             Logger.logd(TAG, "Socked disconnected \n is need - $isNeed")
-            mSocketConnection = mSocketConnection?.disconnect()
+            if (isNeed)
+                connectAsync()
         }
 
         override fun onConnected(websocket: WebSocket?, headers: MutableMap<String, MutableList<String>>?) {
@@ -46,13 +47,15 @@ class SocketClient {
 
         override fun onConnectError(websocket: WebSocket?, exception: WebSocketException?) {
             super.onConnectError(websocket, exception)
-            Logger.loge(TAG_ERROR, exception?.error.toString() ?: "Socket error")
             when (exception?.error) {
                 WebSocketError.NOT_IN_CREATED_STATE ->
-                    if (isNeed){
-                        mSocketConnection = mSocketConnection?.recreate(TIMEOUT)
-                        mSocketConnection = mSocketConnection?.connectAsynchronously()
+                    if (isNeed) {
+                        Logger.loge(TAG_ERROR, "Try reconnect after failure connect attemp")
+                        connectAsync()
                     }
+                else -> {
+                    Logger.loge(TAG_ERROR, exception?.error.toString() ?: "Socket error")
+                }
             }
         }
     }
@@ -70,6 +73,10 @@ class SocketClient {
 
     fun openConnection() {
         isNeed = true
+        connectAsync()
+    }
+
+    private fun connectAsync() {
         mSocketConnection?.disconnect()
         mSocketConnection = mSocketConnection?.recreate(TIMEOUT)
         mSocketConnection = mSocketConnection?.connectAsynchronously()

@@ -8,7 +8,7 @@ import android.support.v4.app.NavUtils
 import android.widget.EditText
 import entrego.com.android.R
 import entrego.com.android.ui.account.profile.account.AccountActivity.AccountFields.*
-import entrego.com.android.ui.account.profile.account.model.AccountModel
+import entrego.com.android.ui.account.profile.account.model.AccountEntity
 import entrego.com.android.ui.account.profile.account.presenter.AccountEditPresenter
 import entrego.com.android.ui.account.profile.account.presenter.IAccountEditPresenter
 import entrego.com.android.ui.account.profile.account.view.IAccountEditView
@@ -61,7 +61,7 @@ class AccountActivity : AppCompatActivity(), IAccountEditView {
 
     }
 
-    override fun prepareView(account: AccountModel) {
+    override fun prepareView(account: AccountEntity) {
         account_edit_bank_name.setText(account.bankName)
         account_edit_full_name.setText(account.fullName)
         account_edit_number.setText(account.accountNumber)

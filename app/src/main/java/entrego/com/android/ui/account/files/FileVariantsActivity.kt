@@ -17,8 +17,8 @@ class FileVariantsActivity : AppCompatActivity() {
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener({ NavUtils.navigateUpFromSameTask(this) })
 
-        file_variants_licence_item.setOnClickListener { startAddFilesActivity(AddFilesActivity.RQT_LICENCE) }
-        file_variants_id_item.setOnClickListener { startAddFilesActivity(AddFilesActivity.RQT_ID) }
+        file_variants_licence_item.setOnClickListener { startAddFilesActivity(AddFilesActivity.RQT_DRIVER_LICENCE) }
+        file_variants_id_item.setOnClickListener { startAddFilesActivity(AddFilesActivity.RQT_PERSON_LICENCE) }
     }
 
     private fun startAddFilesActivity(requestCode: Int) {

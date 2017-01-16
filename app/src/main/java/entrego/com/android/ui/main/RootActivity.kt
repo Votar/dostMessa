@@ -24,7 +24,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import entrego.com.android.R
 import entrego.com.android.location.LocationTracker
-import entrego.com.android.socket.SocketService
+import entrego.com.android.web.socket.SocketService
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.auth.AuthActivity

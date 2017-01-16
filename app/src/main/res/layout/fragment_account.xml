@@ -6,11 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="80dp"
+        android:layout_height="80dp">
         <ImageView
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/account_user_pic"
+            android:id="@+id/account_user_pic_holder"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <ImageView
+            android:id="@+id/account_user_edit_pic"
+            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_user_edit_pic_holder"/>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/account_user_name"
         android:layout_width="wrap_content"

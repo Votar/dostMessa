@@ -4,28 +4,26 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import com.nguyenhoanglam.imagepicker.activity.ImagePicker
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity
 import com.nguyenhoanglam.imagepicker.model.Image
 import entrego.com.android.R
+import entrego.com.android.ui.account.files.model.EntregoFileCategory
+import entrego.com.android.ui.account.files.model.UploadPhotoListener
+import entrego.com.android.ui.account.files.model.UploadPhotoModel
 import entrego.com.android.ui.account.files.view.IAddFilesView
 import java.util.*
-import com.gun0912.tedpermission.PermissionListener
-import android.widget.Toast
-import com.gun0912.tedpermission.TedPermission
 
-
-/**
- * Created by bertalt on 18.12.16.
- */
 class AddFilesPresenter : IAddFilesPresenter {
-
+    
     companion object {
         val RQT_CAMERA = 0x222
         val RQT_GALLERY = 0x333
     }
-
     var mView: IAddFilesView? = null
+
     override fun onCreate(view: IAddFilesView) {
         mView = view
     }
@@ -78,5 +76,21 @@ class AddFilesPresenter : IAddFilesPresenter {
         }
     }
 
+    override fun uploadFileToServer(token:String, picture: Bitmap, fileCategory: EntregoFileCategory) {
+
+        val uploadListener = object: UploadPhotoListener {
+            override fun successUploadFile() {
+                mView?.hideProgress()
+            }
+
+            override fun failureUploadFile(code: Int?, message: Int?) {
+                mView?.hideProgress()
+                mView?.showMessage(null)
+            }
+
+        }
+        mView?.showProgress()
+        UploadPhotoModel.sendPicture(token, picture, fileCategory, uploadListener)
+    }
 
 }
