@@ -20,9 +20,11 @@ import kotlinx.android.synthetic.main.navigation_toolbar.*
 import android.graphics.BitmapFactory
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.util.loading
+import entrego.com.android.util.snackSimple
 
 
 class AddFilesActivity : AppCompatActivity(), IAddFilesView {
+
 
 
     companion object {
@@ -71,7 +73,9 @@ class AddFilesActivity : AppCompatActivity(), IAddFilesView {
     override fun hideProgress() {
         mProgress?.hide()
     }
-
+    override fun successUpload() {
+        activity_add_files.snackSimple(getString(R.string.success_upload_photo))
+    }
     override fun getActivityContext(): Activity {
         return this
     }

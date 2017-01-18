@@ -40,6 +40,8 @@ import java.util.*
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
+
+
     companion object {
         val REQUEST_ACCESS_FINE_LOCATION = 0x811
     }
@@ -282,5 +284,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun showAcceptFragment() {
         AcceptDeliveryFragment.show(activity.supportFragmentManager)
+    }
+
+    override fun dissmissAcceptFragment() {
+        AcceptDeliveryFragment.dismiss(activity.supportFragmentManager)
     }
 }

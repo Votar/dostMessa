@@ -3,6 +3,7 @@ package entrego.com.android.ui.account.profile
 import android.content.Context
 import android.support.annotation.Nullable
 import com.google.gson.Gson
+import entrego.com.android.binding.UserProfileEntity
 import entrego.com.android.storage.model.EntregoPhoneModel
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.storage.preferences.EntregoStorage
@@ -58,6 +59,7 @@ object UserProfile {
                             when (responseBody?.code) {
                                 0 -> {
                                     EntregoStorage(context).setUserProfile(responseBody.payload)
+                                    UserProfileEntity.getInstance().update(responseBody.payload)
                                     listener?.onSuccessRefresh(responseBody.payload)
                                 }
                                 else -> listener?.onFailureRefresh(responseBody.message)

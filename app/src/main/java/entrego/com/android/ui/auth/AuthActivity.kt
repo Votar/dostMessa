@@ -12,6 +12,8 @@ import entrego.com.android.R
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.auth.presenter.AuthPresenter
 import entrego.com.android.ui.auth.presenter.IAuthPresenter
+import entrego.com.android.ui.auth.restore.RestorePasswordActivity
+import entrego.com.android.ui.auth.restore.SuccessRestoreActivity
 import entrego.com.android.ui.auth.view.IAuthView
 import entrego.com.android.ui.main.RootActivity
 import entrego.com.android.ui.registration.RegistrationActivity
@@ -97,7 +99,12 @@ class AuthActivity : AppCompatActivity(), IAuthView {
 
 
         auth_btn_registration.setOnClickListener { goToRegistration() }
-        auth_btn_forgot_pass.setOnClickListener { presenter.requestForgotPassword() }
+        auth_btn_forgot_pass.setOnClickListener { startRestoreActivity() }
+    }
+
+    private fun startRestoreActivity() {
+        val intent = Intent(this, RestorePasswordActivity::class.java)
+        startActivity(intent)
     }
 
     fun startAuth() {

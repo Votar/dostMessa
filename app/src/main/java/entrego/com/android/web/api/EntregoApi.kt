@@ -6,6 +6,7 @@ import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.storage.model.UserVehicleModel
 import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
 import entrego.com.android.web.model.request.auth.AuthBody
+import entrego.com.android.web.model.request.auth.RestorePasswordBody
 import entrego.com.android.web.model.request.common.ChangePasswordRequest
 import entrego.com.android.web.model.request.delivery.ChangeStatusBody
 import entrego.com.android.web.model.request.delivery.EntregoResultGetDelivery
@@ -14,6 +15,7 @@ import entrego.com.android.web.model.request.profile.UploadPhotoBody
 import entrego.com.android.web.model.response.EntregoResult
 import entrego.com.android.web.model.request.registration.RegistrationBody
 import entrego.com.android.web.model.response.delivery.EntregoResultStatusChanged
+import entrego.com.android.web.model.response.delivery.EntregoResultHistoryDelivery
 import entrego.com.android.web.model.response.profile.*
 import entrego.com.android.web.model.response.registration.EntregoResultRegistration
 import retrofit2.Call
@@ -46,6 +48,8 @@ object EntregoApi {
         const val POST_PERSON_LICENCE = "messenger/user/change/driverLicense"
         const val POST_USER_PHOTO =  "messenger/user/change/photo"
         const val POST_FINISH_DELIVERY ="messenger/delivery/{id}/finish"
+        const val POST_POST_RESTORE_PASSWORD = ""
+
     }
 
     interface Authorization {
@@ -148,5 +152,10 @@ object EntregoApi {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_FINISH_DELIVERY)
         fun finishDelivery(@Header(TOKEN) token: String,@Path("id")deliveryId:Int, @Body body: FinishDeliveryBody): Call<EntregoResult>
+    }
+    interface RestorePassword{
+        @Headers(CONTENT_JSON)
+        @POST(REQUESTS.POST_POST_RESTORE_PASSWORD)
+        fun restorePassword(@Body body: RestorePasswordBody): Call<EntregoResult>
     }
 }

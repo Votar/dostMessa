@@ -25,8 +25,8 @@ import java.io.ByteArrayOutputStream
  */
 object UserMessageUtil {
     @JvmStatic fun show(ctx: Context, message: String?) {
-        var text: String
-        if (TextUtils.isEmpty(message)) {
+        val text: String
+        if (message.isNullOrEmpty()) {
             text = ctx.getString(R.string.er_default_network_error)
         } else
             text = message!!
@@ -41,8 +41,8 @@ object UserMessageUtil {
 
     @JvmStatic fun showSnackMessage(view: View, message: String?) {
 
-        var text: String
-        if (TextUtils.isEmpty(message)) {
+        val text: String
+        if (message.isNullOrEmpty()) {
             text = view.context.getString(R.string.er_default_network_error)
         } else
             text = message!!

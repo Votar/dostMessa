@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.auth.SuccessRestoreActivity">
+    tools:context=".ui.auth.restore.SuccessRestoreActivity">
 
     <include
         android:id="@+id/succ_reg_logo"

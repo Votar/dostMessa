@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import entrego.com.android.R
+import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.history.details.RouteHistoryDetailsActivity
 import entrego.com.android.ui.account.history.model.DeliveryHistoryAdapter
@@ -14,6 +15,7 @@ import entrego.com.android.ui.account.history.presenter.IDeliveryHistoryPresente
 import entrego.com.android.ui.account.history.view.IDeliveryHistoryView
 import entrego.com.android.util.UserMessageUtil
 import kotlinx.android.synthetic.main.activity_delivery_history.*
+import kotlinx.android.synthetic.main.include_empty_view.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 class DeliveryHistoryActivity : AppCompatActivity(), IDeliveryHistoryView {
@@ -37,14 +39,16 @@ class DeliveryHistoryActivity : AppCompatActivity(), IDeliveryHistoryView {
     }
 
     override fun showEmptyView() {
-        del_hist_progress.visibility = View.VISIBLE
+        del_hist_progress.visibility = View.GONE
         del_hist_recycler.visibility = View.GONE
+        common_empty_view?.visibility = View.VISIBLE
     }
 
-    override fun showHistoryList() {
+    override fun showHistoryList(resultList: Array<DeliveryModel>) {
+        common_empty_view?.visibility = View.GONE
         del_hist_progress.visibility = View.GONE
         del_hist_recycler.visibility = View.VISIBLE
-        del_hist_recycler.adapter = DeliveryHistoryAdapter(this, onItemClickListener)
+        del_hist_recycler.adapter = DeliveryHistoryAdapter(resultList, onItemClickListener)
 
     }
 

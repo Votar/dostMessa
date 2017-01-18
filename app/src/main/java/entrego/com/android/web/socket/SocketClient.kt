@@ -31,8 +31,8 @@ class SocketClient {
         override fun onDisconnected(websocket: WebSocket?, serverCloseFrame: WebSocketFrame?, clientCloseFrame: WebSocketFrame?, closedByServer: Boolean) {
             super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer)
             Logger.logd(TAG, "Socked disconnected \n is need - $isNeed")
-            if (isNeed)
-                connectAsync()
+//            if (isNeed)
+//                connectAsync()
         }
 
         override fun onConnected(websocket: WebSocket?, headers: MutableMap<String, MutableList<String>>?) {
@@ -50,8 +50,8 @@ class SocketClient {
             when (exception?.error) {
                 WebSocketError.NOT_IN_CREATED_STATE ->
                     if (isNeed) {
-                        Logger.loge(TAG_ERROR, "Try reconnect after failure connect attemp")
-                        connectAsync()
+                        Logger.loge(TAG_ERROR, "Should reconnect after failure connect attemp")
+//                        connectAsync()
                     }
                 else -> {
                     Logger.loge(TAG_ERROR, exception?.error.toString() ?: "Socket error")
@@ -66,7 +66,6 @@ class SocketClient {
             mSocketConnection?.sendText(location)
         } else {
             Logger.logd("SOCKET IS DISCONNECTED")
-
             openConnection()
         }
     }

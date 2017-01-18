@@ -37,11 +37,10 @@
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
         </activity>
         <activity
             android:name=".ui.auth.AuthActivity"
@@ -67,7 +66,7 @@
                 android:value="entrego.com.android.ui.auth.AuthActivity" />
         </activity>
         <activity
-            android:name=".ui.auth.SuccessRestoreActivity"
+            android:name=".ui.auth.restore.SuccessRestoreActivity"
             android:noHistory="true"
             android:parentActivityName=".ui.auth.AuthActivity">
             <meta-data
@@ -86,7 +85,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.auth.RestorePasswordActivity" />
+        <activity android:name=".ui.auth.restore.RestorePasswordActivity"
+            android:noHistory="true"
+            android:parentActivityName=".ui.auth.AuthActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="entrego.com.android.ui.auth.AuthActivity" />
+        </activity>
         <activity
             android:name=".ui.main.RootActivity"
             android:label="@string/title_activity_root"

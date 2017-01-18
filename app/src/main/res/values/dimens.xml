@@ -2,14 +2,17 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
 
     <dimen name="default_logo_margin">80dp</dimen>
-    <dimen name="default_screen_padding">16dp</dimen>
-    <dimen name="double_screen_padding">32dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="appBarHeight">45dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="tsize_large">24sp</dimen>
+    <dimen name="default_screen_padding">16dp</dimen>
+    <dimen name="double_screen_padding">32dp</dimen>
     <dimen name="tsize_xlarge">48sp</dimen>
+    <dimen name="tsize_large">24sp</dimen>
+    <dimen name="tsize_medium">18sp</dimen>
+    <dimen name="tsize_small">13sp</dimen>
     <dimen name="custom_tab_layout_height">72dp</dimen>
     <dimen name="tab_label">16sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -18,11 +21,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="user_pic_size">80dp</dimen>
     <dimen name="menu_item_min_height">52dp</dimen>
-    <dimen name="tsize_medium">18sp</dimen>
+
     <dimen name="description_header_height">90dp</dimen>
     <dimen name="dot_size">15dp</dimen>
     <dimen name="normal_text_padding">8dp</dimen>
     <dimen name="small_text_padding">4dp</dimen>
     <dimen name="star_size">40dp</dimen>
-    <dimen name="tsize_small">13sp</dimen>
 </resources>

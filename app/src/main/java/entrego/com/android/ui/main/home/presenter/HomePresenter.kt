@@ -39,6 +39,8 @@ class HomePresenter : IHomePresenter {
 
         if (delivery.status.equals(OrderStatus.PENDING.value, true))
             view?.showAcceptFragment()
+        else
+            view?.dissmissAcceptFragment()
 
         if (delivery.route != null) {
             view?.prepareRoute(delivery.route)

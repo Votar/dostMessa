@@ -1,5 +1,6 @@
 package entrego.com.android.ui.account.history.presenter
 
+import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.ui.account.history.model.DeliveryHistoryModel
 import entrego.com.android.ui.account.history.view.IDeliveryHistoryView
 
@@ -24,13 +25,12 @@ class DeliveryHistoryPresenter : IDeliveryHistoryPresenter {
     }
 
 
-    val mGetDeliveryHistoryListener = object : DeliveryHistoryModel.GetDeliveryHistory {
-        override fun onSuccessGetDeliveryHistory() {
-            view?.showHistoryList()
+    val mGetDeliveryHistoryListener = object : DeliveryHistoryModel.GetDeliveryHistoryListener {
+        override fun onSuccessGetDeliveryHistory(resultArray: Array<DeliveryModel>) {
+            view?.showHistoryList(resultArray)
         }
 
         override fun onFailureGetDeliveryHistory(message: String?) {
-
             view?.showMessage(message)
             view?.showEmptyView()
 

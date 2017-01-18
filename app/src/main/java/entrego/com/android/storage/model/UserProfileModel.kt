@@ -1,19 +1,10 @@
 package entrego.com.android.storage.model
 
-/**
- * Created by bertalt on 30.11.16.
- */
 class UserProfileModel(val email: String,
                        val name: String,
                        val phone: EntregoPhoneModel) {
-    var userPicUrl: String = ""
-
-    constructor(email: String,
-                name: String,
-                phone: EntregoPhoneModel,
-                userPicUrl: String) : this(email, name, phone) {
-        this.userPicUrl = userPicUrl
-    }
+    val userPicUrl: String
+    get() = "https://en.opensuse.org/images/0/0b/Icon-user.png"
 
 
     override fun toString(): String {

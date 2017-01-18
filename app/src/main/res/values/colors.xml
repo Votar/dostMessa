@@ -5,20 +5,20 @@
     <color name="colorAccent">#FFC107</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorFont">#84817e</color>
-
-    <color name="primary_light">#FFF9C4</color>
     <color name="primary_text">#212121</color>
+    <color name="colorGrey">#ebebeb</color>
+    <color name="colorDarkBlue">#0183ca</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorDivider">#cdcdcd</color>
+    <color name="colorTransparent">#00ffffff</color>
+    <color name="colorBlue">#84caff</color>
+    <color name="primary_light">#FFF9C4</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#212121</color>
     <color name="divider">#BDBDBD</color>
     <color name="shadowEndColor">#428e8e8e</color>
-    <color name="colorTransparent">#00ffffff</color>
-    <color name="colorBlue">#84caff</color>
-    <color name="colorDarkBlue">#0183ca</color>
-    <color name="colorBlack">#000</color>
-    <color name="colorDivider">#cdcdcd</color>
+
     <color name="colorTomato">#e64245</color>
-    <color name="colorGrey">#ebebeb</color>
     <color name="colorTransparentGrey">#c4616160</color>
     <color name="colorDarkGrey">#666565</color>
     <color name="colorTransparentBlack">#b1000000</color>

@@ -20,9 +20,7 @@ import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.loading
 import entrego.com.android.util.snackSimple
 
-/**
- * Created by bertalt on 10.01.17.
- */
+
 class AcceptDeliveryFragment private constructor() : Fragment(), IAcceptDeliveryView {
 
 

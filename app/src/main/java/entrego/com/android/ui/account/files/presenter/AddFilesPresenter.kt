@@ -80,6 +80,7 @@ class AddFilesPresenter : IAddFilesPresenter {
 
         val uploadListener = object: UploadPhotoListener {
             override fun successUploadFile() {
+                mView?.successUpload()
                 mView?.hideProgress()
             }
 

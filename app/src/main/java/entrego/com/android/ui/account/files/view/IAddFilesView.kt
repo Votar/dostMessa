@@ -14,4 +14,5 @@ interface IAddFilesView {
     fun getActivityContext(): Activity
     fun replaceDocumentHolder(path: String)
     fun replaceDocumentHolder(pic: Bitmap)
+    fun successUpload()
 }
