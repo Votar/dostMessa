@@ -17,12 +17,9 @@ import entrego.com.android.util.Logger
 class DeliveryHistoryAdapter(val dataset: Array<DeliveryModel>, val listener: ClickItemListener) : RecyclerView.Adapter<DeliveryHistoryAdapter.ViewHolder>() {
 
     interface ClickItemListener {
-        fun onItemClicked()
+        fun onItemClicked(delivery: DeliveryModel)
     }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one mView per item, and
-    // you provide access to all the views for a data item in a mView holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
         var binder: ItemHistoryRoutesBinding? = null
 
@@ -46,7 +43,7 @@ class DeliveryHistoryAdapter(val dataset: Array<DeliveryModel>, val listener: Cl
                     .into(holder?.binder?.historyRoutesStaticMap)
                     .onLoadStarted(loadingIcon)
         }
-        holder?.binder?.root?.setOnClickListener { listener.onItemClicked() }
+        holder?.binder?.root?.setOnClickListener { listener.onItemClicked(currentModel) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DeliveryHistoryAdapter.ViewHolder {

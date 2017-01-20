@@ -27,4 +27,5 @@
     <dimen name="normal_text_padding">8dp</dimen>
     <dimen name="small_text_padding">4dp</dimen>
     <dimen name="star_size">40dp</dimen>
+    <dimen name="user_photo_holder_size">94dp</dimen>
 </resources>

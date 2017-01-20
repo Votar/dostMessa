@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:clipToPadding="false"
     android:orientation="vertical"
-    android:scrollbars="none"
     android:paddingBottom="4dp"
-    android:clipToPadding="false">
+    android:scrollbars="none">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="@dimen/default_screen_padding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/default_screen_padding">
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/incomes_chart_ll"
@@ -24,11 +24,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/incomes_weekly_chart"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="260dp" />
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/incomes_bars_btn_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_large"
+                        app:srcCompat="@drawable/ic_chevron_left_blue_24dp" />
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/incomes_diapasone_dates"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/incomes_diapasone_from"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/incomes_diapasone_to"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/incomes_bars_btn_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/padding_large"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_chevron_right_blue_24dp" />
+
+                    <TextView
+                        android:id="@+id/incomes_this_week_tv"
+                        android:text="@string/this_week"
+                        android:textSize="@dimen/tsize_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+                </RelativeLayout>
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/incomes_weekly_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp" />
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,8 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/incomes_chart_ll"
-            android:layout_marginTop="@dimen/default_screen_padding"
-            >
+            android:layout_marginTop="@dimen/default_screen_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"

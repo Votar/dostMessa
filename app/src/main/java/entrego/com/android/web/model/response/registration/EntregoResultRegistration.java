@@ -4,9 +4,6 @@ import java.util.Arrays;
 
 import entrego.com.android.web.model.response.common.FieldErrorResponse;
 
-/**
- * Created by bertalt on 05.12.16.
- */
 
 public class EntregoResultRegistration {
 

@@ -14,13 +14,10 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_slpash)
-
     }
 
     override fun onStart() {
         super.onStart()
-
-
         UserProfile.refresh(applicationContext, listener)
     }
 

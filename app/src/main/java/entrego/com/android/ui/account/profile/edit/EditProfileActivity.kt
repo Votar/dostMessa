@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
+import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.util.Logger
@@ -52,10 +53,16 @@ class EditProfileActivity : AppCompatActivity() {
 
 
     fun setupView(profile: UserProfileModel) {
+
+        Glide.with(this)
+                .load(profile.userPicUrl)
+                .into(edit_profile_user_pic_holder)
+
         edit_profile_edit_email.setText(profile.email)
         edit_profile_edit_name.setText(profile.name)
         edit_profile_edit_phone_code.setText(profile.phone.code)
         edit_profile_edit_phone.setText(profile.phone.number)
+
 
         edit_profile_btn_save.setOnClickListener { saveData() }
         edit_profile_change_password.setOnClickListener {

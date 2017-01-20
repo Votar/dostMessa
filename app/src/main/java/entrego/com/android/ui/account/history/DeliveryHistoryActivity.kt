@@ -61,8 +61,8 @@ class DeliveryHistoryActivity : AppCompatActivity(), IDeliveryHistoryView {
     }
 
     val onItemClickListener = object : DeliveryHistoryAdapter.ClickItemListener {
-        override fun onItemClicked() {
-            RouteHistoryDetailsActivity.start(del_hist_recycler.context)
+        override fun onItemClicked(delivery: DeliveryModel) {
+            RouteHistoryDetailsActivity.start(del_hist_recycler.context, delivery)
         }
     }
 }

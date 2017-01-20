@@ -1,12 +1,12 @@
 package entrego.com.android.ui.incomes
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
@@ -15,21 +15,31 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import entrego.com.android.R
+import entrego.com.android.entity.IncomeEntity
+import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.incomes.charts.DayAxisValueFormatter
 import entrego.com.android.ui.incomes.charts.EaringAxisValueFormatter
 import entrego.com.android.ui.incomes.charts.XYMarkerView
 import entrego.com.android.ui.incomes.details.IncomesDetailsActivity
 import entrego.com.android.ui.incomes.history.HistoryServiceActivity
+import entrego.com.android.ui.incomes.presenter.IIncomesPresenter
+import entrego.com.android.ui.incomes.presenter.IncomesPresenter
+import entrego.com.android.ui.incomes.view.IncomesView
+import entrego.com.android.util.formattedDate
+import entrego.com.android.util.loading
+import entrego.com.android.util.snackSimple
 import kotlinx.android.synthetic.main.fragment_incomes.*
 import java.util.*
 
-/**
- * Created by bertalt on 21.12.16.
- */
-class IncomesFragment : Fragment() {
+class IncomesFragment : Fragment(), IncomesView {
 
+    var datesOffset = 0
+    var isThisWeel = true
+    var mPoregress: ProgressDialog? = null
+    val mPresenter: IIncomesPresenter = IncomesPresenter()
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         retainInstance = true
+        mPoregress = ProgressDialog(context)
         val view = inflater?.inflate(R.layout.fragment_incomes, container, false)
         return view
     }
@@ -37,16 +47,39 @@ class IncomesFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setupCharts()
+        val token = EntregoStorage(context).getToken()
+        mPresenter.onStart(token, this)
+        mPresenter.requestRange(datesOffset)
         incomes_history_card.setOnClickListener { startHistoryServicesActivity() }
-
         incomes_chart_ll.setOnClickListener { startIncomesDetailsActivity() }
+        incomes_bars_btn_back.setOnClickListener {
+            modifyOffset(1)
+        }
+        incomes_bars_btn_next.setOnClickListener {
+            modifyOffset(-1)
+        }
+    }
+
+    fun modifyOffset(value: Int) {
+
+        if (datesOffset == 0 && value < 0) return
+
+        datesOffset += value
+        if (datesOffset == 0) {
+            isThisWeel = true
+            incomes_bars_btn_next.visibility = View.GONE
+        } else {
+            isThisWeel = false
+            incomes_bars_btn_next.visibility = View.VISIBLE
+        }
+        mPoregress?.loading()
+        mPresenter.requestRange(datesOffset)
     }
 
     private fun startIncomesDetailsActivity() {
         val intent = Intent(context, IncomesDetailsActivity::class.java)
         startActivity(intent)
     }
-
 
     fun setupCharts() {
         incomes_weekly_chart?.setDrawBarShadow(false)
@@ -83,45 +116,73 @@ class IncomesFragment : Fragment() {
         mv.setChartView(incomes_weekly_chart) // For bounds control
         incomes_weekly_chart.setMarker(mv) // Set the marker to the chart
         incomes_weekly_chart.getLegend().setEnabled(false)
-//      incomes_weekly_chart.getAxisRight()
-        setData(3, 50f)
     }
 
-    private fun setData(count: Int, range: Float) {
+    override fun onBuildCharts(incomes: Array<IncomeEntity>) {
+        mPoregress?.dismiss()
+        setData(incomes)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mPresenter.onStop()
+    }
+
+    private fun setData(incomes: Array<IncomeEntity>) {
         val yVals = ArrayList<BarEntry>()
         var maxEaring = 0f
         var maxIndex: Int = 0
-        for (i: Int in 0..count) {
-            val mult = range + 1
-            val earing = (Math.random() * mult).toFloat()
-            if (maxEaring < earing) {
+        for (i: Int in 0..incomes.lastIndex) {
+            val profit = incomes[i].profit.toFloat()
+            if (maxEaring < profit) {
                 maxIndex = i
-                maxEaring = earing
+                maxEaring = profit
             }
-            yVals.add(BarEntry(i.toFloat(), earing))
+            yVals.add(BarEntry(i.toFloat(), profit))
         }
         val dataSets = ArrayList<IBarDataSet>()
+        val defaultColor = resources.getColor(R.color.colorDarkGrey)
         for (i in 0..yVals.size - 2) {
-            if (maxIndex.equals(i)) {
+            if (maxIndex == i) {
                 val max = BarDataSet(listOf(yVals[i]), "")
-                val color = resources.getColor(R.color.colorDarkGrey)
-                max.setColor(color)
+                max.color = defaultColor
                 dataSets.add(max)
             } else {
                 val default = BarDataSet(listOf(yVals[i]), "")
-                val color = resources.getColor(R.color.colorDarkGrey)
-                default.setColor(color, 120)
+                default.setColor(defaultColor, 120)
                 dataSets.add(default)
             }
         }
         val last = BarDataSet(listOf(yVals.last()), "")
-        val color = resources.getColor(R.color.colorPrimary)
-        last.setColor(color)
+        if (isThisWeel) {
+            val color = resources.getColor(R.color.colorPrimary)
+            last.color = color
+            incomes_this_week_tv.visibility = View.VISIBLE
+            incomes_diapasone_dates.visibility = View.GONE
+        } else {
+            incomes_this_week_tv.visibility = View.GONE
+            last.setColor(defaultColor, 120)
+            incomes_diapasone_dates.visibility = View.VISIBLE
+            incomes_diapasone_from.text = incomes.last().formattedDate()
+            incomes_diapasone_to.text = incomes.first().formattedDate()
+        }
         dataSets.add(last)
         val data = BarData(dataSets)
         data.setValueTextSize(10f)
         data.barWidth = 0.9f
-        incomes_weekly_chart.setData(data)
+        incomes_weekly_chart.data?.clearValues()
+        incomes_weekly_chart.data = data
+        incomes_weekly_chart.notifyDataSetChanged()
+        incomes_weekly_chart.invalidate()
+
+    }
+
+    override fun onShowMessage(message: String?) {
+        view?.snackSimple(message)
+    }
+
+    override fun onShowMessage(idString: Int) {
+        view?.snackSimple(getString(idString))
     }
 
 

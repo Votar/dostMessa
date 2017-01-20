@@ -1,278 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_route_history_details"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context="entrego.com.android.ui.account.history.details.RouteHistoryDetailsActivity">
+<layout>
 
-    <ScrollView
+    <data>
+
+        <variable
+            name="model"
+            type="entrego.com.android.storage.model.DeliveryModel" />
+
+        <variable
+            name="startPoint"
+            type="entrego.com.android.binding.EntregoPointBinding" />
+
+        <variable
+            name="destinationPoint"
+            type="entrego.com.android.binding.EntregoPointBinding" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_route_history_details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingLeft="@dimen/default_screen_padding"
-        android:paddingRight="@dimen/default_screen_padding"
-        android:paddingTop="?attr/actionBarSize"
-        android:scrollbars="none">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context="entrego.com.android.ui.account.history.details.RouteHistoryDetailsActivity">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/default_screen_padding"
-            android:paddingTop="@dimen/default_screen_padding">
+            android:clipToPadding="false"
+            android:paddingLeft="@dimen/default_screen_padding"
+            android:paddingRight="@dimen/default_screen_padding"
+            android:paddingTop="?attr/actionBarSize"
+            android:scrollbars="none">
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/default_screen_padding"
+                android:paddingTop="@dimen/default_screen_padding">
 
-                <LinearLayout
-                    android:orientation="vertical"
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <TextView
-                        android:padding="@dimen/default_screen_padding"
-                        android:text="@string/debug_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorDivider"/>
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
                         <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/default_screen_padding"
+                            android:text="@string/tmp_service" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorDivider" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:paddingTop="@dimen/padding_medium">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/service_no" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@{model.formattedId()}" />
+                        </LinearLayout>
+
+                        <include layout="@layout/dashed_divider_grey" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:paddingTop="@dimen/padding_medium">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/killometers" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{model.formattedDistance()}" />
+
+                            <TextView
+                                android:paddingLeft="@dimen/padding_small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/km" />
+
+
+                        </LinearLayout>
+
+                        <include layout="@layout/dashed_divider_grey" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:paddingTop="@dimen/padding_medium">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/purchase" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@{model.price.toView()}" />
+                        </LinearLayout>
+
+                        <include layout="@layout/dashed_divider_grey" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:paddingTop="@dimen/padding_medium">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/client" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@{model.customer.name}" />
+                        </LinearLayout>
+
+                        <include layout="@layout/dashed_divider_grey" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:paddingTop="@dimen/padding_medium">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/service" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+
+                        <include layout="@layout/dashed_divider_grey" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:paddingTop="@dimen/padding_medium">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/schedule" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@{model.formattedPickup()}" />
+                        </LinearLayout>
+
+                        <include layout="@layout/dashed_divider_grey" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:paddingTop="@dimen/padding_medium">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/text_package" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@{model.size}" />
+                        </LinearLayout>
+
+                        <include layout="@layout/dashed_divider_grey" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:paddingTop="@dimen/padding_medium">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/origen" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@{startPoint.address}" />
+                        </LinearLayout>
+
+                        <include layout="@layout/dashed_divider_grey" />
+
+
+                        <FrameLayout
+                            android:layout_below="@+id/del_his_toolbar"
+                            android:paddingBottom="@dimen/padding_medium"
+                            android:paddingTop="@dimen/padding_medium"
+                            android:paddingLeft="@dimen/double_screen_padding"
+                            android:paddingRight="@dimen/double_screen_padding"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/route_history_details_recycler"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
+                        </FrameLayout>
                     </LinearLayout>
-                    <include layout="@layout/dashed_divider_grey"/>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <include layout="@layout/dashed_divider_grey"/>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <include layout="@layout/dashed_divider_grey"/>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <include layout="@layout/dashed_divider_grey"/>
+                </android.support.v7.widget.CardView>
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <include layout="@layout/dashed_divider_grey"/>
+            </LinearLayout>
+        </ScrollView>
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <include layout="@layout/dashed_divider_grey"/>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_marginTop="@dimen/default_screen_padding"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:padding="@dimen/default_screen_padding"
-                        android:text="@string/debug_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorDivider"/>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <include layout="@layout/dashed_divider_grey"/>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <include layout="@layout/dashed_divider_grey"/>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/padding_medium"
-                        android:paddingBottom="@dimen/padding_medium"
-                        android:paddingLeft="@dimen/double_screen_padding"
-                        android:paddingRight="@dimen/double_screen_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="@string/debug_text"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-
-    </ScrollView>
-
-    <include layout="@layout/navigation_toolbar"/>
-</RelativeLayout>
+        <include layout="@layout/navigation_toolbar" />
+    </RelativeLayout>
+</layout>

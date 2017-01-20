@@ -84,6 +84,7 @@ dependencies {
     compile 'info.hoang8f:android-segmented:1.0.6'
     compile 'com.neovisionaries:nv-websocket-client:1.31'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'net.danlew:android.joda:2.9.5.1'
     testCompile 'junit:junit:4.12'
 }
 repositories {

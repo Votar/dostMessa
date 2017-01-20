@@ -27,7 +27,10 @@ class DeliveryHistoryPresenter : IDeliveryHistoryPresenter {
 
     val mGetDeliveryHistoryListener = object : DeliveryHistoryModel.GetDeliveryHistoryListener {
         override fun onSuccessGetDeliveryHistory(resultArray: Array<DeliveryModel>) {
-            view?.showHistoryList(resultArray)
+            if (resultArray.count() > 0)
+                view?.showHistoryList(resultArray)
+            else
+                view?.showEmptyView()
         }
 
         override fun onFailureGetDeliveryHistory(message: String?) {

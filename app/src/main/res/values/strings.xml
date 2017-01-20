@@ -8,7 +8,7 @@
     <string name="ui_login">login</string>
     <string name="ui_registration">registration</string>
     <string name="er_default_network_error">Cannot connection to server</string>
-    <string name="ui_progress_dialog_title">Loading...</string>
+    <string name="ui_progress_dialog_title">Loading…</string>
     <string name="ui_loading">Please, wait a second</string>
     <string name="hint_name">Name</string>
     <string name="hint_password_conf">Repeat password</string>
@@ -135,6 +135,18 @@
     <string name="no_delivery">(No services available)</string>
     <string name="cannot_load_image">Cannot load this image</string>
     <string name="success_upload_photo">Photo have been uploaded</string>
+    <string name="tmp_service">Service</string>
+    <string name="service_no">Service No.</string>
+    <string name="killometers">Kilometers</string>
+    <string name="purchase">Purchase</string>
+    <string name="client">Client</string>
+    <string name="service">Service</string>
+    <string name="schedule">Schedule</string>
+    <string name="text_package">Package</string>
+    <string name="origen">Origen</string>
+    <string name="duration">Duration</string>
+    <string name="km">km</string>
+    <string name="nothing_to_show">Nothing found</string>
 
 
 </resources>

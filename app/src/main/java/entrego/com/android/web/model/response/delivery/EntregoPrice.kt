@@ -10,6 +10,6 @@ class EntregoPrice(val amount: Float, val currency: String) {
     }
 
     fun toView(): String {
-        return "$amount $currency"
+        return "$currency $amount"
     }
 }

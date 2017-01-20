@@ -23,7 +23,6 @@ import entrego.com.android.util.snackSimple
 
 class AcceptDeliveryFragment private constructor() : Fragment(), IAcceptDeliveryView {
 
-
     companion object {
         val TAG = "AcceptDeliveryFragment"
         fun show(supportFragmentManager: FragmentManager) {

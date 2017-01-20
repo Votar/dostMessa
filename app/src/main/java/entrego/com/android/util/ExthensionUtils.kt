@@ -17,7 +17,15 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
+import entrego.com.android.entity.IncomeEntity
+import org.joda.time.DateTime
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.SimpleTimeZone.UTC_TIME
+import org.joda.time.format.DateTimeFormat
+
+
 
 
 /**
@@ -137,3 +145,17 @@ fun Bitmap.encodeToStringBase64(): String {
 
 fun ByteArray.encodeToStringBase64(): String = Base64.encodeToString(this, Base64.DEFAULT)
 
+fun Date.getTimeInUtc(): Long {
+    val template = "MM/dd/yyyy KK:mm:ss a Z"
+    val formatter = SimpleDateFormat(template, Locale.getDefault())
+    val inUtc = formatter.format(this)
+    return formatter.parse(inUtc).time
+}
+
+fun IncomeEntity.formattedDate():String{
+    val days = this.day
+    val milliseconds : Long= days * 24 * 60 * 60 * 1000
+    val fmt = DateTimeFormat.forPattern("dd/MM/yyyy")
+    val date = DateTime.now().withMillis(milliseconds)
+    return fmt.print(date)
+}

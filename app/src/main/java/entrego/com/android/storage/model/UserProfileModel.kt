@@ -4,7 +4,7 @@ class UserProfileModel(val email: String,
                        val name: String,
                        val phone: EntregoPhoneModel) {
     val userPicUrl: String
-    get() = "https://en.opensuse.org/images/0/0b/Icon-user.png"
+    get() = "http://1.media.collegehumor.cvcdn.com/14/45/7d51a082762115b56229fc6b741c1438.jpg"
 
 
     override fun toString(): String {

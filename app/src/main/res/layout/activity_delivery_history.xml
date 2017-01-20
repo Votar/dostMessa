@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"
         />
 
     <include
@@ -30,7 +29,6 @@
         android:layout_below="@+id/del_his_toolbar"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay" />
-
     <include
         android:id="@+id/del_his_toolbar"
         layout="@layout/navigation_toolbar" />
