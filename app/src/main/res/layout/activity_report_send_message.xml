@@ -5,7 +5,7 @@
 
         <variable
             name="report"
-            type="entrego.com.android.ui.account.help.reports.model.ReportModel" />
+            type="entrego.com.android.ui.account.help.reports.model.ReportEntity" />
 
         <variable
             name="profile"

@@ -31,17 +31,17 @@ object DeliveryHistoryModel {
     fun requestDeliveryHistory(token: String, listener: GetDeliveryHistoryListener?) {
         mRequest.send(token)
                 .enqueue(object : Callback<EntregoResultHistoryDelivery> {
-            override fun onResponse(call: Call<EntregoResultHistoryDelivery>?, response: Response<EntregoResultHistoryDelivery>?) {
-                if (response != null)
-                    when (response.body().code) {
-                        0 -> listener?.onSuccessGetDeliveryHistory(response.body().payload)
-                        else -> listener?.onFailureGetDeliveryHistory(response.body().message)
+                    override fun onResponse(call: Call<EntregoResultHistoryDelivery>?, response: Response<EntregoResultHistoryDelivery>?) {
+                        if (response != null)
+                            when (response.body().code) {
+                                0 -> listener?.onSuccessGetDeliveryHistory(response.body().payload)
+                                else -> listener?.onFailureGetDeliveryHistory(response.body().message)
+                            }
                     }
-            }
 
-            override fun onFailure(call: Call<EntregoResultHistoryDelivery>?, t: Throwable?) {
-                listener?.onFailureGetDeliveryHistory(null)
-            }
-        })
+                    override fun onFailure(call: Call<EntregoResultHistoryDelivery>?, t: Throwable?) {
+                        listener?.onFailureGetDeliveryHistory(null)
+                    }
+                })
     }
 }

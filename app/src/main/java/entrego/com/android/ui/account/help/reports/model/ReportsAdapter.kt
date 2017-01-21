@@ -11,18 +11,18 @@ import entrego.com.android.R
 import entrego.com.android.binding.HistoryServiceBinding
 import entrego.com.android.databinding.ItemHistoryServiceBinding
 import entrego.com.android.databinding.ReportsListItemBinding
-import entrego.com.android.ui.account.help.reports.model.ReportModel
+import entrego.com.android.ui.account.help.reports.model.ReportEntity
 
 /**
  * Created by bertalt on 07.12.16.
  */
-class ReportsAdapter(list: List<ReportModel>, listener: ReportClickListener) : RecyclerView.Adapter<ReportsAdapter.ViewHolder>() {
+class ReportsAdapter(list: List<ReportEntity>, listener: ReportClickListener) : RecyclerView.Adapter<ReportsAdapter.ViewHolder>() {
 
-    val reportList: List<ReportModel>
+    val reportList: List<ReportEntity>
     val clickListener: ReportClickListener
 
     interface ReportClickListener {
-        fun onReportClicked(item: ReportModel)
+        fun onReportClicked(item: ReportEntity)
     }
 
     init {

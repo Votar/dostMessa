@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import entrego.com.android.R
 import entrego.com.android.binding.HistoryServiceBinding
+import entrego.com.android.entity.HistoryServicesPreviewEntity
+import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.faq.HistoryServiceAdapter
 import entrego.com.android.ui.incomes.history.details.DetailsOfServiceActivity
 import entrego.com.android.ui.incomes.history.presenter.HistoryServicePresenter
@@ -23,7 +25,8 @@ class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_history)
-        mPresenter.onCreate(this)
+        val token = EntregoStorage(this).getToken()
+        mPresenter.onCreate(this,token)
 
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
@@ -41,12 +44,12 @@ class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
         mPresenter.onDestroy()
     }
 
-    override fun buildTodayServices(list: List<HistoryServiceBinding>) {
+    override fun buildTodayServices(list: List<HistoryServicesPreviewEntity>) {
         history_service_today_progress.visibility = View.GONE
         history_service_today_recycler.adapter = HistoryServiceAdapter(list, onItemClicked)
     }
 
-    override fun buildRecentServices(list: List<HistoryServiceBinding>) {
+    override fun buildRecentServices(list: List<HistoryServicesPreviewEntity>) {
         history_service_recent_progress.visibility = View.GONE
         history_service_recent_recycler.adapter = HistoryServiceAdapter(list, onItemClicked)
     }
@@ -62,7 +65,7 @@ class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
     }
 
     val onItemClicked = object : HistoryServiceAdapter.HistoryServiceClickListener {
-        override fun onHistoryClicked(item: HistoryServiceBinding) {
+        override fun onHistoryClicked(item: HistoryServicesPreviewEntity) {
 
             val intent = Intent(applicationContext, DetailsOfServiceActivity::class.java)
             startActivity(intent)

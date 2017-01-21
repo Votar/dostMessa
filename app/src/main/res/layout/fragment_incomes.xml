@@ -85,15 +85,15 @@
                     android:paddingRight="@dimen/default_screen_padding">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="@string/charts_estimated_pay" />
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/incomes_estimated_pay_value"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/debug_text"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/tsize_xlarge" />

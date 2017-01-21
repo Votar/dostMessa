@@ -1,6 +1,6 @@
 package entrego.com.android.ui.account.help.reports.presenter
 
-import entrego.com.android.ui.account.help.reports.model.ReportModel
+import entrego.com.android.ui.account.help.reports.model.ReportEntity
 import entrego.com.android.ui.account.help.reports.model.ReportsController
 import entrego.com.android.ui.account.help.reports.view.IReportsListView
 
@@ -10,7 +10,7 @@ import entrego.com.android.ui.account.help.reports.view.IReportsListView
 class ReportsListPresenter : IReportsListPresenter {
     var mView: IReportsListView? = null
     val getReportsListener = object : ReportsController.GetReportsListener {
-        override fun onSuccessGet(reports: List<ReportModel>) {
+        override fun onSuccessGet(reports: List<ReportEntity>) {
             mView?.buildView(reports)
         }
 

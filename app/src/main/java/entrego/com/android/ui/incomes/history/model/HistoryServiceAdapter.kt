@@ -7,17 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import entrego.com.android.binding.HistoryServiceBinding
 import entrego.com.android.databinding.ItemHistoryServiceBinding
+import entrego.com.android.entity.HistoryServicesPreviewEntity
+import entrego.com.android.storage.model.DeliveryModel
 
 /**
  * Created by bertalt on 07.12.16.
  */
-class HistoryServiceAdapter(list: List<HistoryServiceBinding>, listener: HistoryServiceClickListener) : RecyclerView.Adapter<HistoryServiceAdapter.ViewHolder>() {
+class HistoryServiceAdapter(list: List<HistoryServicesPreviewEntity>, listener: HistoryServiceClickListener) : RecyclerView.Adapter<HistoryServiceAdapter.ViewHolder>() {
 
-    val serviceList: List<HistoryServiceBinding>
+    val serviceList: List<HistoryServicesPreviewEntity>
     val clickListener: HistoryServiceClickListener
 
     interface HistoryServiceClickListener {
-        fun onHistoryClicked(item: HistoryServiceBinding)
+        fun onHistoryClicked(item: HistoryServicesPreviewEntity)
     }
 
     init {

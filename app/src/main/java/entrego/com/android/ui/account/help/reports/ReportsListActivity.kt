@@ -11,7 +11,7 @@ import com.google.gson.Gson
 import entrego.com.android.R
 import entrego.com.android.ui.account.help.reports.create.ReportSendMessageActivity
 import entrego.com.android.ui.account.help.reports.details.ReportDetailsActivity
-import entrego.com.android.ui.account.help.reports.model.ReportModel
+import entrego.com.android.ui.account.help.reports.model.ReportEntity
 import entrego.com.android.ui.account.help.reports.presenter.IReportsListPresenter
 import entrego.com.android.ui.account.help.reports.presenter.ReportsListPresenter
 import entrego.com.android.ui.account.help.reports.view.IReportsListView
@@ -38,15 +38,15 @@ class ReportsListActivity : AppCompatActivity(), IReportsListView {
     }
 
     val onReportClickListener = object : ReportsAdapter.ReportClickListener {
-        override fun onReportClicked(item: ReportModel) {
+        override fun onReportClicked(item: ReportEntity) {
             val intent = Intent(applicationContext, ReportDetailsActivity::class.java)
-            val json = Gson().toJson(item, ReportModel::class.java)
+            val json = Gson().toJson(item, ReportEntity::class.java)
             intent.putExtra(ReportDetailsActivity.EXT_KEY_REPORT, json)
             startActivity(intent)
         }
     }
 
-    override fun buildView(reports: List<ReportModel>) {
+    override fun buildView(reports: List<ReportEntity>) {
         reports_list_progress.visibility = View.GONE
         reports_list_scroll.visibility = View.VISIBLE
         reports_list_recycler.adapter = ReportsAdapter(reports, onReportClickListener)

@@ -5,6 +5,7 @@ import entrego.com.android.entity.IncomeEntity
 import entrego.com.android.ui.incomes.model.IncomesModel
 import entrego.com.android.ui.incomes.view.IncomesView
 import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import org.joda.time.Days
 import java.util.*
 
@@ -23,25 +24,29 @@ class IncomesPresenter : IIncomesPresenter {
     override fun requestRange(offset: Int) {
         val params = getTimesOfRange(offset)
         val timeZone = TimeZone.getDefault().id
+
+        val mListener = object : IncomesModel.ResponseListener {
+            override fun onSuccessGetIncomes(incomes: List<IncomeEntity>) {
+                if (incomes.isNotEmpty())
+                    mView?.onBuildCharts(incomes)
+                else {
+                    mView?.hideProgress()
+                    mView?.onShowMessage(R.string.nothing_to_show)
+                }
+            }
+
+            override fun onFailureGetIncomes(code: Int?, message: String?) {
+                mView?.hideProgress()
+                mView?.onShowMessage(message)
+            }
+        }
         IncomesModel.request(token, params, timeZone, mListener)
     }
 
-    val mListener = object : IncomesModel.ResponseListener {
-        override fun onSuccessGetIncomes(incomes: Array<IncomeEntity>) {
-            if (incomes.isNotEmpty())
-                mView?.onBuildCharts(incomes)
-            else
-                mView?.onShowMessage(R.string.nothing_to_show)
-        }
 
-        override fun onFailureGetIncomes(code: Int?, message: String?) {
-            mView?.onShowMessage(message)
-        }
-
-    }
 
     fun getTimesOfRange(offset: Int): Pair<Long, Long> {
-        val zeroDay = DateTime.now().withMillis(0)
+        val zeroDay = DateTime.now(DateTimeZone.UTC).withMillis(0)
         val now = DateTime.now()
         val numberOfDay = now.dayOfWeek().get()
         if (offset == 0) {

@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/debug_text"
+                        android:text="$130.00"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/tsize_xlarge" />
 
@@ -78,12 +78,13 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:text="@string/base_price" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="$145.2" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -95,12 +96,13 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:text="@string/killometers" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="$133.02" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -112,12 +114,13 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:text="Minutes" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="$212.98" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -129,12 +132,13 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:text="Shopping" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="$534.98" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -149,12 +153,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:textColor="@color/colorBlack" />
+                                android:textColor="@color/colorBlack"
+                                android:text="Messenger percentage" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="$415.22" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -180,12 +185,13 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:text="Total earnings" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="$715.03" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -198,12 +204,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:textStyle="normal|bold" />
+                                android:textStyle="normal|bold"
+                                android:text="Deposit in account" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="$415.03" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -224,7 +231,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:text="@string/debug_text"
+                                android:text="72h 16min"
                                 android:textColor="@color/colorDarkBlue"
                                 android:textSize="@dimen/tsize_medium" />
 
@@ -233,7 +240,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/incomes_details_online_time_value"
                                 android:layout_centerHorizontal="true"
-                                android:text="@string/debug_text" />
+                                android:text="Online time" />
                         </RelativeLayout>
 
                         <View
@@ -252,7 +259,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:text="@string/debug_text"
+                                android:text="60"
                                 android:textColor="@color/colorDarkBlue"
                                 android:textSize="@dimen/tsize_medium" />
 
@@ -261,7 +268,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/incomes_details_finishad_serv_value"
                                 android:layout_centerHorizontal="true"
-                                android:text="@string/debug_text" />
+                                android:text="Finished services" />
                         </RelativeLayout>
                     </LinearLayout>
 

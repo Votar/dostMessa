@@ -7,15 +7,10 @@
     android:fitsSystemWindows="true"
     tools:context="entrego.com.android.ui.main.RootActivity">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.CardView
-            app:cardCornerRadius="0dp"
-            android:id="@+id/common_app_bar_cv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/common_app_bar"
             android:layout_width="match_parent"
@@ -41,15 +36,19 @@
             </RelativeLayout>
         </android.support.design.widget.AppBarLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@id/common_app_bar"
+            android:background="@drawable/toolbar_dropshadow" />
 
-    </android.support.v7.widget.CardView>
 
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/common_app_bar_cv"
-        layout="@layout/content_root" />
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/common_app_bar"
+            layout="@layout/content_root" />
 
         <FrameLayout
             android:id="@+id/root_accept_container"

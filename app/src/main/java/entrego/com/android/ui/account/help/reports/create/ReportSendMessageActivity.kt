@@ -7,7 +7,7 @@ import android.support.v4.app.NavUtils
 import com.google.gson.Gson
 import entrego.com.android.R
 import entrego.com.android.databinding.ActivityReportSendMessageBinding
-import entrego.com.android.ui.account.help.reports.model.ReportModel
+import entrego.com.android.ui.account.help.reports.model.ReportEntity
 import entrego.com.android.ui.account.profile.UserProfile
 import entrego.com.android.util.loadSimple
 import kotlinx.android.synthetic.main.activity_report_send_message.*
@@ -26,11 +26,11 @@ class ReportSendMessageActivity : AppCompatActivity() {
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
         if (intent != null) {
             if (!intent.hasExtra(EXT_KEY_REPORT)) {
-                val report = ReportModel(0, "Create report", "Creating", "Service", "", "", Calendar.getInstance().time.toString())
+                val report = ReportEntity(0, "Create report", "Creating", "Service", "", "", Calendar.getInstance().time.toString())
                 binder.report = report
             } else {
                 val jsonReport = intent.getStringExtra(EXT_KEY_REPORT)
-                val report = Gson().fromJson(jsonReport, ReportModel::class.java)
+                val report = Gson().fromJson(jsonReport, ReportEntity::class.java)
                 binder.report = report
             }
         }

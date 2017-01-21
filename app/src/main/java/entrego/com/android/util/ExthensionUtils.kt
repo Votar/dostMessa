@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.icu.text.TimeZoneFormat
 import android.net.Uri
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
@@ -19,16 +20,16 @@ import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
 import entrego.com.android.entity.IncomeEntity
 import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import org.joda.time.LocalDate
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.SimpleTimeZone.UTC_TIME
 import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.DateTimeFormatter
 
 
-/**
- * Created by bertalt on 29.11.16.
- */
 object UserMessageUtil {
     @JvmStatic fun show(ctx: Context, message: String?) {
         val text: String
@@ -143,20 +144,33 @@ fun Bitmap.encodeToStringBase64(): String {
 
 fun ByteArray.encodeToStringBase64(): String = Base64.encodeToString(this, Base64.DEFAULT)
 
-fun Date.getTimeInUtc(): Long {
-    val template = "MM/dd/yyyy KK:mm:ss a Z"
+fun String.getTimeInUtc(): Long {
+
+    val template = "yyyy-MM-dd'T'HH:mm:ssZ"
+    SimpleDateFormat.DEFAULT
     val formatter = SimpleDateFormat(template, Locale.getDefault())
     val inUtc = formatter.format(this)
     return formatter.parse(inUtc).time
 }
 
-fun IncomeEntity.formattedDate(): String {
-    val days = this.day
-    val milliseconds: Long = days * 24 * 60 * 60 * 1000
-    val fmt = DateTimeFormat.forPattern("dd/MM/yyyy")
-    val date = DateTime.now().withMillis(milliseconds)
+//fun Long.formattedDate(): String {
+//    val milliseconds: Long = this * 24 * 60 * 60 * 1000
+//    val fmt = DateTimeFormat.forPattern("dd/MM/yyyy")
+//    val date = DateTime.now().withMillis(milliseconds)
+//    return fmt.print(date)
+//}
+
+fun Long.formattedDate(): String {
+    val milliseconds: Long = this * 24 * 60 * 60 * 1000
+    val fmt = DateTimeFormat.forPattern("yyyy-MM-dd")
+    val date = DateTime.now(DateTimeZone.UTC).withMillis(milliseconds)
     return fmt.print(date)
 }
+
+fun String.toDateTimeLong(): DateTime {
+    return DateTime(this)
+}
+
 
 fun ImageView.loadSimple(url: String) {
     Glide.with(this.context)

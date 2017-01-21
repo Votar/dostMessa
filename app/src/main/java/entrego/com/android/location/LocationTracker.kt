@@ -38,11 +38,10 @@ object LocationTracker {
                     override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
                         Logger.logd(response?.body().toString())
                         when(response?.body()?.code){
-//                            0->DeliveryRequest.requestDelivery(token, null)
+                            0->DeliveryRequest.requestDelivery(token, null)
                             2->EventBus.getDefault().post(LogoutEvent())
                         }
                     }
-
                     override fun onFailure(call: Call<EntregoResult>?, t: Throwable?) {
                         Logger.loge(LocationTracker::class.simpleName, "LocationTrack failed")
                     }

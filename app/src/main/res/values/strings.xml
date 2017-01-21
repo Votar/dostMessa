@@ -102,7 +102,7 @@
     <string name="you">You</string>
     <string name="best_messenger">Best messenger</string>
     <string name="cancel_delivery_message">Do you really want to cancel?</string>
-    <string name="charts_estimated_pay">Espimated pay</string>
+    <string name="charts_estimated_pay">Estimated pay</string>
     <string name="history_of_services">History of services</string>
     <string name="todays_services">Today\'serverName services</string>
     <string name="empty_list_history_services">No services in list</string>

@@ -8,11 +8,7 @@ import entrego.com.android.location.diraction.Route;
 import entrego.com.android.storage.model.CustomerModel;
 import entrego.com.android.storage.model.DeliveryModel;
 import entrego.com.android.storage.model.EntregoRouteModel;
-import entrego.com.android.util.Logger;
 
-/**
- * Created by bertalt on 09.12.16.
- */
 
 public class Delivery extends BaseObservable {
 

@@ -1,29 +1,37 @@
 package entrego.com.android.ui.incomes.charts;
 
-import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import org.joda.time.format.DateTimeFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
-import java.util.Calendar;
-
-/**
- * Created by philipp on 02/06/16.
- */
 public class DayAxisValueFormatter implements IAxisValueFormatter {
 
-    protected String[] mDaysOfWeek = new String[]{
-            "sun", "mon", "tue", "wed", "thu", "fri", "sat"
-    };
-
-    public DayAxisValueFormatter() {
+    protected List<String> mDaysOfWeek;
+    public DayAxisValueFormatter(List<String> values) {
+        mDaysOfWeek  = values;
     }
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
-
-        int index = (int)value%7;
-
-        return mDaysOfWeek[index];
+        String dateInString = mDaysOfWeek.get((int) value);
+        String template = "yyyy-MM-dd";
+        SimpleDateFormat formatter = new SimpleDateFormat(template, Locale.getDefault());
+        Date dateInDate = null;
+        try {
+            dateInDate = formatter.parse(dateInString);
+            String result = DateTimeFormat.forPattern("EEE").print(dateInDate.getTime());
+            return  result;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        catch (IndexOutOfBoundsException ex){
+            return "";
+        }
+        return "";
     }
-
 }

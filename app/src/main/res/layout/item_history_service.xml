@@ -5,7 +5,7 @@
 
         <variable
             name="service"
-            type="entrego.com.android.binding.HistoryServiceBinding" />
+            type="entrego.com.android.entity.HistoryServicesPreviewEntity" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,12 +28,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{service.time}" />
+                android:text="Express" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{service.type}" />
+                android:text="@{service.completed}" />
         </LinearLayout>
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/history_service_item_ic"
-            android:text="@{service.formattedPrice}" />
+            android:text="@{service.price.toView()}" />
 
         <ImageView
             android:id="@+id/history_service_item_ic"

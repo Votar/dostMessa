@@ -1,8 +1,8 @@
 package entrego.com.android.web.model.request.statistic
 
-class IncomesBody(val from:Long, val to:Long, val timeZone:String){
+class IncomesBody(val from:String, val to:String, val zone:String){
 
     override fun toString(): String {
-        return "IncomesBody(from=$from, to=$to, timeZone='$timeZone')"
+        return "IncomesBody(from=$from, to=$to, zone='$zone')"
     }
 }
