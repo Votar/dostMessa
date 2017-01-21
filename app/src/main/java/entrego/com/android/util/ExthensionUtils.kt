@@ -26,8 +26,6 @@ import java.util.SimpleTimeZone.UTC_TIME
 import org.joda.time.format.DateTimeFormat
 
 
-
-
 /**
  * Created by bertalt on 29.11.16.
  */
@@ -152,10 +150,16 @@ fun Date.getTimeInUtc(): Long {
     return formatter.parse(inUtc).time
 }
 
-fun IncomeEntity.formattedDate():String{
+fun IncomeEntity.formattedDate(): String {
     val days = this.day
-    val milliseconds : Long= days * 24 * 60 * 60 * 1000
+    val milliseconds: Long = days * 24 * 60 * 60 * 1000
     val fmt = DateTimeFormat.forPattern("dd/MM/yyyy")
     val date = DateTime.now().withMillis(milliseconds)
     return fmt.print(date)
+}
+
+fun ImageView.loadSimple(url: String) {
+    Glide.with(this.context)
+            .load(url)
+            .into(this)
 }

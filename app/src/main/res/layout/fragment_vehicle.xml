@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vehicle_main_content"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:background="@color/colorAccent"
+    android:padding="@dimen/padding_medium"
     android:layout_height="match_parent">
-
     <include
         android:id="@+id/vehicle_empty_view"
         layout="@layout/vehicle_empty_view"
@@ -17,11 +22,7 @@
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/vehicle_main_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -93,14 +94,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/default_screen_padding">
-
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text='@string/vehicle_year'
                         android:textSize="@dimen/tsize_medium" />
-
                     <TextView
                         android:id="@+id/vehicle_year"
                         android:layout_width="0dp"
@@ -167,5 +166,5 @@
 
 
         </LinearLayout>
-    </ScrollView>
 </RelativeLayout>
+</ScrollView>

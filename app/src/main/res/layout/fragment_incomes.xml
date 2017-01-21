@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/default_screen_padding">
+        android:clipToPadding="false"
+        android:padding="@dimen/padding_medium">
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/incomes_chart_ll"
@@ -35,9 +36,9 @@
                         app:srcCompat="@drawable/ic_chevron_left_blue_24dp" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/incomes_diapasone_dates"
-                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">

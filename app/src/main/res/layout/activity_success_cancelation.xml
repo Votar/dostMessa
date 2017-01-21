@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/success_cancelation_toolbar_ll"
-        android:layout_margin="@dimen/default_screen_padding">
+        android:layout_margin="@dimen/padding_medium">
 
         <RelativeLayout
             android:layout_width="match_parent"

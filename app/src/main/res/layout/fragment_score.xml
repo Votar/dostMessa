@@ -2,226 +2,239 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:clipToPadding="false"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <FrameLayout
+        android:background="@color/colorAccent"
+        android:clipToPadding="false"
+        android:padding="@dimen/padding_medium"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:baselineAlignBottom="true"
-            android:orientation="horizontal">
-
-            <ImageView
-
-                android:layout_width="43dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_star_24dp" />
-
-            <TextView
-                android:id="@+id/score_user_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="@dimen/default_screen_padding"
-                android:text="@string/debug_text"
-                android:textSize="65sp" />
-        </LinearLayout>
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/debug_text"
-            android:textSize="@dimen/tsize_medium" />
-
-        <include
-            layout="@layout/score_icnlude_main_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_screen_padding" />
-
-        <FrameLayout
-            android:id="@+id/score_comments_item"
-            style="@style/ClickableView"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/default_screen_padding">
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:baselineAlignBottom="true"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/customer_comments"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/tsize_large" />
-
                     <ImageView
-                        android:layout_width="wrap_content"
+
+                        android:layout_width="43dp"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/ic_next_24dp" />
+                        android:layout_gravity="center_vertical"
+                        app:srcCompat="@drawable/ic_star_24dp" />
+
+                    <TextView
+                        android:id="@+id/score_user_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="@dimen/default_screen_padding"
+                        android:text="@string/debug_text"
+                        android:textSize="65sp" />
                 </LinearLayout>
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/debug_text" />
-            </LinearLayout>
-        </FrameLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/debug_text"
+                    android:textSize="@dimen/tsize_medium" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorGrey" />
-
-        <FrameLayout
-            style="@style/ClickableView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/default_screen_padding">
-
-                <LinearLayout
+                <include
+                    layout="@layout/score_icnlude_main_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="@dimen/default_screen_padding" />
+
+                <FrameLayout
+                    android:id="@+id/score_comments_item"
+                    style="@style/ClickableView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="@dimen/default_screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/customer_comments"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/tsize_large" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/ic_next_24dp" />
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/best_messengers"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/tsize_large" />
-
-                        <include layout="@layout/best_messenger_charts" />
+                            android:text="@string/debug_text" />
                     </LinearLayout>
+                </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_next_24dp" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </FrameLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorGrey" />
-
-        <FrameLayout
-            style="@style/ClickableView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/default_screen_padding"
-                android:id="@+id/score_tips_item">
-
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/improvement_tips"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/tsize_large" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/ic_next_24dp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/debug_text" />
-            </LinearLayout>
-        </FrameLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorGrey" />
-
-
-        <FrameLayout
-            android:id="@+id/score_weekly_updates_item"
-            style="@style/ClickableView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/default_screen_padding">
-
-                <LinearLayout
+                <FrameLayout
+                    style="@style/ClickableView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/weekly_updates"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/tsize_large" />
+                        android:orientation="vertical"
+                        android:padding="@dimen/default_screen_padding">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/ic_next_24dp" />
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/debug_text" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/best_messengers"
+                                    android:textColor="@color/colorBlack"
+                                    android:textSize="@dimen/tsize_large" />
+
+                                <include layout="@layout/best_messenger_charts" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_next_24dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey" />
+
+                <FrameLayout
+                    style="@style/ClickableView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/score_tips_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/default_screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/improvement_tips"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/tsize_large" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/ic_next_24dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/debug_text" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey" />
+
+
+                <FrameLayout
+                    android:id="@+id/score_weekly_updates_item"
+                    style="@style/ClickableView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/default_screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/weekly_updates"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/tsize_large" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/ic_next_24dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/debug_text" />
+                    </LinearLayout>
+                </FrameLayout>
+
+
             </LinearLayout>
-        </FrameLayout>
-
-
-    </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
 </ScrollView>

@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/faq_det_toolbar"
-            android:layout_margin="@dimen/default_screen_padding">
+            android:layout_margin="@dimen/padding_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"

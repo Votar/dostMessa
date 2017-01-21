@@ -44,7 +44,7 @@ class EditProfileActivity : AppCompatActivity() {
         nav_toolbar_back.setOnClickListener { onBackPressed() }
 
         val userProfile = UserProfile.getProfile(this)
-        if (userProfile != null && userProfile.phone != null) {
+        if (userProfile != null) {
             Logger.logd(userProfile.toString())
             setupView(userProfile)
 

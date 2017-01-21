@@ -7,6 +7,10 @@
             name="report"
             type="entrego.com.android.ui.account.help.reports.model.ReportModel" />
 
+        <variable
+            name="profile"
+            type="entrego.com.android.storage.model.UserProfileModel" />
+
         <import type="android.view.View" />
     </data>
 
@@ -18,18 +22,32 @@
         android:background="@color/colorPrimary"
         tools:context="entrego.com.android.ui.account.help.reports.create.ReportSendMessageActivity">
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/report_details_send_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/default_screen_padding"
+            app:backgroundTint="@color/colorDarkBlue"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_border_pen_24dp" />
+
+
         <ScrollView
+            android:layout_marginTop="?actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?actionBarSize"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/padding_medium">
+            android:paddingBottom="@dimen/padding_small">
 
             <LinearLayout
-                android:clipToPadding="false"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:orientation="vertical">
+
 
                 <FrameLayout
                     android:id="@+id/report_details_status_fl"
@@ -46,31 +64,36 @@
                         android:textColor="@color/colorWhite" />
                 </FrameLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorGrey"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/padding_small"
+                    android:paddingLeft="@dimen/padding_large"
+                    android:paddingRight="@dimen/padding_large"
+                    android:paddingTop="@dimen/padding_small">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Service" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 de Octubre 9:11am" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="@dimen/default_screen_padding">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="0dp">
-
-                        <TextView
-                            android:id="@+id/report_details_timestamp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="@dimen/default_screen_padding"
-                            android:paddingRight="@dimen/default_screen_padding"
-                            android:text="@{report.timestamp}" />
-                    </android.support.v7.widget.CardView>
+                    android:padding="@dimen/padding_medium">
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="0dp">
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -80,27 +103,36 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:padding="@dimen/padding_medium">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:srcCompat="@drawable/ic_user_profile_80dp" />
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/report_details_user_photo"
+                                    android:layout_width="@dimen/report_photo_holder"
+                                    android:layout_height="@dimen/report_photo_holder"
+                                    app:civ_border_width="0dp" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:paddingLeft="@dimen/padding_medium"
-                                    android:text="@string/debug_text" />
+                                    android:orientation="vertical"
+                                    android:paddingLeft="@dimen/padding_medium">
+
+                                    <TextView
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@{profile.name}"
+                                        android:textSize="@dimen/tsize_medium" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/padding_large"
+                                        android:text="@{report.message}" />
+                                </LinearLayout>
                             </LinearLayout>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/padding_medium"
-                                android:text="@{report.message}" />
-
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -110,35 +142,49 @@
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
+                                    android:layout_marginLeft="@dimen/double_screen_padding"
+                                    android:layout_marginRight="@dimen/double_screen_padding"
                                     android:background="@color/colorDivider" />
 
                                 <LinearLayout
-                                    android:id="@+id/report_details_response_ll"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:orientation="vertical">
 
-
-                                    <ImageView
-                                        android:layout_width="wrap_content"
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        app:srcCompat="@drawable/ic_user_profile_80dp" />
+                                        android:orientation="horizontal"
+                                        android:padding="@dimen/padding_medium">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:paddingLeft="@dimen/padding_medium"
-                                        android:text="@string/debug_text" />
+                                        <de.hdodenhof.circleimageview.CircleImageView
+                                            android:id="@+id/report_details_helper_photo"
+                                            android:layout_width="@dimen/report_photo_holder"
+                                            android:layout_height="@dimen/report_photo_holder"
+                                            app:civ_border_width="0dp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical"
+                                            android:paddingLeft="@dimen/padding_medium">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_vertical"
+                                                android:text="Carlos"
+                                                android:layout_marginTop="10dp"
+                                                android:textSize="@dimen/tsize_medium" />
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/padding_large"
+                                                android:text="@{report.response}" />
+                                        </LinearLayout>
+                                    </LinearLayout>
                                 </LinearLayout>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/report_details_response_ll"
-                                    android:layout_margin="@dimen/padding_medium"
-                                    android:text="@{report.response}" />
-
                             </RelativeLayout>
                         </LinearLayout>
 
@@ -147,20 +193,10 @@
             </LinearLayout>
         </ScrollView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/report_details_send_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/default_screen_padding"
-            app:backgroundTint="@color/colorDarkBlue"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_border_pen_24dp" />
+        <include layout="@layout/navigation_toolbar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
-        <include
-            android:id="@+id/report_details_toolbar"
-            layout="@layout/navigation_toolbar" />
     </RelativeLayout>
 
 </layout>

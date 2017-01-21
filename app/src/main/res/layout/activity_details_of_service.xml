@@ -13,8 +13,8 @@
             android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/default_screen_padding"
-            android:paddingRight="@dimen/default_screen_padding">
+            android:paddingLeft="@dimen/padding_medium"
+            android:paddingRight="@dimen/padding_medium">
 
             <FrameLayout
                 android:paddingTop="@dimen/default_screen_padding"

@@ -13,9 +13,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorWhite"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_marginTop="@dimen/padding_medium"
             android:layout_width="@dimen/user_photo_holder_size"
             android:layout_height="@dimen/user_photo_holder_size"
             android:layout_gravity="center_horizontal">
@@ -41,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="@dimen/padding_small"
             android:text="@{userProfile.profile.name}"
             android:textColor="@color/colorFont" />
 
@@ -55,6 +58,9 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/account_tabs"
+            app:tabSelectedTextColor="@color/colorDarkBlue"
+            app:tabTextColor="@color/colorDarkGrey"
+            app:tabIndicatorColor="@color/colorDarkBlue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

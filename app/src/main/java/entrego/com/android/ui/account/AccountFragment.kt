@@ -16,7 +16,7 @@ import entrego.com.android.binding.UserProfileEntity
 import entrego.com.android.databinding.FragmentAccountBinding
 import entrego.com.android.ui.account.files.AddFilesActivity
 import entrego.com.android.ui.account.profile.ProfileFragment
-import entrego.com.android.ui.account.profile.VehicleFragment
+import entrego.com.android.ui.account.vehicle.VehicleFragment
 import entrego.com.android.ui.account.profile.edit.EditProfileActivity
 import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
 import entrego.com.android.util.Logger
@@ -58,6 +58,7 @@ class AccountFragment : Fragment() {
         account_user_edit_pic.setOnClickListener { startEditProfilePhotoActivity() }
         setupUserPic()
         UserProfileEntity.getInstance().addOnPropertyChangedCallback(mProfileChangedListener)
+        setupUserPic()
     }
 
     override fun onResume() {

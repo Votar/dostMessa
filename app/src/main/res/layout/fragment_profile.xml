@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:orientation="vertical"
+        android:background="@color/colorAccent"
+        android:padding="@dimen/padding_medium"
         android:paddingBottom="4dp">
 
         <android.support.v7.widget.CardView
@@ -151,4 +153,5 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
+
 </ScrollView>
