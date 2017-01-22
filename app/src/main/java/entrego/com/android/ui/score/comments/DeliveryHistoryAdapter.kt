@@ -6,21 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import entrego.com.android.databinding.CommentsItemRecyclerBinding
+import entrego.com.android.entity.CommentPreviewEntity
 
-class CommentsAdapter() : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
+class CommentsAdapter(val dataset: List<CommentPreviewEntity>) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one mView per item, and
     // you provide access to all the views for a data item in a mView holder
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
         var binder: CommentsItemRecyclerBinding? = null
+
         init {
             binder = DataBindingUtil.bind(rootView)
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder?.binder?.comment = "debug"
+        holder?.binder?.comment = dataset.get(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -30,6 +32,6 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return dataset.count()
     }
 }

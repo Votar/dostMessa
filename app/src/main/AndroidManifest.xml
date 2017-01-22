@@ -36,6 +36,7 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:noHistory="true">
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />
@@ -60,6 +61,7 @@
         <activity
             android:name=".ui.registration.SuccessRegistrationActivity"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:parentActivityName=".ui.auth.AuthActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -68,6 +70,7 @@
         <activity
             android:name=".ui.auth.restore.SuccessRestoreActivity"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:parentActivityName=".ui.auth.AuthActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -87,6 +90,7 @@
 
         <activity android:name=".ui.auth.restore.RestorePasswordActivity"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:parentActivityName=".ui.auth.AuthActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
@@ -95,6 +99,7 @@
         <activity
             android:name=".ui.main.RootActivity"
             android:label="@string/title_activity_root"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
         <activity

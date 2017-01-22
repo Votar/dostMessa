@@ -9,4 +9,5 @@ interface IHistoryServicePresenter {
     fun onCreate(view: IHistoryServiceView, token: String)
     fun onDestroy()
     fun refreshHistory(token:String)
+    fun requestServiceDetailsById(id: Int)
 }

@@ -5,12 +5,16 @@ import android.databinding.Observable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.android.databinding.library.baseAdapters.BR
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import entrego.com.android.R
 import entrego.com.android.binding.UserProfileEntity
 import entrego.com.android.databinding.FragmentAccountBinding
@@ -22,6 +26,7 @@ import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
 import entrego.com.android.util.Logger
 import entrego.com.android.util.ui.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
+import java.util.*
 
 class AccountFragment : Fragment() {
 
@@ -56,7 +61,7 @@ class AccountFragment : Fragment() {
             }
         }
         account_user_edit_pic.setOnClickListener { startEditProfilePhotoActivity() }
-        setupUserPic()
+
         UserProfileEntity.getInstance().addOnPropertyChangedCallback(mProfileChangedListener)
         setupUserPic()
     }
@@ -73,12 +78,29 @@ class AccountFragment : Fragment() {
         UserProfileEntity.getInstance().removeOnPropertyChangedCallback(mProfileChangedListener)
     }
 
+    val mGlideListener= object : RequestListener<Int, GlideDrawable>{
+        override fun onException(e: Exception?, model: Int?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
+            Log.d("GLIDE", String.format(Locale.ROOT,
+                    "onException(%s, %s, %s, %s)", e, model, target, isFirstResource), e);
+            return false
+        }
+
+        override fun onResourceReady(resource: GlideDrawable?, model: Int?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+            Log.d("GLIDE", String.format(Locale.ROOT,
+                    "onResourceReady(%s, %s, %s, %s, %s)", resource, model, target, isFromMemoryCache, isFirstResource));
+            return false
+        }
+
+
+    }
+
     fun setupUserPic() {
         val profile = binder?.userProfile?.profile
 
         if (profile?.userPicUrl.isNullOrEmpty()) {
             Glide.with(context)
                     .load(R.drawable.ic_user_pic_holder)
+                    .listener(mGlideListener)
                     .into(account_user_pic_holder as ImageView)
             account_user_edit_pic.visibility = View.GONE
         } else {

@@ -18,11 +18,11 @@ public class DayAxisValueFormatter implements IAxisValueFormatter {
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
-        String dateInString = mDaysOfWeek.get((int) value);
+        try {
+            String dateInString = mDaysOfWeek.get((int) value);
         String template = "yyyy-MM-dd";
         SimpleDateFormat formatter = new SimpleDateFormat(template, Locale.getDefault());
         Date dateInDate = null;
-        try {
             dateInDate = formatter.parse(dateInString);
             String result = DateTimeFormat.forPattern("EEE").print(dateInDate.getTime());
             return  result;

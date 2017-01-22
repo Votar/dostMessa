@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
 import entrego.com.android.entity.IncomeEntity
+import entrego.com.android.storage.model.EntregoPoint
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
@@ -171,9 +172,34 @@ fun String.toDateTimeLong(): DateTime {
     return DateTime(this)
 }
 
+fun String.toFormattedDateTime(): String {
+    val date =  DateTime(this)
+    return DateTimeFormat.forPattern("yyyy-MM-dd hh:MM:ss").print(date)
+}
+
 
 fun ImageView.loadSimple(url: String) {
     Glide.with(this.context)
             .load(url)
             .into(this)
+}
+
+
+fun Array<EntregoPointBinding>.getStaticMapUrl(path: String?): String {
+    val staticPartUrl = "https://maps.googleapis.com/maps/api/staticmap?autoscale=1" +
+            "&size=600x300" +
+            "&maptype=roadmap" +
+            "&format=png" +
+            "&path=weight:3%7Ccolor:blue%7Cenc:$path" +
+            "&visual_refresh=true"
+    val urlBuilder = StringBuilder()
+    urlBuilder.append(staticPartUrl)
+
+    this.forEachIndexed { i, point ->
+        val coordinates = "" + this[i].point.latitude +
+                "," + this[i].point.longitude
+        val label = i + 1
+        urlBuilder.append("&markers=size:mid%7Clabel:$label%7C$coordinates")
+    }
+    return urlBuilder.toString()
 }

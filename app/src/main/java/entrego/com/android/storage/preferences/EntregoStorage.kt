@@ -45,7 +45,6 @@ class EntregoStorage(context: Context) {
 
     fun setUserProfile(profile: UserProfileModel?) {
         profile?.let {
-
             val jsonProfile = Gson().toJson(it, UserProfileModel::class.java)
             storage.edit().putString(KEY_USER_PROFILE, jsonProfile).commit()
         }

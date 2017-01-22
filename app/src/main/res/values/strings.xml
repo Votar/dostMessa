@@ -86,7 +86,7 @@
     <string name="inc_report">Incident report</string>
     <string name="realtime_assist">Real time assistance</string>
     <string name="ui_chatting">Support</string>
-    <string name="sign_bill">sign bill</string>
+    <string name="sign_bill">Signature</string>
     <string name="sign_title">Please sign bellow</string>
     <string name="ui_navigation">Navigation</string>
     <string name="error_email_registered">Email already registered</string>
@@ -104,7 +104,7 @@
     <string name="cancel_delivery_message">Do you really want to cancel?</string>
     <string name="charts_estimated_pay">Estimated pay</string>
     <string name="history_of_services">History of services</string>
-    <string name="todays_services">Today\'serverName services</string>
+    <string name="todays_services">Today\'s services</string>
     <string name="empty_list_history_services">No services in list</string>
     <string name="recent_services">Recent services</string>
     <string name="current_currency">$</string>
@@ -147,6 +147,20 @@
     <string name="duration">Duration</string>
     <string name="km">km</string>
     <string name="nothing_to_show">Nothing found</string>
+    <string name="minutes">Minutes</string>
+    <string name="shopping">Shopping</string>
+    <string name="minutes_short">min</string>
+    <string name="killometers_short">km</string>
+    <string name="actual_score_is">Actual score is</string>
+    <string name="improvement_tips_descr">Improve your skills with the best messaging practices</string>
+    <string name="accepted_services">Accepted services</string>
+    <string name="completed_services">Completed services</string>
+    <string name="canceled_services">Canceled services</string>
+    <string name="weeks_resumes">Weeks resume</string>
+    <string name="total_services">Total services</string>
+    <string name="scored_services">Scored services</string>
+    <string name="five_star_services">5 stars services</string>
+    <string name="amount_to_pay">Amount to pay:</string>
 
 
 </resources>

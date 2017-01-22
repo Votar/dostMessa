@@ -3,6 +3,7 @@ package entrego.com.android.ui.auth.presenter
 import android.os.Handler
 import android.os.Looper
 import entrego.com.android.storage.preferences.EntregoStorage
+import entrego.com.android.ui.account.profile.UserProfile
 import entrego.com.android.ui.auth.model.EntregoAuth
 import entrego.com.android.ui.auth.presenter.IAuthPresenter
 import entrego.com.android.ui.auth.view.IAuthView
@@ -18,6 +19,7 @@ class AuthPresenter(val view: IAuthView) : IAuthPresenter {
             view.hideProgress()
 
             EntregoStorage(view.getContext()).setToken(token)
+            UserProfile.refresh(view.getContext(), null)
             UserVehicle.refresh(view.getContext(), null)
             view.goToMainScreen()
         }

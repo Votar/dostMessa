@@ -8,6 +8,7 @@ import entrego.com.android.location.diraction.Route;
 import entrego.com.android.storage.model.CustomerModel;
 import entrego.com.android.storage.model.DeliveryModel;
 import entrego.com.android.storage.model.EntregoRouteModel;
+import entrego.com.android.web.model.response.delivery.EntregoPrice;
 
 
 public class Delivery extends BaseObservable {
@@ -29,6 +30,8 @@ public class Delivery extends BaseObservable {
             customer = model.getCustomer();
             id = model.getId();
             status = model.getStatus();
+            size = model.getSize();
+            price = model.getPrice();
         } else {
             route = null;
             customer = null;
@@ -42,6 +45,8 @@ public class Delivery extends BaseObservable {
         notifyPropertyChanged(BR.instance);
     }
 
+    private EntregoPrice price;
+
     private int id;
     @Bindable
     private CustomerModel customer;
@@ -50,6 +55,24 @@ public class Delivery extends BaseObservable {
     @Bindable
     private Route path;
     private String status = "";
+    private String size = "";
+
+
+    public EntregoPrice getPrice() {
+        return price;
+    }
+
+    public void setPrice(EntregoPrice price) {
+        this.price = price;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     public String getStatus() {
         return status;

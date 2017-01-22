@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="entrego.com.android.storage.model.DeliveryModel" />
+
+        <variable
+            name="startPoint"
+            type="entrego.com.android.binding.EntregoPointBinding" />
+
+        <variable
+            name="finishPoint"
+            type="entrego.com.android.binding.EntregoPointBinding" />
+
+    </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_details_of_service"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        tools:context="entrego.com.android.ui.incomes.history.details.DetailsOfServiceActivity">
+        android:background="@color/colorPrimary">
 
         <ScrollView
-            android:paddingTop="?attr/actionBarSize"
-            android:scrollbars="none"
-            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:paddingLeft="@dimen/padding_medium"
-            android:paddingRight="@dimen/padding_medium">
+            android:paddingRight="@dimen/padding_medium"
+            android:paddingTop="?attr/actionBarSize"
+            android:scrollbars="none">
 
             <FrameLayout
-                android:paddingTop="@dimen/default_screen_padding"
-                android:paddingBottom="@dimen/default_screen_padding"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/default_screen_padding"
+                android:paddingTop="@dimen/default_screen_padding">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -36,20 +52,24 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="@dimen/default_screen_padding">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+
                                 <RelativeLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_gravity="center">
+
                                     <ImageView
                                         android:id="@+id/drawer_start_dot"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
                                         android:src="@drawable/start_dot" />
+
                                     <View
                                         android:layout_width="1dp"
                                         android:layout_height="wrap_content"
@@ -63,21 +83,25 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_weight="1"
-                                    android:paddingLeft="@dimen/default_screen_padding" />
+                                    android:paddingLeft="@dimen/default_screen_padding"
+                                    android:text="@{startPoint.address}" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
                                 <RelativeLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="30dp">
+
                                     <View
                                         android:layout_width="1dp"
                                         android:layout_height="wrap_content"
                                         android:layout_above="@+id/drawer_finish_dot"
                                         android:layout_centerHorizontal="true"
                                         android:background="@color/secondary_text" />
+
                                     <ImageView
                                         android:id="@+id/drawer_finish_dot"
                                         android:layout_width="wrap_content"
@@ -85,12 +109,14 @@
                                         android:layout_centerInParent="true"
                                         android:src="@drawable/finish_dot" />
                                 </RelativeLayout>
+
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_weight="1"
-                                    android:paddingLeft="@dimen/default_screen_padding" />
+                                    android:paddingLeft="@dimen/default_screen_padding"
+                                    android:text="@{finishPoint.address}" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -107,7 +133,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:padding="@dimen/default_screen_padding"
-                            android:text="@string/debug_text"
+                            android:text="@{model.formattedPickup()}"
                             android:textColor="@color/colorDarkBlue"
                             android:textSize="@dimen/tsize_large" />
 
@@ -115,16 +141,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="@string/debug_text"
+                            android:text="@{model.price.toView()}"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/tsize_xlarge" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginLeft="@dimen/double_screen_padding"
-                            android:layout_marginRight="@dimen/double_screen_padding"
-                            android:background="@color/colorDivider" />
 
                         <TableLayout
                             android:layout_width="match_parent"
@@ -141,10 +160,32 @@
                                     android:layout_weight="1"
                                     android:text="@string/base_price" />
 
-                                <TextView android:text="@string/debug_text" />
+                                <TextView android:text="@{model.price.toView()}" />
 
-                                <TextView android:text="@string/current_currency" />
+                            </TableRow>
 
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/default_screen_padding">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/killometers" />
+
+                                <TextView
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:text="@{model.route.path.distanceInKmString}"
+                                    android:textAlignment="viewEnd" />
+
+                                <TextView
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:paddingLeft="@dimen/padding_small"
+                                    android:text="@string/killometers_short"
+                                    android:textAlignment="viewEnd" />
                             </TableRow>
 
                             <TableRow
@@ -155,67 +196,57 @@
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
-                                    android:text="@string/base_price" />
+                                    android:text="@string/minutes" />
 
-                                <TextView android:text="@string/debug_text" />
-
-                                <TextView android:text="@string/current_currency" />
-
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="@dimen/default_screen_padding">
 
                                 <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/base_price" />
-
-                                <TextView android:text="@string/debug_text" />
-
-                                <TextView android:text="@string/current_currency" />
-
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="@dimen/default_screen_padding">
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:text="@{model.route.path.durationInMinutesString}"
+                                    android:textAlignment="viewEnd" />
 
                                 <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/base_price" />
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:paddingLeft="@dimen/padding_small"
+                                    android:text="@string/minutes_short"
+                                    android:textIsSelectable="true" />
 
-                                <TextView android:text="@string/debug_text" />
-
-                                <TextView android:text="@string/current_currency" />
-
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="@dimen/default_screen_padding">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/base_price" />
-
-                                <TextView android:text="@string/debug_text" />
-
-                                <TextView android:text="@string/current_currency" />
 
                             </TableRow>
+
+                            <!--<TableRow-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:padding="@dimen/default_screen_padding">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="0dp"-->
+                                    <!--android:layout_weight="1"-->
+                                    <!--android:text="@string/shopping" />-->
+
+                                <!--<TextView android:text="@string/debug_text" />-->
+
+                                <!--<TextView android:text="@string/current_currency" />-->
+
+                            <!--</TableRow>-->
+
+
                         </TableLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/double_screen_padding"
+                            android:layout_marginRight="@dimen/double_screen_padding"
+                            android:background="@color/colorDivider" />
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
             </FrameLayout>
         </ScrollView>
+
         <include layout="@layout/navigation_toolbar" />
     </RelativeLayout>
 
+</layout>

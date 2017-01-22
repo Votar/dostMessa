@@ -13,6 +13,7 @@ import entrego.com.android.databinding.ItemHistoryRoutesBinding
 import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.util.Logger
+import entrego.com.android.util.getStaticMapUrl
 
 class DeliveryHistoryAdapter(val dataset: Array<DeliveryModel>, val listener: ClickItemListener) : RecyclerView.Adapter<DeliveryHistoryAdapter.ViewHolder>() {
 
@@ -59,22 +60,6 @@ class DeliveryHistoryAdapter(val dataset: Array<DeliveryModel>, val listener: Cl
 
     fun buildUrlForStaticMap(route: EntregoRouteModel): String {
         val path = route.path.line
-        val staticPartUrl = "https://maps.googleapis.com/maps/api/staticmap?autoscale=1" +
-                "&size=600x300" +
-                "&maptype=roadmap" +
-                "&format=png" +
-                "&path=weight:3%7Ccolor:blue%7Cenc:$path" +
-                "&visual_refresh=true"
-        val urlBuilder = StringBuilder()
-        urlBuilder.append(staticPartUrl)
-
-        route.waypoints.forEachIndexed { i, point ->
-            val coordinates = "" + route.waypoints[i].point.latitude +
-                    "," + route.waypoints[i].point.longitude
-            val label = i + 1
-            urlBuilder.append("&markers=size:mid%7Clabel:$label%7C$coordinates")
-        }
-
-        return urlBuilder.toString()
+        return route.waypoints.getStaticMapUrl(path)
     }
 }

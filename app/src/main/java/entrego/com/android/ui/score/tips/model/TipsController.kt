@@ -15,9 +15,18 @@ object TipsController {
     fun requestTipsAsync(listener: GetTipsListener?){
         Handler().postDelayed({
             listener?.onSuccessGetTips(listOf(
-                    "Keep calm",
+                    "Remember to keep your app up to date",
+                    "Wear the uniform correctly",
+                    "Keep a clean personal image",
+                    "Use proper shoes",
+                    "Use your raincoat if it rains to\n keep the good personal image",
+                    "Move shipments with care",
                     "Kindness",
-                    "Punctuality"
+                    "Punctuality",
+                    "Delivery of shipments respecting the agreed time",
+                    "Proactive attitude in case of delay to comply \n the delivery schedule",
+                    "Keep your vehicle clean",
+                    "Drive safely"
             )
             )
         },2000)

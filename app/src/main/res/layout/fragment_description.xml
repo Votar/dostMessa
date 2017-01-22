@@ -45,7 +45,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/debug_text"
+                        android:text="Express"
                         android:textAlignment="center"
                         android:textSize="@dimen/tsize_medium" />
 
@@ -59,7 +59,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/debug_text"
+                        android:text="Now"
                         android:textAlignment="center"
                         android:textSize="@dimen/tsize_medium" />
 
@@ -71,9 +71,11 @@
                     <TextView
                         android:id="@+id/descr_frag_order_dimensions"
                         android:layout_width="0dp"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingRight="@dimen/padding_small"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/debug_text"
+                        android:text="DOCUMENT"
                         android:textAlignment="center"
                         android:textSize="@dimen/tsize_medium" />
                 </LinearLayout>

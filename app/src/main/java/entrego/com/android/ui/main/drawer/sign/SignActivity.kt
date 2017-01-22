@@ -27,6 +27,8 @@ class SignActivity : AppCompatActivity(), ISignView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign)
         presenter.onCreate(this)
+
+        sign_amount_value.text = Delivery.getInstance().price.toView()
         sign_drawing_ll.backgroundColor = ContextCompat.getColor(this, R.color.colorTransparent)
         sign_dismiss.setOnClickListener {
             sign_drawing_ll.undo()

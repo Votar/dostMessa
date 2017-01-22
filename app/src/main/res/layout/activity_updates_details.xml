@@ -8,9 +8,13 @@
     android:background="@color/colorPrimary"
     tools:context="entrego.com.android.ui.score.updates.details.UpdatesDetailsActivity">
 
+    <include layout="@layout/navigation_toolbar" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:clipToPadding="false"
         android:paddingLeft="@dimen/padding_medium"
         android:paddingRight="@dimen/padding_medium"
@@ -42,7 +46,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/debug_text"
+                            android:text="Score \nfrom 18 de sep to 26 ago, 2016"
                             android:textSize="@dimen/tsize_large" />
 
                         <LinearLayout
@@ -66,9 +70,9 @@
                                     android:id="@+id/updates_total_score_value"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:text="@string/debug_text"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:text="4.68"
                                     android:textSize="@dimen/tsize_xlarge" />
                             </RelativeLayout>
 
@@ -81,7 +85,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:layout_toLeftOf="@+id/updates_score_index"
-                                    app:srcCompat="@drawable/ic_star_24dp" />
+                                    app:srcCompat="@drawable/ic_index_raiting_tangle" />
 
                                 <TextView
                                     android:id="@+id/updates_score_index"
@@ -89,8 +93,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:text="@string/debug_text"
-                                    android:textSize="@dimen/tsize_medium" />
+                                    android:text="Past week 4.57"
+                                    android:textColor="@color/colorDarkBlue" />
 
                             </RelativeLayout>
                         </LinearLayout>
@@ -112,7 +116,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/debug_text"
+                            android:text="@string/weeks_resumes"
                             android:textSize="@dimen/tsize_large" />
 
                         <RelativeLayout
@@ -124,13 +128,13 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="@string/total_services" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:text="@string/debug_text" />
+                                android:text="85" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -142,13 +146,16 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:layout_alignParentRight="true"
+                                android:text="71" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:text="@string/debug_text" />
+                                android:text="@string/scored_services"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentStart="true"
+                                android:id="@+id/textView" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -160,13 +167,13 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/debug_text" />
+                                android:text="@string/five_star_services" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:text="@string/debug_text" />
+                                android:text="59" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -182,6 +189,4 @@
 
         </FrameLayout>
     </ScrollView>
-
-    <include layout="@layout/navigation_toolbar" />
 </RelativeLayout>

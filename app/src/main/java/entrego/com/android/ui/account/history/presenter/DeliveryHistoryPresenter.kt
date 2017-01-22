@@ -4,9 +4,6 @@ import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.ui.account.history.model.DeliveryHistoryModel
 import entrego.com.android.ui.account.history.view.IDeliveryHistoryView
 
-/**
- * Created by bertalt on 16.12.16.
- */
 class DeliveryHistoryPresenter : IDeliveryHistoryPresenter {
 
 

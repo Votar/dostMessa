@@ -20,11 +20,11 @@ import java.util.*
 
 object HistoryServicesModel {
 
-    const val GET_HISTORY_ORDERS = "messenger/statistics/history/orders"
+    const val END_POINT = "messenger/statistics/history/orders"
 
     interface GetServiceHistoryApi {
         @Headers(EntregoApi.CONTENT_JSON)
-        @POST(GET_HISTORY_ORDERS)
+        @POST(END_POINT)
         fun send(@Header(EntregoApi.TOKEN) token: String, @Body body: IncomesBody): Call<EntregoResultHistoryService>
     }
 

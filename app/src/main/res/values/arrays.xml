@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="cancel_reasons">
-        <item>Otak</item>
-        <item>Zahotel</item>
-        <item>Ну а че?"!!"</item>
+        <item>No one was in the pickup address</item>
+        <item>I did not find the address</item>
+        <item>I had a damage</item>
+        <item>I had an accident</item>
+        <item>Package was too large</item>
     </array>
 
     <array name="faq_titles">

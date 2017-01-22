@@ -266,13 +266,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     fun moveCameraToCurrentLocation() {
         moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
     }
-
+    var currentLocMarker :Marker? = null
     val mReceiverCurrentLocation = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context?, intent: Intent?) {
             val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
             val lon = intent?.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
-            if (lat != 0.0 && lon != 0.0)
+            if (lat != 0.0 && lon != 0.0) {
+
                 mCurrentLocation = LatLng(lat, lon)
+            }
         }
     }
 

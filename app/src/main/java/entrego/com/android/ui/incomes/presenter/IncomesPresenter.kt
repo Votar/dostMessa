@@ -44,11 +44,10 @@ class IncomesPresenter : IIncomesPresenter {
     }
 
 
-
     fun getTimesOfRange(offset: Int): Pair<Long, Long> {
         val zeroDay = DateTime.now(DateTimeZone.UTC).withMillis(0)
-        val now = DateTime.now()
-        val numberOfDay = now.dayOfWeek().get()
+        val now = DateTime.now(DateTimeZone.UTC)
+        var numberOfDay = now.dayOfWeek().get()-1
         if (offset == 0) {
             val rangeOfDays = now.minusDays(numberOfDay)
             val to = Days.daysBetween(zeroDay, now)
@@ -62,4 +61,6 @@ class IncomesPresenter : IIncomesPresenter {
             return Pair(from.days.toLong(), to.days.toLong())
         }
     }
+
+
 }

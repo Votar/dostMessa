@@ -1,6 +1,8 @@
 package entrego.com.android.ui.incomes.history.presenter
 
 import entrego.com.android.entity.HistoryServicesPreviewEntity
+import entrego.com.android.storage.model.DeliveryModel
+import entrego.com.android.ui.incomes.history.model.HistoryServiceDetailsModel
 import entrego.com.android.ui.incomes.history.model.HistoryServicesModel
 import entrego.com.android.ui.incomes.history.view.IHistoryServiceView
 import entrego.com.android.util.Logger
@@ -11,6 +13,8 @@ import org.joda.time.Days
 import java.util.*
 
 class HistoryServicePresenter : IHistoryServicePresenter {
+
+
     var mView: IHistoryServiceView? = null
     var mToken: String = ""
     val mRefreshHistoryListener = object : HistoryServicesModel.GetHistoryServices {
@@ -20,7 +24,7 @@ class HistoryServicePresenter : IHistoryServicePresenter {
             val todaysService = ArrayList<HistoryServicesPreviewEntity>()
             val recentServices = ArrayList<HistoryServicesPreviewEntity>()
             for (next in resultList) {
-                if ((Days.daysBetween(now, next.completed.toDateTimeLong()).days == 0))
+                if (now.withTimeAtStartOfDay().isEqual(next.completed.toDateTimeLong().withTimeAtStartOfDay()))
                     todaysService.add(next)
                 else
                     recentServices.add(next)
@@ -42,10 +46,23 @@ class HistoryServicePresenter : IHistoryServicePresenter {
         }
     }
 
+    val mHistoryServiceDetails = object : HistoryServiceDetailsModel.GetHistoryServicesDetailsListener {
+        override fun onSuccessGetHistory(result: DeliveryModel) {
+            mView?.showDetailsHistoryService(result)
+            mView?.hideProgress()
+        }
+
+        override fun onFailureGetHistory(code: Int?, message: String?) {
+
+            mView?.hideProgress()
+        }
+
+    }
+
     fun getTimesOfRange(offset: Int): Pair<Long, Long> {
         val zeroDay = DateTime.now(DateTimeZone.UTC).withMillis(0)
-        val now = DateTime.now()
-        val numberOfDay = now.dayOfWeek().get()
+        val now = DateTime.now(DateTimeZone.UTC)
+        var numberOfDay = now.dayOfWeek().get() - 1
         if (offset == 0) {
             val rangeOfDays = now.minusDays(numberOfDay)
             val to = Days.daysBetween(zeroDay, now)
@@ -60,28 +77,16 @@ class HistoryServicePresenter : IHistoryServicePresenter {
         }
     }
 
+    override fun requestServiceDetailsById(id: Int) {
+        mView?.showProgress()
+        HistoryServiceDetailsModel.request(mToken, id, mHistoryServiceDetails)
+    }
+
     override fun onCreate(view: IHistoryServiceView, token: String) {
         mView = view
         mToken = token
-
         val range = getTimesOfRange(0)
-
         HistoryServicesModel.refresh(mToken, range, mRefreshHistoryListener)
-//        HistoryServicesModel.getServiceForToday(mToken, null)
-
-//        Handler().postDelayed({
-//            val todayList = HistoryServicesModel.getServiceForToday()
-//            if (todayList.isEmpty())
-//                mView?.showEmptyTodayServicesList()
-//            else
-//                mView?.buildTodayServices(todayList)
-//            val recentList = HistoryServicesModel.getServiceRecent()
-//
-//            if (recentList.isEmpty())
-//                mView?.showEmptyRecentServicesList()
-//            else
-//                mView?.buildRecentServices(HistoryServicesModel.getServiceRecent())
-//        }, 2000)
     }
 
     override fun onDestroy() {
@@ -89,6 +94,6 @@ class HistoryServicePresenter : IHistoryServicePresenter {
     }
 
     override fun refreshHistory(token: String) {
-//        HistoryServicesModel.refresh(token, mRefreshHistoryListener)
+
     }
 }

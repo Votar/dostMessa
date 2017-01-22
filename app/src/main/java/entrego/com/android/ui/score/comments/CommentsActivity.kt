@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import entrego.com.android.R
-import entrego.com.android.ui.score.comments.CommentsAdapter
+import entrego.com.android.entity.CommentPreviewEntity
 import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
@@ -28,7 +28,12 @@ class CommentsActivity : AppCompatActivity() {
 
     fun setupAdapter() {
         comments_progress.visibility = View.GONE
-        comments_recycler.adapter = CommentsAdapter()
+        val commentsList = listOf<CommentPreviewEntity>(
+                CommentPreviewEntity("Very kind good service", 5f),
+                CommentPreviewEntity("The food arrived hot and fast", 4.5f),
+                CommentPreviewEntity("Excellent service", 5f)
+        )
+        comments_recycler.adapter = CommentsAdapter(commentsList)
     }
 
 

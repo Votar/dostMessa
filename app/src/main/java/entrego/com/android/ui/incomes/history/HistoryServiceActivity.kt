@@ -1,5 +1,6 @@
 package entrego.com.android.ui.incomes.history
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,29 +11,33 @@ import android.view.View
 import entrego.com.android.R
 import entrego.com.android.binding.HistoryServiceBinding
 import entrego.com.android.entity.HistoryServicesPreviewEntity
+import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.faq.HistoryServiceAdapter
 import entrego.com.android.ui.incomes.history.details.DetailsOfServiceActivity
 import entrego.com.android.ui.incomes.history.presenter.HistoryServicePresenter
 import entrego.com.android.ui.incomes.history.presenter.IHistoryServicePresenter
 import entrego.com.android.ui.incomes.history.view.IHistoryServiceView
+import entrego.com.android.util.loading
 import kotlinx.android.synthetic.main.activity_service_history.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
 
+
+    var mProgress: ProgressDialog? = null
     val mPresenter: IHistoryServicePresenter = HistoryServicePresenter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_history)
         val token = EntregoStorage(this).getToken()
-        mPresenter.onCreate(this,token)
+        mPresenter.onCreate(this, token)
 
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
 
         val dividerItemDecoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-
+        mProgress = ProgressDialog(this)
         history_service_recent_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         history_service_recent_recycler.addItemDecoration(dividerItemDecoration)
         history_service_today_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -66,9 +71,21 @@ class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
 
     val onItemClicked = object : HistoryServiceAdapter.HistoryServiceClickListener {
         override fun onHistoryClicked(item: HistoryServicesPreviewEntity) {
-
-            val intent = Intent(applicationContext, DetailsOfServiceActivity::class.java)
-            startActivity(intent)
+            mPresenter.requestServiceDetailsById(item.id)
         }
     }
+
+    override fun showProgress() {
+        mProgress?.loading()
+    }
+
+    override fun hideProgress() {
+        mProgress?.dismiss()
+    }
+
+    override fun showDetailsHistoryService(model: DeliveryModel) {
+        val intent = DetailsOfServiceActivity.getIntent(this, model)
+        startActivity(intent)
+    }
+
 }

@@ -90,8 +90,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/margin_medium"
-                    android:paddingLeft="@dimen/double_screen_padding"
-                    android:paddingRight="@dimen/double_screen_padding"
+                    android:paddingLeft="42dp"
+                    android:paddingRight="42dp"
                     android:visibility="@{delivery.route.destinationPoint.status == PointStatus.DONE? View.VISIBLE:View.GONE}"
                     android:text="@string/sign_bill" />
             </LinearLayout>

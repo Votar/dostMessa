@@ -8,6 +8,8 @@ import entrego.com.android.binding.EntregoPointBinding
 class EntregoRouteModel(val path: EntregoPath,
                         val waypoints: Array<EntregoPointBinding>) {
 
+
+
     fun getCurrentPoint(): EntregoPointBinding {
         var currentPoint = waypoints.findLast { (it.status == PointStatus.GOING && waypoints.indexOf(it) != waypoints.lastIndex) }
         if (currentPoint == null) {

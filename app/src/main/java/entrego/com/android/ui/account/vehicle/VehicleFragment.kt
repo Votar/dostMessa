@@ -29,12 +29,11 @@ class VehicleFragment : Fragment() {
         if (vehicle != null && !vehicle.brand.isNullOrEmpty())
             setupView(vehicle)
         else {
-            vehicle_main_content.visibility = View.GONE
-            vehicle_progress.visibility = View.VISIBLE
             UserVehicle.refresh(context, object : UserVehicle.ResultListener {
                 override fun onSuccessRefresh(userVehicle: UserVehicleModel) {
                     hideProgress(userVehicle)
                 }
+
                 override fun onFailureRefresh(message: String) {
                     hideProgress(null)
                 }
@@ -44,13 +43,10 @@ class VehicleFragment : Fragment() {
     }
 
     fun hideProgress(userVehicle: UserVehicleModel?) {
-        vehicle_progress?.visibility = View.GONE
 
         if (userVehicle != null) {
-            vehicle_main_content?.visibility = View.VISIBLE
             setupView(userVehicle)
         } else {
-            vehicle_empty_view?.visibility = View.VISIBLE
             vehicle_btn_add?.setOnClickListener {
                 startActivityForResult(Intent(activity, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
             }

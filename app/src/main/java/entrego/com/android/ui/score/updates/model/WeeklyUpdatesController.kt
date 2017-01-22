@@ -1,10 +1,8 @@
 package entrego.com.android.ui.score.updates.model
 
 import android.os.Handler
+import org.joda.time.DateTime
 
-/**
- * Created by bertalt on 28.12.16.
- */
 object WeeklyUpdatesController {
 
     interface WeeklyUpdatesListener {
@@ -17,9 +15,9 @@ object WeeklyUpdatesController {
         Handler().postDelayed({
             //TODO:Remove mocked data
             val mock = listOf(
-                    RatingModel("Rating list title", 4.2F),
-                    RatingModel("Rating list title", 3.2F),
-                    RatingModel("Rating list title", 2F)
+                    RatingModel(DateTime(1485093543L), 4.2F),
+                    RatingModel(DateTime(1482093543L), 3.2F),
+                    RatingModel(DateTime(1482013143L), 2F)
             )
 
             listener?.onSuccessGetUpdates(mock)
