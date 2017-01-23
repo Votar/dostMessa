@@ -97,8 +97,6 @@ class AccountFragment : Fragment() {
 
     fun setupUserPic() {
         val profile = binder?.userProfile?.profile
-
-
         Glide.with(context)
                 .load(EntregoApi.REQUESTS.GET_USER_PHOTO)
                 .error(R.drawable.ic_user_pic_holder)
