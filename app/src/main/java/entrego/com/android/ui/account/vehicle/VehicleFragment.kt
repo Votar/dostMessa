@@ -10,6 +10,7 @@ import entrego.com.android.R
 import entrego.com.android.storage.model.UserVehicleModel
 import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
 import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
+import entrego.com.android.util.snackSimple
 import kotlinx.android.synthetic.main.fragment_vehicle.*
 import kotlinx.android.synthetic.main.vehicle_empty_view.*
 
@@ -34,7 +35,8 @@ class VehicleFragment : Fragment() {
                     hideProgress(userVehicle)
                 }
 
-                override fun onFailureRefresh(message: String) {
+                override fun onFailureRefresh(message: String?) {
+                    view?.snackSimple(message)
                     hideProgress(null)
                 }
             })

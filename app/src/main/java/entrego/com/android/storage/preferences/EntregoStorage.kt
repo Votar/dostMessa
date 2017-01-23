@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.storage.model.UserVehicleModel
 import entrego.com.android.util.event_bus.LogoutEvent
+import entrego.com.android.web.model.AccessToken
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -38,9 +39,10 @@ class EntregoStorage(context: Context) {
     }
 
     fun setToken(token: String?) {
-        if (token != null)
+        if (token != null) {
+            AccessToken.updateToken(token)
             storage.edit().putString(KEY_TOKEN, token).commit()
-
+        }
     }
 
     fun setUserProfile(profile: UserProfileModel?) {

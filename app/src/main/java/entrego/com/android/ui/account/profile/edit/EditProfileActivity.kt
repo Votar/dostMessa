@@ -9,15 +9,19 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import entrego.com.android.R
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.util.Logger
 import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.loading
 import entrego.com.android.ui.account.profile.UserProfile
+import entrego.com.android.web.api.EntregoApi
 import entrego.com.android.web.model.response.common.FieldErrorResponse
 import kotlinx.android.synthetic.main.activity_edit_profile.*
+import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 class EditProfileActivity : AppCompatActivity() {
@@ -55,7 +59,10 @@ class EditProfileActivity : AppCompatActivity() {
     fun setupView(profile: UserProfileModel) {
 
         Glide.with(this)
-                .load(profile.userPicUrl)
+                .load(EntregoApi.REQUESTS.GET_USER_PHOTO)
+                .skipMemoryCache(true)
+                .diskCacheStrategy( DiskCacheStrategy.NONE )
+                .error(R.drawable.ic_user_pic_holder)
                 .into(edit_profile_user_pic_holder)
 
         edit_profile_edit_email.setText(profile.email)

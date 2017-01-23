@@ -32,7 +32,7 @@ class GPSRequiredFragment : DialogFragment() {
         }
 
         fun dismiss(supportFragmentManager: android.support.v4.app.FragmentManager?): Unit {
-            val fragment = supportFragmentManager?.findFragmentByTag(TAG) as DialogFragment
+            val fragment = supportFragmentManager?.findFragmentByTag(TAG) as? DialogFragment
             fragment?.dismiss()
         }
     }

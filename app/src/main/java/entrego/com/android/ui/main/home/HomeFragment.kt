@@ -1,5 +1,6 @@
 package entrego.com.android.ui.main.home
 
+import android.app.ProgressDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -29,10 +30,16 @@ import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.accept.AcceptDeliveryFragment
 import entrego.com.android.ui.main.delivery.description.DescriptionFragment
+import entrego.com.android.ui.main.dialog.GPSRequiredFragment
+import entrego.com.android.ui.main.home.model.OfflineRequest
 import entrego.com.android.ui.main.home.presenter.HomePresenter
 import entrego.com.android.ui.main.home.presenter.IHomePresenter
 import entrego.com.android.ui.main.home.view.IHomeView
 import entrego.com.android.util.Logger
+import entrego.com.android.util.isGpsEnable
+import entrego.com.android.util.loading
+import entrego.com.android.util.snackSimple
+import entrego.com.android.web.model.response.CommonResponseListener
 import kotlinx.android.synthetic.main.connect_selector.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_navigation.*
@@ -40,7 +47,6 @@ import java.util.*
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
-
 
     companion object {
         val REQUEST_ACCESS_FINE_LOCATION = 0x811
@@ -61,7 +67,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         binder.delivery = Delivery.getInstance()
         retainInstance = true
         val mapView = binder.mapView
-
+        mProgress = ProgressDialog(activity)
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
 
@@ -82,6 +88,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 if (state) {
                     LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(SocketService.ACTION_FILTER)
                             .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.DISCONNECT.value))
+                    val token = EntregoStorage(activity).getToken()
+                    mPresenter.sendOffline(token)
                     stopLocationTracker()
                 }
             }
@@ -90,7 +98,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
             run {
                 if (state)
                     startLocationTracker()
-
             }
         }
         switcher_disconnected.isChecked = true
@@ -167,6 +174,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    var mProgress: ProgressDialog? = null
+    override fun showProgress() {
+        mProgress?.loading()
+    }
+
+    override fun hideProgress() {
+        mProgress?.dismiss()
+    }
+
+    override fun showMessage(idString: Int) {
+        view?.snackSimple(getString(idString))
     }
 
 
@@ -266,7 +286,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     fun moveCameraToCurrentLocation() {
         moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
     }
-    var currentLocMarker :Marker? = null
+
+    var currentLocMarker: Marker? = null
     val mReceiverCurrentLocation = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context?, intent: Intent?) {
             val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
@@ -290,5 +311,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun dissmissAcceptFragment() {
         AcceptDeliveryFragment.dismiss(activity.supportFragmentManager)
+    }
+
+    val mGpsSwitchStateReceiver = object : BroadcastReceiver() {
+        override fun onReceive(ctx: Context, p1: Intent?) {
+            if (!isGpsEnable(ctx)) {
+                GPSRequiredFragment.show(activity.supportFragmentManager)
+                val token = EntregoStorage(activity).getToken()
+                switcher_connected.isChecked = false
+                switcher_disconnected.isChecked = true
+            }
+        }
     }
 }

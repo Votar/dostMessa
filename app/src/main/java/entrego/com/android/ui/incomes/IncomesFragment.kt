@@ -50,7 +50,7 @@ class IncomesFragment : Fragment(), IncomesView {
         val token = EntregoStorage(context).getToken()
         mPresenter.onStart(token, this)
         mPresenter.requestRange(datesOffset)
-        incomes_history_card.setOnClickListener { startHistoryServicesActivity() }
+        incomes_history_card.setOnClickListener { mPresenter.startHistoryServicesActivity(activity, datesOffset) }
         incomes_chart_ll.setOnClickListener { startIncomesDetailsActivity() }
         incomes_bars_btn_back.setOnClickListener {
             modifyOffset(1)
@@ -119,14 +119,14 @@ class IncomesFragment : Fragment(), IncomesView {
         mPresenter.onStop()
     }
 
-    private fun setData(incomes: List<IncomeEntity>) {
+     private fun setData(incomes: List<IncomeEntity>) {
 
         var estimatedPay = 0.0
         val daysList = incomes.map {
             estimatedPay += it.revenue
             it.day
         }
-        incomes_estimated_pay_value.text = "$"+String.format("%.2f", estimatedPay)
+        incomes_estimated_pay_value.text = "$" + String.format("%.2f", estimatedPay)
         val xAxisFormatter: IAxisValueFormatter = DayAxisValueFormatter(daysList)
 
         incomes_weekly_chart.getDescription().setEnabled(false)
@@ -178,9 +178,7 @@ class IncomesFragment : Fragment(), IncomesView {
         val data = BarData(dataSets)
         data.setValueTextSize(10f)
         data.barWidth = 0.9f
-        incomes_weekly_chart.data?.clearValues()
         incomes_weekly_chart.data = data
-        incomes_weekly_chart.notifyDataSetChanged()
         incomes_weekly_chart.invalidate()
     }
 
@@ -196,9 +194,5 @@ class IncomesFragment : Fragment(), IncomesView {
         mProgress?.dismiss()
     }
 
-    private fun startHistoryServicesActivity() {
-        val intent = Intent(activity, HistoryServiceActivity::class.java)
-        startActivity(intent)
-    }
 
 }

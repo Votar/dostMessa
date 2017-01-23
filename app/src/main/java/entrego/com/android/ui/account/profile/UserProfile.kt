@@ -54,23 +54,15 @@ object UserProfile {
                 .getProfile(token)
                 .enqueue(object : Callback<EntregoResultGetProfile> {
                     override fun onResponse(call: Call<EntregoResultGetProfile>?, response: Response<EntregoResultGetProfile>?) {
-                        if (response != null) {
-                            val responseBody = response.body()
-                            when (responseBody?.code) {
+                            when (response?.body()?.code) {
                                 0 -> {
-                                    EntregoStorage(context).setUserProfile(responseBody.payload)
-                                    UserProfileEntity.getInstance().update(responseBody.payload)
-                                    listener?.onSuccessRefresh(responseBody.payload)
+                                    EntregoStorage(context).setUserProfile(response?.body()?.payload)
+                                    UserProfileEntity.getInstance().update(response?.body()?.payload)
+                                    listener?.onSuccessRefresh(response?.body()?.payload!!)
                                 }
-                                else -> listener?.onFailureRefresh(responseBody.message)
+                                else -> listener?.onFailureRefresh(response?.body()?.message)
                             }
-                        } else {
-                            if (response?.errorBody() != null) {
-                                val errorBody = response?.errorBody()!!
-                                val resultBody = Gson().fromJson(errorBody.string(), EntregoResult::class.java)
-                                listener?.onFailureRefresh(resultBody.message)
-                            }
-                        }
+
                     }
 
                     override fun onFailure(call: Call<EntregoResultGetProfile>?, t: Throwable?) {

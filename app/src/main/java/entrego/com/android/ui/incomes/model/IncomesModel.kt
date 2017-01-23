@@ -2,12 +2,13 @@ package entrego.com.android.ui.incomes.model
 
 import android.os.Handler
 import entrego.com.android.entity.IncomeEntity
-import entrego.com.android.util.Logger
-import entrego.com.android.util.formattedDate
+import entrego.com.android.util.*
 import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi
 import entrego.com.android.web.model.request.statistic.IncomesBody
 import entrego.com.android.web.model.response.statistic.EntregoResultIncomes
+import org.joda.time.DateTime
+import org.joda.time.Days
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,51 +67,6 @@ object IncomesModel {
                         }
                     }
                 })
-
     }
-//
-//    fun request(token: String, range: Pair<Long, Long>, timeZone: String, listener: ResponseListener?) {
-//
-//
-//        val body = IncomesBody(range.first, range.second, timeZone)
-//        Logger.logd(body.toString())
-//
-//        ApiCreator.server
-//                .create(Request::class.java)
-//                .parameters(token, body)
-//                .enqueue(object : Callback<EntregoResultIncomes> {
-//                    override fun onFailure(call: Call<EntregoResultIncomes>?, t: Throwable?) {
-//                        listener?.onFailureGetIncomes(null, t?.message)
-//                    }
-//
-//                    override fun onResponse(call: Call<EntregoResultIncomes>?, response: Response<EntregoResultIncomes>?) {
-//                        Logger.logd(response?.body().toString())
-//                        response?.body()?.let {
-//                            when (it.code) {
-//                                0 -> {
-//
-//                                    val mockedMap = LinkedHashMap<Long, IncomeEntity>()
-//                                    for (i in it.payload)
-//                                        mockedMap.put(i.day, i)
-//
-//                                    for (i in range.first..range.second) {
-//                                        if (!mockedMap.containsKey(i)) {
-//                                            mockedMap.put(i, IncomeEntity(0, 0, 0.0))
-//                                        }
-//                                    }
-//                                    val result = ArrayList<IncomeEntity>()
-//                                    for(i in range.first..range.second)
-//                                        mockedMap[i]?.let { it1 -> result.add(it1) }
-//
-//                                    listener?.onSuccessGetIncomes(result)
-//                                }
-//                                else -> listener?.onFailureGetIncomes(it.code, it.message)
-//                            }
-//                        }
-//                    }
-//                })
-//
-//    }
-
 
 }

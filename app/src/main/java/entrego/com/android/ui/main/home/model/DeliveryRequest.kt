@@ -32,10 +32,11 @@ object DeliveryRequest {
 
                             when (responseResult?.code) {
                                 0 -> {
-                                    Delivery.getInstance().update(responseResult?.payload)
+                                    if (Delivery.getInstance().route == null)
+                                        Delivery.getInstance().update(responseResult?.payload)
                                     listener?.onSuccessGetDelivery()
                                 }
-                                2->EventBus.getDefault().post(LogoutEvent())
+                                2 -> EventBus.getDefault().post(LogoutEvent())
                                 else -> {
                                     listener?.onFailureGetDelivery(responseResult?.code, "")
                                     Delivery.getInstance().update(null)

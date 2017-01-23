@@ -1,7 +1,10 @@
 package entrego.com.android.ui.incomes.presenter
 
+import android.content.Context
+import android.content.Intent
 import entrego.com.android.R
 import entrego.com.android.entity.IncomeEntity
+import entrego.com.android.ui.incomes.history.HistoryServiceActivity
 import entrego.com.android.ui.incomes.model.IncomesModel
 import entrego.com.android.ui.incomes.view.IncomesView
 import org.joda.time.DateTime
@@ -10,6 +13,7 @@ import org.joda.time.Days
 import java.util.*
 
 class IncomesPresenter : IIncomesPresenter {
+
     var mView: IncomesView? = null
     var token: String = ""
     override fun onStart(token: String, view: IncomesView) {
@@ -47,7 +51,7 @@ class IncomesPresenter : IIncomesPresenter {
     fun getTimesOfRange(offset: Int): Pair<Long, Long> {
         val zeroDay = DateTime.now(DateTimeZone.UTC).withMillis(0)
         val now = DateTime.now(DateTimeZone.UTC)
-        var numberOfDay = now.dayOfWeek().get()-1
+        val numberOfDay = now.dayOfWeek().get() - 1
         if (offset == 0) {
             val rangeOfDays = now.minusDays(numberOfDay)
             val to = Days.daysBetween(zeroDay, now)
@@ -62,5 +66,11 @@ class IncomesPresenter : IIncomesPresenter {
         }
     }
 
-
+    override fun startHistoryServicesActivity(context: Context, offset: Int) {
+        val intent = Intent(context, HistoryServiceActivity::class.java)
+        val range = getTimesOfRange(offset)
+        intent.putExtra(HistoryServiceActivity.KEY_FROM, range.first)
+        intent.putExtra(HistoryServiceActivity.KEY_TO, range.second)
+        context.startActivity(intent)
+    }
 }

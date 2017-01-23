@@ -18,5 +18,7 @@ interface IHomeView {
     fun showAcceptFragment()
     fun dissmissAcceptFragment()
     fun getFragmentContext(): Context
-
+    fun showProgress()
+    fun hideProgress()
+    fun showMessage(idString: Int)
 }

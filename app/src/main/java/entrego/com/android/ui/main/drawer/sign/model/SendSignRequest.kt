@@ -31,7 +31,6 @@ object SendSignRequest {
                 .enqueue(object : Callback<EntregoResult> {
                     override fun onFailure(call: Call<EntregoResult>?, t: Throwable?) {
                         listener?.onFailureSendSign(null, null)
-
                     }
                     override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
                         when (response?.body()?.code) {

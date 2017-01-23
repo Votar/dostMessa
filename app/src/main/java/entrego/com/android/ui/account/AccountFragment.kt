@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.android.databinding.library.baseAdapters.BR
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -20,21 +21,19 @@ import entrego.com.android.binding.UserProfileEntity
 import entrego.com.android.databinding.FragmentAccountBinding
 import entrego.com.android.ui.account.files.AddFilesActivity
 import entrego.com.android.ui.account.profile.ProfileFragment
-import entrego.com.android.ui.account.vehicle.VehicleFragment
 import entrego.com.android.ui.account.profile.edit.EditProfileActivity
+import entrego.com.android.ui.account.vehicle.VehicleFragment
 import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
 import entrego.com.android.util.Logger
 import entrego.com.android.util.ui.ViewPagerAdapter
+import entrego.com.android.web.api.EntregoApi
 import kotlinx.android.synthetic.main.fragment_account.*
 import java.util.*
 
 class AccountFragment : Fragment() {
-
-
     private val tabTitles = intArrayOf(
             R.string.ui_title_profile,
             R.string.ui_title_vehicle)
-
 
     var binder: FragmentAccountBinding? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,7 +62,6 @@ class AccountFragment : Fragment() {
         account_user_edit_pic.setOnClickListener { startEditProfilePhotoActivity() }
 
         UserProfileEntity.getInstance().addOnPropertyChangedCallback(mProfileChangedListener)
-        setupUserPic()
     }
 
     override fun onResume() {
@@ -71,6 +69,7 @@ class AccountFragment : Fragment() {
         Logger.logd("Account resumed")
         setupViewPager(account_viewpager)
         account_tabs.setupWithViewPager(account_viewpager)
+        setupUserPic()
     }
 
     override fun onStop() {
@@ -78,7 +77,7 @@ class AccountFragment : Fragment() {
         UserProfileEntity.getInstance().removeOnPropertyChangedCallback(mProfileChangedListener)
     }
 
-    val mGlideListener= object : RequestListener<Int, GlideDrawable>{
+    val mGlideListener = object : RequestListener<Int, GlideDrawable> {
         override fun onException(e: Exception?, model: Int?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
             Log.d("GLIDE", String.format(Locale.ROOT,
                     "onException(%s, %s, %s, %s)", e, model, target, isFirstResource), e);
@@ -94,21 +93,29 @@ class AccountFragment : Fragment() {
 
     }
 
+
+
     fun setupUserPic() {
         val profile = binder?.userProfile?.profile
 
-        if (profile?.userPicUrl.isNullOrEmpty()) {
-            Glide.with(context)
-                    .load(R.drawable.ic_user_pic_holder)
-                    .listener(mGlideListener)
-                    .into(account_user_pic_holder as ImageView)
-            account_user_edit_pic.visibility = View.GONE
-        } else {
-            Glide.with(context)
-                    .load(profile?.userPicUrl)
-                    .into(account_user_pic_holder as ImageView)
-            account_user_edit_pic.visibility = View.VISIBLE
-        }
+
+        Glide.with(context)
+                .load(EntregoApi.REQUESTS.GET_USER_PHOTO)
+                .error(R.drawable.ic_user_pic_holder)
+                .skipMemoryCache(true)
+                .diskCacheStrategy( DiskCacheStrategy.NONE)
+                .listener(object : RequestListener<String, GlideDrawable> {
+                    override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
+                        account_user_edit_pic.visibility = View.INVISIBLE
+                        return false
+                    }
+                    override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+                        account_user_edit_pic.visibility = View.VISIBLE
+                        return false
+                    }
+                })
+                .into(account_user_pic_holder as ImageView)
+
     }
 
     private fun startEditProfilePhotoActivity() {

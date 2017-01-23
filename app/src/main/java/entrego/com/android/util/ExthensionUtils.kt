@@ -1,14 +1,20 @@
 package entrego.com.android.util
 
+import android.app.Activity
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.icu.text.TimeZoneFormat
+import android.location.LocationManager
 import android.net.Uri
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
+import android.support.v4.app.NavUtils
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Base64
 import android.view.Gravity
@@ -76,8 +82,12 @@ fun View.snackSimple(message: String?) {
 }
 
 fun ProgressDialog.loading() {
+    this.setCancelable(false)
     this.setTitle(this.context.getString(R.string.ui_progress_dialog_title))
     this.setMessage(this.context.getString(R.string.ui_loading))
+    this.setButton(Dialog.BUTTON_NEGATIVE,
+            this.context.getString(android.R.string.cancel)
+            , { dialog, which -> dismiss() })
     this.show()
 }
 
@@ -173,7 +183,7 @@ fun String.toDateTimeLong(): DateTime {
 }
 
 fun String.toFormattedDateTime(): String {
-    val date =  DateTime(this)
+    val date = DateTime(this)
     return DateTimeFormat.forPattern("yyyy-MM-dd hh:MM:ss").print(date)
 }
 
@@ -202,4 +212,9 @@ fun Array<EntregoPointBinding>.getStaticMapUrl(path: String?): String {
         urlBuilder.append("&markers=size:mid%7Clabel:$label%7C$coordinates")
     }
     return urlBuilder.toString()
+}
+
+fun isGpsEnable(activity: Context): Boolean {
+    val manager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }

@@ -46,9 +46,10 @@ object EntregoApi {
         const val POST_CHANGE_STATUS = "messenger/delivery/{id}/status"
         const val POST_DRIVER_LICENCE = "messenger/user/change/driverLicense"
         const val POST_PERSON_LICENCE = "messenger/user/change/driverLicense"
-        const val POST_USER_PHOTO =  "messenger/user/change/photo"
-        const val POST_FINISH_DELIVERY ="messenger/delivery/{id}/finish"
+        const val POST_USER_PHOTO = "messenger/user/change/photo"
+        const val POST_FINISH_DELIVERY = "messenger/delivery/{id}/finish"
         const val POST_POST_RESTORE_PASSWORD = ""
+        const val GET_USER_PHOTO = BASE_URL + "messenger/image/photo"
 
     }
 
@@ -118,7 +119,7 @@ object EntregoApi {
     interface AcceptDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_ACCEPT_DELIVERY)
-        fun acceptDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<EntregoResult>
+        fun acceptDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<EntregoResultStatusChanged>
     }
 
     interface DeclineDelivery {
@@ -133,27 +134,31 @@ object EntregoApi {
         fun changeStatus(@Header(TOKEN) token: String, @Path("id") deliveryId: Int, @Body body: ChangeStatusBody): Call<EntregoResultStatusChanged>
     }
 
-    interface UploadDriverLicence{
+    interface UploadDriverLicence {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_DRIVER_LICENCE)
         fun postDriverLicence(@Header(TOKEN) token: String, @Body body: UploadPhotoBody): Call<EntregoResult>
     }
-    interface UploadPersonLicence{
+
+    interface UploadPersonLicence {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_PERSON_LICENCE)
         fun postPersonLicence(@Header(TOKEN) token: String, @Body body: UploadPhotoBody): Call<EntregoResult>
     }
-    interface UploadUserPhoto{
+
+    interface UploadUserPhoto {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_USER_PHOTO)
         fun postUserPhoto(@Header(TOKEN) token: String, @Body body: UploadPhotoBody): Call<EntregoResult>
     }
-    interface FinishDelivery{
+
+    interface FinishDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_FINISH_DELIVERY)
-        fun finishDelivery(@Header(TOKEN) token: String,@Path("id")deliveryId:Int, @Body body: FinishDeliveryBody): Call<EntregoResult>
+        fun finishDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int, @Body body: FinishDeliveryBody): Call<EntregoResult>
     }
-    interface RestorePassword{
+
+    interface RestorePassword {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_POST_RESTORE_PASSWORD)
         fun restorePassword(@Body body: RestorePasswordBody): Call<EntregoResult>

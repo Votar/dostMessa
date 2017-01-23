@@ -35,9 +35,12 @@ import entrego.com.android.ui.main.dialog.LocationRequiredFragment
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest
+import entrego.com.android.ui.main.home.model.OfflineRequest
 import entrego.com.android.ui.score.ScoreFragment
 import entrego.com.android.util.event_bus.LogoutEvent
+import entrego.com.android.util.isGpsEnable
 import entrego.com.android.util.ui.ViewPagerAdapter
+import entrego.com.android.web.model.response.CommonResponseListener
 import kotlinx.android.synthetic.main.app_bar_root.*
 import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
@@ -172,7 +175,6 @@ class RootActivity : AppCompatActivity() {
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         HomeFragment.REQUEST_ACCESS_FINE_LOCATION)
 
-
             }
         }
     }
@@ -189,11 +191,10 @@ class RootActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     fun startLocationUpdates() {
-        if (isGpsEnabled(this)) {
+        if (isGpsEnable(this)) {
             LocationTracker.startLocationListener(this)
             requestDelivery()
         } else {
@@ -203,24 +204,17 @@ class RootActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLogoutEvent(event: LogoutEvent) {
-
         EntregoStorage(this).setToken("")
         val intent = Intent(this, AuthActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
-
     }
 
-    fun isGpsEnabled(activity: Context): Boolean {
-        val manager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-    }
+
 
     val mGpsSwitchStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context, p1: Intent?) {
-            if (isGpsEnabled(ctx))
-                GPSRequiredFragment.dismiss(supportFragmentManager)
-            else
+            if (isGpsEnable(ctx))
                 GPSRequiredFragment.show(supportFragmentManager)
         }
     }

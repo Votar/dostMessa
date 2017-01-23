@@ -59,33 +59,16 @@ class HistoryServicePresenter : IHistoryServicePresenter {
 
     }
 
-    fun getTimesOfRange(offset: Int): Pair<Long, Long> {
-        val zeroDay = DateTime.now(DateTimeZone.UTC).withMillis(0)
-        val now = DateTime.now(DateTimeZone.UTC)
-        var numberOfDay = now.dayOfWeek().get() - 1
-        if (offset == 0) {
-            val rangeOfDays = now.minusDays(numberOfDay)
-            val to = Days.daysBetween(zeroDay, now)
-            val from = Days.daysBetween(zeroDay, rangeOfDays)
-            return Pair(from.days.toLong(), to.days.toLong())
-        } else {
-            val dateTo = now.minusDays((numberOfDay + 1) + 7 * (offset - 1))
-            val dateFrom = dateTo.minusDays(6)
-            val to = Days.daysBetween(zeroDay, dateTo)
-            val from = Days.daysBetween(zeroDay, dateFrom)
-            return Pair(from.days.toLong(), to.days.toLong())
-        }
-    }
+
 
     override fun requestServiceDetailsById(id: Int) {
         mView?.showProgress()
         HistoryServiceDetailsModel.request(mToken, id, mHistoryServiceDetails)
     }
 
-    override fun onCreate(view: IHistoryServiceView, token: String) {
+    override fun onCreate(view: IHistoryServiceView, token: String, range: Pair<Long, Long>) {
         mView = view
         mToken = token
-        val range = getTimesOfRange(0)
         HistoryServicesModel.refresh(mToken, range, mRefreshHistoryListener)
     }
 

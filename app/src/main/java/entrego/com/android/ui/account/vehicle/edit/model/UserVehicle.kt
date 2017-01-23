@@ -26,7 +26,7 @@ object UserVehicle {
 
     interface ResultListener {
         fun onSuccessRefresh(userVehicle: UserVehicleModel)
-        fun onFailureRefresh(message: String)
+        fun onFailureRefresh(message: String?)
     }
 
     interface ResultUpdateListener {
@@ -63,8 +63,7 @@ object UserVehicle {
                         } else {
                             if (response?.errorBody() != null) {
                                 val errorBody = response?.errorBody()!!
-                                val resultBody = Gson().fromJson(errorBody.string(), EntregoResult::class.java)
-                                listener?.onFailureRefresh(resultBody.message!!)
+                                listener?.onFailureRefresh(null)
                             }
                         }
                     }

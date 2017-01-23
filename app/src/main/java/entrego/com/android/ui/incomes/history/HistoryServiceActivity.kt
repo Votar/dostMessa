@@ -21,9 +21,14 @@ import entrego.com.android.ui.incomes.history.view.IHistoryServiceView
 import entrego.com.android.util.loading
 import kotlinx.android.synthetic.main.activity_service_history.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
+import org.joda.time.DateTime
 
 class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
 
+    companion object {
+        val KEY_FROM = "ext_key_from"
+        val KEY_TO = "ext_key_to"
+    }
 
     var mProgress: ProgressDialog? = null
     val mPresenter: IHistoryServicePresenter = HistoryServicePresenter()
@@ -31,7 +36,11 @@ class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_history)
         val token = EntregoStorage(this).getToken()
-        mPresenter.onCreate(this, token)
+        if (intent.hasExtra(KEY_FROM) && intent.hasExtra(KEY_TO)) {
+            val from = intent.getLongExtra(KEY_FROM, DateTime.now().toLocalDateTime().toDate().time)
+            val to = intent.getLongExtra(KEY_TO, DateTime.now().toLocalDateTime().toDate().time)
+            mPresenter.onCreate(this, token, Pair(from, to))
+        }
 
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
