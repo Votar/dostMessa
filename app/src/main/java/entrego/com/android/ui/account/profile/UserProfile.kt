@@ -43,20 +43,20 @@ object UserProfile {
 
 
     fun getProfile(context: Context): UserProfileModel? {
-        return EntregoStorage(context).getUserProfile()
+        return EntregoStorage.getUserProfile()
     }
 
 
     fun refresh(context: Context, @Nullable listener: ResultRefreshListener?) {
 
-        val token = EntregoStorage(context).getToken()
+        val token = EntregoStorage.getToken()
         ApiCreator.server.create(EntregoApi.GetProfile::class.java)
                 .getProfile(token)
                 .enqueue(object : Callback<EntregoResultGetProfile> {
                     override fun onResponse(call: Call<EntregoResultGetProfile>?, response: Response<EntregoResultGetProfile>?) {
                             when (response?.body()?.code) {
                                 0 -> {
-                                    EntregoStorage(context).setUserProfile(response?.body()?.payload)
+                                    EntregoStorage.setUserProfile(response?.body()?.payload)
                                     UserProfileEntity.getInstance().update(response?.body()?.payload)
                                     listener?.onSuccessRefresh(response?.body()?.payload!!)
                                 }
@@ -76,7 +76,7 @@ object UserProfile {
 
     fun update(context: Context, email: String, name: String, phoneCode: String, phoneNumber: String,
                @Nullable listener: ResultUpdateListener?) {
-        val token = EntregoStorage(context).getToken()
+        val token = EntregoStorage.getToken()
         val body = UserProfileModel(email, name, EntregoPhoneModel(phoneCode, phoneNumber))
         ApiCreator.server.create(EntregoApi.UpdateProfile::class.java)
                 .updateProfile(token, body)
@@ -86,7 +86,7 @@ object UserProfile {
                             val responseBody = response?.body()!!
                             when (responseBody.code) {
                                 0 -> {
-                                    EntregoStorage(context).setUserProfile(responseBody.payload)
+                                    EntregoStorage.setUserProfile(responseBody.payload)
                                     listener?.onSuccessUpdate(responseBody.payload!!)
                                 }
                                 1 -> {
@@ -114,7 +114,7 @@ object UserProfile {
 
     fun updatePassword(context: Context, newPassword: String, @Nullable listener: ResultUpdatePasswordListener) {
 
-        val token = EntregoStorage(context).getToken()
+        val token = EntregoStorage.getToken()
         val body = ChangePasswordRequest(newPassword)
         ApiCreator.server.create(EntregoApi.UpdateProfilePassword::class.java)
                 .updateProfile(token, body)

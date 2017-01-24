@@ -1,7 +1,6 @@
 package entrego.com.android.ui.auth.model
 
-import com.google.gson.Gson
-import com.google.gson.JsonElement
+import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.util.Logger
 import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi
@@ -10,16 +9,11 @@ import entrego.com.android.web.model.response.EntregoResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
-import java.util.*
 
-/**
- * Created by bertalt on 29.11.16.
- */
 class EntregoAuth(val email: String, val password: String) {
 
     interface ResultListener {
-        fun onSuccessAuth(token:String?)
+        fun onSuccessAuth(token: String?)
         fun onFailureAuth(message: String?)
     }
 
@@ -35,6 +29,7 @@ class EntregoAuth(val email: String, val password: String) {
                             when (response?.body()?.code) {
                                 0 -> {
                                     val token = response?.headers()?.get(EntregoApi.TOKEN)
+                                    EntregoStorage.setLastEmail(email)
                                     listener.onSuccessAuth(token)
                                 }
                                 else -> listener.onFailureAuth(response?.body()?.message)

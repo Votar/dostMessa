@@ -41,7 +41,7 @@ class CancelDeliveryPresenter : ICancelDeliveryPresenter {
         val builder = AlertDialog.Builder(context)
         builder.setMessage(R.string.cancel_delivery_message)
         builder.setPositiveButton(android.R.string.ok, { dialogInterface: DialogInterface, i: Int ->
-            val token = EntregoStorage(context).getToken()
+            val token = EntregoStorage.getToken()
             mView?.onShowProgress()
 
             val deliveryId = Delivery.getInstance().id

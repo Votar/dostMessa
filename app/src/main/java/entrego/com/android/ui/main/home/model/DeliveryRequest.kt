@@ -2,6 +2,7 @@ package entrego.com.android.ui.main.home.model
 
 import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.binding.Delivery
+import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.util.Logger
 import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.web.api.ApiCreator
@@ -17,6 +18,11 @@ object DeliveryRequest {
     interface ResultGetDelivery {
         fun onSuccessGetDelivery()
         fun onFailureGetDelivery(code: Int?, message: String?)
+    }
+
+    fun requestDelivery(listener: ResultGetDelivery?) {
+        val token = EntregoStorage.getToken()
+        requestDelivery(token, listener)
     }
 
     fun requestDelivery(token: String, listener: ResultGetDelivery?) {

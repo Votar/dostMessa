@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import entrego.com.android.R
 import entrego.com.android.ui.auth.restore.model.RestoreModel
 import entrego.com.android.util.Logger
@@ -27,7 +28,11 @@ class RestorePasswordActivity : AppCompatActivity() {
             } else {
                 mProgress = ProgressDialog(this)
                 mProgress?.loading()
-                RestoreModel.restorePassword(restore_edit_email.text.toString(), mRestoreListener)
+                Handler().postDelayed({
+                    mProgress?.hide()
+                    startActivity(Intent(applicationContext, SuccessRestoreActivity::class.java))
+                }, 1500)
+//                RestoreModel.restorePassword(restore_edit_email.text.toString(), mRestoreListener)
             }
         }
     }

@@ -35,7 +35,7 @@ class IncomesFragment : Fragment(), IncomesView {
 
 
     var datesOffset = 0
-    var isThisWeel = true
+    var isThisWeek = true
     var mProgress: ProgressDialog? = null
     val mPresenter: IIncomesPresenter = IncomesPresenter()
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,7 +48,7 @@ class IncomesFragment : Fragment(), IncomesView {
     override fun onStart() {
         super.onStart()
         setupCharts()
-        val token = EntregoStorage(context).getToken()
+        val token = EntregoStorage.getToken()
         mPresenter.onStart(token, this)
         mPresenter.requestRange(datesOffset)
         incomes_history_card.setOnClickListener { mPresenter.startHistoryServicesActivity(activity, datesOffset) }
@@ -66,10 +66,10 @@ class IncomesFragment : Fragment(), IncomesView {
         if (datesOffset == 0 && value < 0) return
         datesOffset += value
         if (datesOffset == 0) {
-            isThisWeel = true
+            isThisWeek = true
             incomes_bars_btn_next.visibility = View.GONE
         } else {
-            isThisWeel = false
+            isThisWeek = false
             incomes_bars_btn_next.visibility = View.VISIBLE
         }
         mProgress?.loading()
@@ -166,7 +166,7 @@ class IncomesFragment : Fragment(), IncomesView {
                 }
             }
             val last = BarDataSet(listOf(yVals.last()), "")
-            if (isThisWeel) {
+            if (isThisWeek) {
                 val color = resources.getColor(R.color.colorPrimary)
                 last.color = color
                 incomes_this_week_tv.visibility = View.VISIBLE

@@ -1,18 +1,18 @@
 package entrego.com.android.ui.main.accept.model
 
 import entrego.com.android.binding.Delivery
+import entrego.com.android.ui.main.home.model.DeliveryRequest
 import entrego.com.android.util.Logger
 import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi
+import entrego.com.android.web.contract.ResponseContract
 import entrego.com.android.web.model.response.EntregoResult
 import entrego.com.android.web.model.response.delivery.EntregoResultStatusChanged
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * Created by bertalt on 10.01.17.
- */
+
 object DeliveryInteractor {
     interface ResultListener {
         fun onSuccess()
@@ -34,6 +34,11 @@ object DeliveryInteractor {
                                 listener?.onSuccess()
                                 Delivery.getInstance().update(result?.payload)
                             }
+                            8 -> {
+                                DeliveryRequest.requestDelivery(null)
+                                listener?.onFailure(result?.message, result?.code)
+                            }
+
                             else -> listener?.onFailure(result?.message, result?.code)
                         }
                         Logger.logd(response?.body().toString())
@@ -53,7 +58,11 @@ object DeliveryInteractor {
                     override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
                         val result = response?.body()
                         when (result?.code) {
-                            0 -> listener?.onSuccess()
+                            ResponseContract.OK -> listener?.onSuccess()
+                            ResponseContract.INCORRECT_ORDER_STATE -> {
+                                DeliveryRequest.requestDelivery(null)
+                                listener?.onFailure(result?.message, result?.code)
+                            }
                             else -> listener?.onFailure(result?.message, result?.code)
                         }
                         Logger.logd(response?.body().toString())

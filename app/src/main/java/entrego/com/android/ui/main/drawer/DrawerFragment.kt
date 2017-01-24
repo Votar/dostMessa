@@ -42,7 +42,7 @@ class DrawerFragment : Fragment(), IDrawerView {
 
     override fun onStart() {
         super.onStart()
-        val token = EntregoStorage(context).getToken()
+        val token = EntregoStorage.getToken()
         presenter.onStart(this, token)
         delivery_states_on_way_sw.setOnCheckedChangeListener { button, state ->
             if (state) {

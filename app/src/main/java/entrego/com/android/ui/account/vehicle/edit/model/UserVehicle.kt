@@ -37,13 +37,13 @@ object UserVehicle {
     }
 
     fun getVehicle(context: Context): UserVehicleModel? {
-        return EntregoStorage(context).getUserVehicle()
+        return EntregoStorage.getUserVehicle()
     }
 
 
     fun refresh(context: Context, listener: ResultListener?, cash: Boolean = true) {
 
-        val token = EntregoStorage(context).getToken()
+        val token = EntregoStorage.getToken()
         ApiCreator.server.create(EntregoApi.GetVehicle::class.java)
                 .getVehicle(token)
                 .enqueue(object : Callback<EntregoResultGetVehicle> {
@@ -54,7 +54,7 @@ object UserVehicle {
                                 0 -> {
 
                                     if (cash)
-                                        EntregoStorage(context).setUserVehicle(responseBody?.payload)
+                                        EntregoStorage.setUserVehicle(responseBody?.payload)
 
                                     listener?.onSuccessRefresh(responseBody?.payload!!)
                                 }

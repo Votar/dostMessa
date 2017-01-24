@@ -99,7 +99,7 @@ class AddFilesActivity : AppCompatActivity(), IAddFilesView {
     }
 
     fun uploadFileToServer(picture: Bitmap) {
-        val token = EntregoStorage(this).getToken()
+        val token = EntregoStorage.getToken()
         when (intent.getIntExtra(KEY_RQT_CODE, 0)) {
             RQT_DRIVER_LICENCE -> mPresenter.uploadFileToServer(token, picture, EntregoFileCategory.DRIVER_LICENCE)
             RQT_PERSON_LICENCE -> mPresenter.uploadFileToServer(token, picture, EntregoFileCategory.PERSON_LICENCE)

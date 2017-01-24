@@ -77,7 +77,7 @@ class LocationService(val name: String) : IntentService(name), GoogleApiClient.C
 
         LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent)
 
-        val token = EntregoStorage(applicationContext).getToken()
+        val token = EntregoStorage.getToken()
         val curLatLng = LatLng(it.latitude, it.longitude)
 
     }

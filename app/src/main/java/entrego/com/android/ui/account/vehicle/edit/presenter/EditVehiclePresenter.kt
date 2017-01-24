@@ -24,7 +24,7 @@ class EditVehiclePresenter(val view: IEditVehicleView) : IEditVehiclePresenter {
             view.showMessage(view.getContext().getString(R.string.error_empty_fields))
 
         } else {
-            val token = EntregoStorage(view.getContext()).getToken()
+            val token = EntregoStorage.getToken()
             val vehicle = UserVehicleModel(brand, model, year, cylinders, plate)
 
             view.showProgress()
@@ -45,7 +45,7 @@ class EditVehiclePresenter(val view: IEditVehicleView) : IEditVehiclePresenter {
 
                         override fun onSuccessUpdate(userVehicle: UserVehicleModel) {
                             view.hideProgress()
-                            EntregoStorage(view.getContext()).setUserVehicle(vehicle)
+                            EntregoStorage.setUserVehicle(vehicle)
                             view.onSuccessUpdate()
                         }
 

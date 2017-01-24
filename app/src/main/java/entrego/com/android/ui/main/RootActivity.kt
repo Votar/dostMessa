@@ -156,7 +156,7 @@ class RootActivity : AppCompatActivity() {
     }
 
     fun requestDelivery() {
-        val token = EntregoStorage(this).getToken()
+        val token = EntregoStorage.getToken()
         DeliveryRequest.requestDelivery(token, null)
     }
 
@@ -204,7 +204,7 @@ class RootActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLogoutEvent(event: LogoutEvent) {
-        EntregoStorage(this).setToken("")
+        EntregoStorage.setToken("")
         val intent = Intent(this, AuthActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
@@ -214,7 +214,7 @@ class RootActivity : AppCompatActivity() {
 
     val mGpsSwitchStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context, p1: Intent?) {
-            if (isGpsEnable(ctx))
+            if (!isGpsEnable(ctx))
                 GPSRequiredFragment.show(supportFragmentManager)
         }
     }

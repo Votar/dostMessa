@@ -161,6 +161,7 @@
     <string name="scored_services">Scored services</string>
     <string name="five_star_services">5 stars services</string>
     <string name="amount_to_pay">Amount to pay:</string>
+    <string name="send_email">Send email...</string>
 
 
 </resources>

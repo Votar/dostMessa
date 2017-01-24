@@ -33,7 +33,7 @@ class DeliveryHistoryActivity : AppCompatActivity(), IDeliveryHistoryView {
         del_hist_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { onBackPressed() }
-        val token = EntregoStorage(this).getToken()
+        val token = EntregoStorage.getToken()
         mPresenter.requestHistoryList(token)
     }
 

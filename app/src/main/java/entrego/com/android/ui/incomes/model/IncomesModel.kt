@@ -50,7 +50,7 @@ object IncomesModel {
                 .parameters(token, body)
                 .enqueue(object : Callback<EntregoResultIncomes> {
                     override fun onFailure(call: Call<EntregoResultIncomes>?, t: Throwable?) {
-                        listener?.onFailureGetIncomes(null, t?.message)
+                        listener?.onFailureGetIncomes(null, null)
                     }
 
                     override fun onResponse(call: Call<EntregoResultIncomes>?, response: Response<EntregoResultIncomes>?) {

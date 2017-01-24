@@ -8,8 +8,8 @@ import android.content.Context
  */
 interface IAuthView {
     fun getContext() : Context
-    fun setErrorEmail(message: String)
-    fun setErrorPassword(message: String)
+    fun setErrorEmail(stringId: Int)
+    fun setErrorPassword(stringId: Int)
     fun showMessage(message:String)
     fun showProgress()
     fun hideProgress()

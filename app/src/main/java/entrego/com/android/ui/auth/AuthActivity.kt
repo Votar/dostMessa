@@ -34,14 +34,18 @@ class AuthActivity : AppCompatActivity(), IAuthView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-        EntregoStorage(this).clear()
+        EntregoStorage.clear()
     }
 
     override fun onStart() {
         super.onStart()
         setupListeners()
+        val lastEmail = EntregoStorage.getLastEmail()
+        if (lastEmail.isNotEmpty()) {
+            auth_edit_email.setText(lastEmail)
+            auth_edit_password.requestFocus()
+        }
     }
-
 
 
     override fun goToRegistration() {
@@ -69,14 +73,14 @@ class AuthActivity : AppCompatActivity(), IAuthView {
         return applicationContext
     }
 
-    override fun setErrorEmail(message: String) {
+    override fun setErrorEmail(stringId: Int) {
         auth_edit_email.requestFocus()
-        auth_il_email.error = getString(R.string.ui_error_email)
+        auth_il_email.error = getString(stringId)
     }
 
-    override fun setErrorPassword(message: String) {
-        auth_edit_email.requestFocus()
-        auth_il_email.error = getString(R.string.ui_error_password)
+    override fun setErrorPassword(stringId: Int) {
+        auth_edit_password.requestFocus()
+        auth_il_password.error = getString(stringId)
     }
 
     override fun successRestorePassword() {
@@ -98,7 +102,6 @@ class AuthActivity : AppCompatActivity(), IAuthView {
                     return false
                 }
             }
-
         })
 
 
@@ -112,6 +115,8 @@ class AuthActivity : AppCompatActivity(), IAuthView {
     }
 
     fun startAuth() {
+        auth_il_email.error = ""
+        auth_il_password.error = ""
         val email = auth_edit_email.text.toString()
         val password = auth_edit_password.text.toString()
         presenter.requestAuth(email, password)

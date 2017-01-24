@@ -41,7 +41,7 @@ class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
     override fun onStart() {
         super.onStart()
 
-        val token = EntregoStorage(this).getToken()
+        val token = EntregoStorage.getToken()
         if (intent.hasExtra(KEY_FROM) && intent.hasExtra(KEY_TO)) {
             val from = intent.getLongExtra(KEY_FROM, DateTime.now().toLocalDateTime().toDate().time)
             val to = intent.getLongExtra(KEY_TO, DateTime.now().toLocalDateTime().toDate().time)

@@ -75,7 +75,7 @@ class AcceptDeliveryFragment private constructor() : Fragment(), IAcceptDelivery
     }
 
     override fun getToken(): String {
-        return EntregoStorage(context).getToken()
+        return EntregoStorage.getToken()
     }
 
     override fun hideAcceptFragment() {

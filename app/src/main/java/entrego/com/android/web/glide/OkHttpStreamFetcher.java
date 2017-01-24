@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import entrego.com.android.storage.preferences.EntregoStorage;
 import entrego.com.android.web.api.EntregoApi;
-import entrego.com.android.web.model.AccessToken;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -37,7 +37,7 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
             String key = headerEntry.getKey();
             requestBuilder.addHeader(key, headerEntry.getValue());
         }
-        requestBuilder.addHeader(EntregoApi.TOKEN, AccessToken.INSTANCE.getToken());
+        requestBuilder.addHeader(EntregoApi.TOKEN, EntregoStorage.INSTANCE.getToken());
 
         Request request = requestBuilder.build();
 

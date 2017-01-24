@@ -3,10 +3,12 @@ package entrego.com.android.ui.incomes.presenter
 import android.content.Context
 import android.content.Intent
 import entrego.com.android.R
+import entrego.com.android.binding.Delivery
 import entrego.com.android.entity.IncomeEntity
 import entrego.com.android.ui.incomes.history.HistoryServiceActivity
 import entrego.com.android.ui.incomes.model.IncomesModel
 import entrego.com.android.ui.incomes.view.IncomesView
+import entrego.com.android.ui.main.home.model.DeliveryRequest
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.Days
@@ -47,15 +49,15 @@ class IncomesPresenter : IIncomesPresenter {
         IncomesModel.request(token, params, timeZone, mListener)
     }
 
-
     fun getTimesOfRange(offset: Int): Pair<Long, Long> {
         val zeroDay = DateTime.now(DateTimeZone.UTC).withMillis(0)
         val now = DateTime.now(DateTimeZone.UTC)
         val numberOfDay = now.dayOfWeek().get() - 1
         if (offset == 0) {
             val rangeOfDays = now.minusDays(numberOfDay)
-            val to = Days.daysBetween(zeroDay, now)
+            val dateTo = rangeOfDays.plusDays(6)
             val from = Days.daysBetween(zeroDay, rangeOfDays)
+            val to = Days.daysBetween(zeroDay, dateTo)
             return Pair(from.days.toLong(), to.days.toLong())
         } else {
             val dateTo = now.minusDays((numberOfDay + 1) + 7 * (offset - 1))

@@ -9,6 +9,7 @@ import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.model.PointStatus
 import entrego.com.android.ui.main.drawer.model.DrawerModel
 import entrego.com.android.ui.main.drawer.view.IDrawerView
+import entrego.com.android.ui.main.home.model.DeliveryRequest
 import entrego.com.android.util.Logger
 
 
@@ -30,12 +31,9 @@ class DrawerPresenter : IDrawerPresenter {
         this.mToken = token
         Delivery.getInstance().addOnPropertyChangedCallback(mDeliveryChangedListener)
         onBuildView()
-
     }
 
     fun onBuildView() {
-        val delivery = Delivery.getInstance()
-        Logger.logd(delivery.toString())
         mView?.refreshView()
     }
 
@@ -67,14 +65,14 @@ class DrawerPresenter : IDrawerPresenter {
                         switchList[4].isChecked = false
                     }
                     PointStatus.DONE -> mView?.signBill()
-                    else -> TODO()
+                    else -> {
+                    }
                 }
+            };
+            else -> {
             }
-
-            else -> TODO()
         }
     }
-
 
     override fun changeStatus(switch: SwitchCompat, status: PointStatus) {
 
@@ -88,11 +86,15 @@ class DrawerPresenter : IDrawerPresenter {
                 switch.isChecked = false
                 switch.isEnabled = true
                 mView?.showMessage(message)
+                when(code){
+                    8->DeliveryRequest.requestDelivery(null)
+                }
             }
         }
         val deliveryId = Delivery.getInstance().id
         DrawerModel.nextStatus(mToken, deliveryId, status, changeStatusListener)
     }
+
     override fun onStop() {
         Delivery.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
         mView = null

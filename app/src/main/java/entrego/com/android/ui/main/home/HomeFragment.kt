@@ -85,7 +85,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 if (state) {
                     LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(SocketService.ACTION_FILTER)
                             .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.DISCONNECT.value))
-                    val token = EntregoStorage(activity).getToken()
+                    val token = EntregoStorage.getToken()
                     mPresenter.sendOffline(token)
                     stopLocationTracker()
                 }
@@ -124,6 +124,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
         if (mTimer != null) return
 
+        if (isGpsEnable(activity))
+            GPSRequiredFragment.dismiss(activity.supportFragmentManager)
+        else
+            GPSRequiredFragment.show(activity.supportFragmentManager)
+
         mTimer = Timer()
         LocalBroadcastManager
                 .getInstance(context)
@@ -131,7 +136,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                         .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.CONNECT.value))
         mTimer?.schedule(object : TimerTask() {
             override fun run() {
-                val token = EntregoStorage(context).getToken()
+                val token = EntregoStorage.getToken()
                 LocationTracker.sendLocation(token, mCurrentLocation)
 
                 LocalBroadcastManager
@@ -203,7 +208,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     override fun prepareNoDelivery() {
-        Logger.logd("No delivery!" + Thread.currentThread().name)
         removePolyline()
         AcceptDeliveryFragment.dismiss(activity.supportFragmentManager)
         mMap?.clear()
@@ -259,8 +263,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                         .replace(R.id.home_sliding_container, fragment, DescriptionFragment.TAG)
                         .commit()
             }
-
-
         }
 
         navigation_clickable_ll.setOnClickListener {
@@ -322,7 +324,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         override fun onReceive(ctx: Context, p1: Intent?) {
             if (!isGpsEnable(ctx)) {
                 GPSRequiredFragment.show(activity.supportFragmentManager)
-                val token = EntregoStorage(activity).getToken()
+                val token = EntregoStorage.getToken()
                 switcher_connected.isChecked = false
                 switcher_disconnected.isChecked = true
             }

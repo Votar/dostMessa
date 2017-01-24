@@ -21,7 +21,6 @@ object RestoreModel {
                             else -> listener?.onFailureResponse(response?.body()?.code, response?.body()?.message)
                         }
                     }
-
                     override fun onFailure(call: Call<EntregoResult>?, t: Throwable?) {
                         listener?.onFailureResponse(null, null)
                     }

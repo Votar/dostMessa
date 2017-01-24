@@ -32,6 +32,7 @@ class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<Po
         Logger.logd(addresses.toString())
 
     }
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one mView per item, and
     // you provide access to all the views for a data item in a mView holder
@@ -56,8 +57,8 @@ class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<Po
         holder?.binder?.point = nextPoint
 
         when (nextPoint.status) {
-            PointStatus.DONE-> resId = R.drawable.points_list_done_icon
-            PointStatus.GOING -> resId = R.drawable.start_pin
+            PointStatus.DONE -> resId = R.drawable.points_list_done_icon
+            PointStatus.GOING, PointStatus.WAITING -> resId = R.drawable.start_pin
             PointStatus.PENDING -> resId = R.drawable.points_list_next_pin
             else -> resId = R.drawable.points_list_done_icon
         }

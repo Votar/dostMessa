@@ -25,7 +25,6 @@ object LocationTracker {
 
     fun startLocationListener(context: Context) {
         val intent = Intent(context, LocationService::class.java)
-
         context.stopService(intent)
         context.startService(intent)
     }

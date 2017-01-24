@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_description.*
 
 class DescriptionFragment : Fragment(), IDescreptionView {
 
-
     companion object {
         val TAG = "DescriptionFragmentTAG"
         fun getInstance(): DescriptionFragment {
@@ -35,16 +34,12 @@ class DescriptionFragment : Fragment(), IDescreptionView {
     val presenter: IDescriptionPresenter = DescriptionPresenter()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         retainInstance = true
         val binder: FragmentDescriptionBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_description, container, false)
         binder.delivery = Delivery.getInstance()
         val view = binder.root
-
         recycler = view.findViewById(R.id.descr_frag_points_recycler) as RecyclerView
-
         return view
-
     }
 
     override fun onDestroyView() {
@@ -57,9 +52,7 @@ class DescriptionFragment : Fragment(), IDescreptionView {
         presenter.onStart(this)
         val delivery = Delivery.getInstance()
         if (delivery.route != null) {
-
             Logger.logd("delivery start")
-
             recycler?.visibility = View.VISIBLE
             recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             recycler?.adapter = PointsAdapter(delivery.route.waypoints)

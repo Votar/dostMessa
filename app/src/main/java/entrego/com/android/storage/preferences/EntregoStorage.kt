@@ -7,40 +7,30 @@ import com.google.gson.Gson
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.storage.model.UserVehicleModel
 import entrego.com.android.util.event_bus.LogoutEvent
-import entrego.com.android.web.model.AccessToken
 import org.greenrobot.eventbus.EventBus
 
-/**
- * Created by bertalt on 28.11.16.
- */
-class EntregoStorage(context: Context) {
+object EntregoStorage {
 
-
-    private val storage: SharedPreferences
+    private lateinit var storage: SharedPreferences
     private val KEY_TOKEN = "pref_key_token"
+    private val KEY_LAST_EMAIL = "pref_key_email"
     private val KEY_USER_PROFILE = "pref_key_user_profile"
     private val KEY_USER_VEHICLE = "pref_key_user_vehicle"
     private val PREF_STORAGE_NAME = "etrego_pref_store"
 
-    init {
+    fun init(context: Context) {
         storage = context.getSharedPreferences(PREF_STORAGE_NAME, Context.MODE_PRIVATE)
     }
 
-
     fun getToken(): String {
         val token = storage.getString(KEY_TOKEN, "")
-
-        if (TextUtils.isEmpty(token)) {
+        if (token.isEmpty())
             EventBus.getDefault().post(LogoutEvent())
-            return ""
-        }
-
         return token
     }
 
     fun setToken(token: String?) {
         if (token != null) {
-            AccessToken.updateToken(token)
             storage.edit().putString(KEY_TOKEN, token).commit()
         }
     }
@@ -81,7 +71,15 @@ class EntregoStorage(context: Context) {
     }
 
     fun clear() {
+        val lastEmail = getLastEmail()
         storage.edit().clear().commit()
+        storage.edit().putString(KEY_LAST_EMAIL, lastEmail).apply()
+    }
+
+    fun getLastEmail(): String = storage.getString(KEY_LAST_EMAIL, "")
+
+    fun setLastEmail(email: String) {
+        storage.edit().putString(KEY_LAST_EMAIL, email).apply()
     }
 
 
