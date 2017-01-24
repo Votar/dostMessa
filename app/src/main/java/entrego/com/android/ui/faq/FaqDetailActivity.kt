@@ -18,7 +18,10 @@ class FaqDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_faq_detail)
+    }
 
+    override fun onStart() {
+        super.onStart()
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
         if (intent != null) {
             val title = intent.getStringExtra(EXT_TITLE)

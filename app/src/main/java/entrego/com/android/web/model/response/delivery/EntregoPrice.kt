@@ -3,7 +3,7 @@ package entrego.com.android.web.model.response.delivery
 /**
  * Created by Admin on 18.01.2017.
  */
-class EntregoPrice(val amount: Float, val currency: String) {
+class EntregoPrice(val amount: Float = 0f, val currency: String ="$") {
 
     override fun toString(): String {
         return "EntregoPrice(amount=$amount, currency='$currency')"

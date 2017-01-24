@@ -28,7 +28,6 @@ object DeliveryInteractor {
                     }
 
                     override fun onResponse(call: Call<EntregoResultStatusChanged>?, response: Response<EntregoResultStatusChanged>?) {
-
                         val result = response?.body()
                         when (result?.code) {
                             0 -> {

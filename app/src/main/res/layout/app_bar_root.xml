@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/common_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay"
             app:elevation="0dp">
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -36,13 +36,11 @@
             </RelativeLayout>
         </android.support.design.widget.AppBarLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
+        <ImageView
             android:layout_below="@id/common_app_bar"
-            android:background="@drawable/toolbar_dropshadow" />
-
-
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:srcCompat="@drawable/toolbar_dropshadow"/>
 
         <include
             android:layout_width="match_parent"

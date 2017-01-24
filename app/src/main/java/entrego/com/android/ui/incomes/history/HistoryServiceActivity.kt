@@ -35,16 +35,19 @@ class HistoryServiceActivity : AppCompatActivity(), IHistoryServiceView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_history)
+        setSupportActionBar(navigation_toolbar)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         val token = EntregoStorage(this).getToken()
         if (intent.hasExtra(KEY_FROM) && intent.hasExtra(KEY_TO)) {
             val from = intent.getLongExtra(KEY_FROM, DateTime.now().toLocalDateTime().toDate().time)
             val to = intent.getLongExtra(KEY_TO, DateTime.now().toLocalDateTime().toDate().time)
             mPresenter.onCreate(this, token, Pair(from, to))
         }
-
-        setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
-
         val dividerItemDecoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         mProgress = ProgressDialog(this)
         history_service_recent_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

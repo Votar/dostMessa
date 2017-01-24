@@ -17,7 +17,10 @@ class RestorePasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restore_password)
+    }
 
+    override fun onStart() {
+        super.onStart()
         respore_password_btn.setOnClickListener {
             if (restore_edit_email.text.isEmpty()) {
                 restore_ll_email.error = getString(R.string.error_empty_fields)

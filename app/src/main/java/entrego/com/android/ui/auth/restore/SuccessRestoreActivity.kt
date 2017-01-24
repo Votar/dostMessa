@@ -13,7 +13,10 @@ class SuccessRestoreActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_success_restore)
+    }
 
+    override fun onStart() {
+        super.onStart()
         succ_restore_btn_login.setOnClickListener {
             startActivity(Intent(applicationContext, AuthActivity::class.java))
         }

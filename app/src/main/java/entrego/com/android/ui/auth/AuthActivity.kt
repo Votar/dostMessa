@@ -34,11 +34,15 @@ class AuthActivity : AppCompatActivity(), IAuthView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-
         EntregoStorage(this).clear()
-        setupListeners()
-
     }
+
+    override fun onStart() {
+        super.onStart()
+        setupListeners()
+    }
+
+
 
     override fun goToRegistration() {
 

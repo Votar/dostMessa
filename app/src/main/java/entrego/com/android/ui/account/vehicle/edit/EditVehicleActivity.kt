@@ -27,14 +27,14 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_vechile)
+    }
 
-        navigation_toolbar.title = getString(R.string.titile_edit_vehicle)
-
-        nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
+    override fun onStart() {
+        super.onStart()
         setSupportActionBar(navigation_toolbar)
-
+        navigation_toolbar.title = getString(R.string.titile_edit_vehicle)
+        nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
         edit_vehicle_btn_save.setOnClickListener {
-
             val cylinders = edit_vehicle_edit_cylinders.text.toString()
             try {
                 edit_vehicle_il_brand.error = null

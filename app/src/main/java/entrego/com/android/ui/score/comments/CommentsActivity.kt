@@ -17,11 +17,12 @@ class CommentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
         setSupportActionBar(navigation_toolbar)
+    }
 
+    override fun onStart() {
+        super.onStart()
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
-
         comments_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
         Handler().postDelayed({ setupAdapter() }, 1500)
     }
 

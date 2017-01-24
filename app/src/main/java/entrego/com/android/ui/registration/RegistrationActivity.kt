@@ -22,7 +22,10 @@ class RegistrationActivity : AppCompatActivity(), IRegistrationView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
         presenter = RegistrationPresenter(this)
+    }
 
+    override fun onStart() {
+        super.onStart()
         setupDefaultListeners()
     }
 

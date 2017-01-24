@@ -194,6 +194,11 @@ fun ImageView.loadSimple(url: String) {
             .into(this)
 }
 
+fun Long.formattedDefaultDate(): String {
+    val format = SimpleDateFormat("dd/MM/yy hh:mm aaa", Locale.getDefault())
+    val timestamp = format.format(this)
+    return timestamp
+}
 
 fun Array<EntregoPointBinding>.getStaticMapUrl(path: String?): String {
     val staticPartUrl = "https://maps.googleapis.com/maps/api/staticmap?autoscale=1" +

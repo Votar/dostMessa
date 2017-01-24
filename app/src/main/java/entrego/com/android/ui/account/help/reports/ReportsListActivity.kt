@@ -27,13 +27,16 @@ class ReportsListActivity : AppCompatActivity(), IReportsListView {
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reports_list)
-        mPresenter.onCreate(this)
+            setSupportActionBar(navigation_toolbar)
+            mPresenter.onCreate(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
         reports_list_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val dividerItemDecoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         reports_list_recycler.addItemDecoration(dividerItemDecoration)
-        setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
-
         reports_fab_add_report.setOnClickListener { startNewReportActivity() }
     }
 

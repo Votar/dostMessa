@@ -13,10 +13,11 @@ class SuccessRegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_success_registration)
+    }
 
-        succ_reg_btn_login.setOnClickListener {
-            startActivity(Intent(applicationContext, AuthActivity::class.java))
-        }
+    override fun onStart() {
+        super.onStart()
+        succ_reg_btn_login.setOnClickListener {  startActivity(Intent(applicationContext, AuthActivity::class.java))   }
     }
 
     override fun onBackPressed() {

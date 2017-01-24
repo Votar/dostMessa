@@ -37,7 +37,8 @@ class ReportDetailsActivity : AppCompatActivity() {
         val profile = UserProfile.getProfile(this)
         binder.profile = profile
         report_details_helper_photo.loadSimple("http://cosmouk.cdnds.net/15/33/768x384/landscape-1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg")
-        report_details_user_photo.loadSimple("http://1.media.collegehumor.cvcdn.com/14/45/7d51a082762115b56229fc6b741c1438.jpg")
+        if(profile?.userPicUrl != null)
+        report_details_user_photo.loadSimple(profile?.userPicUrl!!)
     }
 
     override fun onStart() {
@@ -45,7 +46,6 @@ class ReportDetailsActivity : AppCompatActivity() {
         val backButton = findViewById(R.id.nav_toolbar_back)
         backButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                Logger.logd("ASDDDDDDDDDDDDDDDddd")
                 NavUtils.navigateUpFromSameTask(this@ReportDetailsActivity)
             }
         })

@@ -36,18 +36,18 @@ object DeliveryRequest {
                                         Delivery.getInstance().update(responseResult?.payload)
                                     listener?.onSuccessGetDelivery()
                                 }
-                                2 -> EventBus.getDefault().post(LogoutEvent())
-                                else -> {
-                                    listener?.onFailureGetDelivery(responseResult?.code, "")
-                                    Delivery.getInstance().update(null)
+                                9 -> {
+                                    if (Delivery.getInstance().route != null)
+                                        Delivery.getInstance().update(null)
                                 }
+                                2 -> EventBus.getDefault().post(LogoutEvent())
+                                else -> listener?.onFailureGetDelivery(responseResult?.code, "")
                             }
                         }
                     }
 
                     override fun onFailure(call: Call<EntregoResultGetDelivery>?, t: Throwable?) {
                         listener?.onFailureGetDelivery(null, "")
-                        Delivery.getInstance().update(null)
                     }
 
                 })

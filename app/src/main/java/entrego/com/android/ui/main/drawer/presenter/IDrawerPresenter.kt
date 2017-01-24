@@ -6,12 +6,7 @@ import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.model.PointStatus
 import entrego.com.android.ui.main.drawer.view.IDrawerView
 
-/**
- * Created by bertalt on 12.12.16.
- */
 interface IDrawerPresenter {
-
-
     fun onStart(view: IDrawerView,token:String)
     fun onStop()
     fun changeStatus(switch:SwitchCompat, status :PointStatus)

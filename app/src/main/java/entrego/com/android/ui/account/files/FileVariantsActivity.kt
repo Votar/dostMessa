@@ -13,10 +13,12 @@ class FileVariantsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_file_variants)
-
         setSupportActionBar(navigation_toolbar)
-        nav_toolbar_back.setOnClickListener({ NavUtils.navigateUpFromSameTask(this) })
+    }
 
+    override fun onStart() {
+        super.onStart()
+        nav_toolbar_back.setOnClickListener({ NavUtils.navigateUpFromSameTask(this) })
         file_variants_licence_item.setOnClickListener { startAddFilesActivity(AddFilesActivity.RQT_DRIVER_LICENCE) }
         file_variants_id_item.setOnClickListener { startAddFilesActivity(AddFilesActivity.RQT_PERSON_LICENCE) }
     }

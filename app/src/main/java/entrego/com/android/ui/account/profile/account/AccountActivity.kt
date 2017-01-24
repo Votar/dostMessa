@@ -34,6 +34,10 @@ class AccountActivity : AppCompatActivity(), IAccountEditView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
         mPresenter.onCreate(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
         account_btn_save.setOnClickListener { requestUpdate() }
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }

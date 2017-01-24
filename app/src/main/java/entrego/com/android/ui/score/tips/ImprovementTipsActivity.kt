@@ -31,11 +31,15 @@ class ImprovementTipsActivity : AppCompatActivity(), ITipsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_improvment_tips)
+        mPresenter.onCreate(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
         tips_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val dividerItemDecoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         tips_recycler.addItemDecoration(dividerItemDecoration)
-        mPresenter.onCreate(this)
     }
 
     override fun onDestroy() {

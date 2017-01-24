@@ -27,8 +27,13 @@ class SignActivity : AppCompatActivity(), ISignView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign)
         presenter.onCreate(this)
+    }
 
-        sign_amount_value.text = Delivery.getInstance().price.toView()
+    override fun onStart() {
+        super.onStart()
+        if (Delivery.getInstance().price != null)
+            sign_amount_value?.text = Delivery.getInstance().price.toView()
+
         sign_drawing_ll.backgroundColor = ContextCompat.getColor(this, R.color.colorTransparent)
         sign_dismiss.setOnClickListener {
             sign_drawing_ll.undo()
@@ -36,13 +41,14 @@ class SignActivity : AppCompatActivity(), ISignView {
         sign_next.setOnClickListener {
             val token = EntregoStorage(this).getToken()
             val signPic = sign_drawing_ll.createCapture(DrawingCapture.BYTES)
-
             if (signPic is ByteArray)
                 presenter.sendSign(token, signPic)
             else
                 Logger.loge(TAG, "Cannot parse image from DrawView")
         }
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

@@ -28,7 +28,6 @@ class RouteHistoryDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding: ActivityRouteHistoryDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_route_history_details)
         val deliveryJson = intent.getStringExtra(DELIVERY_KEY)
         val delivery = Gson().fromJson(deliveryJson, DeliveryModel::class.java)

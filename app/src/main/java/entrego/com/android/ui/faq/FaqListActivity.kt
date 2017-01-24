@@ -17,6 +17,10 @@ class FaqListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_faq_list)
+    }
+
+    override fun onStart() {
+        super.onStart()
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
         setupView()
     }

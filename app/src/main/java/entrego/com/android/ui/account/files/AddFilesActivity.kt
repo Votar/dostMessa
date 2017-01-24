@@ -43,6 +43,10 @@ class AddFilesActivity : AppCompatActivity(), IAddFilesView {
         setContentView(R.layout.activity_add_files)
         setSupportActionBar(navigation_toolbar)
         mPresenter.onCreate(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
         add_files_camera.setOnClickListener {
             mPresenter.takePhotoFromCamera()

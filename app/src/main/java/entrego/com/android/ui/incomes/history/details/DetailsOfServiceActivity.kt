@@ -28,6 +28,7 @@ class DetailsOfServiceActivity : AppCompatActivity(), IDetailsOfServiceView {
         }
     }
 
+    lateinit var mUrlStaticMap: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(navigation_toolbar)
@@ -40,12 +41,15 @@ class DetailsOfServiceActivity : AppCompatActivity(), IDetailsOfServiceView {
             val lastIndex = model.route.waypoints.lastIndex
             binding.finishPoint = model.route.waypoints[lastIndex]
             val path = model.route.path.line
-            val urlStaticMap = model.route.waypoints.getStaticMapUrl(path)
-            details_service_stat_map.loadSimple(urlStaticMap)
+            mUrlStaticMap = model.route.waypoints.getStaticMapUrl(path)
         }
+    }
 
-
+    override fun onStart() {
+        super.onStart()
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
+        if (!mUrlStaticMap.isNullOrEmpty())
+            details_service_stat_map.loadSimple(mUrlStaticMap)
     }
 
     override fun onShowView() {

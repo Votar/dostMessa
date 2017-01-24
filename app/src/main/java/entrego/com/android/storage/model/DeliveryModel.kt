@@ -16,7 +16,7 @@ data class DeliveryModel(val id: Int,
 
     fun formattedPickup(): String {
         if (pickup <= 0) return ""
-        val format = SimpleDateFormat("dd/MM/yy hh:mm aaa", Locale.ENGLISH)
+        val format = SimpleDateFormat("dd/MM/yy hh:mm aaa", Locale.getDefault())
         val timestamp = format.format(pickup)
         return timestamp
     }
@@ -27,7 +27,7 @@ data class DeliveryModel(val id: Int,
 
     fun formattedDistance():String{
         val distanceInMeters = route.path.distance
-        val distanceInKm = BigDecimal(distanceInMeters/1000).setScale(3, RoundingMode.UP).toPlainString()
+        val distanceInKm = BigDecimal(distanceInMeters/1000).setScale(2, RoundingMode.UP).toPlainString()
         return distanceInKm
     }
 }

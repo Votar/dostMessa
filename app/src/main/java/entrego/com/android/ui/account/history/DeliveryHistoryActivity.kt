@@ -25,10 +25,14 @@ class DeliveryHistoryActivity : AppCompatActivity(), IDeliveryHistoryView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delivery_history)
+        mPresenter.onCreate(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
         del_hist_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { onBackPressed() }
-        mPresenter.onCreate(this)
         val token = EntregoStorage(this).getToken()
         mPresenter.requestHistoryList(token)
     }

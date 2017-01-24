@@ -29,6 +29,7 @@ import entrego.com.android.util.loading
 import entrego.com.android.util.snackSimple
 import kotlinx.android.synthetic.main.fragment_incomes.*
 import java.util.*
+import java.util.concurrent.locks.Lock
 
 class IncomesFragment : Fragment(), IncomesView {
 
@@ -119,67 +120,72 @@ class IncomesFragment : Fragment(), IncomesView {
         mPresenter.onStop()
     }
 
-     private fun setData(incomes: List<IncomeEntity>) {
+    val lock = Any()
+    private fun setData(incomes: List<IncomeEntity>) {
 
-        var estimatedPay = 0.0
-        val daysList = incomes.map {
-            estimatedPay += it.revenue
-            it.day
-        }
-        incomes_estimated_pay_value.text = "$" + String.format("%.2f", estimatedPay)
-        val xAxisFormatter: IAxisValueFormatter = DayAxisValueFormatter(daysList)
+        synchronized(lock) {
 
-        incomes_weekly_chart.getDescription().setEnabled(false)
-        val xAxis = incomes_weekly_chart.getXAxis()
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
-        xAxis.setDrawGridLines(false)
-        xAxis.setGranularity(1f) // only intervals of 1 day
-        xAxis.setLabelCount(daysList.count())
-        xAxis.setValueFormatter(xAxisFormatter)
-
-        val yVals = ArrayList<BarEntry>()
-        var maxEaring = 0f
-        var maxIndex: Int = 0
-        for (i: Int in 0..incomes.lastIndex) {
-            val profit = incomes[i].revenue.toFloat()
-            if (maxEaring < profit) {
-                maxIndex = i
-                maxEaring = profit
+            var estimatedPay = 0.0
+            val daysList = incomes.map {
+                estimatedPay += it.revenue
+                it.day
             }
-            yVals.add(BarEntry(i.toFloat(), profit))
-        }
-        val dataSets = ArrayList<IBarDataSet>()
-        val defaultColor = resources.getColor(R.color.colorDarkGrey)
-        for (i in 0..yVals.size - 2) {
-            if (maxIndex == i) {
-                val max = BarDataSet(listOf(yVals[i]), "")
-                max.color = defaultColor
-                dataSets.add(max)
+            incomes_estimated_pay_value.text = "$" + String.format("%.2f", estimatedPay)
+            val xAxisFormatter: IAxisValueFormatter = DayAxisValueFormatter(daysList)
+
+            incomes_weekly_chart.getDescription().setEnabled(false)
+            val xAxis = incomes_weekly_chart.getXAxis()
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
+            xAxis.setDrawGridLines(false)
+            xAxis.setGranularity(1f) // only intervals of 1 day
+            xAxis.setLabelCount(daysList.count())
+            xAxis.setValueFormatter(xAxisFormatter)
+
+            val yVals = ArrayList<BarEntry>()
+            var maxEaring = 0f
+            var maxIndex: Int = 0
+            for (i: Int in 0..incomes.lastIndex) {
+                val profit = incomes[i].revenue.toFloat()
+                if (maxEaring < profit) {
+                    maxIndex = i
+                    maxEaring = profit
+                }
+                yVals.add(BarEntry(i.toFloat(), profit))
+            }
+            val dataSets = ArrayList<IBarDataSet>()
+            val defaultColor = resources.getColor(R.color.colorDarkGrey)
+            for (i in 0..yVals.size - 2) {
+                if (maxIndex == i) {
+                    val max = BarDataSet(listOf(yVals[i]), "")
+                    max.color = defaultColor
+                    dataSets.add(max)
+                } else {
+                    val default = BarDataSet(listOf(yVals[i]), "")
+                    default.setColor(defaultColor, 120)
+                    dataSets.add(default)
+                }
+            }
+            val last = BarDataSet(listOf(yVals.last()), "")
+            if (isThisWeel) {
+                val color = resources.getColor(R.color.colorPrimary)
+                last.color = color
+                incomes_this_week_tv.visibility = View.VISIBLE
+                incomes_diapasone_dates.visibility = View.GONE
             } else {
-                val default = BarDataSet(listOf(yVals[i]), "")
-                default.setColor(defaultColor, 120)
-                dataSets.add(default)
+                incomes_this_week_tv.visibility = View.GONE
+                last.setColor(defaultColor, 120)
+                incomes_diapasone_dates.visibility = View.VISIBLE
+                incomes_diapasone_from.text = incomes.first().day
+                incomes_diapasone_to.text = incomes.last().day
             }
+            dataSets.add(last)
+            val data = BarData(dataSets)
+            data.setValueTextSize(10f)
+            data.barWidth = 0.9f
+            incomes_weekly_chart.data = data
+            incomes_weekly_chart.invalidate()
+
         }
-        val last = BarDataSet(listOf(yVals.last()), "")
-        if (isThisWeel) {
-            val color = resources.getColor(R.color.colorPrimary)
-            last.color = color
-            incomes_this_week_tv.visibility = View.VISIBLE
-            incomes_diapasone_dates.visibility = View.GONE
-        } else {
-            incomes_this_week_tv.visibility = View.GONE
-            last.setColor(defaultColor, 120)
-            incomes_diapasone_dates.visibility = View.VISIBLE
-            incomes_diapasone_from.text = incomes.first().day
-            incomes_diapasone_to.text = incomes.last().day
-        }
-        dataSets.add(last)
-        val data = BarData(dataSets)
-        data.setValueTextSize(10f)
-        data.barWidth = 0.9f
-        incomes_weekly_chart.data = data
-        incomes_weekly_chart.invalidate()
     }
 
     override fun onShowMessage(message: String?) {

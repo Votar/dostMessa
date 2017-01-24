@@ -62,10 +62,6 @@ public class Delivery extends BaseObservable {
         return price;
     }
 
-    public void setPrice(EntregoPrice price) {
-        this.price = price;
-    }
-
     public String getSize() {
         return size;
     }

@@ -41,8 +41,9 @@ class DeliveryHistoryAdapter(val dataset: Array<DeliveryModel>, val listener: Cl
             val loadingIcon = AppCompatResources.getDrawable(ctx, R.drawable.ic_cloud_download_50dp)
             Glide.with(ctx)
                     .load(url)
+                    .error(R.drawable.ic_cloud_off_48dp)
                     .into(holder?.binder?.historyRoutesStaticMap)
-                    .onLoadStarted(loadingIcon)
+
         }
         holder?.binder?.root?.setOnClickListener { listener.onItemClicked(currentModel) }
     }

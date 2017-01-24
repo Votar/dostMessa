@@ -40,18 +40,18 @@ class EditProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
-
-        navigation_toolbar.title = getString(R.string.titile_edit_user)
-
         setSupportActionBar(navigation_toolbar)
 
+        navigation_toolbar.title = getString(R.string.titile_edit_user)
         nav_toolbar_back.setOnClickListener { onBackPressed() }
+    }
 
+    override fun onStart() {
+        super.onStart()
         val userProfile = UserProfile.getProfile(this)
         if (userProfile != null) {
             Logger.logd(userProfile.toString())
             setupView(userProfile)
-
         } else requestUserProfile()
     }
 

@@ -1,5 +1,8 @@
 package entrego.com.android.storage.model
 
+import entrego.com.android.util.formatRating
+import java.util.*
+
 /**
  * Created by bertalt on 27.12.16.
  */
@@ -16,7 +19,7 @@ class EntregoPath(val line: String,
     }
 
     fun getDistanceInKmString(): String {
-        return (distance / 1000).toString()
+        return java.lang.String.format(Locale.getDefault(), "%1$.2f", (distance / 1000))
     }
 
     fun getDurationInMinutesString(): String {

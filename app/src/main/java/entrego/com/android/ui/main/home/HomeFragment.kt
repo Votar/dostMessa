@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +24,11 @@ import entrego.com.android.R
 import entrego.com.android.binding.Delivery
 import entrego.com.android.databinding.FragmentHomeBinding
 import entrego.com.android.location.LocationTracker
-import entrego.com.android.web.socket.SocketService
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.accept.AcceptDeliveryFragment
 import entrego.com.android.ui.main.delivery.description.DescriptionFragment
 import entrego.com.android.ui.main.dialog.GPSRequiredFragment
-import entrego.com.android.ui.main.home.model.OfflineRequest
 import entrego.com.android.ui.main.home.presenter.HomePresenter
 import entrego.com.android.ui.main.home.presenter.IHomePresenter
 import entrego.com.android.ui.main.home.view.IHomeView
@@ -39,7 +36,7 @@ import entrego.com.android.util.Logger
 import entrego.com.android.util.isGpsEnable
 import entrego.com.android.util.loading
 import entrego.com.android.util.snackSimple
-import entrego.com.android.web.model.response.CommonResponseListener
+import entrego.com.android.web.socket.SocketService
 import kotlinx.android.synthetic.main.connect_selector.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_navigation.*
@@ -257,9 +254,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
         if (home_sliding_container != null) {
             val fragment = DescriptionFragment.getInstance()
-            fragmentManager.beginTransaction()
-                    .replace(R.id.home_sliding_container, fragment, DescriptionFragment.TAG)
-                    .commit()
+            if (!fragment.isAdded && activity != null) {
+                activity.supportFragmentManager.beginTransaction()
+                        .replace(R.id.home_sliding_container, fragment, DescriptionFragment.TAG)
+                        .commit()
+            }
+
+
         }
 
         navigation_clickable_ll.setOnClickListener {
@@ -293,7 +294,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
             val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
             val lon = intent?.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
             if (lat != 0.0 && lon != 0.0) {
-
+                currentLocMarker?.remove()
+                currentLocMarker = mMap?.addMarker(MarkerOptions()
+                        .position(mCurrentLocation)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_user_pin))
+                        .draggable(false))
                 mCurrentLocation = LatLng(lat, lon)
             }
         }

@@ -2,7 +2,6 @@
 <layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="model"
             type="entrego.com.android.storage.model.DeliveryModel" />
@@ -118,7 +117,6 @@
                                     android:paddingLeft="@dimen/default_screen_padding"
                                     android:text="@{finishPoint.address}" />
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <ImageView

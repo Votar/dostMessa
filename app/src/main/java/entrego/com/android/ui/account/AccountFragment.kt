@@ -59,7 +59,7 @@ class AccountFragment : Fragment() {
                 1 -> startActivityForResult(Intent(context, EditVehicleActivity::class.java), EditVehicleActivity.RQT_CODE)
             }
         }
-        account_user_edit_pic.setOnClickListener { startEditProfilePhotoActivity() }
+        account_user_pic_holder.setOnClickListener { startEditProfilePhotoActivity() }
 
         UserProfileEntity.getInstance().addOnPropertyChangedCallback(mProfileChangedListener)
     }

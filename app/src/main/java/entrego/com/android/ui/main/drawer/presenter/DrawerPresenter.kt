@@ -11,9 +11,7 @@ import entrego.com.android.ui.main.drawer.model.DrawerModel
 import entrego.com.android.ui.main.drawer.view.IDrawerView
 import entrego.com.android.util.Logger
 
-/**
- * Created by bertalt on 12.12.16.
- */
+
 class DrawerPresenter : IDrawerPresenter {
 
     var mView: IDrawerView? = null
