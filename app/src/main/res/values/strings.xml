@@ -111,7 +111,7 @@
     <string name="base_price">Base price</string>
     <string name="support_email">operaciones@entregoya.com</string>
     <string name="hint_bank_name">Bank name</string>
-    <string name="ui_success_calncelation">Successfull cancelation!</string>
+    <string name="ui_success_cancellation">Successful cancellation!</string>
     <string name="hint_full_name">Full name</string>
     <string name="hint_account_number">Account number</string>
     <string name="hint_account_swift_code">Swift code</string>
@@ -162,6 +162,10 @@
     <string name="five_star_services">5 stars services</string>
     <string name="amount_to_pay">Amount to pay:</string>
     <string name="send_email">Send email...</string>
+    <string name="text_accept">Accept</string>
+    <string name="text_decline">Decline</string>
+    <string name="text_error">Error</string>
+    <string name="text_no_google_maps">To use navigation you should install Google Maps application</string>
 
 
 </resources>

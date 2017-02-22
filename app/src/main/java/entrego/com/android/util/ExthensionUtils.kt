@@ -26,6 +26,8 @@ import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
 import entrego.com.android.entity.IncomeEntity
 import entrego.com.android.storage.model.EntregoPoint
+import entrego.com.android.storage.preferences.EntregoStorage
+import entrego.com.android.ui.auth.AuthActivity
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
@@ -222,4 +224,41 @@ fun Array<EntregoPointBinding>.getStaticMapUrl(path: String?): String {
 fun isGpsEnable(activity: Context): Boolean {
     val manager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+}
+
+
+fun View.showSnack(message: String?) {
+    val text: String
+    if (message.isNullOrEmpty()) {
+        text = this.context.getString(R.string.er_default_network_error)
+    } else
+        text = message!!
+
+    val snackBar = Snackbar.make(this, text, Snackbar.LENGTH_SHORT)
+    val sbMessageTextView = snackBar.view.findViewById(android.support.design.R.id.snackbar_text) as TextView
+    val primaryColor = ContextCompat.getColor(this.context, R.color.colorPrimary)
+    sbMessageTextView.setTextColor(primaryColor)
+    snackBar.show()
+}
+
+fun View.showSnackError(message: String?) {
+    val text: String
+    if (message.isNullOrEmpty()) {
+        text = this.context.getString(R.string.er_default_network_error)
+    } else
+        text = message!!
+
+    val snackBar = Snackbar.make(this, text, Snackbar.LENGTH_SHORT)
+    val sbMessageTextView = snackBar.view.findViewById(android.support.design.R.id.snackbar_text) as TextView
+    val primaryColor = ContextCompat.getColor(this.context, R.color.colorTomato)
+    sbMessageTextView.setTextColor(primaryColor)
+    snackBar.show()
+}
+
+
+fun Context.logout() {
+    EntregoStorage.setToken("")
+    val intent = android.content.Intent(this, AuthActivity::class.java)
+    intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    startActivity(intent)
 }

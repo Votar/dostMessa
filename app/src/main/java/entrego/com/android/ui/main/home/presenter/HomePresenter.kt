@@ -32,7 +32,12 @@ class HomePresenter : IHomePresenter {
         onBuildView()
     }
 
-    fun onBuildView() {
+    override fun onStop() {
+        Delivery.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
+        view = null
+    }
+
+    override fun onBuildView() {
         val delivery = Delivery.getInstance()
 
         if (delivery.status.equals(OrderStatus.PENDING.value, true))
@@ -42,19 +47,14 @@ class HomePresenter : IHomePresenter {
 
         if (delivery.route != null) {
             view?.prepareRoute(delivery.route)
-            if (!TextUtils.isEmpty(delivery.route.path.line)) {
+            if (delivery.route.path.line.isNotEmpty())
                 view?.buildPath(delivery.route.path.line)
-            }
-        } else {
+
+        } else
             view?.prepareNoDelivery()
-        }
+
     }
 
-    override fun onStop() {
-
-        Delivery.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
-        view = null
-    }
 
     override fun sendOffline(token: String) {
         view?.showProgress()
@@ -72,6 +72,10 @@ class HomePresenter : IHomePresenter {
             }
 
         })
+    }
+
+    override fun noGoogleMapsException() {
+        view?.showAlertNoGoogleMaps()
     }
 
 }

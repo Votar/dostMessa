@@ -1,11 +1,8 @@
 package entrego.com.android.storage.model
 
-import entrego.com.android.util.formatRating
 import java.util.*
 
-/**
- * Created by bertalt on 27.12.16.
- */
+
 class EntregoPath(val line: String,
                   val duration: Long,
                   val distance: Double) {

@@ -6,9 +6,6 @@ import entrego.com.android.storage.model.CustomerModel
 import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.storage.model.EntregoRouteModel
 
-/**
- * Created by bertalt on 05.12.16.
- */
 interface IHomeView {
 
     fun moveCamera(latitude: Double, longitude: Double)
@@ -21,4 +18,5 @@ interface IHomeView {
     fun showProgress()
     fun hideProgress()
     fun showMessage(idString: Int)
+    fun showAlertNoGoogleMaps()
 }

@@ -1,15 +1,13 @@
 package entrego.com.android.ui.main.home
 
 import android.app.ProgressDialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +23,7 @@ import entrego.com.android.binding.Delivery
 import entrego.com.android.databinding.FragmentHomeBinding
 import entrego.com.android.location.LocationTracker
 import entrego.com.android.storage.model.EntregoRouteModel
+import entrego.com.android.storage.model.OrderStatus
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.accept.AcceptDeliveryFragment
 import entrego.com.android.ui.main.delivery.description.DescriptionFragment
@@ -32,7 +31,6 @@ import entrego.com.android.ui.main.dialog.GPSRequiredFragment
 import entrego.com.android.ui.main.home.presenter.HomePresenter
 import entrego.com.android.ui.main.home.presenter.IHomePresenter
 import entrego.com.android.ui.main.home.view.IHomeView
-import entrego.com.android.util.Logger
 import entrego.com.android.util.isGpsEnable
 import entrego.com.android.util.loading
 import entrego.com.android.util.snackSimple
@@ -53,7 +51,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     var mTimer: Timer? = null
     //Dnipro
-    val defaulLocation = LatLng(50.483472, 30.549829)
+    val defaulLocation = LatLng(8.386368, -81.0629982)
     var mCurrentLocation = defaulLocation
     var mMap: GoogleMap? = null
     var mPolylinePath: ArrayList<Polyline> = ArrayList()
@@ -64,7 +62,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         binder.delivery = Delivery.getInstance()
         retainInstance = true
         val mapView = binder.mapView
-        mProgress = ProgressDialog(activity)
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
 
@@ -103,6 +100,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun onStart() {
         super.onStart()
+        mPresenter.onStart(this)
+
         reenterTransition = true
         map_view.getMapAsync(this)
         LocalBroadcastManager.getInstance(context).registerReceiver(mReceiverCurrentLocation,
@@ -154,8 +153,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         settings.setZoomControlsEnabled(false)
         settings.setMapToolbarEnabled(false)
         moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
-        mPresenter.onStart(this)
+        mPresenter.onBuildView()
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -180,6 +180,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     var mProgress: ProgressDialog? = null
     override fun showProgress() {
+        mProgress = ProgressDialog(activity)
         mProgress?.loading()
     }
 
@@ -254,7 +255,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 .title(getString(R.string.finish_point)))
 
-        moveCamera(startLatLng.latitude, startLatLng.longitude)
+        if (mBinder?.delivery?.status == OrderStatus.PENDING.value)
+            moveCamera(startLatLng.latitude, startLatLng.longitude)
 
         if (home_sliding_container != null) {
             val fragment = DescriptionFragment.getInstance()
@@ -268,7 +270,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         navigation_clickable_ll.setOnClickListener {
             showNavigation(route.getCurrentPoint().point, route.getDestinationPoint().point)
         }
-
         startLocationTracker()
     }
 
@@ -279,11 +280,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         val sourceLon = source.longitude
         val destLat = destination.latitude
         val destLon = destination.longitude
-
-        val uri = String.format("http://maps.google.com/maps?saddr=$sourceLat,$sourceLon&daddr=$destLat,$destLon")
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
-        startActivity(intent)
+        try {
+            val uri = String.format("http://maps.google.com/maps?saddr=$sourceLat,$sourceLon&daddr=$destLat,$destLon")
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
+            startActivity(intent)
+        } catch (ex: ActivityNotFoundException) {
+            mPresenter.noGoogleMapsException()
+        }
     }
 
     fun moveCameraToCurrentLocation() {
@@ -296,12 +300,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
             val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
             val lon = intent?.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
             if (lat != 0.0 && lon != 0.0) {
+                mCurrentLocation = LatLng(lat, lon)
                 currentLocMarker?.remove()
                 currentLocMarker = mMap?.addMarker(MarkerOptions()
                         .position(mCurrentLocation)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_user_pin))
                         .draggable(false))
-                mCurrentLocation = LatLng(lat, lon)
             }
         }
     }
@@ -318,6 +322,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun dissmissAcceptFragment() {
         AcceptDeliveryFragment.dismiss(activity.supportFragmentManager)
+    }
+
+    override fun showAlertNoGoogleMaps() {
+        AlertDialog.Builder(activity)
+                .setTitle(R.string.text_error)
+                .setMessage(R.string.text_no_google_maps)
+                .setPositiveButton(android.R.string.ok, DialogInterface.OnClickListener { dialog, which -> })
+                .show()
     }
 
     val mGpsSwitchStateReceiver = object : BroadcastReceiver() {

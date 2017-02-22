@@ -19,9 +19,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * Created by bertalt on 30.11.16.
- */
 object UserVehicle {
 
     interface ResultListener {

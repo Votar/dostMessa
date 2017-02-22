@@ -26,18 +26,16 @@ class ChatHelpActivity : AppCompatActivity(), IChatView {
         navigation_toolbar.title = getString(R.string.ui_chatting)
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener { onBackPressed() }
+        presenter.onCreate(this)
+        setupLayouts()
+    }
 
+    fun setupLayouts() {
         val layoutManager = LinearLayoutManager(this)
-
-
         chat_recycler.setLayoutManager(layoutManager)
         chat_recycler.setItemAnimator(DefaultItemAnimator())
-
         mAdapter = ChatThreadAdapter()
         chat_recycler.setAdapter(mAdapter)
-
-        presenter.onCreate(this)
-
         chat_send.setOnClickListener {
 
             if (chat_user_message.text.toString().isNotEmpty()) {

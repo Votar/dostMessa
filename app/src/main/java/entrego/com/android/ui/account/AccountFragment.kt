@@ -5,7 +5,6 @@ import android.databinding.Observable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,13 +21,12 @@ import entrego.com.android.databinding.FragmentAccountBinding
 import entrego.com.android.ui.account.files.AddFilesActivity
 import entrego.com.android.ui.account.profile.ProfileFragment
 import entrego.com.android.ui.account.profile.edit.EditProfileActivity
-import entrego.com.android.ui.account.vehicle.VehicleFragment
 import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
+import entrego.com.android.ui.account.vehicle.new.MvpVehicleFragment
 import entrego.com.android.util.Logger
 import entrego.com.android.util.ui.ViewPagerAdapter
 import entrego.com.android.web.api.EntregoApi
 import kotlinx.android.synthetic.main.fragment_account.*
-import java.util.*
 
 class AccountFragment : Fragment() {
     private val tabTitles = intArrayOf(
@@ -77,24 +75,6 @@ class AccountFragment : Fragment() {
         UserProfileEntity.getInstance().removeOnPropertyChangedCallback(mProfileChangedListener)
     }
 
-    val mGlideListener = object : RequestListener<Int, GlideDrawable> {
-        override fun onException(e: Exception?, model: Int?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
-            Log.d("GLIDE", String.format(Locale.ROOT,
-                    "onException(%s, %s, %s, %s)", e, model, target, isFirstResource), e);
-            return false
-        }
-
-        override fun onResourceReady(resource: GlideDrawable?, model: Int?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
-            Log.d("GLIDE", String.format(Locale.ROOT,
-                    "onResourceReady(%s, %s, %s, %s, %s)", resource, model, target, isFromMemoryCache, isFirstResource));
-            return false
-        }
-
-
-    }
-
-
-
     fun setupUserPic() {
         val profile = binder?.userProfile?.profile
         Glide.with(context)
@@ -125,7 +105,7 @@ class AccountFragment : Fragment() {
     fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(childFragmentManager)
         adapter.addFragment(ProfileFragment(), getString(tabTitles[0]))
-        adapter.addFragment(VehicleFragment(), getString(tabTitles[1]))
+        adapter.addFragment(MvpVehicleFragment(), getString(tabTitles[1]))
         viewPager.adapter = adapter
     }
 }

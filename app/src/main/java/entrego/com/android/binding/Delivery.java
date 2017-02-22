@@ -8,7 +8,7 @@ import entrego.com.android.location.diraction.Route;
 import entrego.com.android.storage.model.CustomerModel;
 import entrego.com.android.storage.model.DeliveryModel;
 import entrego.com.android.storage.model.EntregoRouteModel;
-import entrego.com.android.web.model.response.delivery.EntregoPrice;
+import entrego.com.android.entity.EntregoPriceEntity;
 
 
 public class Delivery extends BaseObservable {
@@ -45,7 +45,7 @@ public class Delivery extends BaseObservable {
         notifyPropertyChanged(BR.instance);
     }
 
-    private EntregoPrice price;
+    private EntregoPriceEntity price;
 
     private int id;
     @Bindable
@@ -58,7 +58,7 @@ public class Delivery extends BaseObservable {
     private String size = "";
 
 
-    public EntregoPrice getPrice() {
+    public EntregoPriceEntity getPrice() {
         return price;
     }
 

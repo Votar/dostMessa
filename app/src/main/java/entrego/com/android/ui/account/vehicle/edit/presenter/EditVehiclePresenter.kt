@@ -7,9 +7,7 @@ import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
 import entrego.com.android.ui.account.vehicle.edit.view.IEditVehicleView
 import entrego.com.android.web.model.response.common.FieldErrorResponse
 
-/**
- * Created by bertalt on 02.12.16.
- */
+
 class EditVehiclePresenter(val view: IEditVehicleView) : IEditVehiclePresenter {
 
     companion object FIELDS {

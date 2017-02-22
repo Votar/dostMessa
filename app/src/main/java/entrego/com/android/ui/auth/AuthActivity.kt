@@ -24,12 +24,7 @@ import kotlinx.android.synthetic.main.activity_auth.*
 class AuthActivity : AppCompatActivity(), IAuthView {
 
 
-    override fun goToMainScreen() {
-        val intent = Intent(applicationContext, RootActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        startActivity(intent)
-        finish()
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +66,13 @@ class AuthActivity : AppCompatActivity(), IAuthView {
 
     override fun getContext(): Context {
         return applicationContext
+    }
+
+    override fun goToMainScreen() {
+        val intent = Intent(applicationContext, RootActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(intent)
+        finish()
     }
 
     override fun setErrorEmail(stringId: Int) {

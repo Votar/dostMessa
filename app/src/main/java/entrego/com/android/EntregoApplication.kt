@@ -1,15 +1,15 @@
 package entrego.com.android
 
-import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.crashlytics.android.Crashlytics
+import entrego.com.android.util.Logger
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.vehicle.edit.model.UserVehicle
-import entrego.com.android.util.Logger
 import io.fabric.sdk.android.Fabric
 import io.realm.Realm
 import net.danlew.android.joda.JodaTimeAndroid
 
-class EntregoApplication : Application() {
+class EntregoApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

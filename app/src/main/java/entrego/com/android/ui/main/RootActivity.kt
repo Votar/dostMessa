@@ -115,7 +115,6 @@ class RootActivity : AppCompatActivity() {
     }
 
     fun setupTabIcons() {
-
         for (i in 0..tabTitles.size - 1) {
             val nextOne = LayoutInflater.from(this).inflate(R.layout.tab_view, null)
             (nextOne.findViewById(R.id.tab_text) as TextView).text = getString(tabTitles[i])
@@ -137,7 +136,7 @@ class RootActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.root, menu)
+        menuInflater.inflate(R.menu.menu_root, menu)
         return true
     }
 
@@ -162,10 +161,8 @@ class RootActivity : AppCompatActivity() {
 
 
     fun checkLocationPermission() {
-
         val permissionFine = ContextCompat.checkSelfPermission(RootActivity@ this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
-
         when (permissionFine) {
             PackageManager.PERMISSION_GRANTED -> {
                 startLocationUpdates()

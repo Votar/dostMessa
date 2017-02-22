@@ -30,7 +30,7 @@
                 app:srcCompat="@drawable/logo_medium" />
 
             <TextView
-                android:text="@string/ui_success_calncelation"
+                android:text="@string/ui_success_cancellation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

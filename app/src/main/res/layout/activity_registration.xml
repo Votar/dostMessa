@@ -97,7 +97,6 @@
                         android:hint="@string/hint_phone_code"
                         android:inputType="phone"
                         android:minWidth="60dp"
-                        android:text="380"
                         android:nextFocusDown="@+id/registration_edit_phone" />
                 </android.support.design.widget.TextInputLayout>
 

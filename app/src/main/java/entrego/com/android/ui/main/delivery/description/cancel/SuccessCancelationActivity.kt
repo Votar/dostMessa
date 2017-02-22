@@ -15,4 +15,9 @@ class SuccessCancelationActivity : AppCompatActivity() {
         setSupportActionBar(navigation_toolbar)
         nav_toolbar_back.setOnClickListener({ NavUtils.navigateUpFromSameTask(this) })
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        NavUtils.navigateUpFromSameTask(this)
+    }
 }

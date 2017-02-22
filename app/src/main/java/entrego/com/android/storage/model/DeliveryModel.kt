@@ -1,6 +1,6 @@
 package entrego.com.android.storage.model
 
-import entrego.com.android.web.model.response.delivery.EntregoPrice
+import entrego.com.android.entity.EntregoPriceEntity
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
@@ -11,7 +11,7 @@ data class DeliveryModel(val id: Int,
                          val status: String,
                          val route: EntregoRouteModel,
                          val pickup: Long,
-                         val price: EntregoPrice,
+                         val price: EntregoPriceEntity,
                          val size:String) {
 
     fun formattedPickup(): String {

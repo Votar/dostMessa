@@ -21,11 +21,7 @@ import entrego.com.android.web.model.response.registration.EntregoResultRegistra
 import retrofit2.Call
 import retrofit2.http.*
 
-/**
- * Created by bertalt on 29.11.16.
- */
 object EntregoApi {
-
 
     const val BASE_URL = "http://62.149.12.54/mobile-gateway-1.0.0-SNAPSHOT/"
     const val CONTENT_JSON = "content-type: application/json"
