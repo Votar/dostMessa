@@ -21,7 +21,7 @@ import entrego.com.android.util.loading
 import entrego.com.android.util.snackSimple
 
 
-class AcceptDeliveryFragment private constructor() : Fragment(), IAcceptDeliveryView {
+class AcceptDeliveryFragment : Fragment(), IAcceptDeliveryView {
 
     companion object {
         val TAG = "AcceptDeliveryFragment"

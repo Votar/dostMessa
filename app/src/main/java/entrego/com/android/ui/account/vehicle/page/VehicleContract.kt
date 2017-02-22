@@ -1,4 +1,4 @@
-package entrego.com.android.ui.account.vehicle.new
+package entrego.com.android.ui.account.vehicle.page
 
 import entrego.com.android.mvp.presenter.IBaseMvpPresenter
 import entrego.com.android.mvp.view.IBaseMvpView

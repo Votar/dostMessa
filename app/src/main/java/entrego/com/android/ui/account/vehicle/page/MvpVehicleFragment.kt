@@ -1,4 +1,4 @@
-package entrego.com.android.ui.account.vehicle.new
+package entrego.com.android.ui.account.vehicle.page
 
 import android.os.Bundle
 import android.view.LayoutInflater

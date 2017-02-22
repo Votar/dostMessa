@@ -1,4 +1,4 @@
-package entrego.com.android.ui.account.vehicle.new.model
+package entrego.com.android.ui.account.vehicle.page.model
 
 import entrego.com.android.storage.model.UserVehicleModel
 import entrego.com.android.web.api.ApiCreator

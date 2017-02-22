@@ -1,8 +1,8 @@
-package entrego.com.android.ui.account.vehicle.new
+package entrego.com.android.ui.account.vehicle.page
 
 import entrego.com.android.mvp.presenter.BaseMvpPresenter
 import entrego.com.android.storage.model.UserVehicleModel
-import entrego.com.android.ui.account.vehicle.new.model.GetVehicleRequest
+import entrego.com.android.ui.account.vehicle.page.model.GetVehicleRequest
 
 class VehiclePresenter : BaseMvpPresenter<VehicleContract.View>(),
         VehicleContract.Presenter {

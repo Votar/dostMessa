@@ -22,7 +22,7 @@ import entrego.com.android.ui.account.files.AddFilesActivity
 import entrego.com.android.ui.account.profile.ProfileFragment
 import entrego.com.android.ui.account.profile.edit.EditProfileActivity
 import entrego.com.android.ui.account.vehicle.edit.EditVehicleActivity
-import entrego.com.android.ui.account.vehicle.new.MvpVehicleFragment
+import entrego.com.android.ui.account.vehicle.page.MvpVehicleFragment
 import entrego.com.android.util.Logger
 import entrego.com.android.util.ui.ViewPagerAdapter
 import entrego.com.android.web.api.EntregoApi
