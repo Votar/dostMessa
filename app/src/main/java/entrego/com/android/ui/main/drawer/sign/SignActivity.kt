@@ -41,13 +41,13 @@ class SignActivity : AppCompatActivity(), ISignView {
         sign_next.setOnClickListener {
             val token = EntregoStorage.getToken()
             val signPic = sign_drawing_ll.createCapture(DrawingCapture.BYTES)
-            if (signPic is ByteArray)
+            if (signPic is ByteArray) {
+                Logger.logd("BYTEARRAY : " + signPic.size.toString())
                 presenter.sendSign(token, signPic)
-            else
+            } else
                 Logger.loge(TAG, "Cannot parse image from DrawView")
         }
     }
-
 
 
     override fun onDestroy() {

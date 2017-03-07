@@ -13,9 +13,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * Created by Admin on 14.01.2017.
- */
 object DrawerModel {
     interface ChangeStatusListener {
         fun onSuccessChange(updatedDelivery: DeliveryModel)

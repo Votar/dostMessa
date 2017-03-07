@@ -1,7 +1,6 @@
 package entrego.com.android.ui.main.accept
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -16,32 +15,33 @@ import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.accept.presenter.AcceptDeliveryPresenter
 import entrego.com.android.ui.main.accept.presenter.IAcceptDeliveryPresenter
 import entrego.com.android.ui.main.accept.view.IAcceptDeliveryView
-import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.loading
+import entrego.com.android.util.showSnack
 import entrego.com.android.util.snackSimple
 
 
 class AcceptDeliveryFragment : Fragment(), IAcceptDeliveryView {
+
 
     companion object {
         val TAG = "AcceptDeliveryFragment"
         fun show(supportFragmentManager: FragmentManager) {
 
             val current = supportFragmentManager.findFragmentByTag(TAG)
-            if (current != null) return
-
-            val fragment = AcceptDeliveryFragment()
-
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.root_accept_container, fragment, TAG)
-                    .commit()
+            if (current == null) {
+                val fragment = AcceptDeliveryFragment()
+                supportFragmentManager.beginTransaction()
+                        .add(R.id.root_accept_container, fragment, TAG)
+                        .commit()
+            }
         }
 
         fun dismiss(supportFragmentManager: FragmentManager) {
-            val current = supportFragmentManager.findFragmentByTag(TAG) ?: return
-            supportFragmentManager.beginTransaction()
-                    .remove(current)
-                    .commit()
+            supportFragmentManager.findFragmentByTag(TAG)?.apply {
+                supportFragmentManager.beginTransaction()
+                        .remove(this)
+                        .commit()
+            }
         }
     }
 
@@ -82,9 +82,11 @@ class AcceptDeliveryFragment : Fragment(), IAcceptDeliveryView {
         dismiss(activity.supportFragmentManager)
     }
 
-    override fun showMessage(stringId: Int) {
-        val message = getString(stringId)
+    override fun showMessage(message: String?) {
         view?.snackSimple(message)
     }
 
+    override fun showMessage(stringId: Int) {
+        view?.snackSimple(getString(stringId))
+    }
 }

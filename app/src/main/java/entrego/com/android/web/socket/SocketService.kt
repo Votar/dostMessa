@@ -16,31 +16,40 @@ import com.neovisionaries.ws.client.WebSocketFrame
 import entrego.com.android.util.Logger
 import java.net.Socket
 
-/**
- * Created by Admin on 13.01.2017.
- */
 class SocketService : Service() {
     companion object {
         val ACTION_FILTER = "entrego.com.android.web.socket.SOCKET_RECEIVER"
         val KEY_EVENT = "key_event"
         val KEY_MESSAGE = "ext_key_message"
         val KEY_LOCATION = "ext_key_latlng"
+        val RECEIVED_KEY = "service_ext_key"
+
     }
 
-    enum class SocketEvent(val value: String) {
+    enum class SocketServiceEvents(val value: String) {
         CONNECT("connect"),
         DISCONNECT("disconnect"),
         SEND_TEXT("message")
     }
-    var mSocketClient : SocketClient? = null
-    
+
+    var mSocketClient: SocketClient? = null
+    var mReceiveMessagesListener = object : SocketContract.ReceiveMessagesListener {
+        override fun receivedMessage(message: String, event: SocketConnectionEvents) {
+            applicationContext?.apply {
+                val brManager = LocalBroadcastManager.getInstance(this)
+                val intent = Intent(event.value)
+                intent.putExtra(RECEIVED_KEY, message)
+                brManager.sendBroadcast(intent)
+            }
+        }
+    }
     val mReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.hasExtra(KEY_EVENT) == true)
                 when (intent?.getStringExtra(KEY_EVENT)) {
-                    SocketEvent.CONNECT.value -> mSocketClient?.openConnection()
-                    SocketEvent.DISCONNECT.value -> mSocketClient?.closeConnection()
-                    SocketEvent.SEND_TEXT.value -> {
+                    SocketServiceEvents.CONNECT.value -> mSocketClient?.openConnection()
+                    SocketServiceEvents.DISCONNECT.value -> mSocketClient?.closeConnection()
+                    SocketServiceEvents.SEND_TEXT.value -> {
                         Logger.logd("Received event in service")
                         val jsonLocation = intent?.getStringExtra(KEY_LOCATION) ?: "MOCKED_LOCATION"
                         mSocketClient?.sendLocation(jsonLocation)
@@ -56,7 +65,7 @@ class SocketService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        mSocketClient = SocketClient()
+        mSocketClient = SocketClient(mReceiveMessagesListener)
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, IntentFilter(ACTION_FILTER))
     }
 
@@ -70,5 +79,6 @@ class SocketService : Service() {
         mSocketClient?.closeConnection()
         Logger.logd("SocketService destroyed")
     }
+
 
 }

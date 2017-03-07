@@ -1,15 +1,12 @@
 package entrego.com.android.web.socket
 
-import com.google.android.gms.maps.model.LatLng
+import android.os.Handler
 import com.google.gson.Gson
 import com.neovisionaries.ws.client.*
 import entrego.com.android.util.Logger
-import java.util.logging.Handler
 
-/**
- * Created by Admin on 13.01.2017.
- */
-class SocketClient {
+class SocketClient(val serverListener: SocketContract.ReceiveMessagesListener) {
+
 
     val END_POINT = "ws://62.149.12.54/mobile-gateway-1.0.0-SNAPSHOT/status"
     val TIMEOUT = 5000 //5sec
@@ -31,8 +28,6 @@ class SocketClient {
         override fun onDisconnected(websocket: WebSocket?, serverCloseFrame: WebSocketFrame?, clientCloseFrame: WebSocketFrame?, closedByServer: Boolean) {
             super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer)
             Logger.logd(TAG, "Socked disconnected \n is need - $isNeed")
-//            if (isNeed)
-//                connectAsync()
         }
 
         override fun onConnected(websocket: WebSocket?, headers: MutableMap<String, MutableList<String>>?) {
@@ -51,7 +46,7 @@ class SocketClient {
                 WebSocketError.NOT_IN_CREATED_STATE ->
                     if (isNeed) {
                         Logger.loge(TAG_ERROR, "Should reconnect after failure connect attemp")
-//                        connectAsync()
+                        Handler().postDelayed({connectAsync()},1500)
                     }
                 else -> {
                     Logger.loge(TAG_ERROR, exception?.error.toString() ?: "Socket error")
@@ -77,7 +72,7 @@ class SocketClient {
 
     private fun connectAsync() {
         mSocketConnection?.disconnect()
-        mSocketConnection = mSocketConnection?.recreate(TIMEOUT)
+        mSocketConnection = mSocketConnection?.recreate(0)
         mSocketConnection = mSocketConnection?.connectAsynchronously()
     }
 

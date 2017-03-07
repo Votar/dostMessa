@@ -13,6 +13,5 @@ interface IDrawerView {
 
     fun refreshView()
     fun buildMultiDelivery()
-    fun signBill()
     fun showMessage(message:String?)
 }

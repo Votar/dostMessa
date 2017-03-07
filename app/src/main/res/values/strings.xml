@@ -166,6 +166,8 @@
     <string name="text_decline">Decline</string>
     <string name="text_error">Error</string>
     <string name="text_no_google_maps">To use navigation you should install Google Maps application</string>
+    <string name="notification_received_delivery">Received delivery</string>
+    <string name="notification_message_delivery">Total sum for delivery:</string>
 
 
 </resources>

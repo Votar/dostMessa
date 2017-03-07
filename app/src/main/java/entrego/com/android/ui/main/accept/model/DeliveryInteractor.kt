@@ -60,8 +60,8 @@ object DeliveryInteractor {
                         when (result?.code) {
                             ResponseContract.OK -> listener?.onSuccess()
                             ResponseContract.INCORRECT_ORDER_STATE -> {
-                                DeliveryRequest.requestDelivery(null)
-                                listener?.onFailure(result?.message, result?.code)
+                                DeliveryRequest.updateDelivery(token, null)
+                                listener?.onFailure(result.message, result.code)
                             }
                             else -> listener?.onFailure(result?.message, result?.code)
                         }

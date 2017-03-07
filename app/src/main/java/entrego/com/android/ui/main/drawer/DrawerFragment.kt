@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.status_service_waiting_for_ship.*
 class DrawerFragment : Fragment(), IDrawerView {
 
 
-
     var presenter: IDrawerPresenter = DrawerPresenter()
     var binder: FragmentDrawerBinding? = null
 
@@ -64,13 +63,13 @@ class DrawerFragment : Fragment(), IDrawerView {
         }
         delivery_states_waiting_for_delivery_sw.setOnCheckedChangeListener { button, state ->
             if (state) {
-                presenter.changeStatus(button as SwitchCompat,PointStatus.WAITING)
+                presenter.changeStatus(button as SwitchCompat, PointStatus.WAITING)
                 button.isEnabled = false
             }
         }
         delivery_states_delivered_sw.setOnCheckedChangeListener { button, state ->
             if (state) {
-                presenter.changeStatus(button as SwitchCompat,PointStatus.DONE)
+                presenter.changeStatus(button as SwitchCompat, PointStatus.DONE)
                 button.isEnabled = false
             }
         }
@@ -93,22 +92,18 @@ class DrawerFragment : Fragment(), IDrawerView {
             presenter.buildSwitchListByState(Delivery.getInstance().route, getSwitchList())
     }
 
-    override fun signBill() {
-    }
-
     override fun showMessage(message: String?) {
         view?.snackSimple(message)
     }
 
-    fun getSwitchList(): List<SwitchCompat> {
-        return listOf(
-                delivery_states_on_way_sw,
-                delivery_states_waiting_for_ship_sw,
-                delivery_states_ship_on_way_sw,
-                delivery_states_waiting_for_delivery_sw,
-                delivery_states_delivered_sw
-        )
-    }
+    fun getSwitchList(): List<SwitchCompat> =
+            listOf(
+            delivery_states_on_way_sw,
+            delivery_states_waiting_for_ship_sw,
+            delivery_states_ship_on_way_sw,
+            delivery_states_waiting_for_delivery_sw,
+            delivery_states_delivered_sw )
+
 
     fun startSignActivity() {
         val intent = Intent(context, SignActivity::class.java)

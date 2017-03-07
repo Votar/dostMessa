@@ -1,11 +1,15 @@
 package entrego.com.android.ui.main.home
 
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.ProgressDialog
 import android.content.*
+import android.content.Context.NOTIFICATION_SERVICE
 import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.NotificationCompat
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -25,9 +29,11 @@ import entrego.com.android.location.LocationTracker
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.model.OrderStatus
 import entrego.com.android.storage.preferences.EntregoStorage
+import entrego.com.android.ui.main.RootActivity
 import entrego.com.android.ui.main.accept.AcceptDeliveryFragment
 import entrego.com.android.ui.main.delivery.description.DescriptionFragment
 import entrego.com.android.ui.main.dialog.GPSRequiredFragment
+import entrego.com.android.ui.main.home.model.NotificationContract
 import entrego.com.android.ui.main.home.presenter.HomePresenter
 import entrego.com.android.ui.main.home.presenter.IHomePresenter
 import entrego.com.android.ui.main.home.view.IHomeView
@@ -42,6 +48,7 @@ import java.util.*
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
+
 
     companion object {
         val REQUEST_ACCESS_FINE_LOCATION = 0x811
@@ -81,7 +88,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
             run {
                 if (state) {
                     LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(SocketService.ACTION_FILTER)
-                            .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.DISCONNECT.value))
+                            .putExtra(SocketService.KEY_EVENT, SocketService.SocketServiceEvents.DISCONNECT.value))
                     val token = EntregoStorage.getToken()
                     mPresenter.sendOffline(token)
                     stopLocationTracker()
@@ -132,7 +139,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         LocalBroadcastManager
                 .getInstance(context)
                 .sendBroadcast(Intent(SocketService.ACTION_FILTER)
-                        .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.CONNECT.value))
+                        .putExtra(SocketService.KEY_EVENT, SocketService.SocketServiceEvents.CONNECT.value))
         mTimer?.schedule(object : TimerTask() {
             override fun run() {
                 val token = EntregoStorage.getToken()
@@ -141,7 +148,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 LocalBroadcastManager
                         .getInstance(context)
                         .sendBroadcast(Intent(SocketService.ACTION_FILTER)
-                                .putExtra(SocketService.KEY_EVENT, SocketService.SocketEvent.SEND_TEXT.value))
+                                .putExtra(SocketService.KEY_EVENT, SocketService.SocketServiceEvents.SEND_TEXT.value))
             }
         }, 2000, 3000)
     }
@@ -298,7 +305,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     val mReceiverCurrentLocation = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context?, intent: Intent?) {
             val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
-            val lon = intent?.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
+            val lon = intent.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
             if (lat != 0.0 && lon != 0.0) {
                 mCurrentLocation = LatLng(lat, lon)
                 currentLocMarker?.remove()
@@ -332,14 +339,28 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 .show()
     }
 
-    val mGpsSwitchStateReceiver = object : BroadcastReceiver() {
-        override fun onReceive(ctx: Context, p1: Intent?) {
-            if (!isGpsEnable(ctx)) {
-                GPSRequiredFragment.show(activity.supportFragmentManager)
-                val token = EntregoStorage.getToken()
-                switcher_connected.isChecked = false
-                switcher_disconnected.isChecked = true
-            }
-        }
+    override fun sendDeliveryReceivedNotification(sum: String) {
+        val mBuilder: NotificationCompat.Builder =
+                NotificationCompat.Builder(activity)
+                        .setContentTitle(getString(R.string.notification_received_delivery))
+                        .setSmallIcon(R.drawable.accept_icon)
+                        .setContentText(getString(R.string.notification_message_delivery) + sum)
+
+        val resultIntent = Intent(activity, RootActivity::class.java)
+
+        val resultPendingIntent =
+                PendingIntent.getActivity(
+                        activity,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                )
+
+        mBuilder.setContentIntent(resultPendingIntent)
+
+        val mNotifyMgr = activity.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        mNotifyMgr.notify(NotificationContract.NEW_DELIVERY_ID, mBuilder.build())
+
     }
+
 }

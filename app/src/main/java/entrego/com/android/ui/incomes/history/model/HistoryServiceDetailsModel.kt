@@ -1,17 +1,16 @@
 package entrego.com.android.ui.incomes.history.model
 
-import com.android.annotations.Nullable
-import entrego.com.android.entity.HistoryServicesPreviewEntity
 import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi
-import entrego.com.android.web.model.request.statistic.IncomesBody
 import entrego.com.android.web.model.response.statistic.EntregoHistoryServiceDetails
-import entrego.com.android.web.model.response.statistic.EntregoResultHistoryService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
+import retrofit2.http.Path
 
 /**
  * Created by Admin on 22.01.2017.

@@ -20,9 +20,6 @@ import entrego.com.android.location.diraction.PostUserLocation
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.util.Logger
 
-/**
- * Created by bertalt on 05.12.16.
- */
 class LocationService(val name: String) : IntentService(name), GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public constructor() : this(LocationService::class.java.simpleName) {

@@ -1,6 +1,5 @@
 package entrego.com.android.ui.incomes.history.model
 
-import com.android.annotations.Nullable
 import entrego.com.android.binding.HistoryServiceBinding
 import entrego.com.android.entity.HistoryServicesPreviewEntity
 import entrego.com.android.util.formattedDate
@@ -8,6 +7,7 @@ import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi
 import entrego.com.android.web.model.request.statistic.IncomesBody
 import entrego.com.android.web.model.response.statistic.EntregoResultHistoryService
+import org.jetbrains.annotations.Nullable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

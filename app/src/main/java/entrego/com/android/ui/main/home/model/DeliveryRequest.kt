@@ -33,13 +33,13 @@ object DeliveryRequest {
 
                         if (response?.body() != null) {
 
-                            val responseResult = response?.body()
+                            val responseResult = response.body()
                             Logger.logd(responseResult.toString())
 
                             when (responseResult?.code) {
                                 0 -> {
                                     if (Delivery.getInstance().route == null)
-                                        Delivery.getInstance().update(responseResult?.payload)
+                                        Delivery.getInstance().update(responseResult.payload)
                                     listener?.onSuccessGetDelivery()
                                 }
                                 9 -> {
@@ -58,5 +58,31 @@ object DeliveryRequest {
 
                 })
 
+    }
+
+    fun updateDelivery(token: String, listener: ResultGetDelivery?) {
+        ApiCreator.server.create(EntregoApi.GetDelivery::class.java)
+                .getDelivery(token)
+                .enqueue(object : Callback<EntregoResultGetDelivery> {
+                    override fun onResponse(call: Call<EntregoResultGetDelivery>?, response: Response<EntregoResultGetDelivery>?) {
+
+                        response?.body()?.apply {
+                            when (code) {
+                                0 -> {
+                                    Delivery.getInstance().update(payload)
+                                    listener?.onSuccessGetDelivery()
+                                }
+                                9 -> Delivery.getInstance().update(null)
+                                2 -> EventBus.getDefault().post(LogoutEvent())
+
+                                else -> listener?.onFailureGetDelivery(code, message)
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<EntregoResultGetDelivery>?, t: Throwable?) {
+                        listener?.onFailureGetDelivery(null, t?.message)
+                    }
+                })
     }
 }

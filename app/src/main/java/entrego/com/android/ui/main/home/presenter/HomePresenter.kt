@@ -40,9 +40,10 @@ class HomePresenter : IHomePresenter {
     override fun onBuildView() {
         val delivery = Delivery.getInstance()
 
-        if (delivery.status.equals(OrderStatus.PENDING.value, true))
+        if (delivery.status.equals(OrderStatus.PENDING.value, true)) {
             view?.showAcceptFragment()
-        else
+            view?.sendDeliveryReceivedNotification(delivery.price.toView())
+        } else
             view?.dissmissAcceptFragment()
 
         if (delivery.route != null) {

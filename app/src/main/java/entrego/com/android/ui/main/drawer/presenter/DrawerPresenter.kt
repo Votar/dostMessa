@@ -7,6 +7,7 @@ import entrego.com.android.binding.Delivery
 import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.model.PointStatus
+import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.drawer.model.DrawerModel
 import entrego.com.android.ui.main.drawer.view.IDrawerView
 import entrego.com.android.ui.main.home.model.DeliveryRequest
@@ -14,6 +15,7 @@ import entrego.com.android.util.Logger
 
 
 class DrawerPresenter : IDrawerPresenter {
+
 
     var mView: IDrawerView? = null
     var mToken: String = ""
@@ -64,11 +66,12 @@ class DrawerPresenter : IDrawerPresenter {
                         switchList[4].isEnabled = true
                         switchList[4].isChecked = false
                     }
-                    PointStatus.DONE -> mView?.signBill()
+                    PointStatus.DONE -> {
+                    }
                     else -> {
                     }
                 }
-            };
+            }
             else -> {
             }
         }
@@ -85,9 +88,9 @@ class DrawerPresenter : IDrawerPresenter {
             override fun onFailureChange(code: Int?, message: String?) {
                 switch.isChecked = false
                 switch.isEnabled = true
-                mView?.showMessage(message)
-                when(code){
-                    8->DeliveryRequest.requestDelivery(null)
+                when (code) {
+                    8 -> updateDelivery()
+                    else -> mView?.showMessage(message)
                 }
             }
         }
@@ -98,5 +101,10 @@ class DrawerPresenter : IDrawerPresenter {
     override fun onStop() {
         Delivery.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
         mView = null
+    }
+
+    override fun updateDelivery() {
+        val token = EntregoStorage.getToken()
+        DeliveryRequest.updateDelivery(token, null)
     }
 }

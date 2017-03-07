@@ -11,4 +11,5 @@ interface IDrawerPresenter {
     fun onStop()
     fun changeStatus(switch:SwitchCompat, status :PointStatus)
     fun buildSwitchListByState(route: EntregoRouteModel, switchList: List<SwitchCompat>)
+    fun updateDelivery()
 }

@@ -13,6 +13,7 @@ interface IHomeView {
     fun prepareRoute(route: EntregoRouteModel)
     fun buildPath(path: String)
     fun showAcceptFragment()
+    fun sendDeliveryReceivedNotification(sum : String)
     fun dissmissAcceptFragment()
     fun getFragmentContext(): Context
     fun showProgress()

@@ -2,6 +2,7 @@ package entrego.com.android.binding;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+
 import com.android.databinding.library.baseAdapters.BR;
 
 import entrego.com.android.storage.model.UserProfileModel;
