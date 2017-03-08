@@ -6,6 +6,7 @@ import android.text.TextUtils
 import com.google.gson.Gson
 import entrego.com.android.storage.model.UserProfileModel
 import entrego.com.android.storage.model.UserVehicleModel
+import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.event_bus.LogoutEvent
 import org.greenrobot.eventbus.EventBus
 
@@ -37,7 +38,7 @@ object EntregoStorage {
 
     fun setUserProfile(profile: UserProfileModel?) {
         profile?.let {
-            val jsonProfile = Gson().toJson(it, UserProfileModel::class.java)
+            val jsonProfile = GsonHolder.instance.toJson(it, UserProfileModel::class.java)
             storage.edit().putString(KEY_USER_PROFILE, jsonProfile).commit()
         }
     }
@@ -49,7 +50,7 @@ object EntregoStorage {
         if (jsonProfile.isEmpty())
             return null
         else
-            return Gson().fromJson(jsonProfile, UserProfileModel::class.java)
+            return GsonHolder.instance.fromJson(jsonProfile, UserProfileModel::class.java)
 
     }
 
@@ -60,13 +61,13 @@ object EntregoStorage {
         if (jsonProfile.isEmpty())
             return null
         else
-            return Gson().fromJson(jsonProfile, UserVehicleModel::class.java)
+            return GsonHolder.instance.fromJson(jsonProfile, UserVehicleModel::class.java)
 
     }
 
     fun setUserVehicle(vehicle: UserVehicleModel?) {
 
-        val jsonVehicle = Gson().toJson(vehicle, UserVehicleModel::class.java)
+        val jsonVehicle =GsonHolder.instance.toJson(vehicle, UserVehicleModel::class.java)
         storage.edit().putString(KEY_USER_VEHICLE, jsonVehicle).commit()
     }
 

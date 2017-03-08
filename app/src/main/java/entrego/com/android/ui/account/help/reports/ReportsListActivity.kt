@@ -16,6 +16,7 @@ import entrego.com.android.ui.account.help.reports.presenter.IReportsListPresent
 import entrego.com.android.ui.account.help.reports.presenter.ReportsListPresenter
 import entrego.com.android.ui.account.help.reports.view.IReportsListView
 import entrego.com.android.ui.faq.ReportsAdapter
+import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.UserMessageUtil
 import kotlinx.android.synthetic.main.activity_reports_list.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
@@ -43,7 +44,7 @@ class ReportsListActivity : AppCompatActivity(), IReportsListView {
     val onReportClickListener = object : ReportsAdapter.ReportClickListener {
         override fun onReportClicked(item: ReportEntity) {
             val intent = Intent(applicationContext, ReportDetailsActivity::class.java)
-            val json = Gson().toJson(item, ReportEntity::class.java)
+            val json = GsonHolder.instance.toJson(item, ReportEntity::class.java)
             intent.putExtra(ReportDetailsActivity.EXT_KEY_REPORT, json)
             startActivity(intent)
         }

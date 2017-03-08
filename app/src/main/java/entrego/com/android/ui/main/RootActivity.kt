@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatDrawableManager
-import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -24,7 +23,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import entrego.com.android.R
 import entrego.com.android.location.LocationTracker
-import entrego.com.android.web.socket.SocketService
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.auth.AuthActivity
@@ -35,12 +33,11 @@ import entrego.com.android.ui.main.dialog.LocationRequiredFragment
 import entrego.com.android.ui.main.drawer.DrawerFragment
 import entrego.com.android.ui.main.home.HomeFragment
 import entrego.com.android.ui.main.home.model.DeliveryRequest
-import entrego.com.android.ui.main.home.model.OfflineRequest
 import entrego.com.android.ui.score.ScoreFragment
 import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.util.isGpsEnable
 import entrego.com.android.util.ui.ViewPagerAdapter
-import entrego.com.android.web.model.response.CommonResponseListener
+import entrego.com.android.web.socket.SocketService
 import kotlinx.android.synthetic.main.app_bar_root.*
 import kotlinx.android.synthetic.main.content_drawer.*
 import kotlinx.android.synthetic.main.content_root.*
@@ -54,22 +51,7 @@ class RootActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
         startService(Intent(this, SocketService::class.java))
-        setSupportActionBar(root_toolbar)
-        supportActionBar?.title = ""
-
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
-        val toggle = ActionBarDrawerToggle(
-                this, drawer, root_toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.addDrawerListener(toggle)
-        toggle.syncState()
-        root_drawer_container.setOnClickListener { }
-        setupViewPager(main_viewpager)
-        val fragment = DrawerFragment()
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.root_drawer_container, fragment)
-                .commit()
-        main_tabs.setupWithViewPager(main_viewpager)
-        setupTabIcons()
+        setupLayouts()
         EventBus.getDefault().register(this)
     }
 
@@ -88,6 +70,24 @@ class RootActivity : AppCompatActivity() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
         stopService(Intent(this, SocketService::class.java))
+    }
+
+    fun setupLayouts() {
+        setSupportActionBar(root_toolbar)
+        supportActionBar?.title = ""
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        val toggle = ActionBarDrawerToggle(
+                this, drawer, root_toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
+        root_drawer_container.setOnClickListener { }
+        setupViewPager(main_viewpager)
+        val fragment = DrawerFragment()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.root_drawer_container, fragment)
+                .commit()
+        main_tabs.setupWithViewPager(main_viewpager)
+        setupTabIcons()
     }
 
     private val tabIcons = intArrayOf(
@@ -206,7 +206,6 @@ class RootActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }
-
 
 
     val mGpsSwitchStateReceiver = object : BroadcastReceiver() {

@@ -58,17 +58,15 @@ class HomePresenter : IHomePresenter {
 
 
     override fun sendOffline(token: String) {
-        view?.showProgress()
         OfflineRequest.request(token, object : CommonResponseListener {
             override fun onSuccessResponse() {
-                view?.hideProgress()
             }
 
             override fun onFailureResponse(code: Int?, message: String?) {
-                view?.hideProgress()
+                view?.errorInSendOffline()
                 when (code) {
                     2 -> EventBus.getDefault().post(LogoutEvent())
-                    else -> view?.showMessage(R.string.er_default_network_error)
+                    else -> view?.showMessage(message)
                 }
             }
 

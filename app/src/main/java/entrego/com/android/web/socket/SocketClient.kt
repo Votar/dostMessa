@@ -3,6 +3,7 @@ package entrego.com.android.web.socket
 import android.os.Handler
 import com.google.gson.Gson
 import com.neovisionaries.ws.client.*
+import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.Logger
 
 class SocketClient(val serverListener: SocketContract.ReceiveMessagesListener) {
@@ -11,7 +12,7 @@ class SocketClient(val serverListener: SocketContract.ReceiveMessagesListener) {
     val END_POINT = "ws://62.149.12.54/mobile-gateway-1.0.0-SNAPSHOT/status"
     val TIMEOUT = 5000 //5sec
     var mSocketConnection: WebSocket? = null
-    val mGson = Gson()
+    val mGson = GsonHolder.instance
     var isNeed: Boolean
 
     init {

@@ -48,8 +48,6 @@ import java.util.*
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
-
-
     companion object {
         val REQUEST_ACCESS_FINE_LOCATION = 0x811
     }
@@ -362,5 +360,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         mNotifyMgr.notify(NotificationContract.NEW_DELIVERY_ID, mBuilder.build())
 
     }
+
+    override fun errorInSendOffline() {
+        switcher_disconnected.isChecked = true
+    }
+
+    override fun showMessage(message: String?) {
+        view?.snackSimple(message)
+    }
+
 
 }

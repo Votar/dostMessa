@@ -9,6 +9,7 @@ import entrego.com.android.R
 import entrego.com.android.databinding.ActivityReportSendMessageBinding
 import entrego.com.android.ui.account.help.reports.model.ReportEntity
 import entrego.com.android.ui.account.profile.UserProfile
+import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.loadSimple
 import kotlinx.android.synthetic.main.activity_report_send_message.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
@@ -30,7 +31,7 @@ class ReportSendMessageActivity : AppCompatActivity() {
                 binder.report = report
             } else {
                 val jsonReport = intent.getStringExtra(EXT_KEY_REPORT)
-                val report = Gson().fromJson(jsonReport, ReportEntity::class.java)
+                val report = GsonHolder.instance.fromJson(jsonReport, ReportEntity::class.java)
                 binder.report = report
             }
         }

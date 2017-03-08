@@ -19,5 +19,7 @@ interface IHomeView {
     fun showProgress()
     fun hideProgress()
     fun showMessage(idString: Int)
+    fun showMessage(message:String?)
     fun showAlertNoGoogleMaps()
+    fun errorInSendOffline()
 }

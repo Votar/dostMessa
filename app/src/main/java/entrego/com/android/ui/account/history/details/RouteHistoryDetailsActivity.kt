@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import entrego.com.android.R
 import entrego.com.android.databinding.ActivityRouteHistoryDetailsBinding
 import entrego.com.android.storage.model.DeliveryModel
+import entrego.com.android.util.GsonHolder
 import kotlinx.android.synthetic.main.activity_route_history_details.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
@@ -21,7 +22,7 @@ class RouteHistoryDetailsActivity : AppCompatActivity() {
         private const val DELIVERY_KEY = "hist_del_k"
         fun start(context: Context, delivery: DeliveryModel) {
             val intent = Intent(context, RouteHistoryDetailsActivity::class.java)
-            intent.putExtra(DELIVERY_KEY, Gson().toJson(delivery, DeliveryModel::class.java))
+            intent.putExtra(DELIVERY_KEY, GsonHolder.instance.toJson(delivery, DeliveryModel::class.java))
             context.startActivity(intent)
         }
     }
@@ -30,7 +31,7 @@ class RouteHistoryDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivityRouteHistoryDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_route_history_details)
         val deliveryJson = intent.getStringExtra(DELIVERY_KEY)
-        val delivery = Gson().fromJson(deliveryJson, DeliveryModel::class.java)
+        val delivery = GsonHolder.instance.fromJson(deliveryJson, DeliveryModel::class.java)
         binding.model = delivery
         binding.startPoint = delivery.route.waypoints[0]
         val wayLastIndex = delivery.route.waypoints.lastIndex

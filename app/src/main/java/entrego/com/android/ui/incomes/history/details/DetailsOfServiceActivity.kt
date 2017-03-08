@@ -11,6 +11,7 @@ import entrego.com.android.R
 import entrego.com.android.databinding.ActivityDetailsOfServiceBinding
 import entrego.com.android.storage.model.DeliveryModel
 import entrego.com.android.ui.incomes.history.details.view.IDetailsOfServiceView
+import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.getStaticMapUrl
 import entrego.com.android.util.loadSimple
@@ -23,7 +24,7 @@ class DetailsOfServiceActivity : AppCompatActivity(), IDetailsOfServiceView {
         val KEY_MODEL = "ext_key_m"
         fun getIntent(context: Context, model: DeliveryModel): Intent {
             val intent = Intent(context, DetailsOfServiceActivity::class.java)
-            intent.putExtra(KEY_MODEL, Gson().toJson(model, DeliveryModel::class.java))
+            intent.putExtra(KEY_MODEL, GsonHolder.instance.toJson(model, DeliveryModel::class.java))
             return intent
         }
     }
@@ -35,7 +36,7 @@ class DetailsOfServiceActivity : AppCompatActivity(), IDetailsOfServiceView {
         val binding = DataBindingUtil.setContentView<ActivityDetailsOfServiceBinding>(this, R.layout.activity_details_of_service)
         if (intent.hasExtra(KEY_MODEL)) {
             val jsonModel = intent.getStringExtra(KEY_MODEL)
-            val model = Gson().fromJson(jsonModel, DeliveryModel::class.java)
+            val model = GsonHolder.instance.fromJson(jsonModel, DeliveryModel::class.java)
             binding.model = model
             binding.startPoint = model.route.waypoints[0]
             val lastIndex = model.route.waypoints.lastIndex
