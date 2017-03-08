@@ -1,37 +1,20 @@
 package entrego.com.android.ui.main.delivery.description
 
-import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import entrego.com.android.R
-import entrego.com.android.databinding.ItemDeliveryPointBinding
-import entrego.com.android.storage.model.EntregoPoint
-import entrego.com.android.storage.model.EntregoPointStatus
-import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.binding.EntregoPointBinding
+import entrego.com.android.databinding.ItemDeliveryPointBinding
+import entrego.com.android.entity.EntregoWaypoint
 import entrego.com.android.storage.model.PointStatus
 import entrego.com.android.util.Logger
-import java.util.*
 
-/**
- * Created by bertalt on 07.12.16.
- */
-class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<PointsAdapter.ViewHolder>() {
 
-    val addresses: List<EntregoPointBinding>
-
-    init {
-
-        addresses = route.toList()
-        Logger.logd(addresses.toString())
-
-    }
+class PointsAdapter(val history: Array<EntregoWaypoint>) : RecyclerView.Adapter<PointsAdapter.ViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one mView per item, and
@@ -52,7 +35,7 @@ class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<Po
 
         var resId = R.drawable.points_list_next_pin
 
-        val nextPoint = addresses[position]
+        val nextPoint = history[position]
 
         holder?.binder?.point = nextPoint
 
@@ -78,6 +61,6 @@ class PointsAdapter(route: Array<EntregoPointBinding>) : RecyclerView.Adapter<Po
     }
 
     override fun getItemCount(): Int {
-        return addresses.size
+        return history.size
     }
 }

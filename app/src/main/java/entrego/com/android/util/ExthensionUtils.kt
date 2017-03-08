@@ -24,6 +24,7 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.binding.EntregoPointBinding
+import entrego.com.android.entity.EntregoWaypoint
 import entrego.com.android.entity.IncomeEntity
 import entrego.com.android.storage.model.EntregoPoint
 import entrego.com.android.storage.preferences.EntregoStorage
@@ -202,7 +203,7 @@ fun Long.formattedDefaultDate(): String {
     return timestamp
 }
 
-fun Array<EntregoPointBinding>.getStaticMapUrl(path: String?): String {
+fun Array<EntregoWaypoint>.getStaticMapUrl(path: String?): String {
     val staticPartUrl = "https://maps.googleapis.com/maps/api/staticmap?autoscale=1" +
             "&size=600x300" +
             "&maptype=roadmap" +
@@ -213,8 +214,8 @@ fun Array<EntregoPointBinding>.getStaticMapUrl(path: String?): String {
     urlBuilder.append(staticPartUrl)
 
     this.forEachIndexed { i, point ->
-        val coordinates = "" + this[i].point.latitude +
-                "," + this[i].point.longitude
+        val coordinates = "" + this[i].waypoint.point.latitude +
+                "," + this[i].waypoint.point.longitude
         val label = i + 1
         urlBuilder.append("&markers=size:mid%7Clabel:$label%7C$coordinates")
     }

@@ -88,8 +88,8 @@ class DrawerFragment : Fragment(), IDrawerView {
     override fun refreshView() {
         binder?.invalidateAll()
         binder?.executePendingBindings()
-        if (Delivery.getInstance().route != null)
-            presenter.buildSwitchListByState(Delivery.getInstance().route, getSwitchList())
+        if (Delivery.getInstance().history != null)
+            presenter.buildSwitchListByState(Delivery.getInstance().history, getSwitchList())
     }
 
     override fun showMessage(message: String?) {
@@ -98,11 +98,11 @@ class DrawerFragment : Fragment(), IDrawerView {
 
     fun getSwitchList(): List<SwitchCompat> =
             listOf(
-            delivery_states_on_way_sw,
-            delivery_states_waiting_for_ship_sw,
-            delivery_states_ship_on_way_sw,
-            delivery_states_waiting_for_delivery_sw,
-            delivery_states_delivered_sw )
+                    delivery_states_on_way_sw,
+                    delivery_states_waiting_for_ship_sw,
+                    delivery_states_ship_on_way_sw,
+                    delivery_states_waiting_for_delivery_sw,
+                    delivery_states_delivered_sw)
 
 
     fun startSignActivity() {

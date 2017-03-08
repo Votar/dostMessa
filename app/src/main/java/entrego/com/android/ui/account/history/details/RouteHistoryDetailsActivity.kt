@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.LinearLayout
-import com.google.gson.Gson
 import entrego.com.android.R
 import entrego.com.android.databinding.ActivityRouteHistoryDetailsBinding
 import entrego.com.android.storage.model.DeliveryModel
@@ -33,13 +31,13 @@ class RouteHistoryDetailsActivity : AppCompatActivity() {
         val deliveryJson = intent.getStringExtra(DELIVERY_KEY)
         val delivery = GsonHolder.instance.fromJson(deliveryJson, DeliveryModel::class.java)
         binding.model = delivery
-        binding.startPoint = delivery.route.waypoints[0]
-        val wayLastIndex = delivery.route.waypoints.lastIndex
-        binding.destinationPoint = delivery.route.waypoints[wayLastIndex]
+        binding.startPoint = delivery.history[0].waypoint
+        val wayLastIndex = delivery.history.lastIndex
+        binding.destinationPoint = delivery.history[wayLastIndex].waypoint
 
-        val durationPoints = delivery.route.waypoints
+        val durationPoints = delivery.history
                 .filterIndexed { i, entregoPointBinding -> i != 0 }
-                .map { it.address }
+                .map { it.waypoint.address }
         route_history_details_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         route_history_details_recycler.adapter = DurationAdapter(durationPoints)
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }

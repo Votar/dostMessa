@@ -51,13 +51,11 @@ class DescriptionFragment : Fragment(), IDescreptionView {
         super.onStart()
         presenter.onStart(this)
         val delivery = Delivery.getInstance()
-        if (delivery.route != null) {
+        if(delivery.history !=null) {
             Logger.logd("delivery start")
             recycler?.visibility = View.VISIBLE
             recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            recycler?.adapter = PointsAdapter(delivery.route.waypoints)
-
-
+            recycler?.adapter = PointsAdapter(delivery.history.value)
         }
         fragment_descr_cancel.setOnClickListener {
             val intent = Intent(context, CancelDeliveryActivity::class.java)

@@ -3,8 +3,8 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="route"
-            type="entrego.com.android.storage.model.EntregoRouteModel" />
+            name="history"
+            type="entrego.com.android.binding.HistoryHolder"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         android:background="@color/colorTransparentGrey"
         android:orientation="horizontal"
         android:padding="@dimen/default_screen_padding"
-        android:visibility="@{route == null? View.GONE: View.VISIBLE}">
+        android:visibility="@{history == null? View.GONE: View.VISIBLE}">
 
         <TextView
             android:id="@+id/home_navigation_address"
@@ -23,7 +23,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:paddingRight="@dimen/default_screen_padding"
-            android:text="@{route.goingPoint.address}"
+            android:text="@{history.goingPoint.waypoint.address}"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/tsize_medium" />
 

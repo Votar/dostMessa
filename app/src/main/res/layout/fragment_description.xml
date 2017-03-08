@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +44,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Express"
+                        android:text="@{delivery.category.toString()}"
                         android:textAlignment="center"
                         android:textSize="@dimen/tsize_medium" />
 
@@ -59,7 +58,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Now"
+                        android:text="@string/text_now"
                         android:textAlignment="center"
                         android:textSize="@dimen/tsize_medium" />
 
@@ -75,7 +74,7 @@
                         android:paddingRight="@dimen/padding_small"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="DOCUMENT"
+                        android:text="@{delivery.parcel.toString()}"
                         android:textAlignment="center"
                         android:textSize="@dimen/tsize_medium" />
                 </LinearLayout>

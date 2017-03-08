@@ -32,11 +32,11 @@ object DeliveryInteractor {
                         when (result?.code) {
                             0 -> {
                                 listener?.onSuccess()
-                                Delivery.getInstance().update(result?.payload)
+                                Delivery.getInstance().update(result.payload)
                             }
                             8 -> {
                                 DeliveryRequest.requestDelivery(null)
-                                listener?.onFailure(result?.message, result?.code)
+                                listener?.onFailure(result.message, result.code)
                             }
 
                             else -> listener?.onFailure(result?.message, result?.code)

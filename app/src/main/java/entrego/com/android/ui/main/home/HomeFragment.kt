@@ -24,9 +24,9 @@ import com.google.maps.android.PolyUtil
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import entrego.com.android.R
 import entrego.com.android.binding.Delivery
+import entrego.com.android.binding.HistoryHolder
 import entrego.com.android.databinding.FragmentHomeBinding
 import entrego.com.android.location.LocationTracker
-import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.model.OrderStatus
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.RootActivity
@@ -234,7 +234,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     var startMarker: Marker? = null
     var finishMarker: Marker? = null
     var wayPointsMarker: Array<Marker>? = null
-    override fun prepareRoute(route: EntregoRouteModel) {
+    override fun prepareRoute(history: HistoryHolder) {
 
         mBinder?.delivery = Delivery.getInstance()
         mBinder?.invalidateAll()
@@ -244,7 +244,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
 
         //add start point
-        val startLatLng = LatLng(route.getCurrentPoint().point.latitude, route.getCurrentPoint().point.longitude)
+        val startLatLng = history.getCurrentPoint().waypoint.point
         startMarker = mMap?.addMarker(MarkerOptions()
                 .position(startLatLng)
                 .draggable(false)
@@ -252,8 +252,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 .title(getString(R.string.start_point)))
 
         //add finish point
-        val finishLatLng = LatLng(route.getDestinationPoint().point.latitude,
-                route.getDestinationPoint().point.longitude)
+        val finishLatLng = history.getDestinationPoint().waypoint.point
         finishMarker = mMap?.addMarker(MarkerOptions()
                 .position(finishLatLng)
                 .draggable(false)
@@ -273,7 +272,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         }
 
         navigation_clickable_ll.setOnClickListener {
-            showNavigation(route.getCurrentPoint().point, route.getDestinationPoint().point)
+            showNavigation(startLatLng, finishLatLng)
         }
         startLocationTracker()
     }

@@ -1,23 +1,11 @@
 package entrego.com.android.ui.faq
 
-import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import entrego.com.android.R
-import entrego.com.android.databinding.ItemDeliveryPointBinding
-import entrego.com.android.storage.model.EntregoPoint
-import entrego.com.android.storage.model.EntregoPointStatus
-import entrego.com.android.storage.model.EntregoRouteModel
-import entrego.com.android.binding.EntregoPointBinding
 import entrego.com.android.databinding.FaqListItemBinding
-import entrego.com.android.util.Logger
-import java.util.*
 
 /**
  * Created by bertalt on 07.12.16.

@@ -1,6 +1,9 @@
 package entrego.com.android.storage.model
 
+import entrego.com.android.entity.EntregoParcelType
 import entrego.com.android.entity.EntregoPriceEntity
+import entrego.com.android.entity.EntregoServiceCategory
+import entrego.com.android.entity.EntregoWaypoint
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
@@ -9,10 +12,12 @@ import java.util.*
 data class DeliveryModel(val id: Int,
                          val customer: CustomerModel,
                          val status: String,
-                         val route: EntregoRouteModel,
+                         val history: Array<EntregoWaypoint>,
+                         val parcel: EntregoParcelType,
+                         val category: EntregoServiceCategory,
+                         val path: EntregoPath,
                          val pickup: Long,
-                         val price: EntregoPriceEntity,
-                         val size:String) {
+                         val price: EntregoPriceEntity ) {
 
     fun formattedPickup(): String {
         if (pickup <= 0) return ""
@@ -26,7 +31,7 @@ data class DeliveryModel(val id: Int,
     }
 
     fun formattedDistance():String{
-        val distanceInMeters = route.path.distance
+        val distanceInMeters = path.distance
         val distanceInKm = BigDecimal(distanceInMeters/1000).setScale(2, RoundingMode.UP).toPlainString()
         return distanceInKm
     }

@@ -4,18 +4,15 @@ import android.databinding.Observable
 import android.support.v7.widget.SwitchCompat
 import entrego.com.android.BR
 import entrego.com.android.binding.Delivery
+import entrego.com.android.binding.HistoryHolder
 import entrego.com.android.storage.model.DeliveryModel
-import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.storage.model.PointStatus
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.drawer.model.DrawerModel
 import entrego.com.android.ui.main.drawer.view.IDrawerView
 import entrego.com.android.ui.main.home.model.DeliveryRequest
-import entrego.com.android.util.Logger
-
 
 class DrawerPresenter : IDrawerPresenter {
-
 
     var mView: IDrawerView? = null
     var mToken: String = ""
@@ -39,21 +36,23 @@ class DrawerPresenter : IDrawerPresenter {
         mView?.refreshView()
     }
 
-    override fun buildSwitchListByState(route: EntregoRouteModel, switchList: List<SwitchCompat>) {
+    override fun buildSwitchListByState(history: HistoryHolder, switchList: List<SwitchCompat>) {
 
         for (next in switchList)
             next.isEnabled = false
 
-        when (route.getCurrentPoint().status) {
+        when (history.getCurrentPoint().status) {
             PointStatus.PENDING -> {
                 switchList[0].isEnabled = true
+                switchList[0].isChecked = false
+
             }
             PointStatus.GOING -> {
                 switchList[1].isEnabled = true
                 switchList[1].isChecked = false
             }
             PointStatus.WAITING, PointStatus.DONE -> {
-                when (route.getDestinationPoint().status) {
+                when (history.getDestinationPoint().status) {
                     PointStatus.PENDING -> {
                         switchList[2].isEnabled = true
                         switchList[2].isChecked = false

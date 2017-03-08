@@ -27,7 +27,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{delivery.route == null?View.VISIBLE:View.GONE}">
+            android:visibility="@{delivery.path == null?View.VISIBLE:View.GONE}">
 
             <include
                 layout="@layout/include_delivery_empty"
@@ -55,8 +55,8 @@
                     layout="@layout/include_delivery_route"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    bind:destination="@{delivery.route.destinationPoint}"
-                    bind:start="@{delivery.route.currentPoint}" />
+                    bind:destination="@{delivery.history.destinationPoint.waypoint}"
+                    bind:start="@{delivery.history.currentPoint.waypoint}" />
 
                 <include
                     layout="@layout/include_delivery_states"
@@ -68,7 +68,7 @@
                     android:background="@color/colorGrey"
                     android:orientation="horizontal"
                     android:padding="12dp"
-                    android:visibility="@{delivery.route.nextPoint == null? View.GONE : View.VISIBLE}">
+                    android:visibility="@{delivery.history.nextPoint.waypoint == null? View.GONE : View.VISIBLE}">
 
                     <ImageView
                         android:layout_width="24dp"
@@ -81,7 +81,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:paddingLeft="@dimen/small_text_padding"
-                        android:text="@{delivery.route.nextPoint.address}" />
+                        android:text="@{delivery.history.nextPoint.waypoint.address}" />
                 </LinearLayout>
 
                 <Button
@@ -92,7 +92,7 @@
                     android:layout_marginTop="@dimen/margin_medium"
                     android:paddingLeft="42dp"
                     android:paddingRight="42dp"
-                    android:visibility="@{delivery.route.destinationPoint.status == PointStatus.DONE? View.VISIBLE:View.GONE}"
+                    android:visibility="@{delivery.history.destinationPoint.status == PointStatus.DONE? View.VISIBLE:View.GONE}"
                     android:text="@string/sign_bill" />
             </LinearLayout>
         </ScrollView>

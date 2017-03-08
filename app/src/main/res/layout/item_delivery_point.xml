@@ -5,7 +5,7 @@
 
         <variable
             name="point"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="entrego.com.android.entity.EntregoWaypoint" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/default_screen_padding"
             android:paddingTop="@dimen/default_screen_padding"
-            android:text="@{point.address}"
+            android:text="@{point.waypoint.address}"
             android:textAlignment="center" />
 
     </LinearLayout>

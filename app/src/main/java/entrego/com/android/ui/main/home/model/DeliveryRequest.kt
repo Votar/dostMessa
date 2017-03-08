@@ -38,12 +38,12 @@ object DeliveryRequest {
 
                             when (responseResult?.code) {
                                 0 -> {
-                                    if (Delivery.getInstance().route == null)
+                                    if (Delivery.getInstance().history == null)
                                         Delivery.getInstance().update(responseResult.payload)
                                     listener?.onSuccessGetDelivery()
                                 }
                                 9 -> {
-                                    if (Delivery.getInstance().route != null)
+                                    if (Delivery.getInstance().history != null)
                                         Delivery.getInstance().update(null)
                                 }
                                 2 -> EventBus.getDefault().post(LogoutEvent())

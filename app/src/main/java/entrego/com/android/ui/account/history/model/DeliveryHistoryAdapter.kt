@@ -1,7 +1,6 @@
 package entrego.com.android.ui.account.history.model
 
 import android.databinding.DataBindingUtil
-import android.support.v4.content.ContextCompat
 import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,8 +9,8 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import entrego.com.android.R
 import entrego.com.android.databinding.ItemHistoryRoutesBinding
+import entrego.com.android.entity.EntregoWaypoint
 import entrego.com.android.storage.model.DeliveryModel
-import entrego.com.android.storage.model.EntregoRouteModel
 import entrego.com.android.util.Logger
 import entrego.com.android.util.getStaticMapUrl
 
@@ -36,7 +35,7 @@ class DeliveryHistoryAdapter(val dataset: Array<DeliveryModel>, val listener: Cl
 
         val ctx = holder?.itemView?.context
         if (ctx != null) {
-            val url = buildUrlForStaticMap(currentModel.route)
+            val url = buildUrlForStaticMap(currentModel.path.line, currentModel.history)
             Logger.logd(url)
             val loadingIcon = AppCompatResources.getDrawable(ctx, R.drawable.ic_cloud_download_50dp)
             Glide.with(ctx)
@@ -59,8 +58,7 @@ class DeliveryHistoryAdapter(val dataset: Array<DeliveryModel>, val listener: Cl
         return dataset.count()
     }
 
-    fun buildUrlForStaticMap(route: EntregoRouteModel): String {
-        val path = route.path.line
-        return route.waypoints.getStaticMapUrl(path)
+    fun buildUrlForStaticMap(path: String, history: Array<EntregoWaypoint>): String {
+        return history.getStaticMapUrl(path)
     }
 }

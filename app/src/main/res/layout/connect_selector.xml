@@ -6,8 +6,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="route"
-            type="entrego.com.android.storage.model.EntregoRouteModel" />
+            name="history"
+            type="entrego.com.android.binding.HistoryHolder" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorGrey"
         android:gravity="center"
-        android:visibility="@{route == null? View.VISIBLE: View.GONE}">
+        android:visibility="@{history == null? View.VISIBLE: View.GONE}">
 
         <info.hoang8f.android.segmented.SegmentedGroup
             android:id="@+id/switcher_segment"
@@ -28,22 +28,22 @@
             segmentedgroup:sc_corner_radius="0dp">
 
             <RadioButton
-                android:padding="@dimen/padding_medium"
                 android:id="@+id/switcher_disconnected"
                 style="@style/RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="@dimen/padding_medium"
                 android:text="@string/disconnected"
                 android:textSize="@dimen/tsize_medium" />
 
             <RadioButton
-                android:padding="@dimen/padding_medium"
                 android:id="@+id/switcher_connected"
                 style="@style/RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="@dimen/padding_medium"
                 android:text="@string/connected"
                 android:textSize="@dimen/tsize_medium" />
         </info.hoang8f.android.segmented.SegmentedGroup>

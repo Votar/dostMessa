@@ -38,11 +38,11 @@ class DetailsOfServiceActivity : AppCompatActivity(), IDetailsOfServiceView {
             val jsonModel = intent.getStringExtra(KEY_MODEL)
             val model = GsonHolder.instance.fromJson(jsonModel, DeliveryModel::class.java)
             binding.model = model
-            binding.startPoint = model.route.waypoints[0]
-            val lastIndex = model.route.waypoints.lastIndex
-            binding.finishPoint = model.route.waypoints[lastIndex]
-            val path = model.route.path.line
-            mUrlStaticMap = model.route.waypoints.getStaticMapUrl(path)
+            binding.startPoint = model.history[0].waypoint
+            val lastIndex = model.history.lastIndex
+            binding.finishPoint = model.history[lastIndex].waypoint
+            val path = model.path.line
+            mUrlStaticMap = model.history.getStaticMapUrl(path)
         }
     }
 

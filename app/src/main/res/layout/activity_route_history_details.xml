@@ -186,6 +186,7 @@
                                 android:text="@string/service" />
 
                             <TextView
+                                android:text="@{model.category.toString()}"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1" />
@@ -236,7 +237,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@{model.size}" />
+                                android:text="@{model.parcel.toString()}" />
                         </LinearLayout>
 
                         <include layout="@layout/dashed_divider_grey" />

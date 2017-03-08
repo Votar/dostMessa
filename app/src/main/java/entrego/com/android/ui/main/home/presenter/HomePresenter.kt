@@ -46,10 +46,10 @@ class HomePresenter : IHomePresenter {
         } else
             view?.dissmissAcceptFragment()
 
-        if (delivery.route != null) {
-            view?.prepareRoute(delivery.route)
-            if (delivery.route.path.line.isNotEmpty())
-                view?.buildPath(delivery.route.path.line)
+        if (delivery.history != null) {
+            view?.prepareRoute(delivery.history)
+            if (delivery.path.line.isNotEmpty())
+                view?.buildPath(delivery.path.line)
 
         } else
             view?.prepareNoDelivery()

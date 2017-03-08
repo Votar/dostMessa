@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="@{delivery.route==null?View.GONE: View.VISIBLE}">
+        android:visibility="@{delivery.history==null?View.GONE: View.VISIBLE}">
 
         <include layout="@layout/status_service_on_the_way" />
 
