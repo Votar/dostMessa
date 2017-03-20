@@ -18,5 +18,5 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="@string/font_fontFamily_medium"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/tab_label" />
+        android:textSize="@dimen/tsize_small" />
 </RelativeLayout>

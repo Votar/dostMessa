@@ -1,24 +1,27 @@
 package entrego.com.android.web.socket
 
 import android.os.Handler
-import com.google.gson.Gson
 import com.neovisionaries.ws.client.*
 import entrego.com.android.util.GsonHolder
-import entrego.com.android.util.Logger
+import entrego.com.android.util.Logger.logd
+import entrego.com.android.web.api.EntregoApi
+import entrego.com.android.web.socket.SocketContract
+import entrego.com.android.web.socket.model.BaseSocketMessage
+import entrego.com.android.web.socket.model.SocketMessageType
 
-class SocketClient(val serverListener: SocketContract.ReceiveMessagesListener) {
-
+class SocketClient(token: String, val serverListener: SocketContract.ReceiveMessagesListener) {
 
     val END_POINT = "ws://62.149.12.54/mobile-gateway-1.0.0-SNAPSHOT/status"
     val TIMEOUT = 5000 //5sec
     var mSocketConnection: WebSocket? = null
     val mGson = GsonHolder.instance
-    var isNeed: Boolean
+    private var isNeed = false
 
     init {
-        mSocketConnection = WebSocketFactory().createSocket(END_POINT, TIMEOUT)
+        mSocketConnection = WebSocketFactory()
+                .createSocket(END_POINT, TIMEOUT)
+                .addHeader(EntregoApi.TOKEN, token)
                 .addListener(SocketListener())
-        isNeed = false
     }
 
     inner class SocketListener : WebSocketAdapter() {
@@ -28,41 +31,49 @@ class SocketClient(val serverListener: SocketContract.ReceiveMessagesListener) {
 
         override fun onDisconnected(websocket: WebSocket?, serverCloseFrame: WebSocketFrame?, clientCloseFrame: WebSocketFrame?, closedByServer: Boolean) {
             super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer)
-            Logger.logd(TAG, "Socked disconnected \n is need - $isNeed")
+            logd(TAG, "Socket disconnected is need keep alive $isNeed")
+            if (isNeed)
+                Handler().postDelayed({ connectAsync() }, 1500)
+
+
         }
 
         override fun onConnected(websocket: WebSocket?, headers: MutableMap<String, MutableList<String>>?) {
             super.onConnected(websocket, headers)
-            Logger.logd(TAG, "Socket connected")
+            logd(TAG, "Socket connected")
         }
 
-        override fun onTextMessage(websocket: WebSocket?, text: String?) {
+        override fun onTextMessage(websocket: WebSocket?, text: String) {
             super.onTextMessage(websocket, text)
-            Logger.logd(TAG, text)
+            parseMessage(text)
         }
 
         override fun onConnectError(websocket: WebSocket?, exception: WebSocketException?) {
             super.onConnectError(websocket, exception)
-            when (exception?.error) {
-                WebSocketError.NOT_IN_CREATED_STATE ->
-                    if (isNeed) {
-                        Logger.loge(TAG_ERROR, "Should reconnect after failure connect attemp")
-                        Handler().postDelayed({connectAsync()},1500)
-                    }
-                else -> {
-                    Logger.loge(TAG_ERROR, exception?.error.toString() ?: "Socket error")
-                }
-            }
+            Handler().postDelayed({ connectAsync() }, 1500)
+            logd(TAG_ERROR, exception?.error.toString())
         }
-    }
 
-    fun sendLocation(location: String) {
-        Logger.logd(location)
-        if (mSocketConnection?.isOpen == true) {
-            mSocketConnection?.sendText(location)
-        } else {
-            Logger.logd("SOCKET IS DISCONNECTED")
-            openConnection()
+        fun parseMessage(json: String) {
+
+            val baseMessage = GsonHolder.instance.fromJson(json, BaseSocketMessage::class.java)
+            //I know, but not now
+            when (baseMessage.type) {
+                SocketMessageType.ORDER_STATUS -> {
+                    logd(json)
+                }
+                SocketMessageType.WAYPOINT -> {
+                    logd(json)
+                }
+                SocketMessageType.ORDER -> logd(TAG, json)
+                SocketMessageType.TRACK -> logd(TAG, json)
+                SocketMessageType.TRACK_LIST -> logd(TAG, json)
+                SocketMessageType.MESSAGE -> {
+                    logd(json)
+                    serverListener.receivedChatMessage(json)
+                }
+                else -> IllegalStateException("Invalid type of socket message")
+            }
         }
     }
 
@@ -72,10 +83,14 @@ class SocketClient(val serverListener: SocketContract.ReceiveMessagesListener) {
     }
 
     private fun connectAsync() {
-        mSocketConnection?.disconnect()
-        mSocketConnection = mSocketConnection?.recreate(0)
-        mSocketConnection = mSocketConnection?.connectAsynchronously()
+        if (mSocketConnection?.isOpen == true) return
+        //new socketConnection
+        mSocketConnection = mSocketConnection
+                ?.recreate(TIMEOUT)
+
+        mSocketConnection?.connectAsynchronously()
     }
+
 
     fun closeConnection() {
         isNeed = false
@@ -84,3 +99,4 @@ class SocketClient(val serverListener: SocketContract.ReceiveMessagesListener) {
 
 
 }
+

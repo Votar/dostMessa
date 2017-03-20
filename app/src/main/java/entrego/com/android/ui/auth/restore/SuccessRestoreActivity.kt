@@ -17,12 +17,7 @@ class SuccessRestoreActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        succ_restore_btn_login.setOnClickListener {
-            startActivity(Intent(applicationContext, AuthActivity::class.java))
-        }
+        succ_restore_btn_login.setOnClickListener { startActivity(AuthActivity.getIntent(this)) }
     }
 
-    override fun onBackPressed() {
-        NavUtils.navigateUpFromSameTask(this)
-    }
 }

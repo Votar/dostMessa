@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         override fun onFailureRefresh(message: String?) {
-            startActivity(Intent(applicationContext, AuthActivity::class.java))
+            startActivity(AuthActivity.getIntent(this@SplashActivity))
             finish()
         }
 

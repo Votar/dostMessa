@@ -11,6 +11,7 @@ import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.drawer.model.DrawerModel
 import entrego.com.android.ui.main.drawer.view.IDrawerView
 import entrego.com.android.ui.main.home.model.DeliveryRequest
+import entrego.com.android.web.api.ApiContract
 
 class DrawerPresenter : IDrawerPresenter {
 
@@ -88,7 +89,7 @@ class DrawerPresenter : IDrawerPresenter {
                 switch.isChecked = false
                 switch.isEnabled = true
                 when (code) {
-                    8 -> updateDelivery()
+                    8, ApiContract.INCORRECT_ORDER_STATE -> updateDelivery()
                     else -> mView?.showMessage(message)
                 }
             }

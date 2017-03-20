@@ -13,9 +13,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * Created by bertalt on 13.12.16.
- */
 object CancelDelivery {
 
     interface CancelDeliveryListener {
@@ -25,7 +22,7 @@ object CancelDelivery {
 
     var isRequested: Boolean = false
 
-    fun executeAsync(token: String, deliveryId: Int, reason: String, @Nullable listener: CancelDelivery.CancelDeliveryListener?) {
+    fun executeAsync(token: String, deliveryId: Long, reason: String, @Nullable listener: CancelDelivery.CancelDeliveryListener?) {
 
         if (isRequested)
             return

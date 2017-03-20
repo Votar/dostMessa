@@ -66,7 +66,6 @@ object EntregoStorage {
     }
 
     fun setUserVehicle(vehicle: UserVehicleModel?) {
-
         val jsonVehicle =GsonHolder.instance.toJson(vehicle, UserVehicleModel::class.java)
         storage.edit().putString(KEY_USER_VEHICLE, jsonVehicle).commit()
     }

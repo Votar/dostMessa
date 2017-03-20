@@ -19,9 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * Created by bertalt on 30.11.16.
- */
+
 object UserProfile {
 
     interface ResultRefreshListener {
@@ -54,14 +52,14 @@ object UserProfile {
                 .getProfile(token)
                 .enqueue(object : Callback<EntregoResultGetProfile> {
                     override fun onResponse(call: Call<EntregoResultGetProfile>?, response: Response<EntregoResultGetProfile>?) {
-                            when (response?.body()?.code) {
-                                0 -> {
-                                    EntregoStorage.setUserProfile(response?.body()?.payload)
-                                    UserProfileEntity.getInstance().update(response?.body()?.payload)
-                                    listener?.onSuccessRefresh(response?.body()?.payload!!)
-                                }
-                                else -> listener?.onFailureRefresh(response?.body()?.message)
+                        when (response?.body()?.code) {
+                            0 -> {
+                                EntregoStorage.setUserProfile(response.body()?.payload)
+                                UserProfileEntity.getInstance().update(response.body()?.payload)
+                                listener?.onSuccessRefresh(response.body()?.payload!!)
                             }
+                            else -> listener?.onFailureRefresh(response?.body()?.message)
+                        }
 
                     }
 
@@ -77,13 +75,13 @@ object UserProfile {
     fun update(context: Context, email: String, name: String, phoneCode: String, phoneNumber: String,
                @Nullable listener: ResultUpdateListener?) {
         val token = EntregoStorage.getToken()
-        val body = UserProfileModel(email, name, EntregoPhoneModel(phoneCode, phoneNumber))
+        val body = UserProfileModel(0, email, name, EntregoPhoneModel(phoneCode, phoneNumber))
         ApiCreator.server.create(EntregoApi.UpdateProfile::class.java)
                 .updateProfile(token, body)
                 .enqueue(object : Callback<EntregoResultEditProfile> {
                     override fun onResponse(call: Call<EntregoResultEditProfile>?, response: Response<EntregoResultEditProfile>?) {
                         if (response?.body() != null) {
-                            val responseBody = response?.body()!!
+                            val responseBody = response.body()
                             when (responseBody.code) {
                                 0 -> {
                                     EntregoStorage.setUserProfile(responseBody.payload)
@@ -97,7 +95,7 @@ object UserProfile {
                             }
                         } else {
                             if (response?.errorBody() != null) {
-                                val errorBody = response?.errorBody()!!
+                                val errorBody = response.errorBody()
                                 listener?.onFailureUpdate("")
                             }
                         }

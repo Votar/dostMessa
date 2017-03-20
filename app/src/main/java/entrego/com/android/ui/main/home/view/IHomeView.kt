@@ -10,7 +10,7 @@ interface IHomeView {
     fun prepareRoute(history: HistoryHolder)
     fun buildPath(path: String)
     fun showAcceptFragment()
-    fun sendDeliveryReceivedNotification(sum : String)
+    fun sendDeliveryReceivedNotification()
     fun dissmissAcceptFragment()
     fun getFragmentContext(): Context
     fun showProgress()

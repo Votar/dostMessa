@@ -17,7 +17,7 @@ class SuccessRegistrationActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        succ_reg_btn_login.setOnClickListener {  startActivity(Intent(applicationContext, AuthActivity::class.java))   }
+        succ_reg_btn_login.setOnClickListener { startActivity(AuthActivity.getIntent(this)) }
     }
 
     override fun onBackPressed() {

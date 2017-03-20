@@ -109,25 +109,25 @@ object EntregoApi {
     interface CancelDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_CANCEL_DELIVERY)
-        fun cancelDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<JsonElement>
+        fun cancelDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Long): Call<JsonElement>
     }
 
     interface AcceptDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_ACCEPT_DELIVERY)
-        fun acceptDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<EntregoResultStatusChanged>
+        fun acceptDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Long): Call<EntregoResultStatusChanged>
     }
 
     interface DeclineDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_DECLINE_DELIVERY)
-        fun declineDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int): Call<EntregoResult>
+        fun declineDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Long): Call<EntregoResult>
     }
 
     interface ChangeStatus {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_CHANGE_STATUS)
-        fun changeStatus(@Header(TOKEN) token: String, @Path("id") deliveryId: Int, @Body body: ChangeStatusBody): Call<EntregoResultStatusChanged>
+        fun changeStatus(@Header(TOKEN) token: String, @Path("id") deliveryId: Long, @Body body: ChangeStatusBody): Call<EntregoResultStatusChanged>
     }
 
     interface UploadDriverLicence {
@@ -151,7 +151,7 @@ object EntregoApi {
     interface FinishDelivery {
         @Headers(CONTENT_JSON)
         @POST(REQUESTS.POST_FINISH_DELIVERY)
-        fun finishDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Int, @Body body: FinishDeliveryBody): Call<EntregoResult>
+        fun finishDelivery(@Header(TOKEN) token: String, @Path("id") deliveryId: Long, @Body body: FinishDeliveryBody): Call<EntregoResult>
     }
 
     interface RestorePassword {

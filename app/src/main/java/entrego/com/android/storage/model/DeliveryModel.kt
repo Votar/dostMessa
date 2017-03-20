@@ -9,7 +9,7 @@ import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 
-data class DeliveryModel(val id: Int,
+data class DeliveryModel(val id: Long,
                          val customer: CustomerModel,
                          val status: String,
                          val history: Array<EntregoWaypoint>,

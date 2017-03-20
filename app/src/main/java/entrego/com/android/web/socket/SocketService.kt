@@ -1,62 +1,72 @@
 package entrego.com.android.web.socket
 
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
+import android.media.RingtoneManager
 import android.os.IBinder
+import android.support.v4.app.NotificationCompat
 import android.support.v4.content.LocalBroadcastManager
-import android.text.TextUtils
-import com.google.gson.Gson
-import com.neovisionaries.ws.client.WebSocket
-import com.neovisionaries.ws.client.WebSocketAdapter
-import com.neovisionaries.ws.client.WebSocketException
-import com.neovisionaries.ws.client.WebSocketFrame
-import entrego.com.android.util.Logger
-import java.net.Socket
+import entrego.com.android.R
+import entrego.com.android.storage.model.UserProfileModel
+import entrego.com.android.storage.preferences.EntregoStorage
+import entrego.com.android.ui.main.delivery.description.chat.ChatMessengerActivity
+import entrego.com.android.util.GsonHolder
+import entrego.com.android.util.Logger.logd
+import entrego.com.android.web.socket.SocketContract
+import entrego.com.android.web.socket.model.ChatSocketMessage
 
 class SocketService : Service() {
-    companion object {
-        val ACTION_FILTER = "entrego.com.android.web.socket.SOCKET_RECEIVER"
-        val KEY_EVENT = "key_event"
-        val KEY_MESSAGE = "ext_key_message"
-        val KEY_LOCATION = "ext_key_latlng"
-        val RECEIVED_KEY = "service_ext_key"
-
-    }
-
-    enum class SocketServiceEvents(val value: String) {
-        CONNECT("connect"),
-        DISCONNECT("disconnect"),
-        SEND_TEXT("message")
-    }
 
     var mSocketClient: SocketClient? = null
+    var mUserProfile: UserProfileModel? = null
+
     var mReceiveMessagesListener = object : SocketContract.ReceiveMessagesListener {
-        override fun receivedMessage(message: String, event: SocketConnectionEvents) {
-            applicationContext?.apply {
-                val brManager = LocalBroadcastManager.getInstance(this)
-                val intent = Intent(event.value)
-                intent.putExtra(RECEIVED_KEY, message)
-                brManager.sendBroadcast(intent)
-            }
-        }
-    }
-    val mReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.hasExtra(KEY_EVENT) == true)
-                when (intent?.getStringExtra(KEY_EVENT)) {
-                    SocketServiceEvents.CONNECT.value -> mSocketClient?.openConnection()
-                    SocketServiceEvents.DISCONNECT.value -> mSocketClient?.closeConnection()
-                    SocketServiceEvents.SEND_TEXT.value -> {
-                        Logger.logd("Received event in service")
-                        val jsonLocation = intent?.getStringExtra(KEY_LOCATION) ?: "MOCKED_LOCATION"
-                        mSocketClient?.sendLocation(jsonLocation)
-                    }
-                }
+        override fun receivedChatMessage(messageJson: String) {
+            sendChatMessageEvent(messageJson)
+            if (mUserProfile == null)
+                mUserProfile = EntregoStorage.getUserProfile()
+                GsonHolder
+                        .instance
+                        .fromJson(messageJson, ChatSocketMessage::class.java)
+                        .apply {
+                            if (mUserProfile?.id != sender)
+                                sendChatMessageReceivedNotification(order, sender, text)
+                        }
         }
 
+        override fun receivedOrderUpdated(deliveryId: Long) {
+            sendOrderUpdatedEvent(deliveryId)
+        }
+
+        override fun receivedDeliveryUpdated(deliveryId: Long) {
+            sendDeliveryUpdatedEvent(deliveryId)
+        }
+
+    }
+
+    private fun sendChatMessageEvent(messageJson: String) {
+        Intent(SocketContract.ReceivedChatMessageBySocketEvent.ACTION).apply {
+            putExtra(SocketContract.ReceivedChatMessageBySocketEvent.KEY_MESSAGE, messageJson)
+            LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(this)
+        }
+
+    }
+
+    private fun sendOrderUpdatedEvent(deliveryId: Long) {
+        val intent = Intent(SocketContract.UpdateOrderEvent.ACTION)
+        intent.putExtra(SocketContract.UpdateOrderEvent.KEY_DELIVERY_ID, deliveryId)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+    }
+
+
+    private fun sendDeliveryUpdatedEvent(deliveryId: Long) {
+        logd("sent intent with deliveryId = $deliveryId")
+        val intent = Intent(SocketContract.UpdateDeliveryEvent.ACTION)
+        intent.putExtra(SocketContract.UpdateDeliveryEvent.KEY_DELIVERY_ID, deliveryId)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
 
     override fun onBind(intent: Intent?): IBinder {
@@ -65,20 +75,47 @@ class SocketService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        mSocketClient = SocketClient(mReceiveMessagesListener)
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, IntentFilter(ACTION_FILTER))
+        val token = EntregoStorage.getToken()
+        mSocketClient = SocketClient(token, mReceiveMessagesListener)
+        mSocketClient?.openConnection()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
+        return START_NOT_STICKY
+    }
+
+    fun sendChatMessageReceivedNotification(orderId: Long, userId: Long, message: String) {
+
+        val mBuilder: NotificationCompat.Builder =
+                NotificationCompat.Builder(this)
+                        .setContentTitle(getString(R.string.notification_received_chat_message))
+                        .setSmallIcon(R.drawable.map_user_pin)
+                        .setContentText(message)
+
+        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        mBuilder.setSound(alarmSound)
+
+        val resultIntent = ChatMessengerActivity.getIntent(this, orderId, userId)
+
+        val resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                )
+
+        mBuilder.setContentIntent(resultPendingIntent)
+
+        val mNotifyMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        mNotifyMgr.notify(orderId.toInt(), mBuilder.build())
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver)
         mSocketClient?.closeConnection()
-        Logger.logd("SocketService destroyed")
+        logd("SocketService destroyed")
     }
-
 
 }

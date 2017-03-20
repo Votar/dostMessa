@@ -43,9 +43,11 @@ object UploadPhotoModel {
 
         uploadFileRequest.enqueue(object : Callback<EntregoResult> {
             override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
-                when (response?.body()?.code) {
+                response?.body()?.apply {
+                    when (code) {
                     0 -> listener?.successUploadFile()
-                    else -> listener?.failureUploadFile(null, null)
+                    else -> listener?.failureUploadFile(code, null)
+                }
                 }
             }
 

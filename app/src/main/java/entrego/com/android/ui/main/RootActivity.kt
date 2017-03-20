@@ -50,8 +50,8 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
-        startService(Intent(this, SocketService::class.java))
         setupLayouts()
+        startService(Intent(this, SocketService::class.java))
         EventBus.getDefault().register(this)
     }
 
@@ -69,7 +69,6 @@ class RootActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
-        stopService(Intent(this, SocketService::class.java))
     }
 
     fun setupLayouts() {
@@ -82,6 +81,7 @@ class RootActivity : AppCompatActivity() {
         toggle.syncState()
         root_drawer_container.setOnClickListener { }
         setupViewPager(main_viewpager)
+
         val fragment = DrawerFragment()
         supportFragmentManager.beginTransaction()
                 .replace(R.id.root_drawer_container, fragment)
@@ -202,9 +202,10 @@ class RootActivity : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLogoutEvent(event: LogoutEvent) {
         EntregoStorage.setToken("")
-        val intent = Intent(this, AuthActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        val intent = AuthActivity.getIntent(this)
+        stopService(Intent(this, SocketService::class.java))
         startActivity(intent)
+        finish()
     }
 
 

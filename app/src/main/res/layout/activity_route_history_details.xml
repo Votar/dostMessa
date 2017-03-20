@@ -52,8 +52,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/default_screen_padding"
-                            android:text="@string/tmp_service" />
+                            android:padding="@dimen/default_screen_padding"/>
 
                         <View
                             android:layout_width="match_parent"

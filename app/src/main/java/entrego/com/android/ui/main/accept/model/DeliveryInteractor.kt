@@ -19,7 +19,7 @@ object DeliveryInteractor {
         fun onFailure(message: String?, code: Int?)
     }
 
-    fun accept(token: String, id: Int, listener: ResultListener?) {
+    fun accept(token: String, id: Long, listener: ResultListener?) {
         ApiCreator.server.create(EntregoApi.AcceptDelivery::class.java)
                 .acceptDelivery(token, id)
                 .enqueue(object : Callback<EntregoResultStatusChanged> {
@@ -47,7 +47,7 @@ object DeliveryInteractor {
                 })
     }
 
-    fun decline(token: String, id: Int, listener: ResultListener?) {
+    fun decline(token: String, id: Long, listener: ResultListener?) {
         ApiCreator.server.create(EntregoApi.DeclineDelivery::class.java)
                 .declineDelivery(token, id)
                 .enqueue(object : Callback<EntregoResult> {

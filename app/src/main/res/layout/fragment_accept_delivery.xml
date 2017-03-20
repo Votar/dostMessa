@@ -38,11 +38,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{delivery.price.toView()}"
-                    android:textColor="@color/colorDarkBlue" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@{delivery.history.currentPoint.waypoint.address}"
                     android:textColor="@color/white" />
 

@@ -49,7 +49,7 @@ public class Delivery extends BaseObservable {
     private EntregoParcelType parcel;
     private EntregoPriceEntity price;
     private EntregoServiceCategory category;
-    private int id;
+    private long id;
     @Bindable
     private CustomerModel customer;
     @Bindable
@@ -84,7 +84,7 @@ public class Delivery extends BaseObservable {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

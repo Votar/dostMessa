@@ -41,4 +41,15 @@ class HistoryHolder(val value: Array<EntregoWaypoint>) {
         else
             return null
     }
+
+    fun getOtherPoints(): List<EntregoWaypoint> {
+
+        val indexNextPoint = value.indexOf(getDestinationPoint()).plus(1)
+        if (indexNextPoint <= value.lastIndex)
+            return value.asList().subList(indexNextPoint, value.count())
+        else
+            return emptyList<EntregoWaypoint>()
+    }
+
+
 }

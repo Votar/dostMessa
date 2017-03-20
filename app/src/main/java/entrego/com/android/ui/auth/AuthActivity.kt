@@ -9,6 +9,7 @@ import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import entrego.com.android.R
+import entrego.com.android.R.layout.activity_auth
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.auth.presenter.AuthPresenter
 import entrego.com.android.ui.auth.presenter.IAuthPresenter
@@ -19,11 +20,25 @@ import entrego.com.android.ui.main.RootActivity
 import entrego.com.android.ui.registration.RegistrationActivity
 import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.loading
+import entrego.com.android.util.showSnackError
 import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity(), IAuthView {
 
+    companion object {
+        const val KEY_LOGOUT = "ext_k_logout"
+        fun getIntent(ctx: Context): Intent {
+            val intent = Intent(ctx, AuthActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            return intent
+        }
 
+        fun getIntentLogout(ctx: Context): Intent =
+                getIntent(ctx).apply { putExtra(KEY_LOGOUT, true) }
+
+
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +50,7 @@ class AuthActivity : AppCompatActivity(), IAuthView {
     override fun onStart() {
         super.onStart()
         setupListeners()
+        deserializeIntent()
         val lastEmail = EntregoStorage.getLastEmail()
         if (lastEmail.isNotEmpty()) {
             auth_edit_email.setText(lastEmail)
@@ -42,6 +58,10 @@ class AuthActivity : AppCompatActivity(), IAuthView {
         }
     }
 
+    fun deserializeIntent() {
+        if (intent.hasExtra(KEY_LOGOUT))
+            activity_auth.showSnackError(getString(R.string.error_session_expired))
+    }
 
     override fun goToRegistration() {
 
@@ -59,7 +79,7 @@ class AuthActivity : AppCompatActivity(), IAuthView {
     }
 
     override fun showMessage(message: String) {
-        UserMessageUtil.showSnackMessage(activity_registration, message)
+        UserMessageUtil.showSnackMessage(activity_auth, message)
     }
 
     val presenter: IAuthPresenter = AuthPresenter(this)
@@ -71,6 +91,7 @@ class AuthActivity : AppCompatActivity(), IAuthView {
     override fun goToMainScreen() {
         val intent = Intent(applicationContext, RootActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
         finish()
     }
@@ -96,13 +117,14 @@ class AuthActivity : AppCompatActivity(), IAuthView {
 
         auth_edit_password.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(p0: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                if ((actionId == EditorInfo.IME_ACTION_DONE) || ((event?.getKeyCode() == KeyEvent.KEYCODE_ENTER)
-                        && (event?.getAction() == KeyEvent.ACTION_DOWN))) {
+                if ((actionId == EditorInfo.IME_ACTION_DONE)
+                        || ((event?.keyCode == KeyEvent.KEYCODE_ENTER)
+                        && (event.action == KeyEvent.ACTION_DOWN))) {
                     startAuth()
                     return true
-                } else {
+                } else
                     return false
-                }
+
             }
         })
 

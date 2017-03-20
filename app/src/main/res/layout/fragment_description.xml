@@ -45,8 +45,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@{delivery.category.toString()}"
-                        android:textAlignment="center"
-                        android:textSize="@dimen/tsize_medium" />
+                        android:textAlignment="center" />
 
                     <View
                         android:layout_width="1dp"
@@ -59,8 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/text_now"
-                        android:textAlignment="center"
-                        android:textSize="@dimen/tsize_medium" />
+                        android:textAlignment="center" />
 
                     <View
                         android:layout_width="1dp"
@@ -70,13 +68,12 @@
                     <TextView
                         android:id="@+id/descr_frag_order_dimensions"
                         android:layout_width="0dp"
-                        android:paddingLeft="@dimen/padding_small"
-                        android:paddingRight="@dimen/padding_small"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingRight="@dimen/padding_small"
                         android:text="@{delivery.parcel.toString()}"
-                        android:textAlignment="center"
-                        android:textSize="@dimen/tsize_medium" />
+                        android:textAlignment="center" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -113,6 +110,7 @@
                     />
 
                 <RelativeLayout
+                    android:id="@+id/descr_frag_chat_rl"
                     style="@style/ClickableView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

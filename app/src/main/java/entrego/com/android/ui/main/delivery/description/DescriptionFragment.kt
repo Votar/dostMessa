@@ -13,7 +13,9 @@ import android.view.ViewGroup
 import entrego.com.android.R
 import entrego.com.android.binding.Delivery
 import entrego.com.android.databinding.FragmentDescriptionBinding
+import entrego.com.android.ui.account.profile.UserProfile
 import entrego.com.android.ui.main.delivery.description.cancel.CancelDeliveryActivity
+import entrego.com.android.ui.main.delivery.description.chat.ChatMessengerActivity
 import entrego.com.android.ui.main.delivery.description.presenter.DescriptionPresenter
 import entrego.com.android.ui.main.delivery.description.presenter.IDescriptionPresenter
 import entrego.com.android.ui.main.delivery.description.view.IDescreptionView
@@ -51,7 +53,7 @@ class DescriptionFragment : Fragment(), IDescreptionView {
         super.onStart()
         presenter.onStart(this)
         val delivery = Delivery.getInstance()
-        if(delivery.history !=null) {
+        if (delivery.history != null) {
             Logger.logd("delivery start")
             recycler?.visibility = View.VISIBLE
             recycler?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -60,6 +62,15 @@ class DescriptionFragment : Fragment(), IDescreptionView {
         fragment_descr_cancel.setOnClickListener {
             val intent = Intent(context, CancelDeliveryActivity::class.java)
             startActivity(intent)
+        }
+
+        descr_frag_chat_rl.setOnClickListener {
+            val deliverId = Delivery.getInstance().id
+            val userId = UserProfile.getProfile(activity)?.id
+            userId?.let {
+                val intent = ChatMessengerActivity.getIntent(activity, deliverId, it)
+                activity.startActivity(intent)
+            }
         }
     }
 

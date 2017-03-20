@@ -259,8 +259,6 @@ fun View.showSnackError(message: String?) {
 
 fun Context.logout() {
     EntregoStorage.setToken("")
-    val intent = android.content.Intent(this, AuthActivity::class.java)
-    intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK)
-    intent.addFlags(android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP)
+    val intent = AuthActivity.getIntentLogout(this)
     startActivity(intent)
 }

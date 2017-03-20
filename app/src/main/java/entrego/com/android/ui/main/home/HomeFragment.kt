@@ -85,8 +85,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         switcher_disconnected.setOnCheckedChangeListener { button, state ->
             run {
                 if (state) {
-                    LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(SocketService.ACTION_FILTER)
-                            .putExtra(SocketService.KEY_EVENT, SocketService.SocketServiceEvents.DISCONNECT.value))
                     val token = EntregoStorage.getToken()
                     mPresenter.sendOffline(token)
                     stopLocationTracker()
@@ -134,19 +132,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
             GPSRequiredFragment.show(activity.supportFragmentManager)
 
         mTimer = Timer()
-        LocalBroadcastManager
-                .getInstance(context)
-                .sendBroadcast(Intent(SocketService.ACTION_FILTER)
-                        .putExtra(SocketService.KEY_EVENT, SocketService.SocketServiceEvents.CONNECT.value))
+
         mTimer?.schedule(object : TimerTask() {
             override fun run() {
                 val token = EntregoStorage.getToken()
                 LocationTracker.sendLocation(token, mCurrentLocation)
-
-                LocalBroadcastManager
-                        .getInstance(context)
-                        .sendBroadcast(Intent(SocketService.ACTION_FILTER)
-                                .putExtra(SocketService.KEY_EVENT, SocketService.SocketServiceEvents.SEND_TEXT.value))
             }
         }, 2000, 3000)
     }
@@ -176,11 +166,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         super.onStop()
         mPresenter.onStop()
         LocalBroadcastManager.getInstance(context).unregisterReceiver(mReceiverCurrentLocation)
-        stopLocationTracker()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        stopLocationTracker()
     }
 
     var mProgress: ProgressDialog? = null
@@ -233,7 +223,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     var startMarker: Marker? = null
     var finishMarker: Marker? = null
-    var wayPointsMarker: Array<Marker>? = null
+    var wayPointsMarker: LinkedList<Marker> = LinkedList()
     override fun prepareRoute(history: HistoryHolder) {
 
         mBinder?.delivery = Delivery.getInstance()
@@ -241,6 +231,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
         startMarker?.remove()
         finishMarker?.remove()
+
         sliding_layout?.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
 
         //add start point
@@ -258,6 +249,23 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 .draggable(false)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 .title(getString(R.string.finish_point)))
+
+        wayPointsMarker.forEach { it.remove() }
+        wayPointsMarker.clear()
+        history.getOtherPoints().forEachIndexed { index, entregoWaypoint ->
+            mMap?.let {
+                val nextMarker = it.addMarker(
+                        MarkerOptions()
+                                .position(entregoWaypoint.waypoint.point)
+                                .draggable(false)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                )
+                wayPointsMarker.add(nextMarker)
+
+            }
+        }
+
+
 
         if (mBinder?.delivery?.status == OrderStatus.PENDING.value)
             moveCamera(startLatLng.latitude, startLatLng.longitude)
@@ -336,12 +344,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
                 .show()
     }
 
-    override fun sendDeliveryReceivedNotification(sum: String) {
+    override fun sendDeliveryReceivedNotification() {
         val mBuilder: NotificationCompat.Builder =
                 NotificationCompat.Builder(activity)
                         .setContentTitle(getString(R.string.notification_received_delivery))
                         .setSmallIcon(R.drawable.accept_icon)
-                        .setContentText(getString(R.string.notification_message_delivery) + sum)
+                        .setContentText(getString(R.string.notification_message_delivery))
 
         val resultIntent = Intent(activity, RootActivity::class.java)
 

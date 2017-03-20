@@ -86,7 +86,15 @@ class AddFilesPresenter : IAddFilesPresenter {
 
             override fun failureUploadFile(code: Int?, message: Int?) {
                 mView?.hideProgress()
-                mView?.showMessage(null)
+                when(code){
+                    1-> {
+                        mView?.getActivityContext()?.apply {
+                           val message =  getString(R.string.error_photo_to_large)
+                            mView?.showMessage(message)
+                        }
+                    }
+                    null->mView?.showMessage(null)
+                }
             }
 
         }

@@ -1,12 +1,11 @@
 package entrego.com.android.ui.account.help
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.NavUtils
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import entrego.com.android.R
-import entrego.com.android.ui.account.help.chat.ChatHelpActivity
 import entrego.com.android.ui.account.help.reports.ReportsListActivity
 import kotlinx.android.synthetic.main.activity_help.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
@@ -41,7 +40,7 @@ class HelpActivity : AppCompatActivity() {
 
     fun startChattingActivity() {
 
-        val intent = Intent(applicationContext, ChatHelpActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(applicationContext, ChatHelpActivity::class.java)
+//        startActivity(intent)
     }
 }

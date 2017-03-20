@@ -9,7 +9,7 @@ import entrego.com.android.ui.main.accept.view.IAcceptDeliveryView
 interface IAcceptDeliveryPresenter {
     fun onStart(view: IAcceptDeliveryView)
     fun onStop()
-    fun acceptDelivery(id:Int)
-    fun declineDelivery(id:Int)
+    fun acceptDelivery(id:Long)
+    fun declineDelivery(id:Long)
 }
 

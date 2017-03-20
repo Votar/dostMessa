@@ -21,7 +21,7 @@ object DrawerModel {
 
     val statusRequest = ApiCreator.server.create(EntregoApi.ChangeStatus::class.java)
 
-    fun nextStatus(token: String, deliveryId: Int, status: PointStatus, listener: ChangeStatusListener?) {
+    fun nextStatus(token: String, deliveryId: Long, status: PointStatus, listener: ChangeStatusListener?) {
         statusRequest.changeStatus(token, deliveryId, ChangeStatusBody(status))
                 .enqueue(object : Callback<EntregoResultStatusChanged> {
                     override fun onResponse(call: Call<EntregoResultStatusChanged>?, response: Response<EntregoResultStatusChanged>?) {
