@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="PERMISSION_REQUEST_CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <provider
         android:name="android.support.v4.content.FileProvider"
@@ -25,7 +26,6 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality. 
     -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".EntregoApplication"
@@ -127,7 +127,7 @@
                 android:value="entrego.com.android.ui.main.RootActivity" />
         </activity>
 
-        <service android:name=".location.LocationService" />
+        <service android:name=".location.TrackService" />
         <service android:name="entrego.com.android.web.socket.SocketService" />
 
         <activity

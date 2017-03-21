@@ -23,30 +23,23 @@ object LocationTracker {
     const val CUR_LAT = "key_lat"
     const val CUR_LON = "key_lon"
 
-    fun startLocationListener(context: Context) {
-        val intent = Intent(context, LocationService::class.java)
-        context.stopService(intent)
-        context.startService(intent)
-    }
-
     fun sendLocation(token: String, location: LatLng) {
 
         ApiCreator.server.create(EntregoApi.PostLocation::class.java)
                 .postLocation(token, location)
                 .enqueue(object : Callback<EntregoResult> {
                     override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
-                        Logger.logd(response?.body().toString())
-                        when(response?.body()?.code){
-                            0->DeliveryRequest.requestDelivery(token, null)
-                            2->EventBus.getDefault().post(LogoutEvent())
-                        }
+                        if (response?.body() != null)
+                            when (response.body().code) {
+                                0 -> DeliveryRequest.requestDelivery(token, null)
+                                2 -> EventBus.getDefault().post(LogoutEvent())
+                            }
                     }
+
                     override fun onFailure(call: Call<EntregoResult>?, t: Throwable?) {
                         Logger.loge(LocationTracker::class.simpleName, "LocationTrack failed")
                     }
                 })
-
-
 
 
     }

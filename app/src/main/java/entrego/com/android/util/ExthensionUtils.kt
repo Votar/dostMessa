@@ -222,8 +222,8 @@ fun Array<EntregoWaypoint>.getStaticMapUrl(path: String?): String {
     return urlBuilder.toString()
 }
 
-fun isGpsEnable(activity: Context): Boolean {
-    val manager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+fun Context.isGpsEnable(): Boolean {
+    val manager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }
 

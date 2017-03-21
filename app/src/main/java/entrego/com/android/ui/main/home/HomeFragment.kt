@@ -27,6 +27,7 @@ import entrego.com.android.binding.Delivery
 import entrego.com.android.binding.HistoryHolder
 import entrego.com.android.databinding.FragmentHomeBinding
 import entrego.com.android.location.LocationTracker
+import entrego.com.android.location.TrackService
 import entrego.com.android.storage.model.OrderStatus
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.RootActivity
@@ -40,7 +41,6 @@ import entrego.com.android.ui.main.home.view.IHomeView
 import entrego.com.android.util.isGpsEnable
 import entrego.com.android.util.loading
 import entrego.com.android.util.snackSimple
-import entrego.com.android.web.socket.SocketService
 import kotlinx.android.synthetic.main.connect_selector.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_navigation.*
@@ -49,7 +49,6 @@ import java.util.*
 
 class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     companion object {
-        val REQUEST_ACCESS_FINE_LOCATION = 0x811
     }
 
     val mPresenter: IHomePresenter = HomePresenter()
@@ -117,28 +116,28 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     private fun stopLocationTracker() {
-        mTimer?.cancel()
-        mTimer?.purge()
-        mTimer = null
+        activity.stopService(Intent(activity, TrackService::class.java))
     }
 
     private fun startLocationTracker() {
 
-        if (mTimer != null) return
+//        if (mTimer != null) return
+//
+//        if (activity.isGpsEnable())
+//            GPSRequiredFragment.dismiss(activity.supportFragmentManager)
+//        else
+//            GPSRequiredFragment.show(activity.supportFragmentManager)
+//
+//        mTimer = Timer()
+//
+//        mTimer?.schedule(object : TimerTask() {
+//            override fun run() {
+//                val token = EntregoStorage.getToken()
+//                LocationTracker.sendLocation(token, mCurrentLocation)
+//            }
+//        }, 2000, 3000)
 
-        if (isGpsEnable(activity))
-            GPSRequiredFragment.dismiss(activity.supportFragmentManager)
-        else
-            GPSRequiredFragment.show(activity.supportFragmentManager)
-
-        mTimer = Timer()
-
-        mTimer?.schedule(object : TimerTask() {
-            override fun run() {
-                val token = EntregoStorage.getToken()
-                LocationTracker.sendLocation(token, mCurrentLocation)
-            }
-        }, 2000, 3000)
+        activity.startService(Intent(activity, TrackService::class.java))
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -170,7 +169,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopLocationTracker()
     }
 
     var mProgress: ProgressDialog? = null

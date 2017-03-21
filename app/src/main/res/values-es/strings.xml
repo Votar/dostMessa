@@ -72,7 +72,7 @@
     <string name="no_data_found">Dato no encontrado</string>
     <string name="no_delivery">No hay servicios disponibles</string>
     <string name="nothing_to_show">No se encontraron resultados</string>
-    <string name="notification_message_delivery">Total</string>
+    <string name="notification_message_delivery">Haga clic para abrir</string>
     <string name="notification_received_delivery">Entrega recibida</string>
     <string name="origen">Origen</string>
     <string name="purchase">Compra</string>

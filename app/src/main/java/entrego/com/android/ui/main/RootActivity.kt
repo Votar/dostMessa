@@ -22,7 +22,7 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import entrego.com.android.R
-import entrego.com.android.location.LocationTracker
+import entrego.com.android.location.TrackService
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.account.AccountFragment
 import entrego.com.android.ui.auth.AuthActivity
@@ -47,17 +47,21 @@ import org.greenrobot.eventbus.ThreadMode
 
 class RootActivity : AppCompatActivity() {
 
+    companion object {
+        val REQUEST_ACCESS_FINE_LOCATION = 0x811
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
         setupLayouts()
         startService(Intent(this, SocketService::class.java))
+        checkLocationPermission()
         EventBus.getDefault().register(this)
     }
 
     override fun onStart() {
         super.onStart()
-        checkLocationPermission()
         registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
     }
 
@@ -161,25 +165,22 @@ class RootActivity : AppCompatActivity() {
 
 
     fun checkLocationPermission() {
-        val permissionFine = ContextCompat.checkSelfPermission(RootActivity@ this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-        when (permissionFine) {
-            PackageManager.PERMISSION_GRANTED -> {
-                startLocationUpdates()
-            }
-            PackageManager.PERMISSION_DENIED -> {
-                ActivityCompat.requestPermissions(RootActivity@ this,
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        HomeFragment.REQUEST_ACCESS_FINE_LOCATION)
-
-            }
+        if (isLocationPermissionGuaranteed())
+            startLocationUpdates()
+        else {
+            ActivityCompat.requestPermissions(
+                    RootActivity@ this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_ACCESS_FINE_LOCATION
+            )
         }
     }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
         when (requestCode) {
-            HomeFragment.REQUEST_ACCESS_FINE_LOCATION -> {
+            REQUEST_ACCESS_FINE_LOCATION -> {
                 if (grantResults.isNotEmpty()
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startLocationUpdates()
@@ -191,8 +192,7 @@ class RootActivity : AppCompatActivity() {
     }
 
     fun startLocationUpdates() {
-        if (isGpsEnable(this)) {
-            LocationTracker.startLocationListener(this)
+        if (isGpsEnable()) {
             requestDelivery()
         } else {
             GPSRequiredFragment.show(supportFragmentManager)
@@ -208,12 +208,21 @@ class RootActivity : AppCompatActivity() {
         finish()
     }
 
+    fun isLocationPermissionGuaranteed(): Boolean =
+            ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+
 
     val mGpsSwitchStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context, p1: Intent?) {
-            if (!isGpsEnable(ctx))
+            if (!isGpsEnable())
                 GPSRequiredFragment.show(supportFragmentManager)
+            else
+                checkLocationPermission()
         }
     }
+
 
 }
