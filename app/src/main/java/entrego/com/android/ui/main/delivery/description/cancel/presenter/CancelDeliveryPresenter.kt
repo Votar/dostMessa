@@ -40,7 +40,7 @@ class CancelDeliveryPresenter : ICancelDeliveryPresenter {
 
         val builder = AlertDialog.Builder(context)
         builder.setMessage(R.string.cancel_delivery_message)
-        builder.setPositiveButton(android.R.string.ok, { dialogInterface: DialogInterface, i: Int ->
+        builder.setPositiveButton(android.R.string.ok, { dialogInterface: DialogInterface, _: Int ->
             val token = EntregoStorage.getToken()
             mView?.onShowProgress()
 
@@ -58,7 +58,7 @@ class CancelDeliveryPresenter : ICancelDeliveryPresenter {
                 }
             })
         })
-        builder.setNegativeButton(android.R.string.cancel, { dialogInterface: DialogInterface, i: Int ->
+        builder.setNegativeButton(android.R.string.cancel, { dialogInterface: DialogInterface, _: Int ->
             dialogInterface.dismiss()
         })
         builder.show()

@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.icu.text.TimeZoneFormat
@@ -14,6 +15,7 @@ import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v4.app.NavUtils
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Base64
@@ -29,6 +31,7 @@ import entrego.com.android.entity.IncomeEntity
 import entrego.com.android.storage.model.EntregoPoint
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.auth.AuthActivity
+import entrego.com.android.web.socket.SocketService
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
@@ -258,6 +261,7 @@ fun View.showSnackError(message: String?) {
 
 
 fun Context.logout() {
+    stopService(Intent(this, SocketService::class.java))
     EntregoStorage.setToken("")
     val intent = AuthActivity.getIntentLogout(this)
     startActivity(intent)

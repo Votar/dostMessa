@@ -17,24 +17,32 @@ import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.Logger.logd
 import entrego.com.android.web.socket.SocketContract
 import entrego.com.android.web.socket.model.ChatSocketMessage
+import java.util.*
 
 class SocketService : Service() {
 
+    companion object {
+        val KEY_TOKEN = "ext_k_token"
+    }
+
     var mSocketClient: SocketClient? = null
     var mUserProfile: UserProfileModel? = null
+    val TIMER_INTERVAL = 10000L //10 sec
+    var mKeepAliveSocketTimer: Timer? = null
+
 
     var mReceiveMessagesListener = object : SocketContract.ReceiveMessagesListener {
         override fun receivedChatMessage(messageJson: String) {
             sendChatMessageEvent(messageJson)
             if (mUserProfile == null)
                 mUserProfile = EntregoStorage.getUserProfile()
-                GsonHolder
-                        .instance
-                        .fromJson(messageJson, ChatSocketMessage::class.java)
-                        .apply {
-                            if (mUserProfile?.id != sender)
-                                sendChatMessageReceivedNotification(order, sender, text)
-                        }
+            GsonHolder
+                    .instance
+                    .fromJson(messageJson, ChatSocketMessage::class.java)
+                    .apply {
+                        if (mUserProfile?.id != sender)
+                            sendChatMessageReceivedNotification(order, subscriber, text)
+                    }
         }
 
         override fun receivedOrderUpdated(deliveryId: Long) {
@@ -70,19 +78,52 @@ class SocketService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        throw TODO()
     }
 
     override fun onCreate() {
         super.onCreate()
+
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
+        checkTimer()
+        return START_STICKY
+    }
+
+    private fun checkTimer() {
+        if (mKeepAliveSocketTimer == null)
+            startTimer()
+    }
+
+    fun stopTimer() {
+        mKeepAliveSocketTimer?.cancel()
+        mKeepAliveSocketTimer?.purge()
+        mKeepAliveSocketTimer = null
+    }
+
+    fun startTimer() {
+        stopTimer()
+        mKeepAliveSocketTimer = Timer()
+        mKeepAliveSocketTimer?.schedule(object : TimerTask() {
+            override fun run() {
+                if (mSocketClient?.inOpen() != true)
+                    startSocket()
+            }
+        }, 0, TIMER_INTERVAL
+        )
+    }
+
+    fun startSocket() {
+        mSocketClient?.closeConnection()
         val token = EntregoStorage.getToken()
+        if (token.isNullOrEmpty())
+            stopSelf()
         mSocketClient = SocketClient(token, mReceiveMessagesListener)
         mSocketClient?.openConnection()
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return START_NOT_STICKY
-    }
 
     fun sendChatMessageReceivedNotification(orderId: Long, userId: Long, message: String) {
 
@@ -115,6 +156,7 @@ class SocketService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         mSocketClient?.closeConnection()
+        stopTimer()
         logd("SocketService destroyed")
     }
 

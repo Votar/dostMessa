@@ -66,7 +66,7 @@ class DescriptionFragment : Fragment(), IDescreptionView {
 
         descr_frag_chat_rl.setOnClickListener {
             val deliverId = Delivery.getInstance().id
-            val userId = UserProfile.getProfile(activity)?.id
+            val userId = UserProfile.getProfile()?.id
             userId?.let {
                 val intent = ChatMessengerActivity.getIntent(activity, deliverId, it)
                 activity.startActivity(intent)

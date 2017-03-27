@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -153,7 +154,7 @@ class IncomesFragment : Fragment(), IncomesView {
                 yVals.add(BarEntry(i.toFloat(), profit))
             }
             val dataSets = ArrayList<IBarDataSet>()
-            val defaultColor = resources.getColor(R.color.colorDarkGrey)
+            val defaultColor = ContextCompat.getColor(activity, R.color.colorDarkGrey)
             for (i in 0..yVals.size - 2) {
                 if (maxIndex == i) {
                     val max = BarDataSet(listOf(yVals[i]), "")

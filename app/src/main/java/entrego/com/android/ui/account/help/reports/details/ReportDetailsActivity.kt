@@ -35,11 +35,11 @@ class ReportDetailsActivity : AppCompatActivity() {
                 binder.report = report
             }
         }
-        val profile = UserProfile.getProfile(this)
+        val profile = UserProfile.getProfile()
         binder.profile = profile
         report_details_helper_photo.loadSimple("http://cosmouk.cdnds.net/15/33/768x384/landscape-1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg")
         if(profile?.userPicUrl != null)
-        report_details_user_photo.loadSimple(profile?.userPicUrl!!)
+        report_details_user_photo.loadSimple(profile.userPicUrl)
     }
 
     override fun onStart() {

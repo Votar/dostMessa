@@ -57,7 +57,7 @@ class EditVehicleActivity : AppCompatActivity(), IEditVehicleView {
 
     fun setupViews() {
 
-        val vehicle = UserVehicle.getVehicle(this)
+        val vehicle = UserVehicle.getVehicle()
         val years = resources.getIntArray(R.array.years).toList()
         val yearAdapter = ArrayAdapter<Int>(this, R.layout.spinner_list_item, years)
         yearAdapter.setDropDownViewResource(R.layout.spinner_list_dropdown)

@@ -48,7 +48,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val userProfile = UserProfile.getProfile(this)
+        val userProfile = UserProfile.getProfile()
         if (userProfile != null) {
             Logger.logd(userProfile.toString())
             setupView(userProfile)

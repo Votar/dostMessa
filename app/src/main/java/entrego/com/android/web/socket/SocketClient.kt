@@ -5,7 +5,6 @@ import com.neovisionaries.ws.client.*
 import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.Logger.logd
 import entrego.com.android.web.api.EntregoApi
-import entrego.com.android.web.socket.SocketContract
 import entrego.com.android.web.socket.model.BaseSocketMessage
 import entrego.com.android.web.socket.model.SocketMessageType
 
@@ -50,8 +49,6 @@ class SocketClient(token: String, val serverListener: SocketContract.ReceiveMess
 
         override fun onConnectError(websocket: WebSocket?, exception: WebSocketException?) {
             super.onConnectError(websocket, exception)
-            Handler().postDelayed({ connectAsync() }, 1500)
-            logd(TAG_ERROR, exception?.error.toString())
         }
 
         fun parseMessage(json: String) {
@@ -77,6 +74,9 @@ class SocketClient(token: String, val serverListener: SocketContract.ReceiveMess
         }
     }
 
+    fun inOpen(): Boolean = (mSocketConnection?.isOpen == true)
+
+
     fun openConnection() {
         isNeed = true
         connectAsync()
@@ -94,7 +94,7 @@ class SocketClient(token: String, val serverListener: SocketContract.ReceiveMess
 
     fun closeConnection() {
         isNeed = false
-        mSocketConnection = mSocketConnection?.disconnect()
+        mSocketConnection?.disconnect()
     }
 
 

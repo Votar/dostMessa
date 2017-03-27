@@ -36,7 +36,7 @@ object HistoryServiceDetailsModel {
                 .enqueue(object : Callback<EntregoHistoryServiceDetails> {
                     override fun onResponse(call: Call<EntregoHistoryServiceDetails>?, response: Response<EntregoHistoryServiceDetails>?) {
                         when (response?.body()?.code) {
-                            0 -> listener?.onSuccessGetHistory(response?.body()?.payload!!)
+                            0 -> listener?.onSuccessGetHistory(response.body()?.payload!!)
                             else -> listener?.onFailureGetHistory(response?.body()?.code, response?.body()?.message)
                         }
                     }

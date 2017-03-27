@@ -2,6 +2,7 @@ package entrego.com.android.ui.faq
 
 import android.content.res.Resources
 import android.databinding.DataBindingUtil
+import android.support.v4.content.ContextCompat
 import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -47,7 +48,7 @@ class ReportsAdapter(list: List<ReportEntity>, listener: ReportClickListener) : 
         val nextPoint = reportList[position]
         holder?.binder?.report = nextPoint
 
-        val resolvedColor = holder?.binder?.root?.resources?.getColor(R.color.colorDarkBlue)!!
+        val resolvedColor = ContextCompat.getColor(holder?.binder?.root?.context, R.color.colorDarkBlue)
 
         if (nextPoint.status.contentEquals("Resolved"))
             holder?.binder?.reportsListStatusFl?.setBackgroundColor(resolvedColor)

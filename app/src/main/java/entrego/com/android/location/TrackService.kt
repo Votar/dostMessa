@@ -2,11 +2,15 @@ package entrego.com.android.location
 
 import android.Manifest
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.IBinder
 import android.support.v4.app.ActivityCompat
+import android.support.v4.content.LocalBroadcastManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.PendingResult
@@ -17,6 +21,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.home.model.DeliveryRequest
+import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.Logger
 import entrego.com.android.util.Logger.logd
 import entrego.com.android.util.event_bus.LogoutEvent
@@ -32,14 +37,23 @@ import java.util.*
 
 class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    companion object {
+        const val KEY_LATLNG = "ext_k_lat_lng"
+        const val BROADCAST_ACTION_CURRENT_LOCATION = "entrego.com.android.location.current_location"
 
+        const val KEY_ONOFF = "ext_k_lat_lng"
+        const val BROADCAST_ACTION_ONLINE_OFFLINE = "entrego.com.android.location.onoff"
+    }
+
+    val TAG = "TrackService"
     var mTimer: Timer? = null
     var mUpdateLocStatus: PendingResult<Status>? = null
+    var isNeedSendLocation = false
     override fun onBind(intent: Intent?): IBinder {
         throw NotImplementedError()
     }
 
-    lateinit var mGoogleApiClient: GoogleApiClient
+    var mGoogleApiClient: GoogleApiClient? = null
     var mCurrentLocation: LatLng? = null
     override fun onCreate() {
         logd("track service started")
@@ -50,13 +64,30 @@ class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiCl
                 .addOnConnectionFailedListener(this)
                 .build()
 
-        mGoogleApiClient.connect()
+        mGoogleApiClient?.connect()
 
+        registerOnOffReceiver()
+
+    }
+
+    private fun registerOnOffReceiver() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mBroadcastOnOff,
+                IntentFilter(BROADCAST_ACTION_ONLINE_OFFLINE))
+
+    }
+
+    private fun unregisterOnOffReceiver() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastOnOff)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, mLocLis)
+        mGoogleApiClient?.apply {
+            if (isConnected)
+                LocationServices.FusedLocationApi.removeLocationUpdates(this, mLocLis)
+        }
+        unregisterOnOffReceiver()
         stopLocationTracker()
     }
 
@@ -75,7 +106,17 @@ class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiCl
         if (mTimer != null) return
 
         mTimer = Timer()
-        mTimer?.schedule(mWorkTask, 0, 5000)
+        val workTask = object : TimerTask() {
+            override fun run() {
+                getUserLocation().apply {
+                    if (this == null)
+                        logd("Location not available yet")
+                    else
+                        sendLocation(this)
+                }
+            }
+        }
+        mTimer?.schedule(workTask, 0, 5000)
     }
 
     override fun onConnected(p0: Bundle?) {
@@ -100,12 +141,33 @@ class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiCl
                 mGoogleApiClient
                 , locationRequest,
                 mLocLis)
-        startLocationTracker()
+
+        if (isNeedSendLocation)
+            startLocationTracker()
 
     }
 
     val mLocLis = LocationListener {
-        mCurrentLocation = LatLng(it.latitude, it.longitude)
+        it?.apply {
+            mCurrentLocation = LatLng(it.latitude, it.longitude)
+            val intent = Intent(BROADCAST_ACTION_CURRENT_LOCATION)
+            val jsonLatLng = GsonHolder.instance.toJson(mCurrentLocation, LatLng::class.java)
+            intent.putExtra(KEY_LATLNG, jsonLatLng)
+            LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent)
+        }
+    }
+
+    val mBroadcastOnOff = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            if (intent.hasExtra(KEY_ONOFF)) {
+                isNeedSendLocation = intent.getBooleanExtra(KEY_ONOFF, false)
+                if (isNeedSendLocation)
+                    startLocationTracker()
+                else
+                    stopLocationTracker()
+            } else throw IllegalStateException("No key on/off in intent")
+        }
+
     }
 
     fun getUserLocation(): LatLng? {
@@ -131,21 +193,12 @@ class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiCl
                     }
 
                     override fun onFailure(call: Call<EntregoResult>?, t: Throwable?) {
-                        Logger.loge(LocationTracker::class.simpleName, "LocationTrack failed")
+                        Logger.loge(TAG, "LocationTrack failed")
                     }
                 })
 
 
     }
 
-    val mWorkTask = object : TimerTask() {
-        override fun run() {
-            getUserLocation().apply {
-                if (this == null)
-                    logd("Location not available yet")
-                else
-                    sendLocation(this)
-            }
-        }
-    }
+
 }

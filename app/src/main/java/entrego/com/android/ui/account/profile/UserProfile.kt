@@ -40,7 +40,7 @@ object UserProfile {
     }
 
 
-    fun getProfile(context: Context): UserProfileModel? {
+    fun getProfile(): UserProfileModel? {
         return EntregoStorage.getUserProfile()
     }
 

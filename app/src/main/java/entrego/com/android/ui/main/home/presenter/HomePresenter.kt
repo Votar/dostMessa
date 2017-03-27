@@ -11,6 +11,10 @@ import entrego.com.android.ui.main.home.view.IHomeView
 import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.web.model.response.CommonResponseListener
 import org.greenrobot.eventbus.EventBus
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
+
 
 class HomePresenter : IHomePresenter {
 
@@ -44,16 +48,19 @@ class HomePresenter : IHomePresenter {
             view?.showAcceptFragment()
             view?.sendDeliveryReceivedNotification()
         } else
-            view?.dissmissAcceptFragment()
+            view?.dismissAcceptFragment()
 
         if (delivery.history != null) {
             view?.prepareRoute(delivery.history)
             if (delivery.path.line.isNotEmpty())
                 view?.buildPath(delivery.path.line)
 
-        } else
+        } else {
             view?.prepareNoDelivery()
-
+            view?.getFragmentContext()?.apply {
+                (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancelAll()
+            }
+        }
     }
 
 

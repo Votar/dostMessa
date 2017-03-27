@@ -11,7 +11,7 @@ interface IHomeView {
     fun buildPath(path: String)
     fun showAcceptFragment()
     fun sendDeliveryReceivedNotification()
-    fun dissmissAcceptFragment()
+    fun dismissAcceptFragment()
     fun getFragmentContext(): Context
     fun showProgress()
     fun hideProgress()

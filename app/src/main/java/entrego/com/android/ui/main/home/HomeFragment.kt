@@ -26,19 +26,17 @@ import entrego.com.android.R
 import entrego.com.android.binding.Delivery
 import entrego.com.android.binding.HistoryHolder
 import entrego.com.android.databinding.FragmentHomeBinding
-import entrego.com.android.location.LocationTracker
 import entrego.com.android.location.TrackService
 import entrego.com.android.storage.model.OrderStatus
 import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.RootActivity
 import entrego.com.android.ui.main.accept.AcceptDeliveryFragment
 import entrego.com.android.ui.main.delivery.description.DescriptionFragment
-import entrego.com.android.ui.main.dialog.GPSRequiredFragment
 import entrego.com.android.ui.main.home.model.NotificationContract
 import entrego.com.android.ui.main.home.presenter.HomePresenter
 import entrego.com.android.ui.main.home.presenter.IHomePresenter
 import entrego.com.android.ui.main.home.view.IHomeView
-import entrego.com.android.util.isGpsEnable
+import entrego.com.android.util.GsonHolder
 import entrego.com.android.util.loading
 import entrego.com.android.util.snackSimple
 import kotlinx.android.synthetic.main.connect_selector.*
@@ -55,8 +53,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
     var mTimer: Timer? = null
     //Dnipro
-    val defaulLocation = LatLng(8.386368, -81.0629982)
-    var mCurrentLocation = defaulLocation
+    var mCurrentLocation: LatLng? = null
     var mMap: GoogleMap? = null
     var mPolylinePath: ArrayList<Polyline> = ArrayList()
     var mBinder: FragmentHomeBinding? = null
@@ -107,7 +104,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         reenterTransition = true
         map_view.getMapAsync(this)
         LocalBroadcastManager.getInstance(context).registerReceiver(mReceiverCurrentLocation,
-                IntentFilter(LocationTracker.BROADCAST_ACTION_CURRENT_LOCATION))
+                IntentFilter(TrackService.BROADCAST_ACTION_CURRENT_LOCATION))
         home_my_loc.setOnClickListener { moveCameraToCurrentLocation() }
         if (switcher_connected.isChecked)
             startLocationTracker()
@@ -116,38 +113,33 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     private fun stopLocationTracker() {
-        activity.stopService(Intent(activity, TrackService::class.java))
+        val intent = Intent(TrackService.BROADCAST_ACTION_ONLINE_OFFLINE)
+        intent.putExtra(TrackService.KEY_ONOFF, false)
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(intent)
     }
 
     private fun startLocationTracker() {
-
-//        if (mTimer != null) return
-//
-//        if (activity.isGpsEnable())
-//            GPSRequiredFragment.dismiss(activity.supportFragmentManager)
-//        else
-//            GPSRequiredFragment.show(activity.supportFragmentManager)
-//
-//        mTimer = Timer()
-//
-//        mTimer?.schedule(object : TimerTask() {
-//            override fun run() {
-//                val token = EntregoStorage.getToken()
-//                LocationTracker.sendLocation(token, mCurrentLocation)
-//            }
-//        }, 2000, 3000)
-
-        activity.startService(Intent(activity, TrackService::class.java))
+        val intent = Intent(TrackService.BROADCAST_ACTION_ONLINE_OFFLINE)
+        intent.putExtra(TrackService.KEY_ONOFF, true)
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(intent)
     }
 
-    override fun onMapReady(map: GoogleMap?) {
+    override fun onMapReady(map: GoogleMap) {
         mMap = map
         val settings = mMap!!.uiSettings
         settings.setCompassEnabled(false)
         settings.setZoomControlsEnabled(false)
         settings.setMapToolbarEnabled(false)
-        moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
+        if (mCurrentLocation != null)
+            moveCameraToCurrentLocation()
+        else {
+            moveCameraDefaultLocation(map)
+        }
         mPresenter.onBuildView()
+    }
+
+    private fun moveCameraDefaultLocation(map: GoogleMap) {
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(9.0831986,-79.5924046), 11f))
     }
 
 
@@ -198,7 +190,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     override fun getFragmentContext(): Context {
-        return context
+        return activity
     }
 
     override fun prepareNoDelivery() {
@@ -301,22 +293,27 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     fun moveCameraToCurrentLocation() {
-        moveCamera(mCurrentLocation.latitude, mCurrentLocation.longitude)
+        mCurrentLocation?.apply { moveCamera(latitude, longitude) }
     }
 
     var currentLocMarker: Marker? = null
     val mReceiverCurrentLocation = object : BroadcastReceiver() {
-        override fun onReceive(ctx: Context?, intent: Intent?) {
-            val lat = intent?.getDoubleExtra(LocationTracker.CUR_LAT, 0.0)!!
-            val lon = intent.getDoubleExtra(LocationTracker.CUR_LON, 0.0)!!
-            if (lat != 0.0 && lon != 0.0) {
-                mCurrentLocation = LatLng(lat, lon)
-                currentLocMarker?.remove()
-                currentLocMarker = mMap?.addMarker(MarkerOptions()
-                        .position(mCurrentLocation)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_user_pin))
-                        .draggable(false))
-            }
+        override fun onReceive(ctx: Context?, intent: Intent) {
+
+            if (intent.hasExtra(TrackService.KEY_LATLNG)) {
+                val jsonLatLng = intent.getStringExtra(TrackService.KEY_LATLNG)
+                mCurrentLocation = GsonHolder
+                        .instance
+                        .fromJson(jsonLatLng, LatLng::class.java)
+
+                mCurrentLocation?.apply {
+                    currentLocMarker?.remove()
+                    currentLocMarker = mMap?.addMarker(MarkerOptions()
+                            .position(this)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_user_pin))
+                            .draggable(false))
+                }
+            } else throw IllegalStateException("No latlng in intent")
         }
     }
 
@@ -330,7 +327,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         AcceptDeliveryFragment.show(activity.supportFragmentManager)
     }
 
-    override fun dissmissAcceptFragment() {
+    override fun dismissAcceptFragment() {
         AcceptDeliveryFragment.dismiss(activity.supportFragmentManager)
     }
 

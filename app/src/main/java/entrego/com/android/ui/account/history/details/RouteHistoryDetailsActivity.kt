@@ -36,7 +36,7 @@ class RouteHistoryDetailsActivity : AppCompatActivity() {
         binding.destinationPoint = delivery.history[wayLastIndex].waypoint
 
         val durationPoints = delivery.history
-                .filterIndexed { i, entregoPointBinding -> i != 0 }
+                .filterIndexed { i, _ -> i != 0 }
                 .map { it.waypoint.address }
         route_history_details_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         route_history_details_recycler.adapter = DurationAdapter(durationPoints)

@@ -34,12 +34,12 @@ class AddFilesPresenter : IAddFilesPresenter {
 
     override fun handleResultActivity(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        if (resultCode === Activity.RESULT_OK && data != null)
-            if (requestCode === RQT_GALLERY) {
+        if (resultCode == Activity.RESULT_OK && data != null)
+            if (requestCode == RQT_GALLERY) {
                 val images: ArrayList<Image> = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES)
                 mView?.replaceDocumentHolder(images[0].path)
 
-            } else if (requestCode === RQT_CAMERA) {
+            } else if (requestCode == RQT_CAMERA) {
                 val photo = data.extras?.get("data") as Bitmap
                 mView?.replaceDocumentHolder(photo)
             }

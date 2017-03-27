@@ -25,14 +25,14 @@ class EntregoAuth(val email: String, val password: String) {
                 .enqueue(object : Callback<EntregoResult> {
                     override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
                         if (response?.body() != null) {
-                            Logger.logd(response?.body()?.toString())
-                            when (response?.body()?.code) {
+                            Logger.logd(response.body()?.toString())
+                            when (response.body()?.code) {
                                 0 -> {
-                                    val token = response?.headers()?.get(EntregoApi.TOKEN)
+                                    val token = response.headers()?.get(EntregoApi.TOKEN)
                                     EntregoStorage.setLastEmail(email)
                                     listener.onSuccessAuth(token)
                                 }
-                                else -> listener.onFailureAuth(response?.body()?.message)
+                                else -> listener.onFailureAuth(response.body()?.message)
 
                             }
                         }

@@ -35,7 +35,7 @@ class ReportSendMessageActivity : AppCompatActivity() {
                 binder.report = report
             }
         }
-        val profile = UserProfile.getProfile(this)
+        val profile = UserProfile.getProfile()
         profile?.userPicUrl?.let{ report_create_user_photo.loadSimple(it) }
     }
 }

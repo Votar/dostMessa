@@ -47,7 +47,7 @@ object HistoryServicesModel {
 
                     override fun onResponse(call: Call<EntregoResultHistoryService>?, response: Response<EntregoResultHistoryService>?) {
                         when (response?.body()?.code) {
-                            0 -> listener?.onSuccessGetHistory(response?.body()?.payload!!.toList())
+                            0 -> listener?.onSuccessGetHistory(response.body()?.payload!!.toList())
                             else -> listener?.onFailureGetHistory(null)
                         }
                     }

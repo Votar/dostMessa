@@ -44,7 +44,7 @@ class GetVehicleRequest {
             override fun onResponse(call: Call<EntregoResultGetVehicle>?, response: Response<EntregoResultGetVehicle>?) {
                 when (response?.body()?.code) {
                     0 -> {
-                        response?.body()?.let {
+                        response.body()?.let {
                             listener?.onSuccessResponse(it.payload)
                         }
                     }

@@ -70,8 +70,8 @@ class AccountActivity : AppCompatActivity(), IAccountEditView {
         account_edit_full_name.setText(account.fullName)
         account_edit_number.setText(account.accountNumber)
         account_edit_swift_code.setText(account.swiftCode)
-        mActivityFields.forEach { it?.error = null }
-        mActivityInputLayouts.forEach { it?.isErrorEnabled = false }
+        mActivityFields.forEach { it.error = null }
+        mActivityInputLayouts.forEach { it.isErrorEnabled = false }
     }
 
     override fun showFieldError(fieldsName: String, message: String?) {

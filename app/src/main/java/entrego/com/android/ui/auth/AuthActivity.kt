@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import entrego.com.android.R
 import entrego.com.android.R.layout.activity_auth
 import entrego.com.android.storage.preferences.EntregoStorage
@@ -60,7 +61,8 @@ class AuthActivity : AppCompatActivity(), IAuthView {
 
     fun deserializeIntent() {
         if (intent.hasExtra(KEY_LOGOUT))
-            activity_auth.showSnackError(getString(R.string.error_session_expired))
+            Toast.makeText(this, getString(R.string.error_session_expired), Toast.LENGTH_SHORT)
+                    .show()
     }
 
     override fun goToRegistration() {

@@ -33,7 +33,7 @@ object UserVehicle {
 
     }
 
-    fun getVehicle(context: Context): UserVehicleModel? {
+    fun getVehicle(): UserVehicleModel? {
         return EntregoStorage.getUserVehicle()
     }
 
@@ -46,8 +46,8 @@ object UserVehicle {
                 .enqueue(object : Callback<EntregoResultGetVehicle> {
                     override fun onResponse(call: Call<EntregoResultGetVehicle>?, response: Response<EntregoResultGetVehicle>?) {
                         if (response?.body() != null) {
-                            val responseBody = response?.body()
-                            when (response?.body()?.code) {
+                            val responseBody = response.body()
+                            when (response.body()?.code) {
                                 0 -> {
 
                                     if (cash)
@@ -59,7 +59,7 @@ object UserVehicle {
                             }
                         } else {
                             if (response?.errorBody() != null) {
-                                val errorBody = response?.errorBody()!!
+                                val errorBody = response.errorBody()!!
                                 listener?.onFailureRefresh(null)
                             }
                         }
@@ -79,7 +79,7 @@ object UserVehicle {
                 .enqueue(object : Callback<EntregoResultEditVehicle> {
                     override fun onResponse(call: Call<EntregoResultEditVehicle>?, response: Response<EntregoResultEditVehicle>?) {
                         if (response?.body() != null) {
-                            val responseBody = response?.body()!!
+                            val responseBody = response.body()!!
                             when (responseBody.code) {
                                 0 -> listener?.onSuccessUpdate(responseBody.payload!!)
 
@@ -90,7 +90,7 @@ object UserVehicle {
                             }
                         } else {
                             if (response?.errorBody() != null) {
-                                val errorBody = response?.errorBody()
+                                val errorBody = response.errorBody()
                                 listener?.onFailureUpdate("")
                             }
                         }
