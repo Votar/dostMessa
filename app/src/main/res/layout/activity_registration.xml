@@ -1,143 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/default_screen_padding">
+    android:background="@color/colorAccent">
 
-    <RelativeLayout
-        android:id="@+id/activity_registration"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context="entrego.com.android.ui.registration.RegistrationActivity">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_medium">
 
-        <include
-            android:id="@+id/registration_logo"
-            layout="@layout/logo" />
-
-        <LinearLayout
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/registration_logo"
-            android:layout_centerInParent="true"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_medium">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/registration_il_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/registration_edit_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_email"
-                    android:inputType="textEmailAddress"
-                    android:nextFocusDown="@+id/registration_edit_name" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/registration_name_il"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/registration_edit_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_name"
-                    android:nextFocusDown="@+id/registration_edit_password"
-                    android:singleLine="true" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/registration_il_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/registration_edit_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_password"
-                    android:inputType="textPassword"
-                    android:nextFocusDown="@+id/registration_edit_password_conf" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/registration_il_password_conf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/registration_edit_password_conf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_password_conf"
-                    android:inputType="textPassword"
-                    android:nextFocusDown="@+id/registration_phone_codes" />
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/activity_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                tools:context="entrego.com.android.ui.registration.RegistrationActivity">
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/registration_il_phone_code"
-                    android:layout_width="wrap_content"
+                <include
+                    android:id="@+id/registration_logo"
+                    layout="@layout/logo" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/registration_logo"
+                    android:layout_centerInParent="true"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/registration_edit_phone_code"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/registration_il_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/registration_edit_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_email"
+                            android:inputType="textEmailAddress"
+                            android:nextFocusDown="@+id/registration_edit_name" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/registration_name_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/registration_edit_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_name"
+                            android:nextFocusDown="@+id/registration_edit_password"
+                            android:singleLine="true" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/registration_il_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/registration_edit_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_password"
+                            android:inputType="textPassword"
+                            android:nextFocusDown="@+id/registration_edit_password_conf" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/registration_il_password_conf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/registration_edit_password_conf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_password_conf"
+                            android:inputType="textPassword"
+                            android:nextFocusDown="@+id/registration_phone_codes" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:hint="@string/hint_phone_code"
-                        android:inputType="phone"
-                        android:minWidth="60dp"
-                        android:nextFocusDown="@+id/registration_edit_phone" />
-                </android.support.design.widget.TextInputLayout>
+                        android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/registration_il_phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/registration_il_phone_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/registration_edit_phone"
-                        android:layout_width="match_parent"
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/registration_edit_phone_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:hint="@string/hint_phone_code"
+                                android:inputType="phone"
+                                android:minWidth="60dp"
+                                android:nextFocusDown="@+id/registration_edit_phone" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/registration_il_phone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/registration_edit_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/hint_phone"
+                                android:inputType="phone"
+                                android:nextFocusDown="@+id/registration_btn_ok" />
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_phone"
-                        android:inputType="phone"
-                        android:nextFocusDown="@+id/registration_btn_ok" />
-                </android.support.design.widget.TextInputLayout>
+                        android:layout_gravity="right"
+                        android:orientation="horizontal">
 
-            </LinearLayout>
+                        <Button
+                            android:id="@+id/registration_btn_move_login"
+                            style="@style/EntregoSacondaryButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ui_i_have_account" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/registration_btn_ok"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@android:string/ok" />
+                    </LinearLayout>
 
-                <Button
-                    android:id="@+id/registration_btn_move_login"
-                    style="@style/EntregoSacondaryButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ui_i_have_account" />
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </android.support.v7.widget.CardView>
 
-                <Button
-                    android:id="@+id/registration_btn_ok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@android:string/ok" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+</FrameLayout>

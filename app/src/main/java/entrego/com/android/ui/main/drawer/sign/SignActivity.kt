@@ -12,6 +12,7 @@ import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.ui.main.drawer.sign.presenter.ISignPresenter
 import entrego.com.android.ui.main.drawer.sign.presenter.SignPresenter
 import entrego.com.android.ui.main.drawer.sign.view.ISignView
+import entrego.com.android.ui.main.finish.FinishOrderActivity
 import entrego.com.android.util.Logger
 import entrego.com.android.util.UserMessageUtil
 import entrego.com.android.util.loading
@@ -64,12 +65,12 @@ class SignActivity : AppCompatActivity(), ISignView {
         progressDialog?.dismiss()
     }
 
-    override fun onSuccessSign() {
-        Delivery.getInstance().update(null)
-        NavUtils.navigateUpFromSameTask(this)
-    }
+    override fun onSuccessSign(){
+    startActivity(FinishOrderActivity.getIntent(this, Delivery.getInstance().price))
+    Delivery.getInstance().update(null)
+}
 
-    override fun onFailureSign(message: String?) {
-        UserMessageUtil.showSnackMessage(activity_sign, message)
-    }
+override fun onFailureSign(message: String?) {
+    UserMessageUtil.showSnackMessage(activity_sign, message)
+}
 }

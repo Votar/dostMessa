@@ -1,7 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
 
-    <dimen name="default_logo_margin">80dp</dimen>
+    <dimen name="default_logo_margin">70dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="appBarHeight">45dp</dimen>

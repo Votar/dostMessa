@@ -13,68 +13,64 @@
         layout="@layout/navigation_toolbar" />
 
     <LinearLayout
+        android:layout_margin="@dimen/padding_medium"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/file_variants_toolbar"
+        android:background="@color/colorWhite"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:padding="@dimen/padding_medium">
+        >
 
-        <android.support.v7.widget.CardView
+
+        <RelativeLayout
             android:id="@+id/file_variants_licence_item"
             style="@style/ClickableView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="@dimen/padding_medium"
+                android:text="@string/ui_license" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:padding="@dimen/default_screen_padding"
-                    android:text="@string/ui_license" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding_medium"
+                app:srcCompat="@drawable/ic_next_24dp" />
+        </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/default_screen_padding"
-                    app:srcCompat="@drawable/ic_next_24dp" />
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorGrey"/>
 
-        <android.support.v7.widget.CardView
+        <RelativeLayout
             android:id="@+id/file_variants_id_item"
             style="@style/ClickableView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="@dimen/padding_medium"
+                android:text="@string/ui_id" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:padding="@dimen/default_screen_padding"
-                    android:text="@string/ui_id" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/default_screen_padding"
-                    app:srcCompat="@drawable/ic_next_24dp" />
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding_medium"
+                app:srcCompat="@drawable/ic_next_24dp" />
+        </RelativeLayout>
 
     </LinearLayout>
 </RelativeLayout>

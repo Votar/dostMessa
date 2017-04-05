@@ -77,6 +77,10 @@ class RootActivity : BaseMvpActivity<RootContract.View, RootContract.Presenter>(
         super.onStop()
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+//        super.onSaveInstanceState(outState)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(mGpsSwitchStateReceiver)

@@ -21,7 +21,7 @@ class HelpActivity : AppCompatActivity() {
 
         nav_toolbar_back.setOnClickListener { onBackPressed() }
         help_chatting.setOnClickListener { startChattingActivity() }
-        help_incident_report_item.setOnClickListener { startReportsActivity() }
+        help_incidents_ll.setOnClickListener { startReportsActivity() }
     }
 
 

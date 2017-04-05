@@ -22,7 +22,6 @@ import entrego.com.android.ui.incomes.charts.DayAxisValueFormatter
 import entrego.com.android.ui.incomes.charts.EaringAxisValueFormatter
 import entrego.com.android.ui.incomes.charts.XYMarkerView
 import entrego.com.android.ui.incomes.details.IncomesDetailsActivity
-import entrego.com.android.ui.incomes.history.HistoryServiceActivity
 import entrego.com.android.ui.incomes.presenter.IIncomesPresenter
 import entrego.com.android.ui.incomes.presenter.IncomesPresenter
 import entrego.com.android.ui.incomes.view.IncomesView
@@ -30,7 +29,6 @@ import entrego.com.android.util.loading
 import entrego.com.android.util.snackSimple
 import kotlinx.android.synthetic.main.fragment_incomes.*
 import java.util.*
-import java.util.concurrent.locks.Lock
 
 class IncomesFragment : Fragment(), IncomesView {
 

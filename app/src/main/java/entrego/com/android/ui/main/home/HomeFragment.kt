@@ -277,7 +277,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
 
 
     fun showNavigation(source: LatLng, destination: LatLng) {
-
         val sourceLat = source.latitude
         val sourceLon = source.longitude
         val destLat = destination.latitude
@@ -285,7 +284,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
         try {
             val uri = String.format("http://maps.google.com/maps?saddr=$sourceLat,$sourceLon&daddr=$destLat,$destLon")
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
+//            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
             startActivity(intent)
         } catch (ex: ActivityNotFoundException) {
             mPresenter.noGoogleMapsException()

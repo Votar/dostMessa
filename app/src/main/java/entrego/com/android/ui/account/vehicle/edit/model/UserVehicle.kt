@@ -10,11 +10,13 @@ import entrego.com.android.storage.preferences.EntregoStorage
 import entrego.com.android.web.api.ApiCreator
 import entrego.com.android.web.api.EntregoApi
 import entrego.com.android.ui.account.profile.UserProfile
+import entrego.com.android.util.event_bus.LogoutEvent
 import entrego.com.android.web.model.response.EntregoResult
 import entrego.com.android.web.model.response.common.FieldErrorResponse
 import entrego.com.android.web.model.response.profile.EntregoResultEditVehicle
 import entrego.com.android.web.model.response.profile.EntregoResultGetProfile
 import entrego.com.android.web.model.response.profile.EntregoResultGetVehicle
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,6 +57,7 @@ object UserVehicle {
 
                                     listener?.onSuccessRefresh(responseBody?.payload!!)
                                 }
+                                2 ->EventBus.getDefault().post(LogoutEvent())
                                 else -> listener?.onFailureRefresh(responseBody?.message!!)
                             }
                         } else {
@@ -84,7 +87,7 @@ object UserVehicle {
                                 0 -> listener?.onSuccessUpdate(responseBody.payload!!)
 
                                 1 -> for (next in responseBody.fields)
-                                            listener?.onFieldValidatorError(next)
+                                    listener?.onFieldValidatorError(next)
 
                                 else -> listener?.onFailureUpdate(responseBody.message)
                             }

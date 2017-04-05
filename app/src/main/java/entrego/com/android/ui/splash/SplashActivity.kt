@@ -1,13 +1,13 @@
 package entrego.com.android.ui.splash
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import entrego.com.android.R
 import entrego.com.android.storage.model.UserProfileModel
-import entrego.com.android.ui.auth.AuthActivity
-import entrego.com.android.ui.main.RootActivity
 import entrego.com.android.ui.account.profile.UserProfile
+import entrego.com.android.ui.auth.welcome.WelcomeActivity
+import entrego.com.android.ui.main.RootActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         override fun onFailureRefresh(message: String?) {
-            startActivity(AuthActivity.getIntent(this@SplashActivity))
+            startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))
             finish()
         }
 

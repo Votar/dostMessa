@@ -122,7 +122,6 @@
     <string name="ui_forgot_password">Olvidé mi contraseña</string>
     <string name="ui_help">Ayuda</string>
     <string name="ui_i_have_account">¡Ya tengo cuenta!</string>
-    <string name="ui_id">Cédula</string>
     <string name="ui_image_folder">Seleccionar imagen</string>
     <string name="ui_license">Licencia</string>
     <string name="ui_loading">Un momento...</string>
@@ -159,4 +158,6 @@
     <string name="you">Tú</string>
     <string name="error_session_expired">Sesión expirada</string>
     <string name="notification_received_chat_message">Nuevo mensaje del cliente</string>
+    <string name="total_pay">Pago total:</string>
+    <string name="welcome_logo">El control de la ciudad en tu mano</string>
 </resources>
