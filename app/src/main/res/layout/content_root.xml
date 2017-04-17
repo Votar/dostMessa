@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="entrego.com.android.ui.main.RootActivity"
+    tools:context="com.entregoya.msngr.ui.main.RootActivity"
     tools:showIn="@layout/app_bar_root">
 
 
-    <entrego.com.android.util.ui.NoSwipeableViewPager
+    <com.entregoya.msngr.util.ui.NoSwipeableViewPager
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

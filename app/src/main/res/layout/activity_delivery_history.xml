@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="entrego.com.android.ui.account.history.DeliveryHistoryActivity">
+    tools:context="com.entregoya.msngr.ui.account.history.DeliveryHistoryActivity">
 
     <include
         layout="@layout/include_empty_view"

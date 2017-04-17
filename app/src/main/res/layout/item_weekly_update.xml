@@ -3,7 +3,7 @@
     <data>
         <variable
             name="rating"
-            type="entrego.com.android.ui.score.updates.model.RatingModel" />
+            type="com.entregoya.msngr.ui.score.updates.model.RatingModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

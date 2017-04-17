@@ -5,15 +5,15 @@
 
         <variable
             name="model"
-            type="entrego.com.android.storage.model.DeliveryModel" />
+            type="com.entregoya.msngr.storage.model.DeliveryModel" />
 
         <variable
             name="startPoint"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="com.entregoya.msngr.binding.EntregoPointBinding" />
 
         <variable
             name="destinationPoint"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="com.entregoya.msngr.binding.EntregoPointBinding" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context="entrego.com.android.ui.account.history.details.RouteHistoryDetailsActivity">
+        tools:context="com.entregoya.msngr.ui.account.history.details.RouteHistoryDetailsActivity">
 
         <ScrollView
             android:layout_width="match_parent"

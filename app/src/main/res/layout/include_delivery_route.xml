@@ -4,10 +4,10 @@
         <import type="android.view.View" />
         <variable
             name="start"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="com.entregoya.msngr.binding.EntregoPointBinding" />
         <variable
             name="destination"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="com.entregoya.msngr.binding.EntregoPointBinding" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

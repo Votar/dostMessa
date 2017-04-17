@@ -7,7 +7,7 @@
         <import type="com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState"/>
         <variable
             name="delivery"
-            type="entrego.com.android.binding.Delivery" />
+            type="com.entregoya.msngr.binding.Delivery" />
     </data>
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"

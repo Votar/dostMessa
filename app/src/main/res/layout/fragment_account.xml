@@ -6,7 +6,7 @@
 
         <variable
             name="userProfile"
-            type="entrego.com.android.binding.UserProfileEntity" />
+            type="com.entregoya.msngr.binding.UserProfileEntity" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <entrego.com.android.util.ui.NoSwipeableViewPager
+        <com.entregoya.msngr.util.ui.NoSwipeableViewPager
             android:id="@+id/account_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

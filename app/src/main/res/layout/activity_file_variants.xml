@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="entrego.com.android.ui.account.files.FileVariantsActivity">
+    tools:context="com.entregoya.msngr.ui.account.files.FileVariantsActivity">
 
     <include
         android:id="@+id/file_variants_toolbar"

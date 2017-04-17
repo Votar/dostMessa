@@ -5,11 +5,11 @@
 
         <variable
             name="report"
-            type="entrego.com.android.ui.account.help.reports.model.ReportEntity" />
+            type="com.entregoya.msngr.ui.account.help.reports.model.ReportEntity" />
 
         <variable
             name="profile"
-            type="entrego.com.android.storage.model.UserProfileModel" />
+            type="com.entregoya.msngr.storage.model.UserProfileModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context="entrego.com.android.ui.account.help.reports.create.ReportSendMessageActivity">
+        tools:context="com.entregoya.msngr.ui.account.help.reports.create.ReportSendMessageActivity">
 
         <ScrollView
             android:layout_width="match_parent"

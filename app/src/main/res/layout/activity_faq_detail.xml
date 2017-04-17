@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context="entrego.com.android.ui.faq.FaqDetailActivity">
+        tools:context="com.entregoya.msngr.ui.faq.FaqDetailActivity">
 
         <include
             android:id="@+id/faq_det_toolbar"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="entrego.com.android.ui.account.profile.account.AccountActivity">
+    tools:context="com.entregoya.msngr.ui.account.profile.account.AccountActivity">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -7,11 +7,11 @@
 
         <variable
             name="delivery"
-            type="entrego.com.android.binding.Delivery" />
+            type="com.entregoya.msngr.binding.Delivery" />
 
         <variable
             name="presenter"
-            type="entrego.com.android.ui.main.accept.presenter.IAcceptDeliveryPresenter"/>
+            type="com.entregoya.msngr.ui.main.accept.presenter.IAcceptDeliveryPresenter"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

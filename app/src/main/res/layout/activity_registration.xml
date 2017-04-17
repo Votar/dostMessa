@@ -20,7 +20,7 @@
                 android:id="@+id/activity_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context="entrego.com.android.ui.registration.RegistrationActivity">
+                tools:context="com.entregoya.msngr.ui.registration.RegistrationActivity">
 
                 <include
                     android:id="@+id/registration_logo"

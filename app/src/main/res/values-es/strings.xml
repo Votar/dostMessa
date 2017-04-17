@@ -160,4 +160,5 @@
     <string name="notification_received_chat_message">Nuevo mensaje del cliente</string>
     <string name="total_pay">Pago total:</string>
     <string name="welcome_logo">El control de la ciudad en tu mano</string>
+    <string name="registered_field">Probablemente ya registrado</string>
 </resources>

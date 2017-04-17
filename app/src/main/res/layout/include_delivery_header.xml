@@ -8,7 +8,7 @@
 
         <variable
             name="customer"
-            type="entrego.com.android.storage.model.CustomerModel" />
+            type="com.entregoya.msngr.storage.model.CustomerModel" />
     </data>
 
     <RelativeLayout
@@ -54,7 +54,7 @@
                 android:text="@string/ui_customer"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorBlue"
-                android:visibility="@{customer.company == null? View.GONE: View.VISIBLE}" />
+                android:visibility="@{customer.type == null? View.GONE: View.VISIBLE}" />
 
             <TextView
                 android:id="@+id/descr_frag_customer"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:paddingTop="@dimen/normal_text_padding"
-                android:text="@{customer.company?? customer.company}"
+                android:text="@{customer.type?? customer.type}"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/tsize_medium" />
         </LinearLayout>

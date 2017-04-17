@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="entrego.com.android.ui.registration.SuccessRegistrationActivity">
+    tools:context="com.entregoya.msngr.ui.registration.SuccessRegistrationActivity">
 
     <include
         android:id="@+id/succ_reg_logo"

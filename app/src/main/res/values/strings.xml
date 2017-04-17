@@ -115,7 +115,7 @@
     <string name="hint_account_number">Account number</string>
     <string name="hint_account_swift_code">Swift code</string>
     <string name="ui_license">Licence</string>
-    <string name="ui_id" translatable="false">IDF</string>
+    <string name="ui_id" translatable="false">ID</string>
     <string name="ui_send">send</string>
     <string name="status_on_the_way">On the way</string>
     <string name="status_waiting_for_ship">Waiting for the shipment</string>
@@ -174,5 +174,6 @@
     <string name="notification_received_chat_message">New message from customer</string>
     <string name="total_pay">Total pay:</string>
     <string name="welcome_logo">The control of the city in your hand</string>
+    <string name="registered_field">Probably already registered</string>
 
 </resources>

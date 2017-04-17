@@ -7,7 +7,7 @@
 
         <variable
             name="delivery"
-            type="entrego.com.android.binding.Delivery" />
+            type="com.entregoya.msngr.binding.Delivery" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

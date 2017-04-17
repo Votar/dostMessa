@@ -4,15 +4,15 @@
     <data>
         <variable
             name="model"
-            type="entrego.com.android.storage.model.DeliveryModel" />
+            type="com.entregoya.msngr.storage.model.DeliveryModel" />
 
         <variable
             name="startPoint"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="com.entregoya.msngr.binding.EntregoPointBinding" />
 
         <variable
             name="finishPoint"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="com.entregoya.msngr.binding.EntregoPointBinding" />
 
     </data>
 

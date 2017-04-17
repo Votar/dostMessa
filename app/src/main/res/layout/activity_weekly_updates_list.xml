@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="entrego.com.android.ui.score.updates.WeeklyUpdatesListActivity">
+    tools:context="com.entregoya.msngr.ui.score.updates.WeeklyUpdatesListActivity">
 
     <include
         android:id="@+id/weekly_updates_progress"

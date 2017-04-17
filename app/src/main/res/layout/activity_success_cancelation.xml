@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="entrego.com.android.ui.main.delivery.description.cancel.SuccessCancelationActivity">
+    tools:context="com.entregoya.msngr.ui.main.delivery.description.cancel.SuccessCancelationActivity">
 
     <include
         android:id="@+id/success_cancelation_toolbar_ll"

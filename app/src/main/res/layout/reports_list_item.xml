@@ -3,7 +3,7 @@
     <data>
         <variable
             name="report"
-            type="entrego.com.android.ui.account.help.reports.model.ReportEntity" />
+            type="com.entregoya.msngr.ui.account.help.reports.model.ReportEntity" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -4,18 +4,18 @@
     <data>
 
         <import type="android.view.View" />
-        <import type="entrego.com.android.storage.model.PointStatus"/>
+        <import type="com.entregoya.msngr.storage.model.PointStatus"/>
         <variable
             name="delivery"
-            type="entrego.com.android.binding.Delivery" />
+            type="com.entregoya.msngr.binding.Delivery" />
 
         <variable
             name="start"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="com.entregoya.msngr.binding.EntregoPointBinding" />
 
         <variable
             name="destination"
-            type="entrego.com.android.binding.EntregoPointBinding" />
+            type="com.entregoya.msngr.binding.EntregoPointBinding" />
     </data>
 
 
