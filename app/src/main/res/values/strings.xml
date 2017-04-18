@@ -175,5 +175,10 @@
     <string name="total_pay">Total pay:</string>
     <string name="welcome_logo">The control of the city in your hand</string>
     <string name="registered_field">Probably already registered</string>
+    <string name="error_no_order">No available order</string>
+    <string name="success_send_report">Report have been sent</string>
+    <string name="creating">Creating</string>
+    <string name="administration">Administration</string>
+    <string name="service_report">Service report</string>
 
 </resources>

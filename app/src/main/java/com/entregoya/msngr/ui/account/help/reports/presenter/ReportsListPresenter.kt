@@ -1,32 +1,38 @@
 package com.entregoya.msngr.ui.account.help.reports.presenter
 
+import com.entregoya.msngr.storage.preferences.EntregoStorage
 import com.entregoya.msngr.ui.account.help.reports.model.ReportEntity
-import com.entregoya.msngr.ui.account.help.reports.model.ReportsController
+import com.entregoya.msngr.ui.account.help.reports.model.ReportListRequest
 import com.entregoya.msngr.ui.account.help.reports.view.IReportsListView
 
-/**
- * Created by bertalt on 26.12.16.
- */
+
 class ReportsListPresenter : IReportsListPresenter {
     var mView: IReportsListView? = null
-    val getReportsListener = object : ReportsController.GetReportsListener {
-        override fun onSuccessGet(reports: List<ReportEntity>) {
-            mView?.buildView(reports)
+    val mToken = EntregoStorage.getToken()
+    val mReportListListener = object : ReportListRequest.ReportListRequestListener {
+        override fun onSuccessReportListRequest(resultList: Array<ReportEntity>) {
+            if (resultList.isNotEmpty())
+                mView?.buildView(resultList.toList())
+            else
+                mView?.showEmptyView()
         }
 
-        override fun onFailureGet(code: Int?, message: String?) {
+        override fun onFailureReportListRequest(code: Int?, message: String?) {
             mView?.showEmptyView()
             mView?.showMessage(message)
         }
-
     }
 
     override fun onCreate(view: IReportsListView) {
         mView = view
-        ReportsController.getReportsAsync(getReportsListener)
+        requestList()
     }
 
     override fun onDestroy() {
         mView = null
+    }
+
+    fun requestList() {
+        ReportListRequest().executeAsync(mToken, mReportListListener)
     }
 }

@@ -75,15 +75,28 @@
                     android:paddingRight="@dimen/padding_large"
                     android:paddingTop="@dimen/padding_small">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Service" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/service_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/service_no" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/service_label"
+                            android:paddingLeft="@dimen/padding_small"
+                            android:text="@{report.orderToView()}" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1 de Octubre 9:11am" />
+                        android:text="@{report.formattedCreateDate()}" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -131,14 +144,14 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/padding_large"
-                                        android:text="@{report.message}" />
+                                        android:text="@{report.report}" />
                                 </LinearLayout>
                             </LinearLayout>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="@{report.response != null? View.VISIBLE: View.GONE}">
+                                android:visibility="@{report.response!=null? View.VISIBLE: View.GONE}">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -156,13 +169,15 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:orientation="horizontal"
-                                        android:padding="@dimen/padding_medium">
+                                        android:padding="@dimen/padding_medium"
+                                        android:visibility="@{report.report == null? View.GONE: View.VISIBLE}">
 
                                         <de.hdodenhof.circleimageview.CircleImageView
                                             android:id="@+id/report_details_helper_photo"
                                             android:layout_width="@dimen/report_photo_holder"
                                             android:layout_height="@dimen/report_photo_holder"
-                                            app:civ_border_width="0dp" />
+                                            app:civ_border_width="0dp"
+                                            app:srcCompat="@drawable/ic_user_pic_holder" />
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
@@ -175,7 +190,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center_vertical"
                                                 android:layout_marginTop="10dp"
-                                                android:text="Carlos"
+                                                android:text="@string/administration"
                                                 android:textSize="@dimen/tsize_medium" />
 
                                             <TextView
@@ -196,6 +211,8 @@
 
         <include
             layout="@layout/navigation_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
 

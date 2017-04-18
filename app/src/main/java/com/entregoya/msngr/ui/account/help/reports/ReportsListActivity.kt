@@ -15,7 +15,7 @@ import com.entregoya.msngr.ui.account.help.reports.model.ReportEntity
 import com.entregoya.msngr.ui.account.help.reports.presenter.IReportsListPresenter
 import com.entregoya.msngr.ui.account.help.reports.presenter.ReportsListPresenter
 import com.entregoya.msngr.ui.account.help.reports.view.IReportsListView
-import com.entregoya.msngr.ui.faq.ReportsAdapter
+import com.entregoya.msngr.ui.account.help.reports.model.ReportsAdapter
 import com.entregoya.msngr.util.GsonHolder
 import com.entregoya.msngr.util.UserMessageUtil
 import kotlinx.android.synthetic.main.activity_reports_list.*
@@ -57,7 +57,7 @@ class ReportsListActivity : AppCompatActivity(), IReportsListView {
     }
 
     override fun showEmptyView() {
-
+        reports_list_progress.visibility = View.GONE
     }
 
     override fun showMessage(message: String?) {

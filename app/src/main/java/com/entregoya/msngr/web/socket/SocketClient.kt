@@ -34,11 +34,9 @@ class SocketClient(token: String, val serverListener: SocketContract.ReceiveMess
             logd(TAG, "Socket disconnected is need keep alive $isNeed")
             if (isNeed && !closedByServer)
                 Handler().postDelayed({ connectAsync() }, 1500)
-            logd( "closeCode = "+          serverCloseFrame?.closeCode?.toString()
-            )
-
-            if(serverCloseFrame?.closeCode == 4500){
-                logd("Closed by server with code ${serverCloseFrame.closeCode}"  )
+            else if (serverCloseFrame?.closeCode == 4500) {
+                logd("Closed by server with code ${serverCloseFrame.closeCode}")
+                closeConnection()
                 serverListener.disconnectedByServer()
             }
         }
@@ -84,8 +82,10 @@ class SocketClient(token: String, val serverListener: SocketContract.ReceiveMess
 
 
     fun openConnection() {
-        isNeed = true
-        connectAsync()
+        synchronized(this, {
+            isNeed = true
+            connectAsync()
+        })
     }
 
     private fun connectAsync() {
@@ -99,10 +99,10 @@ class SocketClient(token: String, val serverListener: SocketContract.ReceiveMess
 
 
     fun closeConnection() {
-        isNeed = false
-        mSocketConnection?.disconnect()
+        synchronized(this, {
+            isNeed = false
+            mSocketConnection?.disconnect()
+        })
     }
-
-
 }
 

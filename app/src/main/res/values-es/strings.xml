@@ -161,4 +161,9 @@
     <string name="total_pay">Pago total:</string>
     <string name="welcome_logo">El control de la ciudad en tu mano</string>
     <string name="registered_field">Probablemente ya registrado</string>
+    <string name="error_no_order">Ninguna orden disponible</string>
+    <string name="success_send_report">Se ha enviado un informe</string>
+    <string name="administration">Administración</string>
+    <string name="creating">Creando</string>
+    <string name="service_report">Informe de servicio</string>
 </resources>

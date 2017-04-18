@@ -1,35 +1,22 @@
-package com.entregoya.msngr.ui.faq
+package com.entregoya.msngr.ui.account.help.reports.model
 
-import android.content.res.Resources
 import android.databinding.DataBindingUtil
 import android.support.v4.content.ContextCompat
-import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.entregoya.msngr.R
-import com.entregoya.msngr.binding.HistoryServiceBinding
-import com.entregoya.msngr.databinding.ItemHistoryServiceBinding
 import com.entregoya.msngr.databinding.ReportsListItemBinding
 import com.entregoya.msngr.ui.account.help.reports.model.ReportEntity
 
-/**
- * Created by bertalt on 07.12.16.
- */
-class ReportsAdapter(list: List<ReportEntity>, listener: ReportClickListener) : RecyclerView.Adapter<ReportsAdapter.ViewHolder>() {
-
-    val reportList: List<ReportEntity>
-    val clickListener: ReportClickListener
+class ReportsAdapter(val reportList: List<ReportEntity>,
+                     val clickListener: ReportClickListener) : RecyclerView.Adapter<ReportsAdapter.ViewHolder>() {
 
     interface ReportClickListener {
         fun onReportClicked(item: ReportEntity)
     }
 
-    init {
-        this.reportList = list
-        clickListener = listener
-    }
 
     // Provide a reference to the views for each data item
 // Complex data items may need more than one mView per item, and
@@ -50,13 +37,10 @@ class ReportsAdapter(list: List<ReportEntity>, listener: ReportClickListener) : 
 
         val resolvedColor = ContextCompat.getColor(holder?.binder?.root?.context, R.color.colorDarkBlue)
 
-        if (nextPoint.status.contentEquals("Resolved"))
-            holder?.binder?.reportsListStatusFl?.setBackgroundColor(resolvedColor)
-
         holder?.binder?.root?.setOnClickListener { clickListener.onReportClicked(nextPoint) }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ReportsAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
         val binding = ReportsListItemBinding.inflate(inflater, parent, false)
         return ViewHolder(binding.root)

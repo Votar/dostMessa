@@ -31,6 +31,7 @@ import com.entregoya.msngr.entity.IncomeEntity
 import com.entregoya.msngr.storage.model.EntregoPoint
 import com.entregoya.msngr.storage.preferences.EntregoStorage
 import com.entregoya.msngr.ui.auth.AuthActivity
+import com.entregoya.msngr.web.api.EntregoApi
 import com.entregoya.msngr.web.socket.SocketService
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
@@ -257,6 +258,14 @@ fun View.showSnackError(message: String?) {
     val primaryColor = ContextCompat.getColor(this.context, R.color.colorTomato)
     sbMessageTextView.setTextColor(primaryColor)
     snackBar.show()
+}
+
+fun ImageView.loadMessengerPhoto() {
+    Glide.with(this.context)
+            .load(EntregoApi.REQUESTS.GET_USER_PHOTO)
+            .error(R.drawable.ic_user_pic_holder)
+            .skipMemoryCache(true)
+            .into(this)
 }
 
 
