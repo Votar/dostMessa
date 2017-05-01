@@ -137,7 +137,7 @@ fun Uri.getRealPathFromURI(context: Context?): String {
         return ""
 }
 
-fun View.buildRatingBar(rating: Double) {
+fun View.buildRatingBar(rating: Float) {
 
     val density = this.resources.displayMetrics.density
     val sourceWidth = 250 * density

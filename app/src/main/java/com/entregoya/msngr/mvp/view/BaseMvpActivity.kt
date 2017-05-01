@@ -3,6 +3,7 @@ package com.entregoya.msngr.mvp.view
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.entregoya.msngr.mvp.presenter.IBaseMvpPresenter
 import com.entregoya.msngr.util.logout
 import com.entregoya.msngr.util.showSnack
@@ -11,6 +12,9 @@ import com.entregoya.msngr.util.showSnackError
 
 abstract class BaseMvpActivity<in V : IBaseMvpView, T : IBaseMvpPresenter<V>>
     : AppCompatActivity(), IBaseMvpView {
+
+    override fun getRootView(): View? =  window.decorView.rootView
+
     protected abstract var mPresenter: T
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +35,7 @@ abstract class BaseMvpActivity<in V : IBaseMvpView, T : IBaseMvpPresenter<V>>
         getRootView()?.showSnack(getString(srtResId))
     }
 
-    override fun showMessage(message: String) {
+    override fun showMessage(message: String?) {
         getRootView()?.showSnack(message)
     }
 

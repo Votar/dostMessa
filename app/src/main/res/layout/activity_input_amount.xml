@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_input_amount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/nav_toolbar"
+        android:layout_margin="@dimen/margin_medium">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_medium">
+
+            <LinearLayout
+                android:id="@+id/input_amount_edit_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/padding_large"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="$"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="66dp" />
+
+                <EditText
+                    android:id="@+id/input_amount_edit"
+                    style="@style/FullWidthEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:hint="0.00"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="66dp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/input_amount_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/input_amount_edit_rl"
+                android:background="@color/colorGrey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/input_amount_divider"
+                android:layout_centerHorizontal="true"
+                android:text="@string/text_add_the_total"
+                android:textColor="@color/colorDarkGrey" />
+
+            <ImageView
+                android:id="@+id/input_amount_receipt_holder"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_account_box_black_24dp" />
+
+            <Button
+                android:id="@+id/input_amount_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/margin_large"
+                android:text="@string/text_accept" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <include
+        android:id="@+id/nav_toolbar"
+        layout="@layout/navigation_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

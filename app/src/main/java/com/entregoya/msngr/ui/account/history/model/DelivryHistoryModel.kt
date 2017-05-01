@@ -11,7 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 
-object DeliveryHistoryModel {
+object DeliveryHistoryRequest {
 
     const val GET_DELIVERY_HISTORY = "messenger/statistics/orders"
 
@@ -23,7 +23,7 @@ object DeliveryHistoryModel {
 
     interface GetDeliveryHistoryListener {
         fun onSuccessGetDeliveryHistory(resultArray: Array<DeliveryModel>)
-        fun onFailureGetDeliveryHistory(message: String?)
+        fun onFailureGetDeliveryHistory(code: Int?, message: String?)
     }
 
     val mRequest = ApiCreator.server.create(GetDeliveryHistoryApi::class.java)
@@ -35,12 +35,12 @@ object DeliveryHistoryModel {
                         if (response != null)
                             when (response.body().code) {
                                 0 -> listener?.onSuccessGetDeliveryHistory(response.body().payload)
-                                else -> listener?.onFailureGetDeliveryHistory(response.body().message)
+                                else -> listener?.onFailureGetDeliveryHistory(response.body().code, response.body().message)
                             }
                     }
 
                     override fun onFailure(call: Call<EntregoResultHistoryDelivery>?, t: Throwable?) {
-                        listener?.onFailureGetDeliveryHistory(null)
+                        listener?.onFailureGetDeliveryHistory(null, null)
                     }
                 })
     }

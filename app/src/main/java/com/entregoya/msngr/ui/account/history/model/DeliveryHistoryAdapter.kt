@@ -20,11 +20,19 @@ class DeliveryHistoryAdapter(val dataset: Array<DeliveryModel>, val listener: Cl
         fun onItemClicked(delivery: DeliveryModel)
     }
 
+
     class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
         var binder: ItemHistoryRoutesBinding? = null
-
         init {
             binder = DataBindingUtil.bind(rootView)
+        }
+    }
+
+    fun margeDataset(newList: Array<DeliveryModel>){
+        val listNotifyId : List<Int> = emptyList()
+
+        dataset.forEachIndexed { index, deliveryModel ->
+
         }
     }
 

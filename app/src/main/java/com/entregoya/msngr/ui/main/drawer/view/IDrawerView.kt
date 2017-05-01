@@ -5,4 +5,5 @@ interface IDrawerView {
     fun refreshView()
     fun buildMultiDelivery()
     fun showMessage(message:String?)
+    fun startShoppingProcedure()
 }

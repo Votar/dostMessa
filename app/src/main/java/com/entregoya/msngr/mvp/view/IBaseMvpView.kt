@@ -17,7 +17,7 @@ interface IBaseMvpView {
 
     fun showMessage(@StringRes srtResId: Int)
 
-    fun showMessage(message: String)
+    fun showMessage(message: String?)
 
     fun onLogout()
 

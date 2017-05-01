@@ -5,20 +5,21 @@ import android.os.Looper
 import com.entregoya.msngr.R
 import com.entregoya.msngr.storage.preferences.EntregoStorage
 import com.entregoya.msngr.ui.account.profile.UserProfile
-import com.entregoya.msngr.ui.auth.model.EntregoAuth
-import com.entregoya.msngr.ui.auth.presenter.IAuthPresenter
-import com.entregoya.msngr.ui.auth.view.IAuthView
+import com.entregoya.msngr.ui.account.profile.account.model.GetBankAccountRequest
 import com.entregoya.msngr.ui.account.vehicle.edit.model.UserVehicle
+import com.entregoya.msngr.ui.auth.model.EntregoAuth
+import com.entregoya.msngr.ui.auth.view.IAuthView
 
 
 class AuthPresenter(val view: IAuthView) : IAuthPresenter {
 
     val listener = object : EntregoAuth.ResultListener {
-        override fun onSuccessAuth(token: String?) {
+        override fun onSuccessAuth(token: String) {
             view.hideProgress()
             EntregoStorage.setToken(token)
             UserProfile.refresh(view.getContext(), null)
             UserVehicle.refresh(view.getContext(), null)
+            GetBankAccountRequest().executeAsync(token, null)
             view.goToMainScreen()
         }
 

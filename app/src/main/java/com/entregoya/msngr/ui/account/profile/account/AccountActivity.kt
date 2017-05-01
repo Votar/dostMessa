@@ -13,10 +13,13 @@ import com.entregoya.msngr.ui.account.profile.account.presenter.AccountEditPrese
 import com.entregoya.msngr.ui.account.profile.account.presenter.IAccountEditPresenter
 import com.entregoya.msngr.ui.account.profile.account.view.IAccountEditView
 import com.entregoya.msngr.util.loading
+import com.entregoya.msngr.util.logout
+import com.entregoya.msngr.util.snackSimple
 import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 
 class AccountActivity : AppCompatActivity(), IAccountEditView {
+
 
     var mActivityFields: List<EditText> = emptyList()
     var mActivityInputLayouts: List<TextInputLayout> = emptyList()
@@ -62,14 +65,14 @@ class AccountActivity : AppCompatActivity(), IAccountEditView {
     }
 
     override fun showMessage(message: String?) {
-
+        activity_account.snackSimple(message)
     }
 
     override fun prepareView(account: AccountEntity) {
-        account_edit_bank_name.setText(account.bankName)
-        account_edit_full_name.setText(account.fullName)
-        account_edit_number.setText(account.accountNumber)
-        account_edit_swift_code.setText(account.swiftCode)
+        account_edit_bank_name.setText(account.bank)
+        account_edit_full_name.setText(account.name)
+        account_edit_number.setText(account.account)
+        account_edit_swift_code.setText(account.swift)
         mActivityFields.forEach { it.error = null }
         mActivityInputLayouts.forEach { it.isErrorEnabled = false }
     }
@@ -101,8 +104,16 @@ class AccountActivity : AppCompatActivity(), IAccountEditView {
         val fullName = account_edit_full_name.text.toString()
         val accountNumber = account_edit_number.text.toString()
         val swiftCode = account_edit_swift_code.text.toString()
-
         mPresenter.requestChanges(bankName, fullName, accountNumber, swiftCode)
     }
+
+    override fun showMessage(resStrId: Int) {
+        activity_account.snackSimple(getString(resStrId))
+    }
+
+    override fun onLogout() {
+        this.logout()
+    }
+
 
 }

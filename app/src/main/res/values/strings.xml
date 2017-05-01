@@ -151,7 +151,7 @@
     <string name="killometers_short">km</string>
     <string name="actual_score_is">Actual score is</string>
     <string name="improvement_tips_descr">Improve your skills with the best messaging practices</string>
-    <string name="accepted_services">Accepted services</string>
+    <string name="accepted_services">Declined services</string>
     <string name="completed_services">Completed services</string>
     <string name="canceled_services">Canceled services</string>
     <string name="weeks_resumes">Weeks resume</string>
@@ -180,5 +180,12 @@
     <string name="creating">Creating</string>
     <string name="administration">Administration</string>
     <string name="service_report">Service report</string>
+    <string name="error_validation_field">Field validation error</string>
+    <string name="text_add_the_total">Add the total amount</string>
+    <string name="error_invalid_amount">Invalid amount</string>
+    <string name="error_no_receipt_photo">Receipt photo is required</string>
+    <string name="text_permission_required">If you reject permission,you can not use this service\\n\\nPlease turn on permissions at [Setting] > [Permission]</string>
+    <string name="error_permission_denied">Permission denied</string>
+    <string name="success_send_receipt">Receipt have been sent</string>
 
 </resources>

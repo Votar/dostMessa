@@ -34,6 +34,11 @@
         <item name="android:padding">@dimen/padding_medium</item>
     </style>
 
+    <style name="FullWidthEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">@dimen/tsize_medium</item>
+    </style>
+
     <style name="WhiteButton" parent="Widget.AppCompat.Button.Colored">
         <item name="android:padding">@dimen/padding_small</item>
         <item name="android:colorButtonNormal">@color/colorWhite</item>
@@ -52,6 +57,12 @@
     <style name="DefaultEditText">
         <item name="android:padding">@dimen/small_text_padding</item>
         <item name="android:background">@drawable/edit_text_background</item>
+    </style>
+
+    <style name="EntregoContentScroll">
+        <item name="android:padding">@dimen/padding_medium</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:scrollbars">none</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

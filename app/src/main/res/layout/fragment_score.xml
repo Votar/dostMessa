@@ -44,7 +44,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="@dimen/default_screen_padding"
-                        android:text="4.60"
                         android:textSize="65sp" />
                 </LinearLayout>
 

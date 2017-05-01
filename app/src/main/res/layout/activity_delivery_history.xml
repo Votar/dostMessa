@@ -12,23 +12,22 @@
         layout="@layout/include_empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        />
-
-    <include
-        android:id="@+id/del_hist_progress"
-        layout="@layout/include_progress_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/del_hist_recycler"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/delivery_history_swipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/del_his_toolbar"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay" />
+        android:layout_below="@+id/del_his_toolbar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/del_hist_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <include
         android:id="@+id/del_his_toolbar"
         layout="@layout/navigation_toolbar" />

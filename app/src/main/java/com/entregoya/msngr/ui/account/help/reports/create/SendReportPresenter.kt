@@ -23,7 +23,7 @@ class SendReportPresenter : BaseMvpPresenter<SendReportContract.View>(),
                     mView?.showMessage(R.string.success_send_report)
                 }
                 ApiContract.RESPONSE_INVALID_TOKEN -> mView?.onLogout()
-                else -> mView?.showError(null)
+                else -> mView?.showError(message)
             }
         }
     }

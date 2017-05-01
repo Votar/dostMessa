@@ -5,6 +5,7 @@
 
         <import type="android.view.View" />
         <import type="com.entregoya.msngr.storage.model.PointStatus"/>
+        <import type="com.entregoya.msngr.entity.EntregoServiceCategory"/>
         <variable
             name="delivery"
             type="com.entregoya.msngr.binding.Delivery" />
@@ -84,12 +85,24 @@
                         android:text="@{delivery.history.nextPoint.waypoint.address}" />
                 </LinearLayout>
 
+
+                <Button
+                    android:id="@+id/drawer_purchase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:paddingLeft="42dp"
+                    android:paddingRight="42dp"
+                    android:visibility="@{(delivery.history.getCurrentPoint().status == PointStatus.WAITING) &amp;&amp; delivery.category == EntregoServiceCategory.BUYDELIVER? View.VISIBLE:View.GONE}"
+                    android:text="@string/purchase" />
+
                 <Button
                     android:id="@+id/drawer_sign_bill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/padding_small"
                     android:paddingLeft="42dp"
                     android:paddingRight="42dp"
                     android:visibility="@{delivery.history.destinationPoint.status == PointStatus.DONE? View.VISIBLE:View.GONE}"

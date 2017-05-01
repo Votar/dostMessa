@@ -13,7 +13,7 @@ import retrofit2.Response
 class EntregoAuth(val email: String, val password: String) {
 
     interface ResultListener {
-        fun onSuccessAuth(token: String?)
+        fun onSuccessAuth(token: String)
         fun onFailureAuth(message: String?)
     }
 
@@ -30,7 +30,7 @@ class EntregoAuth(val email: String, val password: String) {
                                 0 -> {
                                     val token = response.headers()?.get(EntregoApi.TOKEN)
                                     EntregoStorage.setLastEmail(email)
-                                    listener.onSuccessAuth(token)
+                                    token?.also { listener.onSuccessAuth(it) }
                                 }
                                 else -> listener.onFailureAuth(response.body()?.message)
 

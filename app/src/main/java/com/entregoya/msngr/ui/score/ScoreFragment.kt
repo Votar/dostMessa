@@ -9,14 +9,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.entregoya.msngr.R
+import com.entregoya.msngr.entity.ScoreEntity
+import com.entregoya.msngr.mvp.view.BaseMvpFragment
 import com.entregoya.msngr.ui.score.comments.CommentsActivity
 import com.entregoya.msngr.ui.score.tips.ImprovementTipsActivity
 import com.entregoya.msngr.ui.score.updates.WeeklyUpdatesListActivity
 import com.entregoya.msngr.util.buildRatingBar
 import kotlinx.android.synthetic.main.best_messenger_charts.*
 import kotlinx.android.synthetic.main.fragment_score.*
+import kotlinx.android.synthetic.main.score_icnlude_main_data.*
 
-class ScoreFragment : Fragment() {
+class ScoreFragment : BaseMvpFragment<ScoreContract.View, ScoreContract.Presenter>(),
+        ScoreContract.View {
+
+
+    override var mPresenter: ScoreContract.Presenter = ScorePresenter()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         retainInstance = true
@@ -27,7 +34,7 @@ class ScoreFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setupListeners()
-        setupBars()
+        mPresenter.requestBestMessenger()
     }
 
     override fun onResume() {
@@ -53,13 +60,15 @@ class ScoreFragment : Fragment() {
         startActivity(intent)
     }
 
-    fun setupBars() {
-        //TODO:remove mock values
-        val userRating = 3.22
-        val bestRating = 4.89
-        score_best_value.text = bestRating.toString()
-        score_best_bar.buildRatingBar(bestRating)
-        score_user_value.text = userRating.toString()
-        score_user_bar.buildRatingBar(userRating)
+    override fun setupScoreView(bestMessenger: ScoreEntity, userScore: ScoreEntity) {
+        score_best_bar.buildRatingBar(bestMessenger.average)
+        score_user_bar.buildRatingBar(userScore.average)
+        score_total_delivery_value.text = userScore.completed.toString()
+        score_total_cnceled_value.text = userScore.canceled.toString()
+        score_total_declined_value.text = userScore.declined.toString()
+        score_best_value.text = bestMessenger.average.toString()
+        score_user_value.text = userScore.average.toString()
+        score_user_score.text = userScore.average.toString()
     }
+
 }

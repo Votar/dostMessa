@@ -15,6 +15,7 @@ import com.entregoya.msngr.web.api.ApiContract
 
 class DrawerPresenter : IDrawerPresenter {
 
+
     var mView: IDrawerView? = null
     var mToken: String = ""
     val mDeliveryChangedListener = object : Observable.OnPropertyChangedCallback() {
@@ -101,6 +102,9 @@ class DrawerPresenter : IDrawerPresenter {
     override fun onStop() {
         Delivery.getInstance().removeOnPropertyChangedCallback(mDeliveryChangedListener)
         mView = null
+    }
+    override fun sendShoppingReceipt() {
+        mView?.startShoppingProcedure()
     }
 
     override fun updateDelivery() {

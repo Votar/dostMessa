@@ -1,11 +1,11 @@
 package com.entregoya.msngr.storage.realm
 
-import com.entregoya.msngr.util.Logger
+import com.entregoya.msngr.storage.model.DeliveryModel
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
 
-object RealmController : StorageContract{
+object RealmController : StorageContract {
 
 
     private val DB_NAME: String = "entrego_db"
@@ -22,21 +22,7 @@ object RealmController : StorageContract{
         Realm.setDefaultConfiguration(realmConfiguration)
     }
 
-    override fun addFavoritePlace(address: String): Boolean {
-
-        return false
-    }
-
-    override fun getFavoritesList(): List<String> {
-
-
-        return emptyList()
-    }
-
-    override fun removeFavorite(address: String): Boolean {
-
-        return false
+    override fun cacheDeliveryModels(list: Array<DeliveryModel>) {
 
     }
-
 }

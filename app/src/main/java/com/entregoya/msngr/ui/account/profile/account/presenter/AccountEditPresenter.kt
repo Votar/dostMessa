@@ -1,36 +1,37 @@
 package com.entregoya.msngr.ui.account.profile.account.presenter
 
-import android.os.Handler
-import com.entregoya.msngr.ui.account.profile.account.model.AccountController
+import com.entregoya.msngr.R
+import com.entregoya.msngr.storage.preferences.EntregoStorage
 import com.entregoya.msngr.ui.account.profile.account.model.AccountEntity
+import com.entregoya.msngr.ui.account.profile.account.model.BankAccountChangeRequest
 import com.entregoya.msngr.ui.account.profile.account.view.IAccountEditView
+import com.entregoya.msngr.web.api.ApiContract
 
-/**
- * Created by bertalt on 26.12.16.
- */
+
 class AccountEditPresenter : IAccountEditPresenter {
     var mView: IAccountEditView? = null
-    val mUpdateListener = object : AccountController.UpdateAccountListener {
-
-        override fun onFieldError(fieldName: String, message: String?) {
+    val mToken = EntregoStorage.getToken()
+    val mResponseListener = object : BankAccountChangeRequest.BankAccountChangeRequestListener {
+        override fun onSuccessBankAccountChangeRequest(updatedAccount: AccountEntity) {
             mView?.hideProgress()
-            mView?.showFieldError(fieldName, message)
+            mView?.prepareView(updatedAccount)
+            EntregoStorage.saveBankAccount(updatedAccount)
         }
 
-        override fun onAccountFailureUpdate(code: Int, message: String?) {
+        override fun onFailureBankAccountChangeRequest(code: Int?, message: String?) {
             mView?.hideProgress()
-            mView?.showMessage(message)
+            when(code){
+                ApiContract.RESPONSE_INVALID_TOKEN->mView?.onLogout()
+                ApiContract.VALIDATION_ERROR->mView?.showMessage(R.string.error_validation_field)
+                else->mView?.showMessage(message)
+            }
         }
 
-        override fun onAccountUpdated(accountEntity: AccountEntity) {
-            mView?.hideProgress()
-            mView?.prepareView(accountEntity)
-        }
     }
 
     override fun onCreate(view: IAccountEditView) {
         mView = view
-        mView?.prepareView(AccountController.getActualData())
+        EntregoStorage.getBankAccount()?.also { mView?.prepareView(it) }
     }
 
     override fun onDestroy() {
@@ -39,7 +40,12 @@ class AccountEditPresenter : IAccountEditPresenter {
 
     override fun requestChanges(bankName: String, fullName: String, accountNumber: String, swiftCode: String) {
         mView?.showProgress()
-        AccountController.requestToUpdate(bankName, fullName, accountNumber, swiftCode, mUpdateListener)
+        BankAccountChangeRequest().executeAsync(mToken,
+                swiftCode,
+                accountNumber,
+                bankName,
+                fullName,
+                mResponseListener)
     }
 
 }

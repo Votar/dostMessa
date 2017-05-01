@@ -18,7 +18,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <application
-        android:name="com.entregoya.msngr.EntregoApplication"
+        android:name=".EntregoApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -32,7 +32,7 @@
             tools:node="remove" />
 
         <activity
-            android:name="com.entregoya.msngr.ui.splash.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -42,14 +42,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.auth.AuthActivity"
+            android:name=".ui.auth.AuthActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.entregoya.msngr.ui.registration.RegistrationActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.auth.AuthActivity"
+            android:name=".ui.registration.RegistrationActivity"
+            android:parentActivityName=".ui.auth.AuthActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <meta-data
@@ -57,18 +57,18 @@
                 android:value="com.entregoya.msngr.ui.auth.AuthActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.registration.SuccessRegistrationActivity"
+            android:name=".ui.registration.SuccessRegistrationActivity"
             android:noHistory="true"
-            android:parentActivityName="com.entregoya.msngr.ui.auth.AuthActivity"
+            android:parentActivityName=".ui.auth.AuthActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.auth.AuthActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.auth.restore.SuccessRestoreActivity"
+            android:name=".ui.auth.restore.SuccessRestoreActivity"
             android:noHistory="true"
-            android:parentActivityName="com.entregoya.msngr.ui.auth.AuthActivity"
+            android:parentActivityName=".ui.auth.AuthActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -87,211 +87,211 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.entregoya.msngr.ui.auth.restore.RestorePasswordActivity"
+            android:name=".ui.auth.restore.RestorePasswordActivity"
             android:noHistory="true"
-            android:parentActivityName="com.entregoya.msngr.ui.auth.AuthActivity"
+            android:parentActivityName=".ui.auth.AuthActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.auth.AuthActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.main.RootActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.entregoya.msngr.ui.account.profile.edit.EditProfileActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.account.profile.edit.EditProfileActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.vehicle.edit.EditVehicleActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.account.vehicle.edit.EditVehicleActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
 
-        <service android:name="com.entregoya.msngr.location.TrackService" />
-        <service android:name="com.entregoya.msngr.web.socket.SocketService" />
+        <service android:name=".location.TrackService" />
+        <service android:name=".web.socket.SocketService" />
 
         <activity
-            android:name="com.entregoya.msngr.ui.account.help.HelpActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.account.help.HelpActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.main.drawer.sign.SignActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.main.drawer.sign.SignActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.history.DeliveryHistoryActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.account.history.DeliveryHistoryActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.files.AddFilesActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.account.files.FileVariantsActivity"
+            android:name=".ui.account.files.AddFilesActivity"
+            android:parentActivityName=".ui.account.files.FileVariantsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.account.files.FileVariantsActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.score.comments.CommentsActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.score.comments.CommentsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.main.delivery.description.cancel.CancelDeliveryActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.main.delivery.description.cancel.CancelDeliveryActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.faq.FaqListActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.faq.FaqListActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.faq.FaqDetailActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.faq.FaqListActivity"
+            android:name=".ui.faq.FaqDetailActivity"
+            android:parentActivityName=".ui.faq.FaqListActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.faq.FaqListActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.incomes.history.HistoryServiceActivity"
+            android:name=".ui.incomes.history.HistoryServiceActivity"
             android:launchMode="singleTask"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.incomes.history.details.DetailsOfServiceActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.incomes.history.HistoryServiceActivity"
+            android:name=".ui.incomes.history.details.DetailsOfServiceActivity"
+            android:parentActivityName=".ui.incomes.history.HistoryServiceActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.incomes.history.HistoryServiceActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.profile.account.AccountActivity"
+            android:name=".ui.account.profile.account.AccountActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.main.delivery.description.cancel.SuccessCancelationActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.main.delivery.description.cancel.SuccessCancelationActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.files.FileVariantsActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.account.files.FileVariantsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.help.reports.ReportsListActivity"
+            android:name=".ui.account.help.reports.ReportsListActivity"
             android:launchMode="singleTask"
-            android:parentActivityName="com.entregoya.msngr.ui.account.help.HelpActivity"
+            android:parentActivityName=".ui.account.help.HelpActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.account.help.HelpActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.help.reports.create.ReportSendMessageActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.account.help.reports.ReportsListActivity"
+            android:name=".ui.account.help.reports.create.ReportSendMessageActivity"
+            android:parentActivityName=".ui.account.help.reports.ReportsListActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.account.help.reports.ReportsListActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.help.reports.details.ReportDetailsActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.account.help.reports.ReportsListActivity"
+            android:name=".ui.account.help.reports.details.ReportDetailsActivity"
+            android:parentActivityName=".ui.account.help.reports.ReportsListActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.account.help.reports.ReportsListActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.incomes.details.IncomesDetailsActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.incomes.details.IncomesDetailsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.score.updates.WeeklyUpdatesListActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.score.updates.WeeklyUpdatesListActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.score.tips.ImprovementTipsActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.score.tips.ImprovementTipsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.score.updates.details.UpdatesDetailsActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.score.updates.WeeklyUpdatesListActivity"
+            android:name=".ui.score.updates.details.UpdatesDetailsActivity"
+            android:parentActivityName=".ui.score.updates.WeeklyUpdatesListActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.score.updates.WeeklyUpdatesListActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.account.history.details.RouteHistoryDetailsActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.account.history.DeliveryHistoryActivity"
+            android:name=".ui.account.history.details.RouteHistoryDetailsActivity"
+            android:parentActivityName=".ui.account.history.DeliveryHistoryActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.account.history.DeliveryHistoryActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.main.special.SpecialDetailsActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.main.special.SpecialDetailsActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -303,26 +303,32 @@
             android:value="463a399516cd719b0fab38747783c8aeed730201" />
 
         <activity
-            android:name="com.entregoya.msngr.ui.main.delivery.description.chat.ChatMessengerActivity"
+            android:name=".ui.main.delivery.description.chat.ChatMessengerActivity"
             android:launchMode="singleTask"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
         <activity
-            android:name="com.entregoya.msngr.ui.main.finish.FinishOrderActivity"
-            android:parentActivityName="com.entregoya.msngr.ui.main.RootActivity"
+            android:name=".ui.main.finish.FinishOrderActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
-        <activity android:name="com.entregoya.msngr.ui.auth.welcome.WelcomeActivity"
+        <activity
+            android:name=".ui.auth.welcome.WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.drawer.shopping.AcceptShoppingActivity"
+            android:parentActivityName=".ui.main.RootActivity"
             android:screenOrientation="portrait">
-
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.entregoya.msngr.ui.main.RootActivity" />
         </activity>
     </application>
 

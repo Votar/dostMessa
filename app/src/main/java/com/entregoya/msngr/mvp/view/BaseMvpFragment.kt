@@ -39,7 +39,7 @@ abstract class BaseMvpFragment<in V : IBaseMvpView, T : IBaseMvpPresenter<V>> : 
         getRootView()?.showSnack(getString(srtResId))
     }
 
-    override fun showMessage(message: String) {
+    override fun showMessage(message: String?) {
         getRootView()?.showSnack(message)
     }
 

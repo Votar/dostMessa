@@ -11,4 +11,5 @@ interface IDrawerPresenter {
     fun changeStatus(switch: SwitchCompat, status: PointStatus)
     fun buildSwitchListByState(history: HistoryHolder, switchList: List<SwitchCompat>)
     fun updateDelivery()
+    fun sendShoppingReceipt()
 }

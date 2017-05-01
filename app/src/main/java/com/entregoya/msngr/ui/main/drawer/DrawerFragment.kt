@@ -15,6 +15,7 @@ import com.entregoya.msngr.storage.model.PointStatus
 import com.entregoya.msngr.storage.preferences.EntregoStorage
 import com.entregoya.msngr.ui.main.drawer.presenter.DrawerPresenter
 import com.entregoya.msngr.ui.main.drawer.presenter.IDrawerPresenter
+import com.entregoya.msngr.ui.main.drawer.shopping.AcceptShoppingActivity
 import com.entregoya.msngr.ui.main.drawer.view.IDrawerView
 import com.entregoya.msngr.ui.main.drawer.sign.SignActivity
 import com.entregoya.msngr.util.snackSimple
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.status_service_waiting_for_delivery.*
 import kotlinx.android.synthetic.main.status_service_waiting_for_ship.*
 
 class DrawerFragment : Fragment(), IDrawerView {
+
 
 
     var presenter: IDrawerPresenter = DrawerPresenter()
@@ -74,6 +76,8 @@ class DrawerFragment : Fragment(), IDrawerView {
             }
         }
         drawer_sign_bill.setOnClickListener { startSignActivity() }
+
+        drawer_purchase.setOnClickListener { presenter.sendShoppingReceipt() }
     }
 
     override fun onStop() {
@@ -108,5 +112,13 @@ class DrawerFragment : Fragment(), IDrawerView {
     fun startSignActivity() {
         val intent = Intent(context, SignActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun startShoppingProcedure() {
+        val orderId = Delivery.getInstance().id
+        if (orderId != -1L)
+            startActivity(AcceptShoppingActivity.getIntent(activity, orderId))
+        else
+            throw IllegalStateException("No avaliable order id")
     }
 }

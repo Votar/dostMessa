@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">EntreGO</string>
     <string name="accepted">Aceptado!</string>
-    <string name="accepted_services">Servicios aceptados</string>
+    <string name="accepted_services">Servicios rechazados</string>
     <string name="action_faq">Preguntas Frecuentes</string>
     <string name="action_settings">Configuración</string>
     <string name="actual_score_is">Tu puntuación actual</string>
@@ -166,4 +166,11 @@
     <string name="administration">Administración</string>
     <string name="creating">Creando</string>
     <string name="service_report">Informe de servicio</string>
+    <string name="error_validation_field">Error de validación de campo</string>
+    <string name="text_add_the_total">Añadir el importe total</string>
+    <string name="error_invalid_amount">Monto invalido</string>
+    <string name="error_no_receipt_photo">Se requiere foto de recibo</string>
+    <string name="text_permission_required">Si rechaza el permiso, no puede utilizar este servicio \\ n \\ n Active los permisos en [Configuración]> [Permiso]</string>
+    <string name="error_permission_denied">Permiso denegado</string>
+    <string name="success_send_receipt">Recibo enviado</string>
 </resources>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="comment"
-            type="com.entregoya.msngr.entity.CommentPreviewEntity"/>
+            type="com.entregoya.msngr.entity.CommentEntity" />
     </data>
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,11 +21,11 @@
             android:padding="@dimen/default_screen_padding">
 
             <TextView
-                android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@{comment.comment}"
+                android:textAlignment="center"
                 android:textSize="@dimen/tsize_large" />
 
             <RatingBar
@@ -31,16 +33,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:isIndicator="true"
                 android:paddingBottom="@dimen/default_screen_padding"
                 android:paddingTop="@dimen/default_screen_padding"
-                android:rating="@{comment.stars}"
+                android:rating="@{comment.score}"
                 android:stepSize="0.5" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text=" "
+                android:text="@{comment.name}"
                 android:textColor="@color/colorDarkBlue"
                 android:textSize="@dimen/tsize_medium" />
         </LinearLayout>

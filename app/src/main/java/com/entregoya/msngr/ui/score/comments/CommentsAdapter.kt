@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.entregoya.msngr.databinding.CommentsItemRecyclerBinding
-import com.entregoya.msngr.entity.CommentPreviewEntity
+import com.entregoya.msngr.entity.CommentEntity
 
-class CommentsAdapter(val dataset: List<CommentPreviewEntity>) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
+class CommentsAdapter(val dataset: List<CommentEntity>) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one mView per item, and
@@ -22,7 +22,7 @@ class CommentsAdapter(val dataset: List<CommentPreviewEntity>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder?.binder?.comment = dataset.get(position)
+        holder?.binder?.comment = dataset[position]
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

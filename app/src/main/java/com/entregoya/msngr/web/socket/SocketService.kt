@@ -89,7 +89,6 @@ class SocketService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

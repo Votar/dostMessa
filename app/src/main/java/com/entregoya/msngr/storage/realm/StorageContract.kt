@@ -1,8 +1,8 @@
 package com.entregoya.msngr.storage.realm
 
-interface StorageContract {
+import com.entregoya.msngr.storage.model.DeliveryModel
 
-    fun addFavoritePlace(address: String): Boolean
-    fun getFavoritesList(): List<String>
-    fun removeFavorite(address: String): Boolean
+interface StorageContract {
+    fun cacheDeliveryModels(list : Array<DeliveryModel>)
+//    fun getCachedDeliveryModels
 }

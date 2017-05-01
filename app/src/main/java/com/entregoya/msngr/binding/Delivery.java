@@ -38,7 +38,7 @@ public class Delivery extends BaseObservable {
         } else {
             history = null;
             customer = null;
-            id = 0;
+            id = -1;
             path = null;
             status = "";
             price = null;

@@ -1,38 +1,70 @@
 package com.entregoya.msngr.ui.account.history.presenter
 
+import com.entregoya.msngr.dao.BaseDaoContract
+import com.entregoya.msngr.dao.DaoCallback
+import com.entregoya.msngr.mvp.presenter.BaseMvpPresenter
 import com.entregoya.msngr.storage.model.DeliveryModel
-import com.entregoya.msngr.ui.account.history.model.DeliveryHistoryModel
-import com.entregoya.msngr.ui.account.history.view.IDeliveryHistoryView
+import com.entregoya.msngr.storage.preferences.EntregoStorage
+import com.entregoya.msngr.ui.account.history.DeliveryHistoryContract
+import com.entregoya.msngr.ui.account.history.model.DeliveryHistoryDao
+import com.entregoya.msngr.ui.account.history.model.DeliveryHistoryRequest
 
-class DeliveryHistoryPresenter : IDeliveryHistoryPresenter {
+class DeliveryHistoryPresenter : BaseMvpPresenter<DeliveryHistoryContract.View>(),
+        DeliveryHistoryContract.Presenter {
 
-
-    var view: IDeliveryHistoryView? = null
-    override fun onCreate(view: IDeliveryHistoryView) {
-        this.view = view
+    val mToken = EntregoStorage.getToken()
+    val mDaoResponse = object : DaoCallback<Array<DeliveryModel>> {
+        override fun onResult(code: BaseDaoContract.DaoStates, result: Array<DeliveryModel>?) {
+            when (code) {
+                BaseDaoContract.DaoStates.FINAL_RESPONSE -> {
+                    mView?.hideProgress()
+                    result?.apply {
+                        if (isNotEmpty()) {
+                            mView?.showHistoryList(this)
+                        } else
+                            mView?.showEmptyView()
+                    }
+                }
+                BaseDaoContract.DaoStates.PROGRESS_RESPONSE -> {
+                    mView?.showProgress()
+                    result?.apply {
+                        if (isNotEmpty())
+                            mView?.showHistoryList(this)
+                        else
+                            mView?.showEmptyView()
+                    }
+                }
+                BaseDaoContract.DaoStates.ERROR -> {
+                    mView?.hideProgress()
+                    mView?.showError(null)
+                }
+            }
+        }
     }
 
-    override fun onDestroy() {
-        view = null
+    override fun attachView(view: DeliveryHistoryContract.View) {
+        super.attachView(view)
     }
 
-    override fun requestHistoryList(token: String) {
-
-        DeliveryHistoryModel.requestDeliveryHistory(token, mGetDeliveryHistoryListener)
+    override fun requestHistoryList() {
+        DeliveryHistoryDao.getAsync(mDaoResponse)
+//        DeliveryHistoryRequest.requestDeliveryHistory(mToken, mGetDeliveryHistoryListener)
     }
 
-
-    val mGetDeliveryHistoryListener = object : DeliveryHistoryModel.GetDeliveryHistoryListener {
+    val mGetDeliveryHistoryListener = object : DeliveryHistoryRequest.GetDeliveryHistoryListener {
         override fun onSuccessGetDeliveryHistory(resultArray: Array<DeliveryModel>) {
+            mView?.hideProgress()
+
             if (resultArray.count() > 0)
-                view?.showHistoryList(resultArray)
+                mView?.showHistoryList(resultArray)
             else
-                view?.showEmptyView()
+                mView?.showEmptyView()
         }
 
-        override fun onFailureGetDeliveryHistory(message: String?) {
-            view?.showMessage(message)
-            view?.showEmptyView()
+        override fun onFailureGetDeliveryHistory(code: Int?, message: String?) {
+            mView?.hideProgress()
+            mView?.showEmptyView()
+            mView?.showMessage(message)
 
         }
 
