@@ -64,8 +64,10 @@ class AcceptShoppingActivity : BaseMvpActivity<ShoppingContract.View, ShoppingCo
     override fun getRootView(): View? = activity_input_amount
 
     override fun deserializeIntent() {
-        if (intent?.hasExtra(KEY_ORDER_ID) == true)
-            intent.getLongExtra(KEY_ORDER_ID, 0).also { mPresenter.setupOrderId(it) }
+        if (intent?.hasExtra(KEY_ORDER_ID) == true){
+            val orderID = intent.getLongExtra(KEY_ORDER_ID, 0)
+            mPresenter.setupOrderId(orderID)
+        }
         else throw IllegalStateException("No order id in intent")
     }
 

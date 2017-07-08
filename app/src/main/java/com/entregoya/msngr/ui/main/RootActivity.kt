@@ -13,7 +13,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatDrawableManager
 import android.view.LayoutInflater
 import android.view.Menu
@@ -71,6 +70,9 @@ class RootActivity : BaseMvpActivity<RootContract.View, RootContract.Presenter>(
 
     override fun onStart() {
         super.onStart()
+        mPresenter.viewStarting()
+        if (!isGpsEnable())
+            GPSRequiredFragment.show(supportFragmentManager)
     }
 
     override fun onStop() {
@@ -78,7 +80,7 @@ class RootActivity : BaseMvpActivity<RootContract.View, RootContract.Presenter>(
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-//        super.onSaveInstanceState(outState)
+        mPresenter.viewDestroying()
     }
 
     override fun onDestroy() {

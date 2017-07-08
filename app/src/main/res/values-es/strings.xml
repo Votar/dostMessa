@@ -173,4 +173,5 @@
     <string name="text_permission_required">Si rechaza el permiso, no puede utilizar este servicio \\ n \\ n Active los permisos en [Configuración]> [Permiso]</string>
     <string name="error_permission_denied">Permiso denegado</string>
     <string name="success_send_receipt">Recibo enviado</string>
+    <string name="special_notes">Notas especiales</string>
 </resources>

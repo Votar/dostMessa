@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View" />
         <variable
@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/start_dot" />
+                    app:srcCompat="@drawable/start_dot" />
 
                 <View
                     android:layout_width="1dp"
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/finish_dot" />
+                    app:srcCompat="@drawable/finish_dot" />
             </RelativeLayout>
 
             <TextView

@@ -1,6 +1,7 @@
 package com.entregoya.msngr
 
 import android.support.multidex.MultiDexApplication
+import android.support.v7.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import com.entregoya.msngr.util.Logger
 import com.entregoya.msngr.storage.preferences.EntregoStorage
@@ -19,5 +20,6 @@ class EntregoApplication : MultiDexApplication() {
         UserVehicle.refresh(applicationContext, null)
         JodaTimeAndroid.init(this)
         Realm.init(this)
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 }

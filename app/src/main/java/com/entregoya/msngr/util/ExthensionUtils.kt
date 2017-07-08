@@ -73,6 +73,7 @@ object UserMessageUtil {
         val normalPadding = view.context.resources.getDimensionPixelSize(R.dimen.padding_medium)
         val primaryColor = ContextCompat.getColor(view.context, R.color.colorPrimary)
         sbMessageTextView.setTextColor(primaryColor)
+
         sbMessageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.accept_icon, 0, 0, 0)
         sbMessageTextView.setCompoundDrawablePadding(normalPadding)
         snackBar.show()

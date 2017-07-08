@@ -11,6 +11,8 @@ interface RootContract {
 
     interface Presenter : IBaseMvpPresenter<View> {
         fun isViewAvailable(): Boolean
+        fun viewStarting();
+        fun viewDestroying()
     }
 
 }

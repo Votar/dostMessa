@@ -17,7 +17,7 @@
         android:layout_marginTop="-20dp"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/welcome_pic"
+        app:srcCompat="@drawable/welcome_pic"
         android:layout_alignParentStart="true" />
 
     <ImageView

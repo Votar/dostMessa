@@ -187,5 +187,6 @@
     <string name="text_permission_required">If you reject permission,you can not use this service\\n\\nPlease turn on permissions at [Setting] > [Permission]</string>
     <string name="error_permission_denied">Permission denied</string>
     <string name="success_send_receipt">Receipt have been sent</string>
+    <string name="special_notes">Special notes</string>
 
 </resources>
