@@ -17,7 +17,8 @@ data class DeliveryModel(val id: Long,
                          val category: EntregoServiceCategory,
                          val path: EntregoPath,
                          val pickup: Long,
-                         val price: EntregoPriceEntity ) {
+                         val price: EntregoPriceEntity,
+                         val notes : String) {
 
     fun formattedPickup(): String {
         if (pickup <= 0) return ""

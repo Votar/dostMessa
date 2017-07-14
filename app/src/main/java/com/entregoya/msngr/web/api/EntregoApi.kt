@@ -23,7 +23,7 @@ import retrofit2.http.*
 
 object EntregoApi {
 
-    const val BASE_URL = "http://54.233.108.32/mobile%2Dgateway%2D1.0.0%2DSNAPSHOT/"
+    const val BASE_URL = "https://entregoya.com/mobile-gateway/"
     const val CONTENT_JSON = "content-type: application/json"
     const val TOKEN = "x-auth-token"
 

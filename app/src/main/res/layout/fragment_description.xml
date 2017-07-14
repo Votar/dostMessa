@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="delivery"
@@ -147,6 +148,7 @@
         </FrameLayout>
 
         <RelativeLayout
+            android:visibility="@{delivery.notes != null?View.VISIBLE:View.GONE}"
             android:id="@+id/descr_special_notes_container"
             android:padding="@dimen/default_screen_padding"
             android:layout_width="match_parent"
@@ -164,7 +166,7 @@
             android:layout_width="match_parent"
             android:textColor="@color/colorBlack"
             android:layout_height="wrap_content"
-            android:text="asdfghferg" />
+            android:text="@{delivery.notes}" />
 
         </RelativeLayout>
 

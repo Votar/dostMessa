@@ -10,7 +10,7 @@ import com.entregoya.msngr.web.socket.model.SocketMessageType
 
 class SocketClient(token: String, val serverListener: SocketContract.ReceiveMessagesListener) {
 
-    val END_POINT = "ws://62.149.12.54/mobile-gateway-1.0.0-SNAPSHOT/status"
+    val END_POINT = "wss://entregoya.com/mobile-gateway/status"
     val TIMEOUT = 5000 //5sec
     var mSocketConnection: WebSocket? = null
     val mGson = GsonHolder.instance

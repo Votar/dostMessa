@@ -35,6 +35,7 @@ public class Delivery extends BaseObservable {
             path = model.getPath();
             category = model.getCategory();
             parcel = model.getParcel();
+            notes = model.getNotes();
         } else {
             history = null;
             customer = null;
@@ -42,6 +43,7 @@ public class Delivery extends BaseObservable {
             path = null;
             status = "";
             price = null;
+            notes = null;
         }
         notifyPropertyChanged(BR.history);
         notifyPropertyChanged(BR.instance);
@@ -57,7 +59,15 @@ public class Delivery extends BaseObservable {
     private String status = "";
     @Bindable
     private HistoryHolder history;
+    private String notes;
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 
     public EntregoPriceEntity getPrice() {
         return price;
