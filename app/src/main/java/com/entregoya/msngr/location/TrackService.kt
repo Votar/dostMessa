@@ -1,16 +1,25 @@
 package com.entregoya.msngr.location
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.IBinder
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.NotificationCompat
 import android.support.v4.content.LocalBroadcastManager
+import com.entregoya.msngr.R
+import com.entregoya.msngr.binding.Delivery
+import com.entregoya.msngr.storage.model.OrderStatus
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.PendingResult
@@ -20,6 +29,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.entregoya.msngr.storage.preferences.EntregoStorage
+import com.entregoya.msngr.ui.main.RootActivity
 import com.entregoya.msngr.ui.main.home.model.DeliveryRequest
 import com.entregoya.msngr.util.GsonHolder
 import com.entregoya.msngr.util.Logger
@@ -38,6 +48,7 @@ import java.util.*
 class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     companion object {
+        const val INTERVAL = 10_000L //10 sec
         const val KEY_LATLNG = "ext_k_lat_lng"
         const val BROADCAST_ACTION_CURRENT_LOCATION = "entrego.com.android.location.current_location"
 
@@ -116,7 +127,7 @@ class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiCl
                 }
             }
         }
-        mTimer?.schedule(workTask, 0, 5000)
+        mTimer?.schedule(workTask, 0, INTERVAL)
     }
 
     override fun onConnected(p0: Bundle?) {
@@ -132,14 +143,15 @@ class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiCl
         //TODO : Notify for failure
     }
 
+    @SuppressLint("MissingPermission")
     fun startLocationListener() {
         val locationRequest = LocationRequest()
         locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY// use GPS
         locationRequest.interval = 5000
 
         mUpdateLocStatus = LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient
-                , locationRequest,
+                mGoogleApiClient,
+                locationRequest,
                 mLocLis)
 
         if (isNeedSendLocation)
@@ -187,7 +199,7 @@ class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiCl
                     override fun onResponse(call: Call<EntregoResult>?, response: Response<EntregoResult>?) {
                         if (response?.body() != null)
                             when (response.body().code) {
-                                0 -> DeliveryRequest.requestDelivery(token, null)
+                                0 -> DeliveryRequest.requestDelivery(token, requestDeliveryListener)
                                 2 -> EventBus.getDefault().post(LogoutEvent())
                             }
                     }
@@ -200,5 +212,43 @@ class TrackService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
     }
 
+    val requestDeliveryListener = object : DeliveryRequest.ResultGetDelivery {
+        override fun onSuccessGetDelivery() {
+            if (Delivery.getInstance().status.equals(OrderStatus.PENDING.value, true))
+            sendNewDeliveryReceivedNotification()
+        }
+
+        override fun onFailureGetDelivery(code: Int?, message: String?) {
+
+        }
+    }
+
+    fun sendNewDeliveryReceivedNotification() {
+
+        val mBuilder: NotificationCompat.Builder =
+                NotificationCompat.Builder(applicationContext)
+                        .setContentTitle(applicationContext.getString(R.string.notification_received_delivery))
+                        .setSmallIcon(R.drawable.map_user_pin)
+                        .setContentText(applicationContext.getString(R.string.notification_message_delivery))
+
+        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        mBuilder.setSound(alarmSound)
+        mBuilder.setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_LIGHTS or Notification.DEFAULT_VIBRATE)
+        val resultIntent = Intent(applicationContext, RootActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+
+        val resultPendingIntent =
+                PendingIntent.getActivity(
+                        applicationContext,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_ONE_SHOT
+                )
+        mBuilder.setContentIntent(resultPendingIntent)
+        val mNotifyMgr = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        mNotifyMgr.notify(42, mBuilder.build())
+    }
 
 }

@@ -46,7 +46,7 @@ class HomePresenter : IHomePresenter {
 
         if (delivery.status.equals(OrderStatus.PENDING.value, true)) {
             view?.showAcceptFragment()
-            view?.sendDeliveryReceivedNotification()
+//            view?.sendDeliveryReceivedNotification()
         } else
             view?.dismissAcceptFragment()
 

@@ -339,26 +339,26 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IHomeView {
     }
 
     override fun sendDeliveryReceivedNotification() {
-        val mBuilder: NotificationCompat.Builder =
-                NotificationCompat.Builder(activity)
-                        .setContentTitle(getString(R.string.notification_received_delivery))
-                        .setSmallIcon(R.drawable.accept_icon)
-                        .setContentText(getString(R.string.notification_message_delivery))
-
-        val resultIntent = Intent(activity, RootActivity::class.java)
-
-        val resultPendingIntent =
-                PendingIntent.getActivity(
-                        activity,
-                        0,
-                        resultIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                )
-
-        mBuilder.setContentIntent(resultPendingIntent)
-
-        val mNotifyMgr = activity.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        mNotifyMgr.notify(NotificationContract.NEW_DELIVERY_ID, mBuilder.build())
+//        val mBuilder: NotificationCompat.Builder =
+//                NotificationCompat.Builder(activity)
+//                        .setContentTitle(getString(R.string.notification_received_delivery))
+//                        .setSmallIcon(R.drawable.accept_icon)
+//                        .setContentText(getString(R.string.notification_message_delivery))
+//
+//        val resultIntent = Intent(activity, RootActivity::class.java)
+//
+//        val resultPendingIntent =
+//                PendingIntent.getActivity(
+//                        activity,
+//                        0,
+//                        resultIntent,
+//                        PendingIntent.FLAG_UPDATE_CURRENT
+//                )
+//
+//        mBuilder.setContentIntent(resultPendingIntent)
+//
+//        val mNotifyMgr = activity.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+//        mNotifyMgr.notify(NotificationContract.NEW_DELIVERY_ID, mBuilder.build())
 
     }
 

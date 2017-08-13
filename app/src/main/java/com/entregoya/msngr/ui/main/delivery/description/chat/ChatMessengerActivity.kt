@@ -65,8 +65,7 @@ class ChatMessengerActivity : BaseMvpActivity<ChatContract.View, ChatContract.Pr
         nav_toolbar_back.setOnClickListener { NavUtils.navigateUpFromSameTask(this) }
 
         chat_refresh_layout.isEnabled = false
-        val layoutManager = LinearLayoutManager(this)
-        chat_recycler.layoutManager = layoutManager
+        chat_recycler.layoutManager = LinearLayoutManager(this)
         chat_recycler.itemAnimator = DefaultItemAnimator()
         chat_recycler.adapter = mAdapter
         chat_send.setOnClickListener {

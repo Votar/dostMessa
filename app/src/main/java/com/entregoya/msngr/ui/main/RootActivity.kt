@@ -1,6 +1,9 @@
 package com.entregoya.msngr.ui.main
 
 import android.Manifest
+import android.arch.lifecycle.LifecycleRegistry
+import android.arch.lifecycle.LifecycleRegistryOwner
+import android.arch.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -39,6 +42,7 @@ import com.entregoya.msngr.ui.score.ScoreFragment
 import com.entregoya.msngr.util.event_bus.LogoutEvent
 import com.entregoya.msngr.util.isGpsEnable
 import com.entregoya.msngr.util.ui.ViewPagerAdapter
+import com.entregoya.msngr.web.new_socket.SocketViewModel
 import com.entregoya.msngr.web.socket.SocketService
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.app_bar_root.*
@@ -49,7 +53,19 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class RootActivity : BaseMvpActivity<RootContract.View, RootContract.Presenter>(),
-        RootContract.View {
+        RootContract.View,
+        LifecycleRegistryOwner {
+
+
+    val lifecycleRegistry = LifecycleRegistry(this)
+    val socketViewModel by lazy {
+        ViewModelProviders.of(this).get(SocketViewModel::class.java)
+    }
+
+    override fun getLifecycle(): LifecycleRegistry {
+        return lifecycleRegistry
+    }
+
     override fun getRootView(): View? = drawer_layout
 
     override var mPresenter: RootContract.Presenter = RootPresenter()
@@ -62,10 +78,10 @@ class RootActivity : BaseMvpActivity<RootContract.View, RootContract.Presenter>(
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
         setupLayouts()
-        startService(Intent(this, SocketService::class.java))
         checkLocationPermission()
         EventBus.getDefault().register(this)
         registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
+        socketViewModel.setContext(applicationContext)
     }
 
     override fun onStart() {
@@ -111,6 +127,8 @@ class RootActivity : BaseMvpActivity<RootContract.View, RootContract.Presenter>(
                 .commit()
         main_tabs.setupWithViewPager(main_viewpager)
         setupTabIcons()
+        socketViewModel.getPeriod()
+
     }
 
     private val tabIcons = intArrayOf(
