@@ -9,4 +9,6 @@ class EntregoPhoneModel(val code: String,
     override fun toString(): String {
         return "EntregoPhoneModel(code='$code', number='$number')"
     }
+
+    fun toView() : String = "$code$number"
 }

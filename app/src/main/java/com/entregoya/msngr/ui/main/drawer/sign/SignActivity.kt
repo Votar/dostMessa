@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import com.byox.drawview.enums.DrawingCapture
 import com.entregoya.msngr.R
 import com.entregoya.msngr.binding.Delivery
+import com.entregoya.msngr.entity.EntregoPriceEntity
 import com.entregoya.msngr.storage.preferences.EntregoStorage
 import com.entregoya.msngr.ui.main.drawer.sign.presenter.ISignPresenter
 import com.entregoya.msngr.ui.main.drawer.sign.presenter.SignPresenter
@@ -65,12 +66,18 @@ class SignActivity : AppCompatActivity(), ISignView {
         progressDialog?.dismiss()
     }
 
-    override fun onSuccessSign(){
-    startActivity(FinishOrderActivity.getIntent(this, Delivery.getInstance().price))
-    Delivery.getInstance().update(null)
-}
+    override fun onSuccessSign() {
+        var price = Delivery.getInstance()?.price
+        if (price == null)
+            price = EntregoPriceEntity()
 
-override fun onFailureSign(message: String?) {
-    UserMessageUtil.showSnackMessage(activity_sign, message)
-}
+        val intent = FinishOrderActivity.getIntent(this, price)
+        startActivity(intent)
+        Delivery.getInstance().update(null)
+        finish()
+    }
+
+    override fun onFailureSign(message: String?) {
+        UserMessageUtil.showSnackMessage(activity_sign, message)
+    }
 }

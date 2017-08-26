@@ -174,4 +174,5 @@
     <string name="error_permission_denied">Permiso denegado</string>
     <string name="success_send_receipt">Recibo enviado</string>
     <string name="special_notes">Notas especiales</string>
+    <string name="no_customer_phone">Número de teléfono no disponible</string>
 </resources>

@@ -91,6 +91,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:id="@+id/descr_call_cusomer_btn"
                     style="@style/ClickableView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

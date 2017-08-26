@@ -10,4 +10,5 @@ import com.entregoya.msngr.binding.EntregoPointBinding
 interface IDescreptionView {
     fun getViewContext(): Context
     fun showEmptyView()
+    fun showMessage(resId : Int)
 }

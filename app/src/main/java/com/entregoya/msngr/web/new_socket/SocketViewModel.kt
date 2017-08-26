@@ -92,13 +92,13 @@ class SocketViewModel : ViewModel() {
 
     fun receivedChatMessage(messageJson: String) {
         sendChatMessageEvent(messageJson)
-        GsonHolder
-                .instance
-                .fromJson(messageJson, ChatSocketMessage::class.java)
-                .apply {
-                    if (mUserProfile?.id != sender)
-                        sendChatMessageReceivedNotification(order, subscriber, text)
-                }
+//        GsonHolder
+//                .instance
+//                .fromJson(messageJson, ChatSocketMessage::class.java)
+//                .apply {
+//                    if (mUserProfile?.id != sender)
+//                        sendChatMessageReceivedNotification(order, subscriber, text)
+//                }
     }
 
     private fun sendChatMessageEvent(messageJson: String) {
@@ -138,30 +138,30 @@ class SocketViewModel : ViewModel() {
         }
     }
 
-    fun sendChatMessageReceivedNotification(orderId: Long, userId: Long, message: String) {
-        mContext?.let {
-            val mBuilder: NotificationCompat.Builder =
-                    NotificationCompat.Builder(mContext)
-                            .setContentTitle(it.getString(R.string.notification_received_chat_message))
-                            .setSmallIcon(R.drawable.map_user_pin)
-                            .setContentText(message)
-
-            val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-            mBuilder.setSound(alarmSound)
-            mBuilder.setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_LIGHTS or Notification.DEFAULT_VIBRATE)
-            val resultIntent = ChatMessengerActivity.getIntent(it, orderId, userId)
-            val resultPendingIntent =
-                    PendingIntent.getActivity(
-                            mContext,
-                            0,
-                            resultIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    )
-            mBuilder.setContentIntent(resultPendingIntent)
-            val mNotifyMgr = it.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            mNotifyMgr.notify(orderId.toInt(), mBuilder.build())
-        }
-    }
+//    fun sendChatMessageReceivedNotification(orderId: Long, userId: Long, message: String) {
+//        mContext?.let {
+//            val mBuilder: NotificationCompat.Builder =
+//                    NotificationCompat.Builder(mContext)
+//                            .setContentTitle(it.getString(R.string.notification_received_chat_message))
+//                            .setSmallIcon(R.drawable.map_user_pin)
+//                            .setContentText(message)
+//
+//            val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+//            mBuilder.setSound(alarmSound)
+//            mBuilder.setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_LIGHTS or Notification.DEFAULT_VIBRATE)
+//            val resultIntent = ChatMessengerActivity.getIntent(it, orderId, userId)
+//            val resultPendingIntent =
+//                    PendingIntent.getActivity(
+//                            mContext,
+//                            0,
+//                            resultIntent,
+//                            PendingIntent.FLAG_UPDATE_CURRENT
+//                    )
+//            mBuilder.setContentIntent(resultPendingIntent)
+//            val mNotifyMgr = it.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//            mNotifyMgr.notify(orderId.toInt(), mBuilder.build())
+//        }
+//    }
 
 
 }

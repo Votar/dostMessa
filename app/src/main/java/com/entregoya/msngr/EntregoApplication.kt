@@ -21,5 +21,6 @@ class EntregoApplication : MultiDexApplication() {
         JodaTimeAndroid.init(this)
         Realm.init(this)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+        Logger.logd(null)
     }
 }

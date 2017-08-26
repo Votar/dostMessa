@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.entregoya.msngr.R
 import com.entregoya.msngr.binding.Delivery
 import com.entregoya.msngr.databinding.FragmentDescriptionBinding
@@ -72,8 +73,17 @@ class DescriptionFragment : Fragment(), IDescreptionView {
                 activity.startActivity(intent)
             }
         }
+
+
+
+
+        descr_call_cusomer_btn.setOnClickListener { presenter.callCustomer() }
     }
 
+
+    override fun showMessage(resId: Int) {
+        Toast.makeText(activity, getString(resId), Toast.LENGTH_LONG).show()
+    }
 
     override fun getViewContext(): Context {
         return context

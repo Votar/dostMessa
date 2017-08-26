@@ -188,5 +188,8 @@
     <string name="error_permission_denied">Permission denied</string>
     <string name="success_send_receipt">Receipt have been sent</string>
     <string name="special_notes">Special notes</string>
+    <string name="error_fcm_token_is_null" translatable="false">Fcm token is null</string>
+    <string name="no_customer_phone">Phone number not available</string>
+
 
 </resources>

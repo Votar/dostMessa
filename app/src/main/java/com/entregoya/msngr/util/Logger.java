@@ -19,25 +19,25 @@ public class Logger {
     public static void logd(String message) {
 
         if (DEBUG)
-            Log.d("DEBUG", message);
+            Log.d("DEBUG",""+ message);
     }
 
     public static void logd(String TAG, String message) {
 
         if (DEBUG)
-            Log.d(TAG, message);
+            Log.d(TAG, ""+ message);
     }
 
     public static void lognet(String message) {
 
         if (DEBUG)
-            Log.d("NETWORK", message);
+            Log.d("NETWORK", ""+ message);
     }
 
     public static void loge(String TAG, String message) {
 
         if (DEBUG)
-            Log.e(TAG, message);
+            Log.e(TAG, ""+ message);
     }
 
 

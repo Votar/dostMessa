@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "301374043015",
+    "firebase_url": "https://entrego-msgr.firebaseio.com",
+    "project_id": "entrego-msgr",
+    "storage_bucket": "entrego-msgr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301374043015:android:5015678eef30c0f7",
+        "android_client_info": {
+          "package_name": "com.entregoya.msngr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301374043015-p9b47ge2jm6v8nf49qtg47rl4gsfhl6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.entregoya.msngr",
+            "certificate_hash": "ac805820ac0216b9a9a267b8be537965081ba040"
+          }
+        },
+        {
+          "client_id": "301374043015-e60cqg0dq3vfrp4oc9ivqsv3fb717sr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtF8RgRLrEohuFZ7vlzsu0gAundsJC6lg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301374043015-e60cqg0dq3vfrp4oc9ivqsv3fb717sr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
